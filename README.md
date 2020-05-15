@@ -1,6 +1,6 @@
 # Jekyll GitBook
 
-Make Jelly site have a GitBook look!
+Make Jekyll site have a GitBook look!
 
 ## Demo
 
