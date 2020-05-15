@@ -1,0 +1,371 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Function Arguments · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="Build Jekyll site with the GitBook style.
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
+<link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
+<!-- <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css"> -->
+
+<link rel="stylesheet" href="/gitbook/rouge-highlight-colorful.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
+            <link rel="prev" href="/" />
+        
+
+        
+    </head>
+    <body>
+        <div class="book"><div class="book-summary">
+    <div id="book-search-input" role="search">
+        <input type="text" placeholder="Type to search" />
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="">
+            
+                <a href="">
+                    Jekyll Gitbook
+                </a>
+            </li>
+
+            <li class="divider"></li>
+
+            
+
+            
+                
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-27-why.html">
+                
+                    <a href="/jekyll/2019-04-27-why.html">
+                        Why Jekyll with GitBook
+                    </a>
+                </li>
+            
+                
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-howto.html">
+                
+                    <a href="/jekyll/2019-04-28-howto.html">
+                        How to Get Started
+                    </a>
+                </li>
+            
+                
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
+                
+                    <a href="/jekyll/2019-04-28-license.html">
+                        License
+                    </a>
+                </li>
+            
+
+            <li class="divider"></li>
+
+            <li>
+                <a href="https://github.com/sighingnow/jekyll-gitbook/fork" target="blank" class="gitbook-link">
+                    Fork it Now!
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div><div class="book-body"><div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            
+                <a href="." >Function Arguments</a>
+            
+        </h1>
+    </div>
+    <div class="page-wrapper" tabindex="-1" role="main">
+        <div class="page-inner">
+            <div id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+
+                        
+                            <h1 id="">Function Arguments</h1>
+                        
+
+                        <h1 id="function-arguments">Function Arguments</h1>
+<p>One of the biggest usability innovations of Enso is the set of argument types
+that it supports. The combination of named and defaulted arguments with a
+curried language creates a tool in which it is very clear to express even
+complex APIs.</p>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#positional-arguments">Positional Arguments</a></li>
+  <li><a href="#named-arguments">Named Arguments</a></li>
+  <li><a href="#defaulted-arguments">Defaulted Arguments</a></li>
+  <li><a href="#optional-arguments">Optional Arguments</a></li>
+  <li><a href="#splats-arguments-variadics">Splats Arguments (Variadics)</a></li>
+  <li><a href="#type-applications">Type Applications</a></li>
+  <li><a href="#underscore-arguments">Underscore Arguments</a></li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="positional-arguments">Positional Arguments</h2>
+<p>Much like most programming languages, functions in Enso can be called with their
+arguments provided positionally. This is the simple case that everybody is
+familiar with.</p>
+
+<h2 id="named-arguments">Named Arguments</h2>
+<p>All arguments in Enso are defined with a name. Like all programming languages,
+this is necessary for that argument to be used. However, what Enso allows is for
+users to then <em>call</em> those arguments by name.</p>
+
+<ul>
+  <li>An argument is called by name using the syntax <code class="highlighter-rouge">(name = value)</code> (or one may
+also take advantage of the operator precedence to write <code class="highlighter-rouge">name=value</code>).</li>
+  <li>Named arguments are applied in the order they are given. This means that if
+you positionally apply to an argument <code class="highlighter-rouge">foo</code> and then try to later apply to it
+by name, this will fail due to currying of functions.</li>
+  <li>Named arguments <em>cannot</em> be used while using operator syntax. This means that
+an expression of the form <code class="highlighter-rouge">a + b</code> cannot apply arguments by name. However,
+when calling the operator as a method (<code class="highlighter-rouge">a.+ b</code>), the call-by-name syntax may
+indeed be used (<code class="highlighter-rouge">a.+ (that = b)</code>).</li>
+</ul>
+
+<p>This is a great usability boon as in complex APIs it can often be difficult to
+remember the order or arguments.</p>
+
+<h2 id="defaulted-arguments">Defaulted Arguments</h2>
+<p>Enso also allows users to define their functions with <em>defaults</em> for the
+function’s arguments. This is very useful for complex APIs as it allows users to
+experiment and iterate quickly by only providing the arguments that they want to
+customise.</p>
+
+<ul>
+  <li>An argument is defined with a default using the syntax <code class="highlighter-rouge">(name = default_val)</code>,
+which, as above, accounts for precedence rules.</li>
+  <li>Argument defaults are applied to the function if no argument value is provided
+by position or name for that argument.</li>
+  <li>Argument defaults are evaluated lazily if the function is lazy in that
+argument.</li>
+  <li>We provide a <code class="highlighter-rouge">...</code> operator which suspends application of the default
+arguments for the purposes of currying.</li>
+</ul>
+
+<h2 id="optional-arguments">Optional Arguments</h2>
+<p>There are certain cases where the type information for an argument may be able
+to be inferred by the compiler. This is best explained by example. Consider the
+implementation of a <code class="highlighter-rouge">read</code> function that reads text and outputs a value of a
+particular type.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">read</span> <span class="p">:</span> <span class="no">Text</span> <span class="o">-&gt;</span> <span class="n">t</span> <span class="o">-&gt;</span> <span class="n">t</span>
+<span class="n">read</span> <span class="n">text</span> <span class="n">this</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="nf">fromText</span> <span class="n">text</span>
+</code></pre></div></div>
+
+<p>You can use this function by explicitly providing the type information in either
+of the following ways:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">val1</span> <span class="o">=</span> <span class="n">read</span> <span class="s1">'5'</span> <span class="no">Int</span>
+<span class="n">val2</span> <span class="o">=</span> <span class="no">Int</span><span class="p">.</span><span class="nf">read</span> <span class="s1">'5'</span>
+</code></pre></div></div>
+
+<p>This, however, is often tedious, especially in contexts where this information
+could be inferred by the compiler. We can re-write <code class="highlighter-rouge">read</code> as follows:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">read</span> <span class="p">:</span> <span class="no">Text</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span>
+<span class="n">read</span> <span class="n">text</span> <span class="p">(</span><span class="n">this</span><span class="o">=</span><span class="n">this</span><span class="p">)</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="nf">fromText</span> <span class="n">text</span>
+</code></pre></div></div>
+
+<p>This allows users both to provide the argument explicitly or leave it out. In
+the case where it is not provided, the compiler will attempt to infer it from
+usage. If this is impossible, an error would be raised.</p>
+
+<p>Enso provides a syntactic sugar for the <code class="highlighter-rouge">t=t</code> syntax. The above code can be
+written instead using <code class="highlighter-rouge">?</code>.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">read</span> <span class="p">:</span> <span class="no">Text</span> <span class="o">-&gt;</span> <span class="n">t?</span> <span class="o">-&gt;</span> <span class="n">t</span>
+<span class="n">read</span> <span class="n">text</span> <span class="n">this?</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="nf">fromText</span> <span class="n">text</span>
+</code></pre></div></div>
+
+<h2 id="splats-arguments-variadics">Splats Arguments (Variadics)</h2>
+<p>Enso provides users with the ability to define variadic functions, or <em>splats</em>
+functions in our terminology. These are very useful for defining expressive APIs
+and flexible code.</p>
+
+<ul>
+  <li>These work for both positional and keyword arguments.</li>
+  <li>They are defined using the syntax <code class="highlighter-rouge">name...</code>, where <code class="highlighter-rouge">name</code> is an arbitrary
+argument name.</li>
+</ul>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Work out how (and if) this can interact with currying.</li>
+    <li>Do we even want this?</li>
+  </ul>
+</blockquote>
+
+<h2 id="type-applications">Type Applications</h2>
+<p>There are sometimes cases where the user wants to explicitly refine the type of
+an argument at the <em>call</em> site of a function. This can be useful for debugging,
+and for writing ad-hoc code. Much like the named-arguments in applications
+above, Enso also provides a syntax for refining types at the application site.</p>
+
+<ul>
+  <li>To refine an argument type by name at the application site, use the <code class="highlighter-rouge">:=</code>
+operator (e.g. <code class="highlighter-rouge">arg_name := T</code>).</li>
+  <li>This <em>will</em> be type-checked by the compiler, and so <code class="highlighter-rouge">T</code> must be a valid
+subtype for the type inferred for (or defined for) the function being called.</li>
+</ul>
+
+<h2 id="underscore-arguments">Underscore Arguments</h2>
+<p>Enso provides the <code class="highlighter-rouge">_</code> argument as a quick way to create a lambda from a function
+call. It obeys the following rules.</p>
+
+<ul>
+  <li>Replacing any function argument with <code class="highlighter-rouge">_</code> will create a lambda that accepts an
+argument and passes it in the place of the underscore. All other function
+arguments are applied as normal.</li>
+  <li>This works both by name and positionally.</li>
+  <li>When a function is provided multiple <code class="highlighter-rouge">_</code> arguments, they are desugared left to
+right as the arguments would be applied to the function definition, creating
+nested lambdas.</li>
+</ul>
+
+                    </section>
+                </div>
+
+                 <!--<div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},
+            "sharing": {
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+                "facebook": true,
+                "google": false,
+                "instapaper": false,
+                "twitter": true,
+                "vk": false,
+                "weibo": false
+            },
+            "theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            }
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "Jekyll Gitbook",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "docs/syntax/function-arguments.md",
+        "mtime": "",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.3",
+        "time": "2020-05-15 16:34:05 +0000"
+    },
+    "basePath": "",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/gitbook/gitbook.js"></script>
+<script src="/gitbook/theme.js"></script>
+
+<script src="/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+<script src="/gitbook/gitbook-plugin-sharing/buttons.js"></script>
+
+<!-- <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script> --></body>
+</html>

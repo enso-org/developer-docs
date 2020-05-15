@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>License · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso Runtime · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Build Jekyll site with the GitBook style.
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
 <link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
-            <link rel="prev" href="/jekyll/2019-04-28-howto.html" />
+            <link rel="prev" href="/" />
         
 
         
@@ -57,7 +57,7 @@
                 </li>
             
                 
-                <li class="chapter active" data-level="1.2" data-path="/jekyll/2019-04-28-license.html">
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
                 
                     <a href="/jekyll/2019-04-28-license.html">
                         License
@@ -80,7 +80,7 @@
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >License</a>
+                <a href="." >Enso Runtime</a>
             
         </h1>
     </div>
@@ -91,13 +91,47 @@
                     <section class="normal markdown-section">
 
                         
-                            <h1 id="/jekyll/license">License</h1>
+                            <h1 id="">Enso Runtime</h1>
                         
 
-                        <p>This work is open sourced under the Apache License, Version 2.0, using the
-same license as the original <a href="https://github.com/GitbookIO/gitbook">GitBook</a> repository.</p>
+                        <h1 id="enso-runtime">Enso Runtime</h1>
+<p>The Enso runtime refers to both the compiler and the optimising JIT runtime for
+Enso. While this might seem like a strange choice, it makes sense internally as
+the components are integrated to a level not seen in most languages. It
+encompasses the following functionality:</p>
 
-<p>Copyright 2019 Tao He.</p>
+<ul>
+  <li><strong>Parsing:</strong> Taking Enso code as input and generating an AST that maintains a
+sophisticated set of information about the input.</li>
+  <li><strong>Desugaring:</strong> Reducing the user-facing Enso code into a simplified language
+known as <code class="highlighter-rouge">Core</code>.</li>
+  <li><strong>Type Inference:</strong> Inferring the types of bindings in the user’s code.</li>
+  <li><strong>Type Checking:</strong> Checking that the inferred and provided types for bindings
+match up across the codebase.</li>
+  <li><strong>Optimisation:</strong> Static optimisation processes to improve the performance of
+the user’s program.</li>
+  <li><strong>Code Execution:</strong> Actually running the Enso code.</li>
+  <li><strong>Introspection Hooks:</strong> Providing hooks into the running code to allow the
+language server to inspect information about the code as it runs.</li>
+</ul>
+
+<p>This folder contains all of the documentation related to the runtime, which is
+broken up as follows:</p>
+
+<ul>
+  <li><a href="./caching.md"><strong>Caching:</strong></a> A description of the runtime’s value caching
+mechanism.</li>
+  <li><a href="./demand-analysis.md"><strong>Demand Analysis:</strong></a> A specification for the demand
+analysis process in the Enso compiler that assists users with working with
+suspended computations.</li>
+  <li><a href="./function-call-flow.md"><strong>Function Calling Flow:</strong></a> A description of the
+involved logic that goes into a calling a function performantly in the Enso
+runtime, while also supporting the flexible function syntax.</li>
+  <li><a href="./runtime-features.md"><strong>Runtime Features:</strong></a> A description of (and plan for)
+the features of the Enso runtime.</li>
+  <li><a href="./unbounded-recursion.md"><strong>Unbounded Recursion:</strong></a> An exploration of
+techniques for achieving unbounded recursion on the JVM.</li>
+</ul>
 
                     </section>
                 </div>
@@ -116,7 +150,7 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
     </div>
 </div>
 
-                    <a href="/jekyll/2019-04-28-howto.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: How to Get Started">
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -204,8 +238,8 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
         "gitbook": "*"
     },
     "file": {
-        "path": "_posts/2019-04-29-license.md",
-        "mtime": "2019-04-28 00:00:00 +0000",
+        "path": "docs/runtime/README.md",
+        "mtime": "",
         "type": "markdown"
     },
     "gitbook": {

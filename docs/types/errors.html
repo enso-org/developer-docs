@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>License · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Errors · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Build Jekyll site with the GitBook style.
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
 <link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
-            <link rel="prev" href="/jekyll/2019-04-28-howto.html" />
+            <link rel="prev" href="/" />
         
 
         
@@ -57,7 +57,7 @@
                 </li>
             
                 
-                <li class="chapter active" data-level="1.2" data-path="/jekyll/2019-04-28-license.html">
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
                 
                     <a href="/jekyll/2019-04-28-license.html">
                         License
@@ -80,7 +80,7 @@
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >License</a>
+                <a href="." >Errors</a>
             
         </h1>
     </div>
@@ -91,13 +91,87 @@
                     <section class="normal markdown-section">
 
                         
-                            <h1 id="/jekyll/license">License</h1>
+                            <h1 id="">Errors</h1>
                         
 
-                        <p>This work is open sourced under the Apache License, Version 2.0, using the
-same license as the original <a href="https://github.com/GitbookIO/gitbook">GitBook</a> repository.</p>
+                        <h1 id="errors">Errors</h1>
+<p>Enso supports two notions of errors. One is the standard asynchronous exceptions
+model, while the other is a theory of ‘broken values’ that propagate through
+computations.</p>
 
-<p>Copyright 2019 Tao He.</p>
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Greatly expand on the reasoning and theory behind the two exception models.</li>
+    <li>Explain why broken values serve the GUI well.</li>
+    <li>Explain how this can all be typed.</li>
+  </ul>
+</blockquote>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#async-exceptions">Async Exceptions</a></li>
+  <li><a href="#broken-values">Broken Values</a></li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="async-exceptions">Async Exceptions</h2>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Formalise the model of async exceptions as implemented.</li>
+  </ul>
+</blockquote>
+
+<h2 id="broken-values">Broken Values</h2>
+<p>In Enso we have the notion of a ‘broken’ value: one which is in an invalid state
+but not an asynchronous error. While these may initially seem a touch useless,
+they are actually key for the display of errors in the GUI.</p>
+
+<p>Broken values can be thought of like checked monadic exceptions in Haskell, but
+with an automatic propagation mechanism:</p>
+
+<ul>
+  <li>
+    <p>Broken values that aren’t handled explicitly are automatically promoted
+through the parent scope. This is trivial inference as no evidence discharge
+will have occurred on the value.</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">open</span> <span class="p">:</span> <span class="no">String</span> <span class="o">-&gt;</span> <span class="no">String</span> <span class="k">in</span> <span class="no">IO</span> <span class="o">!</span> <span class="no">IO</span><span class="o">.</span><span class="no">Exception</span>
+<span class="nb">open</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="nb">test</span> <span class="o">=</span>
+  <span class="nb">print</span> <span class="s1">'Opening the gates!'</span>
+  <span class="n">txt</span> <span class="o">=</span> <span class="nb">open</span> <span class="s1">'gates.txt'</span>
+  <span class="nb">print</span> <span class="s1">'Gates were opened!'</span>
+  <span class="mi">7</span>
+</code></pre></div>    </div>
+
+    <p>In the above example, the type of test is inferred to
+<code class="highlighter-rouge">test : Int in IO ! IO.Exception</code>, because no evidence discharge has taken
+place as the potential broken value hasn’t been handled.</p>
+  </li>
+  <li>
+    <p>This allows for very natural error handling in the GUI.</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Determine what kinds of APIs we want to use async exceptions for, and which
+broken values are more suited for.</li>
+    <li>Ensure that we are okay with initially designing everything around async
+exceptions as broken values are very hard to support without a type checker.</li>
+    <li>Initially not supported for APIs.</li>
+  </ul>
+</blockquote>
 
                     </section>
                 </div>
@@ -116,7 +190,7 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
     </div>
 </div>
 
-                    <a href="/jekyll/2019-04-28-howto.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: How to Get Started">
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -204,8 +278,8 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
         "gitbook": "*"
     },
     "file": {
-        "path": "_posts/2019-04-29-license.md",
-        "mtime": "2019-04-28 00:00:00 +0000",
+        "path": "docs/types/errors.md",
+        "mtime": "",
         "type": "markdown"
     },
     "gitbook": {

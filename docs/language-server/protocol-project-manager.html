@@ -1,0 +1,589 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso Protocol Project Manager Message Specification · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="Build Jekyll site with the GitBook style.
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
+<link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
+<!-- <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css"> -->
+
+<link rel="stylesheet" href="/gitbook/rouge-highlight-colorful.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
+            <link rel="prev" href="/" />
+        
+
+        
+    </head>
+    <body>
+        <div class="book"><div class="book-summary">
+    <div id="book-search-input" role="search">
+        <input type="text" placeholder="Type to search" />
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="">
+            
+                <a href="">
+                    Jekyll Gitbook
+                </a>
+            </li>
+
+            <li class="divider"></li>
+
+            
+
+            
+                
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-27-why.html">
+                
+                    <a href="/jekyll/2019-04-27-why.html">
+                        Why Jekyll with GitBook
+                    </a>
+                </li>
+            
+                
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-howto.html">
+                
+                    <a href="/jekyll/2019-04-28-howto.html">
+                        How to Get Started
+                    </a>
+                </li>
+            
+                
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
+                
+                    <a href="/jekyll/2019-04-28-license.html">
+                        License
+                    </a>
+                </li>
+            
+
+            <li class="divider"></li>
+
+            <li>
+                <a href="https://github.com/sighingnow/jekyll-gitbook/fork" target="blank" class="gitbook-link">
+                    Fork it Now!
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div><div class="book-body"><div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            
+                <a href="." >Enso Protocol Project Manager Message Specification</a>
+            
+        </h1>
+    </div>
+    <div class="page-wrapper" tabindex="-1" role="main">
+        <div class="page-inner">
+            <div id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+
+                        
+                            <h1 id="">Enso Protocol Project Manager Message Specification</h1>
+                        
+
+                        <h1 id="enso-protocol-project-manager-message-specification">Enso Protocol Project Manager Message Specification</h1>
+<p>This document contains the specification of the Enso protocol messages that
+pertain to the project manager component. Please familiarise yourself with the
+<a href="./protocol-common.md">common</a> features of the protocol before reading this
+document.</p>
+
+<p>For information on the design and architecture of the protocol, as well as its
+transport formats, please look <a href="./protocol-architecture">here</a>.</p>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#types">Types</a>
+    <ul>
+      <li><a href="#projectmetadata"><code class="highlighter-rouge">ProjectMetadata</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#project-management-operations">Project Management Operations</a>
+    <ul>
+      <li><a href="#projectopen"><code class="highlighter-rouge">project/open</code></a></li>
+      <li><a href="#projectclose"><code class="highlighter-rouge">project/close</code></a></li>
+      <li><a href="#projectlistrecent"><code class="highlighter-rouge">project/listRecent</code></a></li>
+      <li><a href="#projectcreate"><code class="highlighter-rouge">project/create</code></a></li>
+      <li><a href="#projectdelete"><code class="highlighter-rouge">project/delete</code></a></li>
+      <li><a href="#projectlistsample"><code class="highlighter-rouge">project/listSample</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#language-server-management">Language Server Management</a></li>
+  <li><a href="#errors">Errors</a>
+    <ul>
+      <li><a href="#projectnamevalidationerror"><code class="highlighter-rouge">ProjectNameValidationError</code></a></li>
+      <li><a href="#projectdatastoreerror"><code class="highlighter-rouge">ProjectDataStoreError</code></a></li>
+      <li><a href="#projectexistserror"><code class="highlighter-rouge">ProjectExistsError</code></a></li>
+      <li><a href="#projectnotfounderror"><code class="highlighter-rouge">ProjectNotFoundError</code></a></li>
+      <li><a href="#projectopenerror"><code class="highlighter-rouge">ProjectOpenError</code></a></li>
+      <li><a href="#projectcloseerror"><code class="highlighter-rouge">ProjectCloseError</code></a></li>
+      <li><a href="#projectnotopenerror"><code class="highlighter-rouge">ProjectNotOpenError</code></a></li>
+      <li><a href="#projectopenbyotherpeerserror"><code class="highlighter-rouge">ProjectOpenByOtherPeersError</code></a></li>
+      <li><a href="#cannotremoveopenprojecterror"><code class="highlighter-rouge">CannotRemoveOpenProjectError</code></a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="types">Types</h2>
+<p>There are a number of types that are used only within the project server’s
+protocol messages. These are specified here.</p>
+
+<h3 id="projectmetadata"><code class="highlighter-rouge">ProjectMetadata</code></h3>
+<p>This type represents information about a project.</p>
+
+<h4 id="format">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectMetadata</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+  <span class="nl">lastOpened</span><span class="p">:</span> <span class="nx">UTCDateTime</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="project-management-operations">Project Management Operations</h2>
+<p>The primary responsibility of the project managers is to allow users to manage
+their projects.</p>
+
+<h3 id="projectopen"><code class="highlighter-rouge">project/open</code></h3>
+<p>This message requests that the project manager open a specified project. This
+operation also includes spawning an instance of the language server open on the
+specified project.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectOpenRequest</span> <span class="p">{</span>
+  <span class="nl">projectId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectOpenResult</span> <span class="p">{</span>
+  <span class="nl">languageServerJsonAddress</span><span class="p">:</span> <span class="nx">IPWithSocket</span><span class="p">;</span>
+  <span class="nl">languageServerBinaryAddress</span><span class="p">:</span> <span class="nx">IPWithSocket</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors">Errors</h4>
+<ul>
+  <li><a href="#projectnotfounderror"><code class="highlighter-rouge">ProjectNotFoundError</code></a> to signal that the project
+doesn’t exist.</li>
+  <li><a href="#projectdatastoreerror"><code class="highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
+underlying data store.</li>
+  <li><a href="#projectopenerror"><code class="highlighter-rouge">ProjectOpenError</code></a> to signal failures during server boot.</li>
+</ul>
+
+<h3 id="projectclose"><code class="highlighter-rouge">project/close</code></h3>
+<p>This message requests that the project manager close a specified project. This
+operation includes shutting down the language server gracefully so that it can
+persist state to disk as needed.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-1">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectCloseRequest</span> <span class="p">{</span>
+  <span class="nl">projectId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-1">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{}</span>
+</code></pre></div></div>
+
+<h4 id="errors-1">Errors</h4>
+<ul>
+  <li><a href="#projectnotfounderror"><code class="highlighter-rouge">ProjectNotFoundError</code></a> to signal that the project
+doesn’t exist.</li>
+  <li><a href="#projectdatastoreerror"><code class="highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
+underlying data store.</li>
+  <li><a href="#projectcloseerror"><code class="highlighter-rouge">ProjectCloseError</code></a> to signal failures that occurred
+during language server stoppage.</li>
+  <li><a href="#projectnotopenerror"><code class="highlighter-rouge">ProjectNotOpenError</code></a> to signal cannot close a project
+that is not open.</li>
+  <li><a href="#projectopenbyotherpeerserror"><code class="highlighter-rouge">ProjectOpenByOtherPeersError</code></a> to signal
+that cannot close a project that is open by other clients.</li>
+</ul>
+
+<h3 id="projectlistrecent"><code class="highlighter-rouge">project/listRecent</code></h3>
+<p>This message requests that the project manager lists the user’s most recently
+opened projects.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-2">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectListRecentRequest</span> <span class="p">{</span>
+  <span class="nl">numberOfProjects</span><span class="p">:</span> <span class="nx">Int</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-2">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectListRecentResponse</span> <span class="p">{</span>
+  <span class="nl">projects</span><span class="p">:</span> <span class="p">[</span><span class="nx">ProjectMetadata</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-2">Errors</h4>
+<ul>
+  <li><a href="#projectdatastoreerror"><code class="highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
+underlying data store.</li>
+</ul>
+
+<h3 id="projectcreate"><code class="highlighter-rouge">project/create</code></h3>
+<p>This message requests the creation of a new project.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-3">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectCreateRequest</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-3">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectOpenResponse</span> <span class="p">{</span>
+  <span class="nl">projectId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-3">Errors</h4>
+<ul>
+  <li><a href="#projectnamevalidationerror"><code class="highlighter-rouge">ProjectNameValidationError</code></a> to signal
+validation failures.</li>
+  <li><a href="#projectdatastoreerror"><code class="highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
+underlying data store.</li>
+  <li><a href="#projectexistserror"><code class="highlighter-rouge">ProjectExistsError</code></a> to signal that the project
+already exists.</li>
+</ul>
+
+<h3 id="projectdelete"><code class="highlighter-rouge">project/delete</code></h3>
+<p>This message requests the deletion of a project.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-4">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectDeleteRequest</span> <span class="p">{</span>
+  <span class="nl">projectId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-4">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{}</span>
+</code></pre></div></div>
+
+<h4 id="errors-4">Errors</h4>
+<ul>
+  <li><a href="#projectdatastoreerror"><code class="highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
+underlying data store.</li>
+  <li><a href="#projectnotfounderror"><code class="highlighter-rouge">ProjectNotFoundError</code></a> to signal that the project
+doesn’t exist.</li>
+  <li><a href="#cannotremoveopenprojecterror"><code class="highlighter-rouge">CannotRemoveOpenProjectError</code></a> to signal that
+the project cannot be removed, because is open by at least one user.</li>
+</ul>
+
+<h3 id="projectlistsample"><code class="highlighter-rouge">project/listSample</code></h3>
+<p>This request lists the sample projects that are available to the user.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-5">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectListSampleRequest</span> <span class="p">{</span>
+  <span class="nl">numProjects</span><span class="p">:</span> <span class="nx">Int</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-5">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectListSampleResponse</span> <span class="p">{</span>
+  <span class="nl">projects</span><span class="p">:</span> <span class="p">[</span><span class="nx">ProjectMetadata</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-5">Errors</h4>
+<p>TBC</p>
+
+<h2 id="language-server-management">Language Server Management</h2>
+<p>The project manager is also responsible for managing the language server. This
+means that it needs to be able to spawn the process, but also tell the process
+when to shut down.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Fill it in when we have more of an idea about exactly how this spawning
+relationship is going to work.</li>
+  </ul>
+</blockquote>
+
+<h2 id="errors-6">Errors</h2>
+<p>The project manager component has its own set of errors. This section is not a
+complete specification and will be updated as new errors are added.</p>
+
+<h3 id="projectnamevalidationerror"><code class="highlighter-rouge">ProjectNameValidationError</code></h3>
+<p>Signals validation failures.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4001</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Cannot create project with empty name</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="projectdatastoreerror"><code class="highlighter-rouge">ProjectDataStoreError</code></h3>
+<p>Signals problems with underlying data store.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4002</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Cannot load project index</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="projectexistserror"><code class="highlighter-rouge">ProjectExistsError</code></h3>
+<p>Signals that the project already exists.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4003</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Project with the provided name exists</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="projectnotfounderror"><code class="highlighter-rouge">ProjectNotFoundError</code></h3>
+<p>Signals that the project doesn’t exist.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4004</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Project with the provided id does not exist</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="projectopenerror"><code class="highlighter-rouge">ProjectOpenError</code></h3>
+<p>Signals that the project cannot be open due to boot failures.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4005</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">A boot failure.</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="projectcloseerror"><code class="highlighter-rouge">ProjectCloseError</code></h3>
+<p>Signals failures during shutdown of a server.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4009</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">A shutdown failure.</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="projectnotopenerror"><code class="highlighter-rouge">ProjectNotOpenError</code></h3>
+<p>Signals that cannot close project that is not open.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4006</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Cannot close project that is not open</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="projectopenbyotherpeerserror"><code class="highlighter-rouge">ProjectOpenByOtherPeersError</code></h3>
+<p>Signals that cannot close a project that is open by other clients.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4007</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Cannot close project because it is open by other peers</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="cannotremoveopenprojecterror"><code class="highlighter-rouge">CannotRemoveOpenProjectError</code></h3>
+<p>Signals that cannot remove open project.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4008</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Cannot remove open project</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+                    </section>
+                </div>
+
+                 <!--<div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},
+            "sharing": {
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+                "facebook": true,
+                "google": false,
+                "instapaper": false,
+                "twitter": true,
+                "vk": false,
+                "weibo": false
+            },
+            "theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            }
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "Jekyll Gitbook",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "docs/language-server/protocol-project-manager.md",
+        "mtime": "",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.3",
+        "time": "2020-05-15 16:34:05 +0000"
+    },
+    "basePath": "",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/gitbook/gitbook.js"></script>
+<script src="/gitbook/theme.js"></script>
+
+<script src="/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+<script src="/gitbook/gitbook-plugin-sharing/buttons.js"></script>
+
+<!-- <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script> --></body>
+</html>

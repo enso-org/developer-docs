@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>License · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Pattern Matching · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Build Jekyll site with the GitBook style.
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
 <link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
-            <link rel="prev" href="/jekyll/2019-04-28-howto.html" />
+            <link rel="prev" href="/" />
         
 
         
@@ -57,7 +57,7 @@
                 </li>
             
                 
-                <li class="chapter active" data-level="1.2" data-path="/jekyll/2019-04-28-license.html">
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
                 
                     <a href="/jekyll/2019-04-28-license.html">
                         License
@@ -80,7 +80,7 @@
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >License</a>
+                <a href="." >Pattern Matching</a>
             
         </h1>
     </div>
@@ -91,13 +91,76 @@
                     <section class="normal markdown-section">
 
                         
-                            <h1 id="/jekyll/license">License</h1>
+                            <h1 id="">Pattern Matching</h1>
                         
 
-                        <p>This work is open sourced under the Apache License, Version 2.0, using the
-same license as the original <a href="https://github.com/GitbookIO/gitbook">GitBook</a> repository.</p>
+                        <h1 id="pattern-matching">Pattern Matching</h1>
+<p>Pattern matching in Enso works similarly to as you would expect in various other
+functional languages. Typing information is <em>always</em> refined in the branches of
+a case expression, which interacts well with dependent typing and type-term
+unification.</p>
 
-<p>Copyright 2019 Tao He.</p>
+<blockquote>
+  <p>The actionables for this section :</p>
+
+  <ul>
+    <li>How do we type pattern matching?</li>
+    <li>Exactly how (and what) evidence is discharged during matching?</li>
+    <li>How can we use bijective applications of the
+<a href="/hierarchy.md#typeset-operators">typeset operators</a> to perform pattern
+matching?</li>
+    <li>How do we extend this to structural matching in general on typesets?</li>
+  </ul>
+</blockquote>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#positional-matching">Positional Matching</a></li>
+  <li><a href="#type-matching">Type Matching</a></li>
+  <li><a href="#name-matching-on-labels">Name Matching on Labels</a></li>
+  <li><a href="#naming-scrutinees">Naming Scrutinees</a></li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="positional-matching">Positional Matching</h2>
+<p>Matching on the scrutinee by structure. This works both for atoms and typesets
+(for typesets it is a subsumption judgement).</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">type</span> <span class="no">Vector</span> <span class="n">a</span>
+  <span class="no">V2</span> <span class="n">x</span><span class="ss">:a</span> <span class="n">y</span><span class="ss">:a</span>
+  <span class="no">V3</span> <span class="n">x</span><span class="ss">:a</span> <span class="n">y</span><span class="ss">:a</span> <span class="n">z</span><span class="ss">:a</span>
+
+<span class="n">v</span> <span class="o">=</span> <span class="no">Vector</span><span class="o">.</span><span class="no">V3</span> <span class="n">x</span> <span class="n">y</span> <span class="n">z</span>
+
+<span class="k">case</span> <span class="n">v</span> <span class="n">of</span>
+  <span class="no">Vector</span><span class="o">.</span><span class="no">V3</span> <span class="n">x</span> <span class="n">y</span> <span class="n">z</span> <span class="o">-&gt;</span> <span class="nb">print</span> <span class="n">x</span>
+</code></pre></div></div>
+
+<h2 id="type-matching">Type Matching</h2>
+<p>Matching purely by the types involved, and not matching on structure.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="n">v</span> <span class="n">of</span>
+  <span class="no">Vector</span><span class="o">.</span><span class="no">V3</span> <span class="o">-&gt;</span> <span class="nb">print</span> <span class="n">v</span><span class="p">.</span><span class="nf">x</span>
+</code></pre></div></div>
+
+<h2 id="name-matching-on-labels">Name Matching on Labels</h2>
+<p>Matching on the labels defined within a type for both atoms and typesets, with
+renaming.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="n">v</span> <span class="n">of</span>
+  <span class="no">Vector</span><span class="o">.</span><span class="no">V3</span> <span class="p">{</span><span class="n">x</span> <span class="n">y</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="nb">print</span> <span class="n">x</span>
+  <span class="p">{</span><span class="n">x</span><span class="p">}</span>             <span class="o">-&gt;</span> <span class="nb">print</span> <span class="n">x</span>
+</code></pre></div></div>
+
+<h2 id="naming-scrutinees">Naming Scrutinees</h2>
+<p>Ascribing a name of a scrutinee is done using the standard typing judgement.
+This works due to the type-term unification present in Enso.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="n">_</span> <span class="n">of</span>
+  <span class="n">v</span> <span class="p">:</span> <span class="no">Vector</span><span class="o">.</span><span class="no">V3</span> <span class="o">-&gt;</span> <span class="nb">print</span> <span class="n">v</span><span class="p">,</span><span class="n">x</span>
+</code></pre></div></div>
 
                     </section>
                 </div>
@@ -116,7 +179,7 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
     </div>
 </div>
 
-                    <a href="/jekyll/2019-04-28-howto.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: How to Get Started">
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -204,8 +267,8 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
         "gitbook": "*"
     },
     "file": {
-        "path": "_posts/2019-04-29-license.md",
-        "mtime": "2019-04-28 00:00:00 +0000",
+        "path": "docs/types/pattern-matching.md",
+        "mtime": "",
         "type": "markdown"
     },
     "gitbook": {

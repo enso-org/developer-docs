@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>License · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>The Enso Macro Syntax · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Build Jekyll site with the GitBook style.
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
 <link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
-            <link rel="prev" href="/jekyll/2019-04-28-howto.html" />
+            <link rel="prev" href="/" />
         
 
         
@@ -57,7 +57,7 @@
                 </li>
             
                 
-                <li class="chapter active" data-level="1.2" data-path="/jekyll/2019-04-28-license.html">
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
                 
                     <a href="/jekyll/2019-04-28-license.html">
                         License
@@ -80,7 +80,7 @@
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >License</a>
+                <a href="." >The Enso Macro Syntax</a>
             
         </h1>
     </div>
@@ -91,13 +91,78 @@
                     <section class="normal markdown-section">
 
                         
-                            <h1 id="/jekyll/license">License</h1>
+                            <h1 id="">The Enso Macro Syntax</h1>
                         
 
-                        <p>This work is open sourced under the Apache License, Version 2.0, using the
-same license as the original <a href="https://github.com/GitbookIO/gitbook">GitBook</a> repository.</p>
+                        <h1 id="the-enso-macro-syntax">The Enso Macro Syntax</h1>
+<p>Enso provides a macro system that allows users to perform AST to AST
+transformations on the provided pieces of code. While many languages’ macros
+provide their users with access to the compilation and type-checking phases
+(scala, for example), there are a few reasons that we don’t want to:</p>
 
-<p>Copyright 2019 Tao He.</p>
+<ul>
+  <li>The power of a dependently-typed language obviates the need for the ability to
+manipulate types at compile time.</li>
+  <li>Syntactic macros are far more predictable than those that can perform type
+manipulation and compute values.</li>
+  <li>We do not want to introduce a metaprogramming system that is too complex.</li>
+</ul>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Fully specify the macro system.</li>
+    <li>Fully specify the interactions between the parser-based macro system and the
+runtime.</li>
+  </ul>
+</blockquote>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#annotations">Annotations</a></li>
+  <li><a href="#automatic-deriving">Automatic Deriving</a></li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="annotations">Annotations</h2>
+<p>Much like annotations on the JVM, annotations in Enso are tags that perform a
+purely syntactic transformation on the entity to which they are applied. The
+implementation of this requires both parser changes and support for
+user-defined macros, but for now it would be possible to work only with a set
+of hard-coded annotation macros.</p>
+
+<p>Annotations can be arbitrarily nested, so a set of annotation macros become
+implicitly nested inside each other:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="vi">@derive</span> <span class="no">Eq</span> <span class="no">Debug</span>
+<span class="vi">@make_magic</span>
+<span class="n">type</span> <span class="no">Maybe</span> <span class="n">a</span>
+    <span class="n">use</span> <span class="no">Nothing</span>
+    <span class="n">type</span> <span class="no">Just</span>
+</code></pre></div></div>
+
+<p>The above example is logically translated to:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">derive</span> <span class="no">Eq</span> <span class="no">Debug</span>
+    <span class="n">make_magic</span>
+        <span class="n">type</span> <span class="no">Maybe</span> <span class="n">a</span>
+            <span class="n">use</span> <span class="no">Nothing</span>
+            <span class="n">type</span> <span class="no">Just</span> <span class="p">(</span><span class="n">value</span> <span class="p">:</span> <span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>In the presence of annotations and macros, it becomes more and more important
+that we are able to reserve words such as <code class="highlighter-rouge">type</code> to ensure that users can
+always have a good sense of what the most common constructs in the language
+mean, rather than allowing them to be overridden outside of the stdlib.</p>
+
+<h2 id="automatic-deriving">Automatic Deriving</h2>
+<p>In order to make the language easier to debug, we have all types automatically
+derive an interface <code class="highlighter-rouge">DebugShow</code>. This interface provides a function that will
+print all the significant information about the value (e.g. locations, types,
+source information, etc).</p>
 
                     </section>
                 </div>
@@ -116,7 +181,7 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
     </div>
 </div>
 
-                    <a href="/jekyll/2019-04-28-howto.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: How to Get Started">
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -204,8 +269,8 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
         "gitbook": "*"
     },
     "file": {
-        "path": "_posts/2019-04-29-license.md",
-        "mtime": "2019-04-28 00:00:00 +0000",
+        "path": "docs/syntax/macros.md",
+        "mtime": "",
         "type": "markdown"
     },
     "gitbook": {

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>License · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Inference and Checking · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Build Jekyll site with the GitBook style.
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
 <link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
-            <link rel="prev" href="/jekyll/2019-04-28-howto.html" />
+            <link rel="prev" href="/" />
         
 
         
@@ -57,7 +57,7 @@
                 </li>
             
                 
-                <li class="chapter active" data-level="1.2" data-path="/jekyll/2019-04-28-license.html">
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
                 
                     <a href="/jekyll/2019-04-28-license.html">
                         License
@@ -80,7 +80,7 @@
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >License</a>
+                <a href="." >Inference and Checking</a>
             
         </h1>
     </div>
@@ -91,13 +91,97 @@
                     <section class="normal markdown-section">
 
                         
-                            <h1 id="/jekyll/license">License</h1>
+                            <h1 id="">Inference and Checking</h1>
                         
 
-                        <p>This work is open sourced under the Apache License, Version 2.0, using the
-same license as the original <a href="https://github.com/GitbookIO/gitbook">GitBook</a> repository.</p>
+                        <h1 id="inference-and-checking">Inference and Checking</h1>
+<p>As a statically-typed language, Enso is built with a sophisticated type checker
+capable of reasoning about a fully dependently-typed system. However, a type
+checker on its own is quite useless. For Enso to truly be usable, it must also
+have a powerful type inference engine.</p>
 
-<p>Copyright 2019 Tao He.</p>
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Work out how on earth we do inference and how we maximise inference power.</li>
+    <li>Do we want to provide a way to reason about the <em>runtime representation</em> of
+types? This is ‘Levity Polymorphism’ style.</li>
+    <li>We want error messages to be as informative as possible, and are willing to
+retain significant extra algorithmic state in the typechecker to ensure that
+they are. This means both <em>formatting</em> and <em>useful information</em>.</li>
+    <li>It is going to be important to retain as much information as possible in
+order to provide informative error messages. This means that the eventual
+algorithm is likely to combine techniques from both W and M
+(context-insensitive and context-sensitive respectively).</li>
+  </ul>
+</blockquote>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#maximal-inference-power">Maximal Inference Power</a></li>
+  <li><a href="#type-inference-algorithm">Type Inference Algorithm</a>
+    <ul>
+      <li><a href="#inferring-dependency">Inferring Dependency</a></li>
+    </ul>
+  </li>
+  <li><a href="#type-checking-algorithm">Type Checking Algorithm</a></li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="maximal-inference-power">Maximal Inference Power</h2>
+<p>In order to make Enso’s type inference as helpful and friendly as possible to
+our users, we want the ability to infer the <em>maximal subset</em> of the types that
+Enso can express.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>How do we do inference for higher-rank and impredicative instantiations.</li>
+    <li>How do we infer contexts, and how do we make that inference granular (e.g.
+<code class="highlighter-rouge">IO.Read</code>, <code class="highlighter-rouge">IO.Write</code>, rather than just <code class="highlighter-rouge">IO</code>).</li>
+    <li>How do we propagate inference information as far as possible?</li>
+    <li>If it comes to a tension between typechecker speed and inference capability,
+Enso will err on the side of inference capability in order to promote ease
+of use. Speed will be increased by performing incremental type-checking
+where possible on subsequent changes.</li>
+    <li>Where are we okay requiring annotations? Polymorphic recursion, higher rank
+function parameters, constrained data and dependency?</li>
+  </ul>
+</blockquote>
+
+<h2 id="type-inference-algorithm">Type Inference Algorithm</h2>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Specify the inference algorithm.</li>
+  </ul>
+</blockquote>
+
+<h3 id="inferring-dependency">Inferring Dependency</h3>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Specify how (if at all) we can infer dependent quantifiers.</li>
+  </ul>
+</blockquote>
+
+<h2 id="type-checking-algorithm">Type Checking Algorithm</h2>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Specify the type checking algorithm.</li>
+  </ul>
+</blockquote>
 
                     </section>
                 </div>
@@ -116,7 +200,7 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
     </div>
 </div>
 
-                    <a href="/jekyll/2019-04-28-howto.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: How to Get Started">
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -204,8 +288,8 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
         "gitbook": "*"
     },
     "file": {
-        "path": "_posts/2019-04-29-license.md",
-        "mtime": "2019-04-28 00:00:00 +0000",
+        "path": "docs/types/inference-and-checking.md",
+        "mtime": "",
         "type": "markdown"
     },
     "gitbook": {

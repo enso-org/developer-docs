@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>License · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Typing the Polyglot Bindings · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Build Jekyll site with the GitBook style.
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
 <link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
-            <link rel="prev" href="/jekyll/2019-04-28-howto.html" />
+            <link rel="prev" href="/" />
         
 
         
@@ -57,7 +57,7 @@
                 </li>
             
                 
-                <li class="chapter active" data-level="1.2" data-path="/jekyll/2019-04-28-license.html">
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
                 
                     <a href="/jekyll/2019-04-28-license.html">
                         License
@@ -80,7 +80,7 @@
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >License</a>
+                <a href="." >Typing the Polyglot Bindings</a>
             
         </h1>
     </div>
@@ -91,13 +91,121 @@
                     <section class="normal markdown-section">
 
                         
-                            <h1 id="/jekyll/license">License</h1>
+                            <h1 id="">Typing the Polyglot Bindings</h1>
                         
 
-                        <p>This work is open sourced under the Apache License, Version 2.0, using the
-same license as the original <a href="https://github.com/GitbookIO/gitbook">GitBook</a> repository.</p>
+                        <h1 id="typing-the-polyglot-bindings">Typing the Polyglot Bindings</h1>
+<p>The polyglot bindings inherently provide a problem for the Enso type system.
+When many of the languages with which we can interoperate are highly dynamic and
+flexible, or have significant mismatches between their type system and Enso’s,
+we can only make a best effort attempt to maintain type safety across this
+boundary.</p>
 
-<p>Copyright 2019 Tao He.</p>
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#enso-values">Enso Values</a></li>
+  <li><a href="#polyglot-values">Polyglot Values</a></li>
+  <li><a href="#dynamic">Dynamic</a>
+    <ul>
+      <li><a href="#the-enso-boundary">The Enso Boundary</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="enso-values">Enso Values</h2>
+<p>The underlying nature of our runtime allows us to pass Enso values across the
+polyglot boundary while ensuring that they aren’t modified. This means that the
+typing information known about a value <code class="highlighter-rouge">v</code> <em>before</em> it is passed to a polyglot
+call is valid after the polyglot call, as long as the following properties hold:</p>
+
+<ul>
+  <li>The polyglot call does not modify the entity passed in.</li>
+  <li>The polyglot call returns an entity of the same type.</li>
+</ul>
+
+<p>However, there are sometimes cases where we <em>want</em> to let an Enso value be used
+freely by the polyglot language. To that end, we have to have some way of
+distinguishing <em>safe</em> usages of Enso values from <em>unsafe</em> ones. In the latter
+case, the value needs to be treated as <code class="highlighter-rouge">Dynamic</code> after its use.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Think much more on this.</li>
+  </ul>
+</blockquote>
+
+<h2 id="polyglot-values">Polyglot Values</h2>
+<p>In the presence of a polyglot value, however, there is very little that we can
+determine about a value with which we are working. This means that we need to
+have a principled way to assert properties on a polyglot object that can then
+be reflected in the Enso type system. This mechanism needs to deal with:</p>
+
+<ul>
+  <li>Concurrent access to polyglot objects.</li>
+  <li>Mutation and modification of polyglot objects.</li>
+  <li>Potentially taking <em>ownership</em> of polyglot objects.</li>
+</ul>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Reflect more on this problem and think about what principled approaches we
+could take to it.</li>
+  </ul>
+</blockquote>
+
+<h2 id="dynamic">Dynamic</h2>
+<p>As Enso can seamlessly interoperate with other programming languages, we need a
+principled way of handling dynamic types that we don’t really know anything
+about. This mechanism needs:</p>
+
+<ul>
+  <li>A way to record what properties we <em>expect</em> from the dynamic.</li>
+  <li>A way to turn a dynamic into a well-principled type-system member without
+having the dynamics pollute the whole type system. This may involve a ‘trust
+me’ function, and potentially dynamicness-polymorphic types.</li>
+  <li>A way to understand as much as possible about what a dynamic <em>does</em> provide.</li>
+  <li>A way to try and refine information about dynamics where possible.</li>
+</ul>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">obj</span><span class="p">.</span><span class="nf">model</span> <span class="o">=</span>
+    <span class="p">{</span> <span class="n">atom</span>  <span class="p">:</span> <span class="no">Text</span>
+    <span class="p">,</span> <span class="n">dict</span>  <span class="p">:</span> <span class="no">Map</span> <span class="no">Text</span> <span class="no">Any</span>
+    <span class="p">,</span> <span class="n">info</span>  <span class="p">:</span>
+        <span class="p">{</span> <span class="n">doc</span>  <span class="p">:</span> <span class="no">Text</span>
+        <span class="p">,</span> <span class="nb">name</span> <span class="p">:</span> <span class="no">Text</span>
+        <span class="p">,</span> <span class="n">code</span> <span class="p">:</span> <span class="no">Text</span>
+        <span class="p">,</span> <span class="n">loc</span>  <span class="p">:</span> <span class="no">Location</span>
+        <span class="p">}</span>
+    <span class="p">,</span> <span class="n">arg</span>  <span class="p">:</span> <span class="c1"># used only when calling like a function</span>
+        <span class="p">{</span> <span class="n">doc</span>     <span class="p">:</span> <span class="no">Text</span>
+        <span class="p">,</span> <span class="n">default</span> <span class="p">:</span> <span class="no">Maybe</span> <span class="no">Any</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Work out how to do dynamic properly, keeping in mind that in a dynamic value
+could self-modify underneath us.</li>
+  </ul>
+</blockquote>
+
+<h3 id="the-enso-boundary">The Enso Boundary</h3>
+<p>Fortunately, we can at least avoid foreign languages modifying memory owned by
+the Enso interpreter. As part of the interop library, Graal lets us mark memory
+as read-only. This means that the majority of data passed out (from a functional
+language like Enso) is not at risk. However, if we <em>do</em> allow data to be worked
+with mutably, when control is returned to Enso it needs to be treated as a
+dynamic as it may have been modified.</p>
 
                     </section>
                 </div>
@@ -116,7 +224,7 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
     </div>
 </div>
 
-                    <a href="/jekyll/2019-04-28-howto.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: How to Get Started">
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -204,8 +312,8 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
         "gitbook": "*"
     },
     "file": {
-        "path": "_posts/2019-04-29-license.md",
-        "mtime": "2019-04-28 00:00:00 +0000",
+        "path": "docs/polyglot/typing-polyglot-bindings.md",
+        "mtime": "",
         "type": "markdown"
     },
     "gitbook": {

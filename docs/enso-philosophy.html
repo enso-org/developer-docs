@@ -1,0 +1,614 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso Developer Documentation · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="Build Jekyll site with the GitBook style.
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
+<link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
+<!-- <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css"> -->
+
+<link rel="stylesheet" href="/gitbook/rouge-highlight-colorful.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
+            <link rel="prev" href="/" />
+        
+
+        
+    </head>
+    <body>
+        <div class="book"><div class="book-summary">
+    <div id="book-search-input" role="search">
+        <input type="text" placeholder="Type to search" />
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="">
+            
+                <a href="">
+                    Jekyll Gitbook
+                </a>
+            </li>
+
+            <li class="divider"></li>
+
+            
+
+            
+                
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-27-why.html">
+                
+                    <a href="/jekyll/2019-04-27-why.html">
+                        Why Jekyll with GitBook
+                    </a>
+                </li>
+            
+                
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-howto.html">
+                
+                    <a href="/jekyll/2019-04-28-howto.html">
+                        How to Get Started
+                    </a>
+                </li>
+            
+                
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
+                
+                    <a href="/jekyll/2019-04-28-license.html">
+                        License
+                    </a>
+                </li>
+            
+
+            <li class="divider"></li>
+
+            <li>
+                <a href="https://github.com/sighingnow/jekyll-gitbook/fork" target="blank" class="gitbook-link">
+                    Fork it Now!
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div><div class="book-body"><div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            
+                <a href="." >Enso Developer Documentation</a>
+            
+        </h1>
+    </div>
+    <div class="page-wrapper" tabindex="-1" role="main">
+        <div class="page-inner">
+            <div id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+
+                        
+                            <h1 id="">Enso Developer Documentation</h1>
+                        
+
+                        <h1 id="enso-simplicity-and-correctness">Enso: Simplicity and Correctness</h1>
+<p>Enso is an award-winning, general-purpose, purely functional programming
+language with equivalent, first-class visual and textual representations and a
+highly expressive and novel type system.</p>
+
+<p>Enso has been designed from the ground up to be easy to use for people of all
+experience levels, providing power to those that want it while keeping it hidden
+from those that do not. Its type rich type system helps users to catch their
+mistakes before they happen, which combines with its performant runtime to
+drastically improve the quality of the end result. Enso is very much intended to
+be a production language (rather than a research project), and the user-focused
+development philosophy reflects that.</p>
+
+<p>From a technical point of view, Enso incorporates many of the recent innovations
+in the design and development of programming languages to improve the user
+experience. It provides higher-order functions, strict semantics with opt-in
+laziness, and opt-in algebraic data types, all under the auspices of a novel
+type system that merges dependent typing with a great user experience. Enso
+is the culmination of many years of research into functional programming
+languages, consolidating the work trail-blazed by Haskell, Idris and Agda, but
+also improvements in user-experience and ergonomics.</p>
+
+<p>All in all, Enso is a programming language unlike any other before it, a
+seamless blend of code and visual communication that can span organisations.</p>
+
+<blockquote>
+  <p>“The compiler is your assistant, and you interact with it to arrive at a
+working program via a conversation, with information going both ways.”</p>
+
+  <p>– <a href="https://twitter.com/edwinbrady/status/1115361451005423617">Edwin Brady</a></p>
+</blockquote>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#why-a-new-programming-language">Why a New Programming Language?</a></li>
+  <li><a href="#software-correctness-matters">Software Correctness Matters</a></li>
+  <li><a href="#connections-to-your-data">Connections to your Data</a></li>
+  <li><a href="#tenets-of-enso">Tenets of Enso</a>
+    <ul>
+      <li><a href="#visual-and-textual">Visual and Textual</a></li>
+      <li><a href="#unified-syntax">Unified Syntax</a></li>
+      <li><a href="#visual-communication">Visual Communication</a></li>
+      <li><a href="#one-right-way">One Right Way</a></li>
+      <li><a href="#help-the-user">Help the User</a></li>
+      <li><a href="#simple-complexity">Simple Complexity</a></li>
+      <li><a href="#powerful-when-necessary">Powerful When Necessary</a></li>
+      <li><a href="#performance-and-predictability">Performance and Predictability</a></li>
+      <li><a href="#explicit-over-implicit">Explicit Over Implicit</a></li>
+      <li><a href="#guidance-over-on-boarding">Guidance Over On-Boarding</a></li>
+    </ul>
+  </li>
+  <li><a href="#designing-enso">Designing Enso</a></li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="why-a-new-programming-language">Why a New Programming Language?</h2>
+<p>Since the 1980s, the way that programmers work and the tools that they use have
+changed remarkably little. However, there is a small but growing chorus that
+worries that the status quo is unsustainable: programmers are having problems
+keeping up with their own creations. “Even good programmers are struggling to
+make sense of the systems that they are working with,” says Chris Granger, a
+software developer who worked as a lead at Microsoft on Visual Studio.</p>
+
+<p>We believe, without a drastic change to how software is created, that humanity’s
+progress is going to be stymied. However, in contrast to many approaches to
+finding the next-generation interfaces for human-computer interaction, we
+believe that textual code should not be replaced, but instead <em>enhanced</em>. In the
+same way that writing and speaking coexist, there are times where code is more
+convenient than any other approach.</p>
+
+<h2 id="software-correctness-matters">Software Correctness Matters</h2>
+<p>“In September 2007, Jean Bookout was driving on the highway with her best friend
+in a Toyota Camry when the accelerator seemed to get stuck. When she took her
+foot off the pedal, the car didn’t slow down. She tried the brakes but they
+seemed to have lost their power. As she swerved toward an off-ramp going 50
+miles per hour, she pulled the emergency brake. The car left a skid mark 150
+feet long before running into an embankment by the side of the road. The
+passenger was killed. Bookout woke up in a hospital a month later.</p>
+
+<p>“The incident was one of many in a nearly decade-long investigation into claims
+of so-called unintended acceleration in Toyota cars. Toyota blamed the incidents
+on poorly designed floor mats, “sticky” pedals, and driver error, but outsiders
+suspected that faulty software might be responsible. The National Highway
+Traffic Safety Administration enlisted software experts from NASA to perform an
+intensive review of Toyota’s code. After nearly 10 months, the NASA team hadn’t
+found evidence that software was the cause—but said they couldn’t prove it
+wasn’t.</p>
+
+<p>“It was during litigation of the Bookout accident that someone finally found a
+convincing connection. Michael Barr, an expert witness for the plaintiff, had a
+team of software experts spend 18 months with the Toyota code, picking up where
+NASA left off. Using the same model as the Camry involved in the accident,
+Barr’s team demonstrated that there were more than 10 million ways for key tasks
+on the on-board computer to fail, potentially leading to unintended
+acceleration. They showed that as little as a single bit flip could make a car
+run out of control.”</p>
+
+<p>The above text is part of an amazing article
+<a href="https://www.theatlantic.com/technology/archive/2017/09/saving-the-world-from-code/540393/">The Coming Software Apocalypse</a>
+by James Somers, we strongly encourage you to read it all in order to understand
+the reasoning behind much of Enso’s design principles.</p>
+
+<p>We believe that everyone should be able to process data and create software.
+Thus, we strongly disagree with the assumption that developers should learn how
+to formally prove properties about their programs, as it requires a very rare
+theoretical background. We believe that it’s the responsibility of the language
+and its tooling to prove the correctness of the users’ creation. <em>“Human
+intuition is poor at estimating the true probability of supposedly ‘extremely
+rare’ combinations of events in systems operating at a scale of millions of
+requests per second. That human fallibility means that some of the more subtle,
+dangerous bugs turn out to be errors in design; the code faithfully implements
+the intended design, but the design fails to correctly handle a particular
+‘rare’ scenario.”</em>, wrote Chris Newcombe, who was a leader on Amazon Web
+Services team and one of Steam’s creators. Enso was designed to prove the
+correctness and provide as much valuable information to the user as possible in
+as automated and intuitive a fashion as possible.</p>
+
+<h2 id="connections-to-your-data">Connections to your Data</h2>
+<p>Software creation is a very creative process. However, while using conventional
+languages, programmers are like chess players trying to play with a blindfold on</p>
+<ul>
+  <li>so much of their mental energy is spent just trying to picture where the
+pieces are that there’s hardly any left over to think about the game itself.</li>
+</ul>
+
+<p>Enso was designed around the idea that <em>people need an immediate connection to
+what they are making</em>, as described by by Brett Victor in his amazing talk
+<a href="https://vimeo.com/36579366">Inventing on Principle</a>. Any violation of this
+principle alienates users from the actual problems they are trying to solve,
+which consequently decreases their understanding and increases the number of
+mistakes they make.</p>
+
+<p>Enso’s visual representation targets domains where data processing is the
+primary focus, including data science, machine learning, IoT, bioinformatics,
+predictive maintenance, computer graphics, sound processing and so on. Each
+domain requires a highly tailored toolbox for working with such data, and Enso
+provides a coherent and unified foundation for building such toolboxes, on top
+of a growing library of existing ones. At its core, Enso delivers a powerful
+environment for the modelling of data flows, with extensive inbuilt capabilities
+for data visualisation and manipulation.</p>
+
+<h2 id="tenets-of-enso">Tenets of Enso</h2>
+<p>The design of a tool can have a <em>drastic</em> effect on the
+<a href="https://en.wikipedia.org/wiki/Cognitive_load">cognitive load</a> experienced by
+users. As we design Enso, we rely on a small set of principles to guide the
+design and evolution of the language, with the aim of making it easier to both
+express thoughts and understand existing logic.</p>
+
+<p>Enso’s design is based on a small set of principles that all focus on minimising
+the cognitive load for users. They are elucidated below</p>
+
+<ul>
+  <li><strong>Visual and Textual:</strong> The visual and textual syntaxes are both first-class.
+One is just as a canonical representation of the program as the other. New
+features must work across both.</li>
+  <li><strong>Unified Syntax:</strong> The language syntax should be simple, concise, and be
+usable on both the type and term levels.</li>
+  <li><strong>Visual Communication:</strong> A pure and functional language that lends itself
+easily to visualisation of data-flows.</li>
+  <li><strong>One Right Way:</strong> There should, overwhelmingly, be only one way to perform a
+given task. Limited choice breeds simplicity.</li>
+  <li><strong>Help the User:</strong> Enso should do its utmost to make things easier for the
+user, even if that involves accepting additional complexity in the
+implementation. This does not come at the exclusion of letting users access
+that power.</li>
+  <li><strong>Simple Complexity:</strong> Though the language is backed by powerful functionality
+and compiler smarts, but this should be invisible to the users until they care
+to engage with it.</li>
+  <li><strong>Powerful When Necessary:</strong> Designed to employ powerful techniques that
+confer safety and speed, allowing the users to write correct programs.</li>
+  <li><strong>Performance and Predictability:</strong> Predictable performance, with integrated
+debugging and profiling features to help users diagnose their problems.</li>
+  <li><strong>Explicit Over Implicit:</strong> The design of Enso and its libraries should
+<em>always</em> account for making all behaviour explicit.</li>
+  <li><strong>Guidance Over On-Boarding:</strong> While an on-boarding process can help new users
+get up to speed, the language itself should endeavour to be as helpful as
+possible.</li>
+</ul>
+
+<h3 id="visual-and-textual">Visual and Textual</h3>
+<p>While Enso <em>is</em> a programming language, the visual environment with which it
+ships is just as important. This means that when designing the language, and
+any new feature for the language, we need to explicitly account for how it works
+in both the visual and textual syntaxes.</p>
+
+<ul>
+  <li><strong>Necessity:</strong> Is this functionality necessary in both environments, or is it
+compensating for a deficiency in one environment.</li>
+  <li><strong>Simplicity:</strong> Features should seem uniform between the two environments as
+much as possible.</li>
+  <li><strong>Portability:</strong> One environment should not expose any features not exposed by
+the other.</li>
+</ul>
+
+<p>Both syntaxes are of <em>equal</em> importance when thinking about designing Enso, and
+so any functionality from one syntax that doesn’t fit in the other should be
+rejected.</p>
+
+<h3 id="unified-syntax">Unified Syntax</h3>
+<p>With the syntax being the primary mode of interaction between users and Enso,
+whether it be visual or textual, it is important that it is consistent within
+itself. This is quite a nebulous concept, but it boils down to a few main
+factors:</p>
+
+<ul>
+  <li>The syntax should have a minimal number of constructs in it.</li>
+  <li>The syntax should use a coherent visual language in both its forms.</li>
+  <li>The type-level syntax should equal the value-level syntax, allowing a natural
+blend of programming with both types and terms.</li>
+  <li>The behaviour of the program should be immediately evident from the syntax
+(and so the syntax should not embody any context-sensitive behaviour).</li>
+  <li>The language syntax should be amenable to providing clear and descriptive
+diagnostics to users.</li>
+  <li>Special cases in the syntax should be avoided</li>
+</ul>
+
+<p>A key point of design for Enso’s syntax is the notion that syntactic rules need
+to be remembered, so it is incredibly important to find a happy middle ground
+between <em>too many</em> and <em>not enough</em> syntactic constructs.</p>
+
+<h3 id="visual-communication">Visual Communication</h3>
+<p>Humans are inherently visual creatures, and Enso is designed to enable a
+<em>visual</em> style of communication. When designing new language features, it is
+overwhelmingly important to consider their impact on Enso’s visualisation
+functionality.</p>
+
+<ul>
+  <li><em>How</em> they impact the existing visualisation capabilities.</li>
+  <li><em>How</em> they can be visualised themselves.</li>
+</ul>
+
+<h3 id="one-right-way">One Right Way</h3>
+<p>Choice in a language inherently creates myriad ways to do things. This is
+singularly unhelpful in any programming language, let alone one intended to span
+all experience levels, as it increases the cognitive burden of using the
+language.</p>
+
+<p>To that end, it is significantly important to not introduce elements to the
+design that can already be achieved another way, or that can be achieved simply
+through a combination of existing features.</p>
+
+<p>However, there are sometimes cases where the duplication of functionality may be
+introduced while providing a significant ergonomic benefit to users. Under such
+circumstances, the trade-offs of the design decision must be very carefully
+weighted, and a decision made based on the balance between complexity and
+ergonomics.</p>
+
+<h3 id="help-the-user">Help the User</h3>
+<p>Features with significant usability benefits for users should be weighted very
+highly in Enso’s design. This is true <em>even</em> when adding such a feature may
+bring significant complexity to the implementation of the language or tooling,
+as the user experience is paramount.</p>
+
+<p>That is not to say, however, that <em>any and all</em> complexity should be accepted
+in the aid of user experience. If the maintenance burden is too great, then it
+is likely that introducing such a photo will impact future UX improvements. To
+this end, it is always a careful balancing act, even if we tilt the scales
+heavily in favour of UX over simplicity of the implementation.</p>
+
+<h3 id="simple-complexity">Simple Complexity</h3>
+<p>A big part of Enso’s design is the notion of employing sophisticated and
+cutting-edge techniques in programming language design. However, many languages
+that employ these techniques do so to the <em>detriment</em> of the user experience.</p>
+
+<p>While this increased power may allow the system to guarantee more things, or
+perform better, it often means that the user has to contend with additional
+complexity. A huge part of the design of Enso is hiding this complexity from the
+user as much as is possible, ensuring that the focus of the language design is
+on a good user experience.</p>
+
+<p>Nevertheless, we do not intend to <em>bar</em> users from this complexity. As much as
+Enso should provide a good user experience, it should also not stand in the way
+of power users.</p>
+
+<h3 id="powerful-when-necessary">Powerful When Necessary</h3>
+<p>While we want to provide a simple tool to our users, this should not induce the
+language to shy away from necessary power.</p>
+
+<p>Sometimes, the expression of an idea in its most succinct requires powerful
+language constructs. Given that Enso doesn’t want to limit the ability of its
+users to express things, it needs to provide this power. However, this power
+should be opt-in, with users not wanting the enhancements to expressiveness not
+having to know or care about it.</p>
+
+<h3 id="performance-and-predictability">Performance and Predictability</h3>
+<p>There is little that is more frustrating than the code you write running slowly
+for no explicable reason.</p>
+
+<p>To that end, Enso aims not only to be <em>fast</em>, meaning that users will not have
+to rely on other languages or tools for performance, but it also aims to be
+<em>predictable</em>. With Enso, ‘predictable’ means that it should be easy for
+advanced users to reason about the performance of their code. As a result, we
+aim for a sensible mapping from source code to machine execution, and aim to
+ensure that seemingly innocuous changes do not impact Enso’s performance.</p>
+
+<h3 id="explicit-over-implicit">Explicit Over Implicit</h3>
+<p>When designing Enso and its libraries, we don’t want to have any behaviour of a
+function that is not recorded in its type, or its defaults. This gives rise to
+two main principles for designing Enso’s APIs:</p>
+
+<ol>
+  <li>Use the correct types to inform both users and the tools about the behaviour
+of the function.</li>
+  <li>Use the inbuilt capabilities for named and default arguments to provide
+<em>sensible defaults</em>, for an API, without hiding behaviour.</li>
+</ol>
+
+<p>An example of this trade-off is reading a opening a file handle with
+<code class="highlighter-rouge">openHandle</code>.</p>
+
+<p>Unlike more specialised functions such as <code class="highlighter-rouge">readFile</code> and <code class="highlighter-rouge">writeFile</code>,
+<code class="highlighter-rouge">openHandle</code> is much more flexible about how it opens the file. In such cases,
+users making use of this file function can generally be assumed to want to open
+the file for both reading <em>and</em> writing.</p>
+
+<p>This is the sensible, default, but it is made properly explicit by inclusion as
+a defaulted keyword argument to the function:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">type</span> <span class="no">File</span><span class="o">.</span><span class="no">Mode</span> <span class="p">:</span>
+    <span class="n">type</span> <span class="no">Read</span>
+    <span class="n">type</span> <span class="no">Write</span>
+    <span class="n">type</span> <span class="no">RW</span>
+    <span class="n">type</span> <span class="no">Append</span>
+    <span class="n">type</span> <span class="no">RWA</span>
+
+<span class="n">openHandle</span> <span class="p">:</span> <span class="no">File</span><span class="o">.</span><span class="no">Path</span> <span class="o">-&gt;</span> <span class="no">File</span><span class="o">.</span><span class="no">Mode</span> <span class="o">-&gt;</span> <span class="no">File</span><span class="o">.</span><span class="no">Handle</span>
+<span class="n">openHandle</span> <span class="n">path</span> <span class="o">-&gt;</span> <span class="n">fileMode</span> <span class="o">=</span> <span class="no">RW</span> <span class="o">-&gt;</span> <span class="o">...</span>
+</code></pre></div></div>
+
+<p>In doing so, the design of the function tells the user the following things:</p>
+
+<ul>
+  <li>It takes a file path, which represents the location of a file on the user’s
+local system (as opposed to a <code class="highlighter-rouge">Resource.Path</code>, which is a location for a
+generic resource).</li>
+  <li>It has an <em>explicit</em> default behaviour that it opens the file for both reading
+and writing, that is defaulted as part of the definition, but can be
+overridden if necessary.</li>
+</ul>
+
+<p>As a result, this design allows for <em>explicit</em> communication of the behaviour of
+the function, both under default, and non-default circumstances. Hence, the user
+who would like to open a file for appending (via <code class="highlighter-rouge">appendHandle</code>), as well as
+reading and writing, can call it as follows: <code class="highlighter-rouge">openHandle path (fileMode = RWA)</code>,
+or just <code class="highlighter-rouge">openHandle path RWA</code>.</p>
+
+<h3 id="guidance-over-on-boarding">Guidance Over On-Boarding</h3>
+<p>While it is important to have an on-boarding process to help bring new users up
+to speed, that process cannot be the only guidance that users of Enso get.</p>
+
+<p>To this end, it is <em>overwhelmingly</em> important that the language is helpful and
+informative as much as is possible. This means things like the provision of
+intelligent suggestions to users based on the kinds of program they are writing.
+It means things like helpful and informative error messages that explain
+problems to the user in an intuitive fashion whilst not hiding the details.</p>
+
+<p>In essence, it means designing for the <em>enduring</em> user experience of Enso,
+rather than purely the initial user experience.</p>
+
+<h2 id="designing-enso">Designing Enso</h2>
+<p>As Enso’s design and functionality evolves, we have to take the utmost care to
+ensure that it doesn’t balloon beyond control. As a result, every new feature
+that we contemplate adding to the language should advance these core tenets, and
+thereby ensure that it matches with the overall vision for Enso.</p>
+
+<p>We stick to the above principles when we’re <em>building</em> the compiler as well,
+with code being liberally commented with need-to-know information, as well as
+for clean and clear design documents to accompany it.</p>
+
+<p>You can find out more about the various components that make up Enso by having a
+read of the design documents listed below. These documents are highly technical,
+and are not intended to be user-facing documentation.</p>
+
+<ul>
+  <li><strong><a href="semantics/">Semantics</a>:</strong> A description of Enso’s semantics, with a focus
+on both the main principles and the details.</li>
+  <li><strong><a href="syntax/">Syntax</a>:</strong> A description of Enso’s syntax, with a focus on both
+the main principles behind its design and its nitty gritty details.</li>
+  <li><strong><a href="types/">The Type System</a>:</strong> A description of Enso’s type system, starting
+at a very high level and slowly getting into more detail as the design
+evolves.</li>
+  <li><strong><a href="runtime/">The Runtime</a>:</strong> A description of the design for the runtime that
+is evolving in tandem with the runtime’s development.</li>
+</ul>
+
+                    </section>
+                </div>
+
+                 <!--<div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},
+            "sharing": {
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+                "facebook": true,
+                "google": false,
+                "instapaper": false,
+                "twitter": true,
+                "vk": false,
+                "weibo": false
+            },
+            "theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            }
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "Jekyll Gitbook",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "docs/enso-philosophy.md",
+        "mtime": "",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.3",
+        "time": "2020-05-15 16:34:05 +0000"
+    },
+    "basePath": "",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/gitbook/gitbook.js"></script>
+<script src="/gitbook/theme.js"></script>
+
+<script src="/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+<script src="/gitbook/gitbook-plugin-sharing/buttons.js"></script>
+
+<!-- <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script> --></body>
+</html>

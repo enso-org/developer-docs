@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>License · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Access Modifiers · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Build Jekyll site with the GitBook style.
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
 <link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
-            <link rel="prev" href="/jekyll/2019-04-28-howto.html" />
+            <link rel="prev" href="/" />
         
 
         
@@ -57,7 +57,7 @@
                 </li>
             
                 
-                <li class="chapter active" data-level="1.2" data-path="/jekyll/2019-04-28-license.html">
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
                 
                     <a href="/jekyll/2019-04-28-license.html">
                         License
@@ -80,7 +80,7 @@
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >License</a>
+                <a href="." >Access Modifiers</a>
             
         </h1>
     </div>
@@ -91,13 +91,73 @@
                     <section class="normal markdown-section">
 
                         
-                            <h1 id="/jekyll/license">License</h1>
+                            <h1 id="">Access Modifiers</h1>
                         
 
-                        <p>This work is open sourced under the Apache License, Version 2.0, using the
-same license as the original <a href="https://github.com/GitbookIO/gitbook">GitBook</a> repository.</p>
+                        <h1 id="access-modifiers">Access Modifiers</h1>
+<p>While we don’t usually like making things private in a programming language, it
+sometimes the case that it is necessary to indicate that certain fields should
+not be touched (as this might break invariants and such like). To this end, Enso
+provides an explicit mechanism for access modification.</p>
 
-<p>Copyright 2019 Tao He.</p>
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#access-modification">Access Modification</a></li>
+  <li><a href="#private">Private</a></li>
+  <li><a href="#unsafe">Unsafe</a></li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="access-modification">Access Modification</h2>
+<p>Access modifiers in Enso work as follows:</p>
+
+<ul>
+  <li>We provide explicit access modifiers that, at the definition site, start an
+indented block.</li>
+  <li>All members in the block have the access modifier attributed to them.</li>
+  <li>By default, accessing any member under an access modifier will be an error.</li>
+  <li>To use members under an access modifier, you use the syntax <code class="highlighter-rouge">use &lt;mod&gt;</code>, where
+<code class="highlighter-rouge">&lt;mod&gt;</code> is a modifier. This syntax ‘takes’ an expression, including blocks,
+within which the user may access members qualified by the modifier <code class="highlighter-rouge">&lt;mod&gt;</code>.</li>
+</ul>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>How do we type this?</li>
+  </ul>
+</blockquote>
+
+<h2 id="private">Private</h2>
+<p>The <code class="highlighter-rouge">private</code> modifier acts to hide implementation details from clients of the
+API. It is:</p>
+
+<ul>
+  <li>Available by default in the <code class="highlighter-rouge">Base</code> library.</li>
+  <li>Able to be overridden using the above-described mechanism.</li>
+</ul>
+
+<h2 id="unsafe">Unsafe</h2>
+<p>While <code class="highlighter-rouge">private</code> works as you might expect, coming from other languages, the
+<code class="highlighter-rouge">unsafe</code> annotation has additional restrictions:</p>
+
+<ul>
+  <li>It must be explicitly imported from <code class="highlighter-rouge">Std.Unsafe</code>.</li>
+  <li>When you use <code class="highlighter-rouge">unsafe</code>, you must write a documentation comment on its usage
+that contains a section <code class="highlighter-rouge">Safety</code> that describes why this usage of unsafe is
+valid.</li>
+</ul>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Specify <code class="highlighter-rouge">unsafe</code> properly.</li>
+  </ul>
+</blockquote>
 
                     </section>
                 </div>
@@ -116,7 +176,7 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
     </div>
 </div>
 
-                    <a href="/jekyll/2019-04-28-howto.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: How to Get Started">
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -204,8 +264,8 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
         "gitbook": "*"
     },
     "file": {
-        "path": "_posts/2019-04-29-license.md",
-        "mtime": "2019-04-28 00:00:00 +0000",
+        "path": "docs/types/access-modifiers.md",
+        "mtime": "",
         "type": "markdown"
     },
     "gitbook": {

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>License · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Dynamic Dispatch · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Build Jekyll site with the GitBook style.
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
 <link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
-            <link rel="prev" href="/jekyll/2019-04-28-howto.html" />
+            <link rel="prev" href="/" />
         
 
         
@@ -57,7 +57,7 @@
                 </li>
             
                 
-                <li class="chapter active" data-level="1.2" data-path="/jekyll/2019-04-28-license.html">
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
                 
                     <a href="/jekyll/2019-04-28-license.html">
                         License
@@ -80,7 +80,7 @@
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >License</a>
+                <a href="." >Dynamic Dispatch</a>
             
         </h1>
     </div>
@@ -91,13 +91,117 @@
                     <section class="normal markdown-section">
 
                         
-                            <h1 id="/jekyll/license">License</h1>
+                            <h1 id="">Dynamic Dispatch</h1>
                         
 
-                        <p>This work is open sourced under the Apache License, Version 2.0, using the
-same license as the original <a href="https://github.com/GitbookIO/gitbook">GitBook</a> repository.</p>
+                        <h1 id="dynamic-dispatch">Dynamic Dispatch</h1>
+<p>Enso is a language that supports pervasive dynamic dispatch. This is a big boon
+for usability, as users can write very flexible code that still plays nicely
+with the GUI.</p>
 
-<p>Copyright 2019 Tao He.</p>
+<p>The current implementation of Enso supports single dispatch (dispatch purely on
+the type of <code class="highlighter-rouge">this</code>), but there are broader visions afoot for the final
+implementation of dynamic dispatch in Enso.</p>
+
+<blockquote>
+  <p>The actionables for this section include:</p>
+
+  <ul>
+    <li>Determining whether we want to support proper multiple dispatch in the
+future. This is important to know as it has implications for the type
+system, and the design of the dispatch algorithm.</li>
+  </ul>
+</blockquote>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#specificity">Specificity</a></li>
+  <li><a href="#multiple-dispatch">Multiple Dispatch</a></li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="specificity">Specificity</h2>
+<p>In order to determine which of the potential dispatch candidates is the correct
+one to select, the compiler needs to have a notion of <em>specificity</em>, which is
+effectively an algorithm for determining which candidate is more specific than
+another.</p>
+
+<ul>
+  <li>Always prefer a member function for both <code class="highlighter-rouge">x.f y</code> and <code class="highlighter-rouge">f y x</code> notations.</li>
+  <li>Only member functions, current module’s functions, and imported functions are
+considered to be in scope. Local variable <code class="highlighter-rouge">f</code> could not be used in the <code class="highlighter-rouge">x.f y</code>
+syntax.</li>
+  <li>Selecting the matching function:
+    <ol>
+      <li>Look up the member function. If it exists, select it.</li>
+      <li>If not, find all functions with the matching name in the current module and
+all directly imported modules. These functions are the <em>candidates</em>.</li>
+      <li>Eliminate any candidate <code class="highlighter-rouge">X</code> for which there is another candidate <code class="highlighter-rouge">Y</code> whose
+<code class="highlighter-rouge">this</code> argument type is strictly more specific. That is, <code class="highlighter-rouge">Y</code> this type is a
+substitution of <code class="highlighter-rouge">X</code> this type but not vice versa.</li>
+      <li>If not all of the remaining candidates have the same this type, the search
+fails.</li>
+      <li>Eliminate any candidate <code class="highlighter-rouge">X</code> for which there is another candidate <code class="highlighter-rouge">Y</code> which
+type signature is strictly more specific. That is, <code class="highlighter-rouge">Y</code> type signature is a
+substitution of <code class="highlighter-rouge">X</code> type signature.</li>
+      <li>If exactly one candidate remains, select it. Otherwise, the search fails.</li>
+    </ol>
+  </li>
+</ul>
+
+<blockquote>
+  <p>The actionables for this section are as follows:</p>
+
+  <ul>
+    <li>THE ABOVE VERSION IS OLD. NEEDS UPDATING.</li>
+    <li>The definition of specificity for dispatch candidates (including how it
+interacts with the subsumption relationship on typesets and the ordering of
+arguments).</li>
+  </ul>
+</blockquote>
+
+<h2 id="multiple-dispatch">Multiple Dispatch</h2>
+<p>It is an open question as to whether we want to support proper multiple dispatch
+in Enso. Multiple dispatch refers to the dynamic dispatch target being
+determined based not only on the type of the <code class="highlighter-rouge">this</code> argument, but the types of
+the other arguments to the function.</p>
+
+<p>To do multiple dispatch properly, it is very important to get a rigorous
+specification of the specificity algorithm. It must account for:</p>
+
+<ul>
+  <li>The typeset subsumption relationship.</li>
+  <li>The ordering of arguments.</li>
+  <li>How to handle defaulted and lazy arguments.</li>
+  <li>
+    <p>Constraints in types. This means that for two candidates <code class="highlighter-rouge">f</code> and <code class="highlighter-rouge">g</code>, being
+dispatched on a type <code class="highlighter-rouge">t</code> with constraint <code class="highlighter-rouge">c</code>, the more specific candidate is
+the one that explicitly matches the constraints. An example follows:</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">type</span> <span class="no">HasName</span>
+  <span class="nb">name</span> <span class="p">:</span> <span class="no">String</span>
+
+<span class="n">greet</span> <span class="p">:</span> <span class="n">t</span> <span class="o">-&gt;</span> <span class="no">Nothing</span> <span class="k">in</span> <span class="no">IO</span>
+<span class="n">greet</span> <span class="n">_</span> <span class="o">=</span> <span class="nb">print</span> <span class="s2">"I have no name!"</span>
+
+<span class="n">greet</span> <span class="p">:</span> <span class="p">(</span><span class="n">t</span> <span class="p">:</span> <span class="no">HasName</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">Nothing</span> <span class="k">in</span> <span class="no">IO</span>
+<span class="n">greet</span> <span class="n">t</span> <span class="o">=</span> <span class="nb">print</span> <span class="s1">'Hi, my name is `t.name`!'</span>
+
+<span class="n">type</span> <span class="no">Person</span>
+  <span class="no">Pers</span> <span class="p">(</span><span class="nb">name</span> <span class="p">:</span> <span class="no">String</span><span class="p">)</span>
+
+<span class="n">main</span> <span class="o">=</span>
+  <span class="n">p1</span> <span class="o">=</span> <span class="no">Person</span><span class="o">.</span><span class="no">Pers</span> <span class="s2">"Joe"</span>
+  <span class="n">greet</span> <span class="n">p1</span> <span class="c1"># Hi, my name is Joe!</span>
+  <span class="n">greet</span> <span class="mi">7</span>  <span class="c1"># I have no name</span>
+</code></pre></div>    </div>
+
+    <p>Here, because <code class="highlighter-rouge">Person</code> conforms to the <code class="highlighter-rouge">HasName</code> interface, the second <code class="highlighter-rouge">greet</code>
+implementation is chosen because the constraints make it more specific.</p>
+  </li>
+</ul>
 
                     </section>
                 </div>
@@ -116,7 +220,7 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
     </div>
 </div>
 
-                    <a href="/jekyll/2019-04-28-howto.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: How to Get Started">
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -204,8 +308,8 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
         "gitbook": "*"
     },
     "file": {
-        "path": "_posts/2019-04-29-license.md",
-        "mtime": "2019-04-28 00:00:00 +0000",
+        "path": "docs/types/dynamic-dispatch.md",
+        "mtime": "",
         "type": "markdown"
     },
     "gitbook": {

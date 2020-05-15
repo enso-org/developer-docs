@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>License · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Monadic Contexts · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Build Jekyll site with the GitBook style.
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
 <link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
-            <link rel="prev" href="/jekyll/2019-04-28-howto.html" />
+            <link rel="prev" href="/" />
         
 
         
@@ -57,7 +57,7 @@
                 </li>
             
                 
-                <li class="chapter active" data-level="1.2" data-path="/jekyll/2019-04-28-license.html">
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
                 
                     <a href="/jekyll/2019-04-28-license.html">
                         License
@@ -80,7 +80,7 @@
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >License</a>
+                <a href="." >Monadic Contexts</a>
             
         </h1>
     </div>
@@ -91,13 +91,83 @@
                     <section class="normal markdown-section">
 
                         
-                            <h1 id="/jekyll/license">License</h1>
+                            <h1 id="">Monadic Contexts</h1>
                         
 
-                        <p>This work is open sourced under the Apache License, Version 2.0, using the
-same license as the original <a href="https://github.com/GitbookIO/gitbook">GitBook</a> repository.</p>
+                        <h1 id="monadic-contexts">Monadic Contexts</h1>
+<p>Coming from a Haskell background, we have found that Monads provide a great
+abstraction with which to reason about program behaviour, but they have some
+severe usability issues. The main one of these is the lack of automatic lifting,
+requiring users to explicitly lift computations through their monad transformer
+stack.</p>
 
-<p>Copyright 2019 Tao He.</p>
+<p>For a language as focused on usability as Enso is this really isn’t feasible. To
+that end, we have created the notion of a ‘Monadic Context’, which is a monad
+transformer based on Supermonads (see
+<a href="./references.md#monadic-contexts">references</a>). These have special support in
+the compiler, and hence can be automatically lifted to aid usability.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Think about subsumption for contexts.</li>
+    <li>Contexts (e.g. IO) are represented using <code class="highlighter-rouge">T in IO</code>. Multiple contexts are
+combined as standard <code class="highlighter-rouge">(IO | State Int)</code>, and it is written the same in arg
+position.</li>
+    <li>Do we definitely want to use monads, or can we use arrows or other
+interpreter-based effects systems? These may aid with parallelism analysis.</li>
+  </ul>
+</blockquote>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#context-syntax">Context Syntax</a></li>
+  <li><a href="#monadic-bind">Monadic Bind</a></li>
+  <li><a href="#context-definitions">Context Definitions</a></li>
+  <li><a href="#context-lifting">Context Lifting</a></li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="context-syntax">Context Syntax</h2>
+<p>There are three main notes about the syntax of contexts:</p>
+
+<ol>
+  <li>Monadic contexts are defined using the <code class="highlighter-rouge">in</code> keyword (e.g. <code class="highlighter-rouge">Int in IO</code>).</li>
+  <li>We have a symbol <code class="highlighter-rouge">!</code>, which is short-hand for putting something into the
+<code class="highlighter-rouge">Exception</code> monadic context. This is related to broken values.</li>
+  <li>Contexts can be combined by using the standard typeset operators, or nested
+through repeated uses of <code class="highlighter-rouge">in</code>.</li>
+</ol>
+
+<h2 id="monadic-bind">Monadic Bind</h2>
+<p>It is also important to note that Enso has no equivalent to <code class="highlighter-rouge">&lt;-</code> in Haskell.
+Instead, pure computations are implicitly placed in the <code class="highlighter-rouge">Pure</code> monadic context,
+and <code class="highlighter-rouge">=</code> acts to ‘peel off’ the outermost layer of contexts. As such, this means
+that <code class="highlighter-rouge">=</code> <em>always</em> acts as <code class="highlighter-rouge">bind</code>, greatly simplifying how the type-checker has
+to work.</p>
+
+<h2 id="context-definitions">Context Definitions</h2>
+<p>Contexts can be defined by users.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>How, what, when and why?</li>
+  </ul>
+</blockquote>
+
+<h2 id="context-lifting">Context Lifting</h2>
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Specify and explain how automated lifting of monadic contexts works.</li>
+  </ul>
+</blockquote>
 
                     </section>
                 </div>
@@ -116,7 +186,7 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
     </div>
 </div>
 
-                    <a href="/jekyll/2019-04-28-howto.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: How to Get Started">
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -204,8 +274,8 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
         "gitbook": "*"
     },
     "file": {
-        "path": "_posts/2019-04-29-license.md",
-        "mtime": "2019-04-28 00:00:00 +0000",
+        "path": "docs/types/contexts.md",
+        "mtime": "",
         "type": "markdown"
     },
     "gitbook": {

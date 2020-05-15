@@ -1,0 +1,431 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Types and Type Signatures · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="Build Jekyll site with the GitBook style.
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
+<link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
+<!-- <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css"> -->
+
+<link rel="stylesheet" href="/gitbook/rouge-highlight-colorful.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
+            <link rel="prev" href="/" />
+        
+
+        
+    </head>
+    <body>
+        <div class="book"><div class="book-summary">
+    <div id="book-search-input" role="search">
+        <input type="text" placeholder="Type to search" />
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="">
+            
+                <a href="">
+                    Jekyll Gitbook
+                </a>
+            </li>
+
+            <li class="divider"></li>
+
+            
+
+            
+                
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-27-why.html">
+                
+                    <a href="/jekyll/2019-04-27-why.html">
+                        Why Jekyll with GitBook
+                    </a>
+                </li>
+            
+                
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-howto.html">
+                
+                    <a href="/jekyll/2019-04-28-howto.html">
+                        How to Get Started
+                    </a>
+                </li>
+            
+                
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
+                
+                    <a href="/jekyll/2019-04-28-license.html">
+                        License
+                    </a>
+                </li>
+            
+
+            <li class="divider"></li>
+
+            <li>
+                <a href="https://github.com/sighingnow/jekyll-gitbook/fork" target="blank" class="gitbook-link">
+                    Fork it Now!
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div><div class="book-body"><div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            
+                <a href="." >Types and Type Signatures</a>
+            
+        </h1>
+    </div>
+    <div class="page-wrapper" tabindex="-1" role="main">
+        <div class="page-inner">
+            <div id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+
+                        
+                            <h1 id="">Types and Type Signatures</h1>
+                        
+
+                        <h1 id="types-and-type-signatures">Types and Type Signatures</h1>
+<p>Enso is a statically typed language, meaning that every variable is associated
+with information about the possible values it can take. In Enso, the type
+language is the same as the term language, with no artificial separation. For
+more information on the type system, please see the <a href="../types/README.md">types</a>
+design document.</p>
+
+<p>This section will refer to terminology that has not been defined in <em>this</em>
+document. This is as this document is a specification rather than a guide, and
+it is expected that you have read the above-linked document on the type-system
+design as well.</p>
+
+<p>Additionally, this document will colloquially refer to the left and right hand
+sides of the type ascription operator <code class="highlighter-rouge">:</code> as the ‘term’ and ‘type’ levels,
+respectively. In reality, there is no separation between the two in Enso, but it
+is a useful way of thinking about things when discussing type signatures.</p>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#type-signatures">Type Signatures</a></li>
+  <li><a href="#operations-on-types">Operations on Types</a></li>
+  <li><a href="#type-definitions">Type Definitions</a>
+    <ul>
+      <li><a href="#visibility-and-access-modifiers">Visibility and Access Modifiers</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="type-signatures">Type Signatures</h2>
+<p>Enso allows users to provide explicit type signatures for values through use of
+the type ascription operator <code class="highlighter-rouge">:</code>. The expression <code class="highlighter-rouge">a : b</code> says that the value
+<code class="highlighter-rouge">a</code> has the type <code class="highlighter-rouge">b</code> attributed to it.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">foo</span> <span class="p">:</span> <span class="p">(</span><span class="n">m</span> <span class="p">:</span> <span class="no">Monoid</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">m</span><span class="p">.</span><span class="nf">this</span>
+</code></pre></div></div>
+
+<p>Type signatures in Enso have some special syntax:</p>
+
+<ul>
+  <li>
+    <p>The reserved name <code class="highlighter-rouge">in</code> is used to specify the monadic context in which a value
+resides. The Enso expression <code class="highlighter-rouge">a in IO</code> is equivalent to the Haskell
+<code class="highlighter-rouge">MonadIO a</code>.</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">foo</span> <span class="p">:</span> <span class="no">Int</span> <span class="o">-&gt;</span> <span class="no">Int</span> <span class="k">in</span> <span class="no">IO</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>The operator <code class="highlighter-rouge">!</code> is used to specify the potential for an <em>error</em> value in a
+type. The expression <code class="highlighter-rouge">a ! E</code> says that the type is either an <code class="highlighter-rouge">a</code> or an error
+value of type <code class="highlighter-rouge">E</code>.</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sr">/ : Number -&gt; Number -&gt; Number ! ArithError
+</span></code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>In Enso, a type signature operates to constrain the values that a given variable
+can hold. Type signatures are <em>always</em> checked, but Enso may maintain more
+specific information in the type inference and checking engines about the type
+of a variable. This means that:</p>
+
+<ul>
+  <li>Enso will infer constraints on types that you haven’t necessarily written.</li>
+  <li>Type signatures can act as a sanity check in that you can encode your
+intention as a type.</li>
+  <li>If the value is of a known type (distinguished from a dynamic type),
+constraints will be introduced on that type.</li>
+  <li>Where the type of the value is known, ascription can be used to constrain that
+type further.</li>
+  <li>It is legal to add constraints to an identifier using <code class="highlighter-rouge">:</code> in any scope in
+which the identifier is visible.</li>
+</ul>
+
+<p>From a syntactic perspective, the type ascription operator <code class="highlighter-rouge">:</code> has the following
+properties:</p>
+
+<ul>
+  <li>The right hand operand to the operator introduces a pattern context.</li>
+  <li>The right hand side may declare fresh variables that occur in that scope.</li>
+  <li>It is not possible to ascribe a type to an identifier without also assigning
+to that identifier.</li>
+  <li>Introduced identifiers will always shadow other identifiers in scope due to
+the fact that <code class="highlighter-rouge">:</code> introduces a new scope on its RHS.</li>
+  <li>Constraint implication is purely feed-forward. The expression <code class="highlighter-rouge">b:A</code> only
+introduces constraints to <code class="highlighter-rouge">b</code>.</li>
+</ul>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>How do signatures interact with function bodies in regards to scoping?</li>
+    <li>Does this differ for root and non-root definitions?</li>
+  </ul>
+</blockquote>
+
+<h2 id="operations-on-types">Operations on Types</h2>
+<p>Enso also provides a set of rich operations on its underlying type-system notion
+of typesets. Their syntax is as follows:</p>
+
+<ul>
+  <li><strong>Union - <code class="highlighter-rouge">|</code>:</strong> The resultant typeset may contain a value of the union of its
+arguments.</li>
+  <li><strong>Intersection - <code class="highlighter-rouge">&amp;</code>:</strong> The resultant typeset may contain values that are
+members of <em>both</em> its arguments.</li>
+  <li><strong>Subtraction - <code class="highlighter-rouge">\</code>:</strong> The resultant typeset may contain values that are in
+the first argument’s set but not in the second.</li>
+</ul>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Unify this with the types document at some point. The types document
+supersedes this section while this actionable exists.</li>
+  </ul>
+</blockquote>
+
+<h2 id="type-definitions">Type Definitions</h2>
+<p>Types in Enso are defined by using the <code class="highlighter-rouge">type</code> reserved name. This works in a
+context-dependent manner that is discussed properly in the
+<a href="../types/README.md">type system design document</a>, but is summarised
+briefly below.</p>
+
+<ul>
+  <li>
+    <p><strong>Name and Fields:</strong> When you provide the keyword with only a name and some
+field names, this creates an atom.</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">type</span> <span class="no">Just</span> <span class="n">value</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Body with Atom Definitions:</strong> If you provide a body with atom definitions,
+this defines a smart constructor that defines the atoms and related functions
+by returning a typeset.</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">type</span> <span class="no">Maybe</span> <span class="n">a</span>
+    <span class="no">Nothing</span>
+    <span class="n">type</span> <span class="no">Just</span> <span class="p">(</span><span class="n">value</span> <span class="p">:</span> <span class="n">a</span><span class="p">)</span>
+
+    <span class="n">isJust</span> <span class="o">=</span> <span class="k">case</span> <span class="n">this</span> <span class="n">of</span>
+        <span class="no">Nothing</span> <span class="o">-&gt;</span> <span class="no">False</span>
+        <span class="no">Just</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="no">True</span>
+
+    <span class="n">nothing</span> <span class="o">=</span> <span class="n">not</span> <span class="n">isJust</span>
+</code></pre></div>    </div>
+
+    <p>Please note that the <code class="highlighter-rouge">type Foo (a : t)</code> is syntax only allowable inside a type
+definition. It defines an atom <code class="highlighter-rouge">Foo</code>, but constrains the type variable of the
+atom <em>in this usage</em>.</p>
+  </li>
+  <li>
+    <p><strong>Body Without Atom Definitions:</strong> If you provide a body and do not define any
+atoms within it, this creates an interface that asserts no atoms as part of
+it.</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">type</span> <span class="no">HasName</span>
+<span class="ss">name: </span><span class="no">String</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>In addition, users may write explicit <code class="highlighter-rouge">this</code> constraints in a type definition,
+using the standard type-ascription syntax:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">type</span> <span class="no">Semigroup</span>
+    <span class="o">&lt;&gt;</span> <span class="p">:</span> <span class="n">this</span> <span class="o">-&gt;</span> <span class="n">this</span>
+
+<span class="n">type</span> <span class="no">Monoid</span>
+    <span class="n">this</span> <span class="p">:</span> <span class="no">Semigroup</span>
+    <span class="n">use</span> <span class="no">Nothing</span>
+</code></pre></div></div>
+
+<h3 id="visibility-and-access-modifiers">Visibility and Access Modifiers</h3>
+<p>While we don’t usually like making things private in a programming language, it
+sometimes the case that it is necessary to indicate that certain fields should
+not be touched (as this might break invariants and such like). To this end, we
+propose an explicit mechanism for access modification that works as follows:</p>
+
+<ul>
+  <li>We provide explicit access modifiers that, at the definition site, start an
+indented block. These are <code class="highlighter-rouge">private</code> and <code class="highlighter-rouge">unsafe</code>.</li>
+  <li>All members in the block have the access modifier attributed to them.</li>
+  <li>By default, accessing any member under an access modifier will be an error.</li>
+  <li>To use members under an access modifier, you use the syntax <code class="highlighter-rouge">use &lt;mod&gt;</code>, where
+<code class="highlighter-rouge">&lt;mod&gt;</code> is a modifier. This syntax ‘takes’ an expression, including blocks,
+within which the user may access members qualified by the modifier <code class="highlighter-rouge">&lt;mod&gt;</code>.</li>
+</ul>
+
+<p>While <code class="highlighter-rouge">private</code> works as you might expect, coming from other languages, the
+<code class="highlighter-rouge">unsafe</code> annotation has additional restrictions:</p>
+
+<ul>
+  <li>It must be explicitly imported from <code class="highlighter-rouge">Std.Unsafe</code>.</li>
+  <li>When you use <code class="highlighter-rouge">unsafe</code>, you must write a documentation comment on its usage
+that contains a section <code class="highlighter-rouge">Safety</code> that describes why this usage of unsafe is
+valid.</li>
+</ul>
+
+                    </section>
+                </div>
+
+                 <!--<div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},
+            "sharing": {
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+                "facebook": true,
+                "google": false,
+                "instapaper": false,
+                "twitter": true,
+                "vk": false,
+                "weibo": false
+            },
+            "theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            }
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "Jekyll Gitbook",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "docs/syntax/types.md",
+        "mtime": "",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.3",
+        "time": "2020-05-15 16:34:05 +0000"
+    },
+    "basePath": "",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/gitbook/gitbook.js"></script>
+<script src="/gitbook/theme.js"></script>
+
+<script src="/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+<script src="/gitbook/gitbook-plugin-sharing/buttons.js"></script>
+
+<!-- <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script> --></body>
+</html>

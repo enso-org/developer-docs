@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>License · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso Protocol Common Message Specification · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Build Jekyll site with the GitBook style.
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
 <link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
-            <link rel="prev" href="/jekyll/2019-04-28-howto.html" />
+            <link rel="prev" href="/" />
         
 
         
@@ -57,7 +57,7 @@
                 </li>
             
                 
-                <li class="chapter active" data-level="1.2" data-path="/jekyll/2019-04-28-license.html">
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
                 
                     <a href="/jekyll/2019-04-28-license.html">
                         License
@@ -80,7 +80,7 @@
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >License</a>
+                <a href="." >Enso Protocol Common Message Specification</a>
             
         </h1>
     </div>
@@ -91,13 +91,119 @@
                     <section class="normal markdown-section">
 
                         
-                            <h1 id="/jekyll/license">License</h1>
+                            <h1 id="">Enso Protocol Common Message Specification</h1>
                         
 
-                        <p>This work is open sourced under the Apache License, Version 2.0, using the
-same license as the original <a href="https://github.com/GitbookIO/gitbook">GitBook</a> repository.</p>
+                        <h1 id="enso-protocol-common-message-specification">Enso Protocol Common Message Specification</h1>
+<p>This document contains the specification of the Enso protocol messages that are
+common to multiple sub-components of the protocol.</p>
 
-<p>Copyright 2019 Tao He.</p>
+<p>For information on the design and architecture of the protocol, as well as its
+transport formats, please look <a href="./protocol-architecture">here</a>.</p>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#protocol-message-specification">Protocol Message Specification</a></li>
+  <li><a href="#common-types">Common Types</a>
+    <ul>
+      <li><a href="#path"><code class="highlighter-rouge">Path</code></a></li>
+      <li><a href="#ipwithsocket"><code class="highlighter-rouge">IPWithSocket</code></a></li>
+      <li><a href="#ensouuid"><code class="highlighter-rouge">EnsoUUID</code></a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="protocol-message-specification">Protocol Message Specification</h2>
+<p>The message specification for protocol messages must include the following
+fields:</p>
+
+<ul>
+  <li><strong>Type:</strong> The type of the message (e.g. Request or Notification).</li>
+  <li><strong>Direction:</strong> The direction in which the <em>originating</em> message is sent
+(either <code class="highlighter-rouge">Client -&gt; Server</code> or <code class="highlighter-rouge">Server -&gt; Client</code>).</li>
+  <li><strong>Connection:</strong> Which connection the message should be sent on. Write
+‘Protocol’ for the textual connection and ‘Data’ for the binary connection.</li>
+  <li><strong>Visibility:</strong> Whether the method should be used by the public or is an
+internal / implementation detail (‘Public’ or ‘Private’).</li>
+</ul>
+
+<p>They must also contain separate sections specifying their parameters, result (if
+it has one), and any errors that may occur. These specifications should be
+either in typescript or flatbuffers syntax, depending on the connection on
+which the message occurs.</p>
+
+<p>The capability specifications must include the following fields, as well as a
+section ‘Enables’ stating which protocol messages are gated by the capability.</p>
+
+<ul>
+  <li><strong>method:</strong> The name of the capability.</li>
+  <li><strong>registerOptions:</strong> The options that must be provided to register the
+capability, described using typescript type syntax.</li>
+</ul>
+
+<h2 id="common-types">Common Types</h2>
+<p>There are a number of types that are shared between many of the protocol
+messages. They are specified below.</p>
+
+<h3 id="path"><code class="highlighter-rouge">Path</code></h3>
+<p>A path is a representation of a path relative to a specified content root.</p>
+
+<h4 id="format">Format</h4>
+<p>Please note that segments can only be ordinary file names, <code class="highlighter-rouge">..</code> and <code class="highlighter-rouge">.</code> may not
+be supported.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Path</span> <span class="p">{</span>
+  <span class="nl">rootId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+  <span class="nl">segments</span><span class="p">:</span> <span class="p">[</span><span class="nb">String</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+//A representation of a path relative to a specified content root.
+table Path {
+
+  //a content root id that the path is relative to
+  rootId: EnsoUUID;
+
+  //path segments
+  segments: [string];
+
+}
+</code></pre>
+
+<h3 id="ipwithsocket"><code class="highlighter-rouge">IPWithSocket</code></h3>
+<p>A IPWithSocket is an endpoint for communication between machines.</p>
+
+<h4 id="format-1">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">IPWithSocket</span> <span class="p">{</span>
+  <span class="nl">host</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">port</span><span class="p">:</span> <span class="nx">Int</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="ensouuid"><code class="highlighter-rouge">EnsoUUID</code></h3>
+<p>An EnsoUUID is a value object containing 128-bit universally unique identifier.</p>
+
+<h4 id="format-2">Format</h4>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+//A binary representation of universally unique identifiers.
+struct EnsoUUID {
+
+  //The most significant bits of the UUID.
+  leastSigBits:uint64;
+
+  //The most significant bits of the UUID.
+  mostSigBits:uint64;
+
+}
+</code></pre>
 
                     </section>
                 </div>
@@ -116,7 +222,7 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
     </div>
 </div>
 
-                    <a href="/jekyll/2019-04-28-howto.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: How to Get Started">
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -204,8 +310,8 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
         "gitbook": "*"
     },
     "file": {
-        "path": "_posts/2019-04-29-license.md",
-        "mtime": "2019-04-28 00:00:00 +0000",
+        "path": "docs/language-server/protocol-common.md",
+        "mtime": "",
         "type": "markdown"
     },
     "gitbook": {

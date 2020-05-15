@@ -1,4 +1,3 @@
 # Enso Developer Documentation
 
-
-WIP
+Under construction, check back soon

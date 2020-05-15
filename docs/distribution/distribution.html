@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>License · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>The Enso Distribution · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Build Jekyll site with the GitBook style.
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
 <link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
-            <link rel="prev" href="/jekyll/2019-04-28-howto.html" />
+            <link rel="prev" href="/" />
         
 
         
@@ -57,7 +57,7 @@
                 </li>
             
                 
-                <li class="chapter active" data-level="1.2" data-path="/jekyll/2019-04-28-license.html">
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
                 
                     <a href="/jekyll/2019-04-28-license.html">
                         License
@@ -80,7 +80,7 @@
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >License</a>
+                <a href="." >The Enso Distribution</a>
             
         </h1>
     </div>
@@ -91,13 +91,132 @@
                     <section class="normal markdown-section">
 
                         
-                            <h1 id="/jekyll/license">License</h1>
+                            <h1 id="">The Enso Distribution</h1>
                         
 
-                        <p>This work is open sourced under the Apache License, Version 2.0, using the
-same license as the original <a href="https://github.com/GitbookIO/gitbook">GitBook</a> repository.</p>
+                        <h1 id="the-enso-distribution">The Enso Distribution</h1>
+<p>This document provides a specification of how the Enso distribution should
+be structured and how it should behave.</p>
 
-<p>Copyright 2019 Tao He.</p>
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#enso-home-layout">Enso Home Layout</a></li>
+  <li><a href="#universal-launcher-script">Universal Launcher Script</a></li>
+  <li><a href="#layout-of-an-enso-version-package">Layout of an Enso Version Package</a>
+    <ul>
+      <li><a href="#package-sets">Package Sets</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="enso-home-layout">Enso Home Layout</h2>
+<p>All of Enso’s binaries, packages, etc. are installed into a directory in
+the user’s home directory. For macOS and linux distributions that’s <code class="highlighter-rouge">~/.enso</code>,
+by default. The distribution is fully portable, so it never makes any
+assumptions about actually being placed in any particular directory.</p>
+
+<p>The directory structure is as follows:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/.enso
+├── bin
+│   └── enso                  # the universal launcher script, responsible for choosing the appropriate compiler version
+├── dist                      # per-compiler-version distribution directories
+│   ├── default -&gt; enso-1.2.0 # a symlink to the version that should be used when no version is explicitely specified
+│   ├── enso-1.0.0            # a full distribution of given Enso version, described below
+│   │   └── &lt;truncated&gt;
+│   └── enso-1.2.0            # a full distribution of given Enso version, described below
+│       └── &lt;truncated&gt;
+└── jvm                       # a directory storing (optional) distributions of the JVM used by the Enso distributions
+    └── graalvm-ce-27.1.1
+</code></pre></div></div>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Determine the appropriate method for per-user installation on windows.</li>
+  </ul>
+</blockquote>
+
+<h2 id="universal-launcher-script">Universal Launcher Script</h2>
+<p>The universal launcher script should be able to launch the proper version of
+Enso executable based on the version specified in the project being run,
+or use the default version if none specified.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Determine the proper technology to implement the script (i.e. Java/Bash).</li>
+    <li>Determine the features needed in the launcher script.</li>
+  </ul>
+</blockquote>
+
+<h2 id="layout-of-an-enso-version-package">Layout of an Enso Version Package</h2>
+<p>This section describes the structure of a single version distribution. This
+system is intended to be implemented first and used e.g. for the Enso nightly
+builds / releases.</p>
+
+<p>Such a distribution can be used as a standalone version, assuming the required
+version of the JVM is installed and used.</p>
+
+<p>The layout of such a distribution is as follows:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>enso-1.0.0
+├── bin           # Contains all the executable tools and their dependencies.
+│   └── enso.jar  # The main executable of the distribution. CLI entry point.
+├── lib           # Contains all the installed libraries for this compiler version.
+│   ├── Http      # Every library directory may contain multiple versions of the same library.
+│   │   ├── 3.1.0 # Every version sub-directory is just an Enso package containing the library.
+│   │   │   ├── package.yaml
+│   │   │   ├── polyglot
+│   │   │   └── src
+│   │   │       ├── Http.enso
+│   │   │       └── Socket.enso
+│   │   └── 5.3.5
+│   │       ├── package.yaml
+│   │       ├── polyglot
+│   │       └── src
+│   │           ├── Http.enso
+│   │           └── Socket.enso
+│   └── Base
+│       └── 1.0.0
+│           ├── package.yaml
+│           └── src
+│               ├── List.enso
+│               ├── Number.enso
+│               └── Text.enso
+└── package-sets # package sets for non-package run modes (described below)
+    ├── default.yaml
+    └── my-package-set.yaml
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Implementation Note:</strong>
+This structure makes use of deep nesting, which may give some with knowledge
+of Windows’ path-name limits pause (windows paths are historically limited to
+256 characters). However, there is no special action required to handle this
+limit as long as we are building on top of the JVM. The JVM automatically
+inserts the <code class="highlighter-rouge">\\?\</code> prefix required to bypass the windows path length limit.</p>
+</blockquote>
+
+<h3 id="package-sets">Package Sets</h3>
+<p>A package set is a manifest containing library versions that are made available
+for importing when no <code class="highlighter-rouge">package.yaml</code> is available (e.g. when using the CLI to
+run a single file). The package set used is <code class="highlighter-rouge">default.yaml</code> and there is no way
+of changing the behavior currently.</p>
+
+<p>Example contents of the <code class="highlighter-rouge">default.yaml</code> file are as follows:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">libraries</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Base</span>
+    <span class="na">version</span><span class="pi">:</span> <span class="s">1.0.0</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Http</span>
+    <span class="na">version</span><span class="pi">:</span> <span class="s">5.3.5</span>
+</code></pre></div></div>
 
                     </section>
                 </div>
@@ -116,7 +235,7 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
     </div>
 </div>
 
-                    <a href="/jekyll/2019-04-28-howto.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: How to Get Started">
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -204,8 +323,8 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
         "gitbook": "*"
     },
     "file": {
-        "path": "_posts/2019-04-29-license.md",
-        "mtime": "2019-04-28 00:00:00 +0000",
+        "path": "docs/distribution/distribution.md",
+        "mtime": "",
         "type": "markdown"
     },
     "gitbook": {

@@ -1,0 +1,2604 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso Protocol Language Server Message Specification · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="Build Jekyll site with the GitBook style.
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
+<link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
+<!-- <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css"> -->
+
+<link rel="stylesheet" href="/gitbook/rouge-highlight-colorful.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
+            <link rel="prev" href="/" />
+        
+
+        
+    </head>
+    <body>
+        <div class="book"><div class="book-summary">
+    <div id="book-search-input" role="search">
+        <input type="text" placeholder="Type to search" />
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="">
+            
+                <a href="">
+                    Jekyll Gitbook
+                </a>
+            </li>
+
+            <li class="divider"></li>
+
+            
+
+            
+                
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-27-why.html">
+                
+                    <a href="/jekyll/2019-04-27-why.html">
+                        Why Jekyll with GitBook
+                    </a>
+                </li>
+            
+                
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-howto.html">
+                
+                    <a href="/jekyll/2019-04-28-howto.html">
+                        How to Get Started
+                    </a>
+                </li>
+            
+                
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
+                
+                    <a href="/jekyll/2019-04-28-license.html">
+                        License
+                    </a>
+                </li>
+            
+
+            <li class="divider"></li>
+
+            <li>
+                <a href="https://github.com/sighingnow/jekyll-gitbook/fork" target="blank" class="gitbook-link">
+                    Fork it Now!
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div><div class="book-body"><div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            
+                <a href="." >Enso Protocol Language Server Message Specification</a>
+            
+        </h1>
+    </div>
+    <div class="page-wrapper" tabindex="-1" role="main">
+        <div class="page-inner">
+            <div id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+
+                        
+                            <h1 id="">Enso Protocol Language Server Message Specification</h1>
+                        
+
+                        <h1 id="enso-protocol-language-server-message-specification">Enso Protocol Language Server Message Specification</h1>
+<p>This document contains the specification of the Enso protocol messages that
+pertain to the language server component. Please familiarise yourself with the
+<a href="./protocol-common.md">common</a> features of the protocol before reading this
+document.</p>
+
+<p>For information on the design and architecture of the protocol, as well as its
+transport formats, please look <a href="./protocol-architecture">here</a>.</p>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#types">Types</a>
+    <ul>
+      <li><a href="#expressionid"><code class="highlighter-rouge">ExpressionId</code></a></li>
+      <li><a href="#contextid"><code class="highlighter-rouge">ContextId</code></a></li>
+      <li><a href="#stackitem"><code class="highlighter-rouge">StackItem</code></a></li>
+      <li><a href="#methodpointer"><code class="highlighter-rouge">MethodPointer</code></a></li>
+      <li><a href="#expressionvalueupdate"><code class="highlighter-rouge">ExpressionValueUpdate</code></a></li>
+      <li><a href="#visualisationconfiguration"><code class="highlighter-rouge">VisualisationConfiguration</code></a></li>
+      <li><a href="#file"><code class="highlighter-rouge">File</code></a></li>
+      <li><a href="#directorytree"><code class="highlighter-rouge">DirectoryTree</code></a></li>
+      <li><a href="#fileattributes"><code class="highlighter-rouge">FileAttributes</code></a></li>
+      <li><a href="#utcdatetime"><code class="highlighter-rouge">UTCDateTime</code></a></li>
+      <li><a href="#fileeventkind"><code class="highlighter-rouge">FileEventKind</code></a></li>
+      <li><a href="#position"><code class="highlighter-rouge">Position</code></a></li>
+      <li><a href="#range"><code class="highlighter-rouge">Range</code></a></li>
+      <li><a href="#textedit"><code class="highlighter-rouge">TextEdit</code></a></li>
+      <li><a href="#sha3-224"><code class="highlighter-rouge">SHA3-224</code></a></li>
+      <li><a href="#fileedit"><code class="highlighter-rouge">FileEdit</code></a></li>
+      <li><a href="#filecontents"><code class="highlighter-rouge">FileContents</code></a></li>
+      <li><a href="#filesystemobject"><code class="highlighter-rouge">FileSystemObject</code></a></li>
+      <li><a href="#workspaceedit"><code class="highlighter-rouge">WorkspaceEdit</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#connection-management">Connection Management</a>
+    <ul>
+      <li><a href="#sessioninitprotocolconnection"><code class="highlighter-rouge">session/initProtocolConnection</code></a></li>
+      <li><a href="#sessioninitbinaryconnection"><code class="highlighter-rouge">session/initBinaryConnection</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#capability-management">Capability Management</a>
+    <ul>
+      <li><a href="#capabilityacquire"><code class="highlighter-rouge">capability/acquire</code></a></li>
+      <li><a href="#capabilityrelease"><code class="highlighter-rouge">capability/release</code></a></li>
+      <li><a href="#capabilitygranted"><code class="highlighter-rouge">capability/granted</code></a></li>
+      <li><a href="#capabilityforcereleased"><code class="highlighter-rouge">capability/forceReleased</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#capabilities">Capabilities</a>
+    <ul>
+      <li><a href="#textcanedit"><code class="highlighter-rouge">text/canEdit</code></a></li>
+      <li><a href="#filereceivestreeupdates"><code class="highlighter-rouge">file/receivesTreeUpdates</code></a></li>
+      <li><a href="#executioncontextcanmodify"><code class="highlighter-rouge">executionContext/canModify</code></a></li>
+      <li><a href="#executioncontextreceivesupdates"><code class="highlighter-rouge">executionContext/receivesUpdates</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#file-management-operations">File Management Operations</a>
+    <ul>
+      <li><a href="#filewrite"><code class="highlighter-rouge">file/write</code></a></li>
+      <li><a href="#fileread"><code class="highlighter-rouge">file/read</code></a></li>
+      <li><a href="#filewritebinary"><code class="highlighter-rouge">file/writeBinary</code></a></li>
+      <li><a href="#filereadbinary"><code class="highlighter-rouge">file/readBinary</code></a></li>
+      <li><a href="#filecreate"><code class="highlighter-rouge">file/create</code></a></li>
+      <li><a href="#filedelete"><code class="highlighter-rouge">file/delete</code></a></li>
+      <li><a href="#filecopy"><code class="highlighter-rouge">file/copy</code></a></li>
+      <li><a href="#filemove"><code class="highlighter-rouge">file/move</code></a></li>
+      <li><a href="#fileexists"><code class="highlighter-rouge">file/exists</code></a></li>
+      <li><a href="#filetree"><code class="highlighter-rouge">file/tree</code></a></li>
+      <li><a href="#filelist"><code class="highlighter-rouge">file/list</code></a></li>
+      <li><a href="#fileinfo"><code class="highlighter-rouge">file/info</code></a></li>
+      <li><a href="#fileevent"><code class="highlighter-rouge">file/event</code></a></li>
+      <li><a href="#fileaddroot"><code class="highlighter-rouge">file/addRoot</code></a></li>
+      <li><a href="#fileremoveroot"><code class="highlighter-rouge">file/removeRoot</code></a></li>
+      <li><a href="#filerootadded"><code class="highlighter-rouge">file/rootAdded</code></a></li>
+      <li><a href="#filerootremoved"><code class="highlighter-rouge">file/rootRemoved</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#text-editing-operations">Text Editing Operations</a>
+    <ul>
+      <li><a href="#textopenfile"><code class="highlighter-rouge">text/openFile</code></a></li>
+      <li><a href="#textclosefile"><code class="highlighter-rouge">text/closeFile</code></a></li>
+      <li><a href="#textsave"><code class="highlighter-rouge">text/save</code></a></li>
+      <li><a href="#textapplyedit"><code class="highlighter-rouge">text/applyEdit</code></a></li>
+      <li><a href="#textdidchange"><code class="highlighter-rouge">text/didChange</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#workspace-operations">Workspace Operations</a>
+    <ul>
+      <li><a href="#workspaceundo"><code class="highlighter-rouge">workspace/undo</code></a></li>
+      <li><a href="#workspaceredo"><code class="highlighter-rouge">workspace/redo</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#monitoring">Monitoring</a>
+    <ul>
+      <li><a href="#heartbeatping"><code class="highlighter-rouge">heartbeat/ping</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#execution-management-operations">Execution Management Operations</a>
+    <ul>
+      <li><a href="#example">Example</a></li>
+      <li><a href="#create-execution-context">Create Execution Context</a></li>
+      <li><a href="#push-item">Push Item</a></li>
+      <li><a href="#pop-item">Pop Item</a></li>
+      <li><a href="#executioncontextcreate"><code class="highlighter-rouge">executionContext/create</code></a></li>
+      <li><a href="#executioncontextdestroy"><code class="highlighter-rouge">executionContext/destroy</code></a></li>
+      <li><a href="#executioncontextfork"><code class="highlighter-rouge">executionContext/fork</code></a></li>
+      <li><a href="#executioncontextpush"><code class="highlighter-rouge">executionContext/push</code></a></li>
+      <li><a href="#executioncontextpop"><code class="highlighter-rouge">executionContext/pop</code></a></li>
+      <li><a href="#executioncontextrecompute"><code class="highlighter-rouge">executionContext/recompute</code></a></li>
+      <li><a href="#executioncontextexpressionvaluescomputed"><code class="highlighter-rouge">executionContext/expressionValuesComputed</code></a></li>
+      <li><a href="#executioncontextattachvisualisation"><code class="highlighter-rouge">executionContext/attachVisualisation</code></a></li>
+      <li><a href="#executioncontextdetachvisualisation"><code class="highlighter-rouge">executionContext/detachVisualisation</code></a></li>
+      <li><a href="#executioncontextmodifyvisualisation"><code class="highlighter-rouge">executionContext/modifyVisualisation</code></a></li>
+      <li><a href="#executioncontextvisualisationupdate"><code class="highlighter-rouge">executionContext/visualisationUpdate</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#errors">Errors</a>
+    <ul>
+      <li><a href="#accessdeniederror"><code class="highlighter-rouge">AccessDeniedError</code></a></li>
+      <li><a href="#filesystemerror"><code class="highlighter-rouge">FileSystemError</code></a></li>
+      <li><a href="#contentrootnotfounderror"><code class="highlighter-rouge">ContentRootNotFoundError</code></a></li>
+      <li><a href="#filenotfound"><code class="highlighter-rouge">FileNotFound</code></a></li>
+      <li><a href="#fileexists-1"><code class="highlighter-rouge">FileExists</code></a></li>
+      <li><a href="#operationtimeouterror"><code class="highlighter-rouge">OperationTimeoutError</code></a></li>
+      <li><a href="#notdirectory"><code class="highlighter-rouge">NotDirectory</code></a></li>
+      <li><a href="#stackitemnotfounderror"><code class="highlighter-rouge">StackItemNotFoundError</code></a></li>
+      <li><a href="#contextnotfounderror"><code class="highlighter-rouge">ContextNotFoundError</code></a></li>
+      <li><a href="#emptystackerror"><code class="highlighter-rouge">EmptyStackError</code></a></li>
+      <li><a href="#invalidstackitemerror"><code class="highlighter-rouge">InvalidStackItemError</code></a></li>
+      <li><a href="#modulenotfounderror"><code class="highlighter-rouge">ModuleNotFoundError</code></a></li>
+      <li><a href="#visualisationnotfounderror"><code class="highlighter-rouge">VisualisationNotFoundError</code></a></li>
+      <li><a href="#visualisationexpressionerror"><code class="highlighter-rouge">VisualisationExpressionError</code></a></li>
+      <li><a href="#visualisationevaluationerror"><code class="highlighter-rouge">VisualisationEvaluationError</code></a></li>
+      <li><a href="#executionfailederror"><code class="highlighter-rouge">ExecutionFailedError</code></a></li>
+      <li><a href="#filenotopenederror"><code class="highlighter-rouge">FileNotOpenedError</code></a></li>
+      <li><a href="#texteditvalidationerror"><code class="highlighter-rouge">TextEditValidationError</code></a></li>
+      <li><a href="#invalidversionerror"><code class="highlighter-rouge">InvalidVersionError</code></a></li>
+      <li><a href="#writedeniederror"><code class="highlighter-rouge">WriteDeniedError</code></a></li>
+      <li><a href="#capabilitynotacquired"><code class="highlighter-rouge">CapabilityNotAcquired</code></a></li>
+      <li><a href="#sessionnotinitialisederror"><code class="highlighter-rouge">SessionNotInitialisedError</code></a></li>
+      <li><a href="#sessionalreadyinitialisederror"><code class="highlighter-rouge">SessionAlreadyInitialisedError</code></a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="types">Types</h2>
+<p>There are a number of types that are used only within the language server’s
+protocol messages. These are specified here.</p>
+
+<h3 id="expressionid"><code class="highlighter-rouge">ExpressionId</code></h3>
+<p>An identifier used for Enso expressions.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">ExpressionId</span> <span class="o">=</span> <span class="nx">UUID</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="contextid"><code class="highlighter-rouge">ContextId</code></h3>
+<p>An identifier used for execution contexts.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">ContextId</span> <span class="o">=</span> <span class="nx">UUID</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="stackitem"><code class="highlighter-rouge">StackItem</code></h3>
+<p>A representation of an executable position in code, used by the execution APIs.</p>
+
+<p><code class="highlighter-rouge">ExplicitCall</code> is a call performed at the top of the stack, to initialize the
+context with first execution.
+The <code class="highlighter-rouge">thisArgumentsPosition</code> field can be omitted, in which case the context
+will try to infer the argument on a best-effort basis. E.g. for a module-level
+method, or a method defined on a parameter-less atom type, <code class="highlighter-rouge">this</code> will be
+substituted for the unambiguous singleton instance.</p>
+
+<p><code class="highlighter-rouge">LocalCall</code> is a call corresponding to “entering a function call”.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">StackItem</span> <span class="o">=</span> <span class="nx">ExplicitCall</span> <span class="o">|</span> <span class="nx">LocalCall</span>
+
+<span class="kr">interface</span> <span class="nx">ExplicitCall</span> <span class="p">{</span>
+  <span class="nl">methodPointer</span><span class="p">:</span> <span class="nx">MethodPointer</span><span class="p">;</span>
+  <span class="nl">thisArgumentExpression</span><span class="p">?:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">positionalArgumentsExpressions</span><span class="p">:</span> <span class="nb">String</span><span class="p">[];</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">LocalCall</span> <span class="p">{</span>
+  <span class="nl">expressionId</span><span class="p">:</span> <span class="nx">ExpressionId</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="methodpointer"><code class="highlighter-rouge">MethodPointer</code></h3>
+<p>Points to a method definition.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">MethodPointer</span> <span class="p">{</span>
+  <span class="nl">file</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+  <span class="nl">definedOnType</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="expressionvalueupdate"><code class="highlighter-rouge">ExpressionValueUpdate</code></h3>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ExpressionValueUpdate</span> <span class="p">{</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">ExpressionId</span><span class="p">;</span>
+  <span class="nl">type</span><span class="p">?:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">shortValue</span><span class="p">?:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">methodCall</span><span class="p">?:</span> <span class="nx">MethodPointer</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="visualisationconfiguration"><code class="highlighter-rouge">VisualisationConfiguration</code></h3>
+<p>A configuration object for properties of the visualisation.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">VisualisationConfiguration</span> <span class="p">{</span>
+  <span class="cm">/**
+   * An execution context of the visualisation.
+   */</span>
+  <span class="nl">executionContextId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+  <span class="cm">/**
+   * A qualified name of the module containing the expression which creates
+   * visualisation.
+   */</span>
+  <span class="nl">visualisationModule</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="cm">/**
+   * The expression that creates a visualisation.
+   */</span>
+  <span class="nl">expression</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="file"><code class="highlighter-rouge">File</code></h3>
+<p>A representation of a file on disk.</p>
+
+<h4 id="format">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">File</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span> <span class="c1">// Includes the file extension</span>
+  <span class="nl">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="directorytree"><code class="highlighter-rouge">DirectoryTree</code></h3>
+<p>A directory tree is a recursive type used to represent tree structures of files
+and directories. It contains files and symlinks in the <code class="highlighter-rouge">files</code> section and
+directories in the <code class="highlighter-rouge">directories</code> section. When the tree was requested with the
+parameter limiting the maximum depth, the bottom of the <code class="highlighter-rouge">DirectoryTree</code> will
+contain <code class="highlighter-rouge">Directory</code> node in the <code class="highlighter-rouge">files</code> section indicating that there is a
+directory, but the contents are unknown because we’ve reached the maximum depth.</p>
+
+<h4 id="format-1">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">DirectoryTree</span> <span class="p">{</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">files</span><span class="p">:</span> <span class="p">[</span><span class="nx">FileSystemObject</span><span class="p">];</span>
+  <span class="nl">directories</span><span class="p">:</span> <span class="p">[</span><span class="nx">DirectoryTree</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="fileattributes"><code class="highlighter-rouge">FileAttributes</code></h3>
+<p>A description of the attributes of a file required by the IDE. These attributes
+may be expanded in future.</p>
+
+<h4 id="format-2">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * A representation of the attributes of a file.
+ *
+ * @param creationTime creation time
+ * @param lastAccessTime last access time
+ * @param lastModifiedTime last modified time
+ * @param kind type of [[FileSystemObject]], can be:
+ * `Directory`, `File`, `Other`
+ * @param byteSize size in bytes
+ */</span>
+<span class="kr">interface</span> <span class="nx">FileAttributes</span> <span class="p">{</span>
+  <span class="nl">creationTime</span><span class="p">:</span> <span class="nx">UTCDateTime</span><span class="p">;</span>
+  <span class="nl">lastAccessTime</span><span class="p">:</span> <span class="nx">UTCDateTime</span><span class="p">;</span>
+  <span class="nl">lastModifiedTime</span><span class="p">:</span> <span class="nx">UTCDateTime</span><span class="p">;</span>
+  <span class="nl">kind</span><span class="p">:</span> <span class="nx">FileSystemObject</span><span class="p">;</span>
+  <span class="nl">byteSize</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="utcdatetime"><code class="highlighter-rouge">UTCDateTime</code></h3>
+<p>Time in UTC time zone represented as ISO-8601 string</p>
+
+<h4 id="format-3">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">UTCDateTime</span> <span class="o">=</span> <span class="nb">String</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="fileeventkind"><code class="highlighter-rouge">FileEventKind</code></h3>
+<p>The kind of event being described for a watched file.</p>
+
+<h4 id="format-4">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">FileEventKind</span> <span class="o">=</span> <span class="nx">Added</span> <span class="o">|</span> <span class="nx">Removed</span> <span class="o">|</span> <span class="nx">Modified</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="position"><code class="highlighter-rouge">Position</code></h3>
+<p>A representation of a position in a text file.</p>
+
+<h4 id="format-5">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Position</span> <span class="p">{</span>
+  <span class="cm">/**
+   * Line position in a document (zero-based).
+   */</span>
+  <span class="nl">line</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * Character offset on a line in a document (zero-based). Assuming that the
+   * line is represented as a string, the `character` value represents the gap
+   * between the `character` and `character + 1`.
+   *
+   * If the character value is greater than the line length it defaults back to
+   * the line length.
+   */</span>
+  <span class="nl">character</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="range"><code class="highlighter-rouge">Range</code></h3>
+<p>A representation of a range of text in a text file.</p>
+
+<h4 id="format-6">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Range</span> <span class="p">{</span>
+  <span class="cm">/**
+   * The range's start position.
+   */</span>
+  <span class="nl">start</span><span class="p">:</span> <span class="nx">Position</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The range's end position.
+   */</span>
+  <span class="nl">end</span><span class="p">:</span> <span class="nx">Position</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="textedit"><code class="highlighter-rouge">TextEdit</code></h3>
+<p>A representation of a change to a text file at a given position.</p>
+
+<h4 id="format-7">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">TextEdit</span> <span class="p">{</span>
+  <span class="nl">range</span><span class="p">:</span> <span class="nx">Range</span><span class="p">;</span>
+  <span class="nl">text</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="sha3-224"><code class="highlighter-rouge">SHA3-224</code></h3>
+<p>The <code class="highlighter-rouge">SHA3-224</code> message digest encoded as a base16 string.</p>
+
+<h4 id="format-8">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">SHA3</span><span class="o">-</span><span class="mi">224</span> <span class="o">=</span> <span class="nb">String</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="fileedit"><code class="highlighter-rouge">FileEdit</code></h3>
+<p>A representation of a batch of edits to a file, versioned.</p>
+
+<p><code class="highlighter-rouge">SHA3-224</code> represents hash of the file contents. <code class="highlighter-rouge">oldVersion</code> is the version
+you’re applying your update on, <code class="highlighter-rouge">newVersion</code> is what you compute as the hash
+after applying the changes. In other words,</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">hash</span><span class="p">(</span><span class="n">origFile</span><span class="p">)</span> <span class="o">==</span> <span class="n">oldVersion</span>
+<span class="nb">hash</span><span class="p">(</span><span class="n">applyEdits</span><span class="p">(</span><span class="n">origFile</span><span class="p">,</span> <span class="n">edits</span><span class="p">))</span> <span class="o">==</span> <span class="n">newVersion</span>
+</code></pre></div></div>
+
+<p>it’s a sanity check to make sure that the diffs are applied consistently.</p>
+
+<h4 id="format-9">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">FileEdit</span> <span class="p">{</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+  <span class="nl">edits</span><span class="p">:</span> <span class="p">[</span><span class="nx">TextEdit</span><span class="p">];</span>
+  <span class="nl">oldVersion</span><span class="p">:</span> <span class="nx">SHA3</span><span class="o">-</span><span class="mi">224</span><span class="p">;</span>
+  <span class="nl">newVersion</span><span class="p">:</span> <span class="nx">SHA3</span><span class="o">-</span><span class="mi">224</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="filecontents"><code class="highlighter-rouge">FileContents</code></h3>
+<p>A representation of the contents of a file.</p>
+
+<h4 id="format-10">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">FileContents</span><span class="p">[</span><span class="nx">T</span><span class="p">]</span> <span class="p">{</span>
+  <span class="nl">contents</span><span class="p">:</span> <span class="nx">T</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">TextFileContents</span> <span class="kd">extends</span> <span class="nx">FileContents</span><span class="p">[</span><span class="nb">String</span><span class="p">];</span>
+</code></pre></div></div>
+
+<h3 id="filesystemobject"><code class="highlighter-rouge">FileSystemObject</code></h3>
+<p>A representation of what kind of type a filesystem object can be.</p>
+
+<h4 id="format-11">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">FileSystemObject</span>
+  <span class="o">=</span> <span class="nx">Directory</span>
+  <span class="o">|</span> <span class="nx">SymlinkLoop</span>
+  <span class="o">|</span> <span class="nx">File</span>
+  <span class="o">|</span> <span class="nx">Other</span><span class="p">;</span>
+
+<span class="cm">/**
+ * Represents a directory.
+ *
+ * @param name a name of the directory
+ * @param path a path to the directory
+ */</span>
+<span class="kr">interface</span> <span class="nx">Directory</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * Represents a symbolic link that creates a loop.
+ *
+ * @param name a name of the symlink
+ * @param path a path to the symlink
+ * @param target a target of the symlink. Since it is a loop,
+ * target is a subpath of the symlink
+ */</span>
+<span class="kr">interface</span> <span class="nx">SymlinkLoop</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+  <span class="nl">target</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * Represents a file.
+ *
+ * @param name a name of the file
+ * @param path a path to the file
+ */</span>
+<span class="kr">interface</span> <span class="nx">File</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+ * Represents unrecognized object.
+ * Example is a broken symbolic link.
+ */</span>
+<span class="kr">interface</span> <span class="nx">Other</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="workspaceedit"><code class="highlighter-rouge">WorkspaceEdit</code></h3>
+<p>This is a message to be specified once we better understand the intricacies of
+undo/redo.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Work out the design of this message.</li>
+    <li>Specify this message.</li>
+  </ul>
+</blockquote>
+
+<h2 id="connection-management">Connection Management</h2>
+<p>In order to properly set-up and tear-down the language server connection, we
+need a set of messages to control this process.</p>
+
+<h3 id="sessioninitprotocolconnection"><code class="highlighter-rouge">session/initProtocolConnection</code></h3>
+<p>This message initialises the connection used to send the textual protocol
+messages. This initialisation is important such that the client identifier can
+be correlated between the textual and data connections.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">clientId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">contentRoots</span><span class="p">:</span> <span class="p">[</span><span class="nx">UUID</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors">Errors</h4>
+<ul>
+  <li><a href="#sessionalreadyinitialisederror"><code class="highlighter-rouge">SessionAlreadyInitialisedError</code></a> to signal
+that session is already initialised.</li>
+</ul>
+
+<h3 id="sessioninitbinaryconnection"><code class="highlighter-rouge">session/initBinaryConnection</code></h3>
+<p>This message initialises the data connection used for transferring binary data
+between engine and clients. This initialisation is important such that the
+client identifier can be correlated between the data and textual connections.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Data</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-1">Parameters</h4>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+//A command initializing a data session.
+table InitSessionCommand {
+
+  //A unique identifier of a client initializing the session.
+  identifier: EnsoUUID (required);
+
+}
+
+root_type InitSessionCommand;
+</code></pre>
+
+<h4 id="result-1">Result</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>namespace org.enso.languageserver.protocol.binary;
+
+//Indicates an operation has succeeded.
+table Success {}
+</code></pre></div></div>
+
+<h4 id="errors-1">Errors</h4>
+<p>N/A</p>
+
+<h2 id="capability-management">Capability Management</h2>
+<p>In order to mediate between multiple clients properly, the language server has
+a robust notion of capability management to grant and remove permissions from
+clients.</p>
+
+<h3 id="capabilityacquire"><code class="highlighter-rouge">capability/acquire</code></h3>
+<p>This requests that the server grant the specified capability to the requesting
+client.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-2">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">registration</span><span class="p">:</span> <span class="nx">CapabilityRegistration</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">CapabilityRegistration</span> <span class="p">{</span>
+  <span class="nl">method</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">registerOptions</span><span class="p">?:</span> <span class="nx">any</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">registerOptions</code> are determined by the <code class="highlighter-rouge">method</code>. The method must be listed
+in the section on <a href="#capabilities">capabilities</a> below.</p>
+
+<h4 id="result-2">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-2">Errors</h4>
+<p>TBC</p>
+
+<h3 id="capabilityrelease"><code class="highlighter-rouge">capability/release</code></h3>
+<p>This requests that the server acknowledge that the client is releasing a given
+capability.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-3">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">registration</span><span class="p">:</span> <span class="nx">CapabilityRegistration</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-3">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-3">Errors</h4>
+<p>TBC</p>
+
+<h3 id="capabilitygranted"><code class="highlighter-rouge">capability/granted</code></h3>
+<p>This notifies the client that it has been granted a capability without any
+action on its part.</p>
+
+<ul>
+  <li><strong>Type:</strong> Notification</li>
+  <li><strong>Direction:</strong> Server -&gt; Client</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-4">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">registration</span><span class="p">:</span> <span class="nx">CapabilityRegistration</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-4">Errors</h4>
+<p>TBC</p>
+
+<h3 id="capabilityforcereleased"><code class="highlighter-rouge">capability/forceReleased</code></h3>
+<p>This notifies the client that a capability has been forcibly removed from its
+capability set.</p>
+
+<ul>
+  <li><strong>Type:</strong> Notification</li>
+  <li><strong>Direction:</strong> Server -&gt; Client</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-5">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">registration</span><span class="p">:</span> <span class="nx">CapabilityRegistration</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-5">Errors</h4>
+<p>TBC</p>
+
+<h2 id="capabilities">Capabilities</h2>
+<p>The capability management features work with the following capabilities.</p>
+
+<h3 id="textcanedit"><code class="highlighter-rouge">text/canEdit</code></h3>
+<p>This capability states that the capability has the ability to perform both
+<code class="highlighter-rouge">text/applyEdit</code> and <code class="highlighter-rouge">text/save</code> for the specified file.</p>
+
+<ul>
+  <li><strong>method:</strong> <code class="highlighter-rouge">text/canEdit</code></li>
+  <li><strong>registerOptions:</strong> <code class="highlighter-rouge">{path: Path;}</code></li>
+</ul>
+
+<h4 id="enables">Enables</h4>
+<ul>
+  <li><a href="#textapplyedit"><code class="highlighter-rouge">text/applyEdit</code></a></li>
+  <li><a href="#textsave"><code class="highlighter-rouge">text/save</code></a></li>
+</ul>
+
+<h4 id="disables">Disables</h4>
+<p>None</p>
+
+<h3 id="filereceivestreeupdates"><code class="highlighter-rouge">file/receivesTreeUpdates</code></h3>
+<p>This capability states that the client will receive updates for any watched
+content roots in the current project.</p>
+
+<ul>
+  <li><strong>method:</strong> <code class="highlighter-rouge">file/receivesTreeUpdates</code></li>
+  <li><strong>registerOptions:</strong> <code class="highlighter-rouge">{ path: Path; }</code></li>
+</ul>
+
+<h4 id="enables-1">Enables</h4>
+<ul>
+  <li><a href="#fileevent"><code class="highlighter-rouge">file/event</code></a></li>
+</ul>
+
+<h4 id="disables-1">Disables</h4>
+<p>None</p>
+
+<h4 id="errors-6">Errors</h4>
+
+<p><a href="#capabilityacquire"><code class="highlighter-rouge">capability/acquire</code></a>:</p>
+<ul>
+  <li><a href="#filesystemerror"><code class="highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+  <li><a href="#filenotfound"><code class="highlighter-rouge">FileNotFound</code></a> informs that path cannot be found.</li>
+</ul>
+
+<p><a href="#capabilityrelease"><code class="highlighter-rouge">capability/release</code></a>:</p>
+<ul>
+  <li><a href="#capabilitynotacquired"><code class="highlighter-rouge">CapabilityNotAcquired</code></a> informs that requested
+capability is not acquired.</li>
+</ul>
+
+<h3 id="executioncontextcanmodify"><code class="highlighter-rouge">executionContext/canModify</code></h3>
+<p>This capability states that the client has the ability to modify an execution
+context, including modifying the execution stack, invalidating caches, or
+destroying the context.</p>
+
+<ul>
+  <li><strong>method:</strong> <code class="highlighter-rouge">executionContext/canModify</code></li>
+  <li><strong>registerOptions:</strong> <code class="highlighter-rouge">{  contextId: ContextId; }</code></li>
+</ul>
+
+<h4 id="enables-2">Enables</h4>
+<ul>
+  <li><a href="#executioncontextdestroy"><code class="highlighter-rouge">executionContext/destroy</code></a></li>
+  <li><a href="#executioncontextrecompute"><code class="highlighter-rouge">executionContext/recompute</code></a></li>
+  <li><a href="#executioncontextpush"><code class="highlighter-rouge">executionContext/push</code></a></li>
+  <li><a href="#executioncontextpop"><code class="highlighter-rouge">executionContext/pop</code></a></li>
+  <li><a href="#executioncontextattachvisualisation"><code class="highlighter-rouge">executionContext/attachVisualisation</code></a></li>
+  <li><a href="#executioncontextmodifyvisualisation"><code class="highlighter-rouge">executionContext/modifyVisualisation</code></a></li>
+  <li><a href="#executioncontextdetachvisualisation"><code class="highlighter-rouge">executionContext/detachVisualisation</code></a></li>
+  <li><a href="#executioncontextvisualisationupdate"><code class="highlighter-rouge">executionContext/visualisationUpdate</code></a></li>
+</ul>
+
+<h4 id="disables-2">Disables</h4>
+<p>None</p>
+
+<h3 id="executioncontextreceivesupdates"><code class="highlighter-rouge">executionContext/receivesUpdates</code></h3>
+<p>This capability states that the client receives expression value updates from
+a given execution context.</p>
+
+<ul>
+  <li><strong>method:</strong> <code class="highlighter-rouge">executionContext/receivesUpdates</code></li>
+  <li><strong>registerOptions:</strong> <code class="highlighter-rouge">{  contextId: ContextId; }</code></li>
+</ul>
+
+<h4 id="enables-3">Enables</h4>
+<ul>
+  <li><a href="#executioncontextexpressionvaluescomputed"><code class="highlighter-rouge">executionContext/expressionValuesComputed</code></a></li>
+</ul>
+
+<h4 id="disables-3">Disables</h4>
+<p>None</p>
+
+<h2 id="file-management-operations">File Management Operations</h2>
+<p>The language server also provides file operations to the IDE.</p>
+
+<h3 id="filewrite"><code class="highlighter-rouge">file/write</code></h3>
+<p>This requests that the file manager component write to a specified file with
+the specified contents.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+</ul>
+
+<p>This request is <em>explicitly</em> allowed to write to files that do not exist, and
+will create them under such circumstances. If a file is recorded as ‘open’ by
+one of the clients, and another client attempts to write to that file, the
+write must fail.</p>
+
+<h4 id="parameters-6">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+  <span class="nl">contents</span><span class="p">:</span> <span class="nx">FileContents</span><span class="p">[</span><span class="nx">T</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-4">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-7">Errors</h4>
+
+<ul>
+  <li><a href="#filesystemerror"><code class="highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+  <li><a href="#contentrootnotfounderror"><code class="highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
+requested content root cannot be found.</li>
+  <li><a href="#accessdeniederror"><code class="highlighter-rouge">AccessDeniedError</code></a> to signal that a user doesn’t have
+access to a resource.</li>
+</ul>
+
+<h3 id="fileread"><code class="highlighter-rouge">file/read</code></h3>
+<p>This requests that the file manager component reads the contents of a specified
+file.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<p>If the file is recorded as open by the language server, then the result will
+return the contents from the in-memory buffer rather than the file on disk.</p>
+
+<h4 id="parameters-7">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-5">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">contents</span><span class="p">:</span> <span class="nx">FileContents</span><span class="p">[</span><span class="nx">T</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-8">Errors</h4>
+
+<ul>
+  <li><a href="#filesystemerror"><code class="highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+  <li><a href="#contentrootnotfounderror"><code class="highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
+requested content root cannot be found.</li>
+  <li><a href="#accessdeniederror"><code class="highlighter-rouge">AccessDeniedError</code></a> to signal that a user doesn’t have
+access to a resource.</li>
+  <li><a href="#filenotfound"><code class="highlighter-rouge">FileNotFound</code></a> informs that file cannot be found.</li>
+</ul>
+
+<h3 id="filewritebinary"><code class="highlighter-rouge">file/writeBinary</code></h3>
+<p>This requests that the file manager component write to a specified file with
+the binary contents.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Connection:</strong> Binary</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+</ul>
+
+<p>This request is <em>explicitly</em> allowed to write to files that do not exist, and
+will create them under such circumstances. If a file is recorded as ‘open’ by
+one of the clients, and another client attempts to write to that file, the
+write must fail.</p>
+
+<h4 id="parameters-8">Parameters</h4>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+//A command writing binary contents to a file.
+table WriteFileCommand {
+
+  //A path to a file.
+  path: Path;
+
+  //Binary contents.
+  contents: [ubyte];
+
+}
+
+</code></pre>
+
+<h4 id="result-6">Result</h4>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+//Indicates an operation has succeeded.
+table Success {}
+</code></pre>
+
+<h4 id="errors-9">Errors</h4>
+
+<ul>
+  <li><a href="#filesystemerror"><code class="highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+  <li><a href="#contentrootnotfounderror"><code class="highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
+requested content root cannot be found.</li>
+  <li><a href="#accessdeniederror"><code class="highlighter-rouge">AccessDeniedError</code></a> to signal that a user doesn’t have
+access to a resource.</li>
+</ul>
+
+<h3 id="filereadbinary"><code class="highlighter-rouge">file/readBinary</code></h3>
+<p>This requests that the file manager component reads the binary contents of a
+specified file.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Binary</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<p>If the file is recorded as open by the language server, then the result will
+return the contents from the in-memory buffer rather than the file on disk.</p>
+
+<h4 id="parameters-9">Parameters</h4>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+//A command reading binary contents from a file.
+table ReadFileCommand {
+
+  //A path to a file.
+  path: Path;
+
+}
+</code></pre>
+
+<h4 id="result-7">Result</h4>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+//A reply for a ReadFileCommand.
+table FileContentsReply {
+
+  //Binary contents.
+  contents: [ubyte];
+
+}
+</code></pre>
+
+<h4 id="errors-10">Errors</h4>
+
+<ul>
+  <li><a href="#filesystemerror"><code class="highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+  <li><a href="#contentrootnotfounderror"><code class="highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
+requested content root cannot be found.</li>
+  <li><a href="#accessdeniederror"><code class="highlighter-rouge">AccessDeniedError</code></a> to signal that a user doesn’t have
+access to a resource.</li>
+  <li><a href="#filenotfound"><code class="highlighter-rouge">FileNotFound</code></a> informs that file cannot be found.</li>
+</ul>
+
+<h3 id="filecreate"><code class="highlighter-rouge">file/create</code></h3>
+<p>This request asks the file manager to create the specified file system object.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<p>This will fail if the specified object already exists.</p>
+
+<h4 id="parameters-10">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">object</span><span class="p">:</span> <span class="nx">FileSystemObject</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="response">Response</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-11">Errors</h4>
+
+<ul>
+  <li><a href="#filesystemerror"><code class="highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+  <li><a href="#contentrootnotfounderror"><code class="highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
+requested content root cannot be found.</li>
+  <li><a href="#accessdeniederror"><code class="highlighter-rouge">AccessDeniedError</code></a> to signal that a user doesn’t have
+access to a resource.</li>
+</ul>
+
+<h3 id="filedelete"><code class="highlighter-rouge">file/delete</code></h3>
+<p>This request asks the file manager to delete the specified file system object.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-11">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-8">Result</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>null
+</code></pre></div></div>
+
+<h4 id="errors-12">Errors</h4>
+<ul>
+  <li><a href="#filesystemerror"><code class="highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+  <li><a href="#contentrootnotfounderror"><code class="highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
+requested content root cannot be found.</li>
+  <li><a href="#filenotfound"><code class="highlighter-rouge">FileNotFound</code></a> informs that file cannot be found.</li>
+  <li><a href="#fileexists"><code class="highlighter-rouge">FileExists</code></a> informs that file already exists</li>
+</ul>
+
+<h3 id="filecopy"><code class="highlighter-rouge">file/copy</code></h3>
+<p>This request asks the file manager to copy a specified filesystem object to
+another location.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-12">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">from</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+  <span class="nl">to</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-9">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-13">Errors</h4>
+<ul>
+  <li><a href="#filesystemerror"><code class="highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+  <li><a href="#contentrootnotfounderror"><code class="highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
+requested content root cannot be found.</li>
+  <li><a href="#filenotfound"><code class="highlighter-rouge">FileNotFound</code></a> informs that file cannot be found.</li>
+</ul>
+
+<h3 id="filemove"><code class="highlighter-rouge">file/move</code></h3>
+<p>This request asks the file manager to move a specified filesystem object to
+another location.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<p>The move should be specified by filesystem events, and such notifications should
+inform the client that the currently edited file has been moved.</p>
+
+<h4 id="parameters-13">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">from</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+  <span class="nl">to</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-10">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-14">Errors</h4>
+<ul>
+  <li><a href="#filesystemerror"><code class="highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+  <li><a href="#contentrootnotfounderror"><code class="highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
+requested content root cannot be found.</li>
+  <li><a href="#filenotfound"><code class="highlighter-rouge">FileNotFound</code></a> informs that file cannot be found.</li>
+  <li><a href="#fileexists"><code class="highlighter-rouge">FileExists</code></a> informs that target file already exists.</li>
+</ul>
+
+<h3 id="fileexists"><code class="highlighter-rouge">file/exists</code></h3>
+<p>This request asks the file manager to check whether a filesystem object exists
+at the specified path.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-14">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-11">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">exists</span><span class="p">:</span> <span class="nb">Boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-15">Errors</h4>
+<ul>
+  <li><a href="#contentrootnotfounderror"><code class="highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
+requested content root cannot be found.</li>
+</ul>
+
+<h3 id="filetree"><code class="highlighter-rouge">file/tree</code></h3>
+<p>This request asks the file manager component to generate and provide the
+directory tree starting at a given path.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-15">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+  <span class="nl">depth</span><span class="p">?:</span> <span class="nx">Int</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-12">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">tree</span><span class="p">:</span> <span class="nx">DirectoryTree</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-16">Errors</h4>
+<ul>
+  <li><a href="#contentrootnotfounderror"><code class="highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
+requested content root cannot be found.</li>
+  <li><a href="#filenotfound"><code class="highlighter-rouge">FileNotFound</code></a> informs that requested path does not exist or
+provided depth argument is &lt;= 0.</li>
+  <li><a href="#notdirectory"><code class="highlighter-rouge">NotDirectory</code></a> informs that requested path is not a
+directory.</li>
+</ul>
+
+<h3 id="filelist"><code class="highlighter-rouge">file/list</code></h3>
+<p>This request lists the contents of a given filesystem object. For a file it will
+just return the file, while for a directory it will list the contents of the
+directory.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-16">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-13">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">paths</span><span class="p">:</span> <span class="p">[</span><span class="nx">FileSystemObject</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-17">Errors</h4>
+<ul>
+  <li><a href="#contentrootnotfounderror"><code class="highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
+requested content root cannot be found.</li>
+  <li><a href="#filenotfound"><code class="highlighter-rouge">FileNotFound</code></a> informs that requested path does not exist.</li>
+  <li><a href="#notdirectory"><code class="highlighter-rouge">NotDirectory</code></a> informs that requested path is not a
+directory.</li>
+</ul>
+
+<h3 id="fileinfo"><code class="highlighter-rouge">file/info</code></h3>
+<p>This request gets information about a specified filesystem object.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<p>This request should work for all kinds of filesystem object.</p>
+
+<h4 id="parameters-17">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-14">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">attributes</span><span class="p">:</span> <span class="nx">FileAttributes</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-18">Errors</h4>
+<ul>
+  <li><a href="#contentrootnotfounderror"><code class="highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
+requested content root cannot be found.</li>
+  <li><a href="#filenotfound"><code class="highlighter-rouge">FileNotFound</code></a> informs that requested path does not exist.</li>
+</ul>
+
+<h3 id="fileevent"><code class="highlighter-rouge">file/event</code></h3>
+<p>This is a notification that is sent every time something under a watched content
+root changes. It is used to ensure that the client’s filesystem representation
+stays in synchronisation with reality.</p>
+
+<ul>
+  <li><strong>Type:</strong> Notification</li>
+  <li><strong>Direction:</strong> Server -&gt; Client</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<p>Events should be sent from server to client for every event observed under one
+of the (possibly multiple) content roots.</p>
+
+<h4 id="parameters-18">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+  <span class="nl">kind</span><span class="p">:</span> <span class="nx">FileEventKind</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-19">Errors</h4>
+<p>None</p>
+
+<h3 id="fileaddroot"><code class="highlighter-rouge">file/addRoot</code></h3>
+<p>This request adds a content root to the active project.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<p>When a content root is added, the language server must notify clients other than
+the one that added the root by sending a <code class="highlighter-rouge">file/rootAdded</code>. Additionally, all
+clients must be notified with a <code class="highlighter-rouge">file/event</code> about the addition of the new root.
+The IDE is responsible for calling <code class="highlighter-rouge">file/tree</code> on that root to discover its
+structure.</p>
+
+<h4 id="parameters-19">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">absolutePath</span><span class="p">:</span> <span class="p">[</span><span class="nb">String</span><span class="p">];</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span> <span class="c1">// The ID of the content root</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-15">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-20">Errors</h4>
+<p>TBC</p>
+
+<h3 id="fileremoveroot"><code class="highlighter-rouge">file/removeRoot</code></h3>
+<p>This request removes a content root from the active project.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<p>When a content root is removed, the language server must notify clients other
+than the one that added the root by sending a <code class="highlighter-rouge">file/rootRemoved</code>. Additionally,
+the server must send a <code class="highlighter-rouge">file/event</code> making the root of the new tree visible. The
+IDE is responsible for any additional discovery.</p>
+
+<h4 id="parameters-20">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span> <span class="c1">// The content root ID</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-16">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-21">Errors</h4>
+<p>TBC</p>
+
+<h3 id="filerootadded"><code class="highlighter-rouge">file/rootAdded</code></h3>
+<p>This is a notification sent to all clients other than the one performing the
+addition of the root in order to inform them of the content root’s ID.</p>
+
+<ul>
+  <li><strong>Type:</strong> Notification</li>
+  <li><strong>Direction:</strong> Server -&gt; Client</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-21">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span> <span class="c1">// The content root ID</span>
+  <span class="nl">absolutePath</span><span class="p">:</span> <span class="p">[</span><span class="nb">String</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-22">Errors</h4>
+<p>TBC</p>
+
+<h3 id="filerootremoved"><code class="highlighter-rouge">file/rootRemoved</code></h3>
+<p>This is a notification sent to all clients other than the one performing the
+removal of the content root in order to inform them of the removal of the root.</p>
+
+<ul>
+  <li><strong>Type:</strong> Notification</li>
+  <li><strong>Direction:</strong> Server -&gt; Client</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-22">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span> <span class="c1">// The content root ID</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-23">Errors</h4>
+<p>TBC</p>
+
+<h2 id="text-editing-operations">Text Editing Operations</h2>
+<p>The language server also has a set of text editing operations to ensure that it
+stays in sync with the clients.</p>
+
+<h3 id="textopenfile"><code class="highlighter-rouge">text/openFile</code></h3>
+<p>This requests the language server to open the specified file.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<p>If no client has write lock on the opened file, the capability is granted to
+the client that sent the <code class="highlighter-rouge">text/openFile</code> message.</p>
+
+<h4 id="parameters-23">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-17">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">writeCapability</span><span class="p">?:</span> <span class="nx">CapabilityRegistration</span><span class="p">;</span>
+  <span class="nl">content</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">currentVersion</span><span class="p">:</span> <span class="nx">SHA3</span><span class="o">-</span><span class="mi">224</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-24">Errors</h4>
+<ul>
+  <li><a href="#filesystemerror"><code class="highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+  <li><a href="#contentrootnotfounderror"><code class="highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
+requested content root cannot be found.</li>
+  <li><a href="#accessdeniederror"><code class="highlighter-rouge">AccessDeniedError</code></a> to signal that a user doesn’t have
+access to a resource.</li>
+  <li><a href="#filenotfound"><code class="highlighter-rouge">FileNotFound</code></a> informs that file cannot be found.</li>
+</ul>
+
+<h3 id="textclosefile"><code class="highlighter-rouge">text/closeFile</code></h3>
+<p>This requests the language server to close the specified file.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-24">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-18">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-25">Errors</h4>
+<ul>
+  <li><a href="#filenotopenederror"><code class="highlighter-rouge">FileNotOpenedError</code></a> to signal that a file wasn’t
+opened.</li>
+</ul>
+
+<h3 id="textsave"><code class="highlighter-rouge">text/save</code></h3>
+<p>This requests for the language server to save the specified file.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<p>The request may fail if the requesting client does not have permission to edit
+that file, or if the client is requesting a save of an outdated version.</p>
+
+<h4 id="parameters-25">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+  <span class="nl">currentVersion</span><span class="p">:</span> <span class="nx">SHA3</span><span class="o">-</span><span class="mi">224</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-19">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-26">Errors</h4>
+<ul>
+  <li><a href="#filenotopenederror"><code class="highlighter-rouge">FileNotOpenedError</code></a> to signal that the file isn’t
+open.</li>
+  <li><a href="#invalidversionerror"><code class="highlighter-rouge">InvalidVersionError</code></a> to signal that the version
+provided by the client doesn’t match the version computed by the server.</li>
+  <li><a href="#writedeniederror"><code class="highlighter-rouge">WriteDeniedError</code></a> to signal that the client doesn’t hold
+write lock for the buffer.</li>
+  <li><a href="#filesystemerror"><code class="highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+  <li><a href="#contentrootnotfounderror"><code class="highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
+requested content root cannot be found.</li>
+  <li><a href="#accessdeniederror"><code class="highlighter-rouge">AccessDeniedError</code></a> to signal that the user doesn’t have
+access to a resource.</li>
+</ul>
+
+<h3 id="textapplyedit"><code class="highlighter-rouge">text/applyEdit</code></h3>
+<p>This requests that the server apply a series of edits to the project. These
+edits solely concern text files.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<p>This operation may fail if the requesting client does not have permission to
+edit the resources for which edits are sent. This failure <em>may</em> be partial, in
+that some edits are applied and others are not.</p>
+
+<h4 id="parameters-26">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">edit</span><span class="p">:</span> <span class="nx">FileEdit</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-20">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-27">Errors</h4>
+<ul>
+  <li><a href="#filenotopenederror"><code class="highlighter-rouge">FileNotOpenedError</code></a> to signal that the file isn’t
+open.</li>
+  <li><a href="#texteditvalidationerror"><code class="highlighter-rouge">TextEditValidationError</code></a> to signal that
+validation has failed for a series of edits.</li>
+  <li><a href="#invalidversionerror"><code class="highlighter-rouge">InvalidVersionError</code></a> to signal that the version
+provided by the client doesn’t match the version computed by the server.</li>
+  <li><a href="#writedeniederror"><code class="highlighter-rouge">WriteDeniedError</code></a> to signal that the client doesn’t hold
+write lock for the buffer.</li>
+</ul>
+
+<h3 id="textdidchange"><code class="highlighter-rouge">text/didChange</code></h3>
+<p>This is a notification sent from the server to the clients to inform them of any
+changes made to files that they have open.</p>
+
+<ul>
+  <li><strong>Type:</strong> Notification</li>
+  <li><strong>Direction:</strong> Server -&gt; Client</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<p>This notification must <em>only</em> be sent for files that the client has open.</p>
+
+<h4 id="parameters-27">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">edits</span><span class="p">:</span> <span class="p">[</span><span class="nx">FileEdit</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-28">Errors</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h2 id="workspace-operations">Workspace Operations</h2>
+<p>The language server also has a set of operations useful for managing the client
+workspace.</p>
+
+<h3 id="workspaceundo"><code class="highlighter-rouge">workspace/undo</code></h3>
+<p>This request is sent from the client to the server to request that an operation
+be undone.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<p>The exact behaviour of this message is to be determined, but it must involve the
+server undoing that same action for all clients in the workspace.</p>
+
+<h4 id="parameters-28">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">requestID</span><span class="p">?:</span> <span class="nx">UUID</span><span class="p">;</span> <span class="c1">// If not specified, it undoes the latest request</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-21">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-29">Errors</h4>
+<p>TBC</p>
+
+<h3 id="workspaceredo"><code class="highlighter-rouge">workspace/redo</code></h3>
+<p>This request is sent from the client to the server to request that an operation
+be redone.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<p>The exact behaviour of this message is to be determined, but it must involve the
+server redoing that same action for all clients in the workspace.</p>
+
+<h4 id="parameters-29">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">requestID</span><span class="p">?:</span> <span class="nx">UUID</span><span class="p">;</span> <span class="c1">// If not specified, it redoes the latest request</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-22">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-30">Errors</h4>
+<p>TBC</p>
+
+<h2 id="monitoring">Monitoring</h2>
+<p>The language server also has a heartbeat operation to monitor the Language
+server. This API is private and should be used only by the Project Manager.</p>
+
+<h3 id="heartbeatping"><code class="highlighter-rouge">heartbeat/ping</code></h3>
+<p>This request is sent from the supervisor process to the server to check the
+health of the Language Server.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Supervisor -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Private</li>
+</ul>
+
+<h4 id="parameters-30">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="result-23">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-31">Errors</h4>
+<p>None</p>
+
+<h2 id="execution-management-operations">Execution Management Operations</h2>
+<p>The execution management portion of the language server API deals with exposing
+fine-grained control over program and expression execution to the clients of
+the language server. This is incredibly important for enabling the high levels
+of interactivity required by Enso Studio.</p>
+
+<h3 id="example">Example</h3>
+
+<p>Given the default project structure.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├── package.yaml
+└── src
+    └── Main.enso
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cat </span>src/Main.enso
+
+main <span class="o">=</span>
+    x <span class="o">=</span> 6
+    y <span class="o">=</span> x.foo 5
+    z <span class="o">=</span> y + 5
+    z
+
+Number.foo <span class="o">=</span> x -&gt;
+    y <span class="o">=</span> this + 3
+    z <span class="o">=</span> y <span class="k">*</span> x
+    z
+
+
+
+<span class="c">#### METADATA ####</span>
+<span class="o">[[{</span><span class="s2">"index"</span>: <span class="o">{</span><span class="s2">"value"</span>: 98<span class="o">}</span>, <span class="s2">"size"</span>: <span class="o">{</span><span class="s2">"value"</span>: 5<span class="o">}}</span>, <span class="s2">"5fc0c11d-bd83-4ca3-b847-b8e362f7658c"</span><span class="o">]</span>,[<span class="o">{</span><span class="s2">"index"</span>: <span class="o">{</span><span class="s2">"value"</span>: 81<span class="o">}</span>, <span class="s2">"size"</span>: <span class="o">{</span><span class="s2">"value"</span>: 8<span class="o">}}</span>, <span class="s2">"1cda3676-bd62-41f8-b6a1-a1e1b7c73d18"</span><span class="o">]</span>,[<span class="o">{</span><span class="s2">"index"</span>: <span class="o">{</span><span class="s2">"value"</span>: 42<span class="o">}</span>, <span class="s2">"size"</span>: <span class="o">{</span><span class="s2">"value"</span>: 5<span class="o">}}</span>, <span class="s2">"899a11e5-4d2b-43dc-a867-2f2ef2d2ba62"</span><span class="o">]</span>,[<span class="o">{</span><span class="s2">"index"</span>: <span class="o">{</span><span class="s2">"value"</span>: 26<span class="o">}</span>, <span class="s2">"size"</span>: <span class="o">{</span><span class="s2">"value"</span>: 7<span class="o">}}</span>, <span class="s2">"37f284d4-c593-4e65-a4be-4948fbd2adfb"</span><span class="o">]</span>,[<span class="o">{</span><span class="s2">"index"</span>: <span class="o">{</span><span class="s2">"value"</span>: 16<span class="o">}</span>, <span class="s2">"size"</span>: <span class="o">{</span><span class="s2">"value"</span>: 1<span class="o">}}</span>, <span class="s2">"c553533e-a2b9-4305-9f12-b8fe7781f933"</span><span class="o">]]</span>
+<span class="o">[]</span>
+</code></pre></div></div>
+
+<p>Notice extra newline in the beginning of the <code class="highlighter-rouge">Main.enso</code> file, it is important
+for the precalculated metadata indexes.</p>
+
+<h3 id="create-execution-context">Create Execution Context</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"method"</span><span class="p">:</span><span class="s2">"executionContext/create"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"params"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Return capabilities together with a newly created <code class="highlighter-rouge">ContextId</code>.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:{</span><span class="w">
+    </span><span class="nl">"contextId"</span><span class="p">:</span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"canModify"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"method"</span><span class="p">:</span><span class="s2">"executionContext/canModify"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"registerOptions"</span><span class="p">:{</span><span class="w">
+        </span><span class="nl">"contextId"</span><span class="p">:</span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"receivesUpdates"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"method"</span><span class="p">:</span><span class="s2">"executionContext/receivesUpdates"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"registerOptions"</span><span class="p">:{</span><span class="w">
+        </span><span class="nl">"contextId"</span><span class="p">:</span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="push-item">Push Item</h3>
+<p>Entering the <code class="highlighter-rouge">main</code> method. First item on the stack should always be an
+<code class="highlighter-rouge">ExplicitCall</code>.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"method"</span><span class="p">:</span><span class="s2">"executionContext/push"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"params"</span><span class="p">:{</span><span class="w">
+    </span><span class="nl">"contextId"</span><span class="p">:</span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"stackItem"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"ExplicitCall"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"methodPointer"</span><span class="p">:{</span><span class="w">
+        </span><span class="nl">"file"</span><span class="p">:{</span><span class="w">
+          </span><span class="nl">"rootId"</span><span class="p">:</span><span class="s2">"18f642a2-5f69-4fc8-add6-13bf199ca326"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"segments"</span><span class="p">:[</span><span class="w">
+            </span><span class="s2">"src"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Main.enso"</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"definedOnType"</span><span class="p">:</span><span class="s2">"Main"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"main"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"thisArgumentExpression"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"positionalArgumentsExpressions"</span><span class="p">:[</span><span class="w"> </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Returns successful reponse.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>And a value update, result of the method <code class="highlighter-rouge">foo</code> call defined on type <code class="highlighter-rouge">Number</code>.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"method"</span><span class="p">:</span><span class="s2">"executionContext/expressionValuesComputed"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"params"</span><span class="p">:{</span><span class="w">
+    </span><span class="nl">"contextId"</span><span class="p">:</span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updates"</span><span class="p">:[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="s2">"37f284d4-c593-4e65-a4be-4948fbd2adfb"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"Number"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"shortValue"</span><span class="p">:</span><span class="s2">"45"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"methodCall"</span><span class="p">:{</span><span class="w">
+          </span><span class="nl">"file"</span><span class="p">:{</span><span class="w">
+            </span><span class="nl">"rootId"</span><span class="p">:</span><span class="s2">"18f642a2-5f69-4fc8-add6-13bf199ca326"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"segments"</span><span class="p">:[</span><span class="w">
+              </span><span class="s2">"src"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"Main.enso"</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"definedOnType"</span><span class="p">:</span><span class="s2">"Number"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"foo"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>We can go deeper and evaluate the method <code class="highlighter-rouge">foo</code> call by pushing the <code class="highlighter-rouge">LocalCall</code>
+on the stack. In general, all consequent stack items should be <code class="highlighter-rouge">LocalCall</code>s.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"method"</span><span class="p">:</span><span class="s2">"executionContext/push"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"params"</span><span class="p">:{</span><span class="w">
+    </span><span class="nl">"contextId"</span><span class="p">:</span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"stackItem"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"LocalCall"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"expressionId"</span><span class="p">:</span><span class="s2">"37f284d4-c593-4e65-a4be-4948fbd2adfb"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Returns successful reponse.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>And update of some value inside the function <code class="highlighter-rouge">foo</code>.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"method"</span><span class="p">:</span><span class="s2">"executionContext/expressionValuesComputed"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"params"</span><span class="p">:{</span><span class="w">
+    </span><span class="nl">"contextId"</span><span class="p">:</span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updates"</span><span class="p">:[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="s2">"1cda3676-bd62-41f8-b6a1-a1e1b7c73d18"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"Number"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"shortValue"</span><span class="p">:</span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"methodCall"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="pop-item">Pop Item</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"method"</span><span class="p">:</span><span class="s2">"executionContext/pop"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"params"</span><span class="p">:{</span><span class="w">
+    </span><span class="nl">"contextId"</span><span class="p">:</span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Popping one item will return us into the <code class="highlighter-rouge">main</code> method. Second call will clear
+the stack. Subsequent pop calls will result in an error indicating that the
+stack is empty.</p>
+
+<h3 id="executioncontextcreate"><code class="highlighter-rouge">executionContext/create</code></h3>
+<p>Sent from the client to the server to create a new execution context. Return
+capabilities <a href="#executioncontextcanmodify"><code class="highlighter-rouge">executionContext/canModify</code></a> and
+<a href="#executioncontextreceivesupdates"><code class="highlighter-rouge">executionContext/receivesUpdates</code></a>.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-31">Parameters</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="result-24">Result</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
+  <span class="nl">canModify</span><span class="p">:</span> <span class="nx">CapabilityRegistration</span><span class="p">;</span>
+  <span class="nl">receivesUpdates</span><span class="p">:</span> <span class="nx">CapabilityRegistration</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-32">Errors</h4>
+<p>None</p>
+
+<h3 id="executioncontextdestroy"><code class="highlighter-rouge">executionContext/destroy</code></h3>
+<p>Sent from the client to the server destroy an execution context and free its
+resources.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-32">Parameters</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-25">Result</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-33">Errors</h4>
+<ul>
+  <li><a href="#accessdeniederror"><code class="highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
+<code class="highlighter-rouge">executionContext/canModify</code> capability for this context.</li>
+  <li><a href="#contextnotfounderror"><code class="highlighter-rouge">ContextNotFoundError</code></a> when context can not be found
+by provided id.</li>
+</ul>
+
+<h3 id="executioncontextfork"><code class="highlighter-rouge">executionContext/fork</code></h3>
+<p>Sent from the client to the server to duplicate an execution context, creating
+an independent copy, containing all the data precomputed in the first
+one. Return capabilities
+<a href="#executioncontextcanmodify"><code class="highlighter-rouge">executionContext/canModify</code></a> and
+<a href="#executioncontextreceivesupdates"><code class="highlighter-rouge">executionContext/receivesUpdates</code></a>.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-33">Parameters</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-26">Result</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
+  <span class="nl">canModify</span><span class="p">:</span> <span class="nx">CapabilityRegistration</span><span class="p">;</span>
+  <span class="nl">receivesUpdates</span><span class="p">:</span> <span class="nx">CapabilityRegistration</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-34">Errors</h4>
+<p>No known errors.</p>
+
+<h3 id="executioncontextpush"><code class="highlighter-rouge">executionContext/push</code></h3>
+<p>Sent from the client to the server execute item and move the execution context
+to a new location deeper down the stack. If a stack item becomes invalid because
+of a text edit (e.g. the root function of the view was removed), it will stop
+executing. If the function reappears, execution should resume as normal.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-34">Parameters</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
+  <span class="nl">stackItem</span><span class="p">:</span> <span class="nx">StackItem</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-27">Result</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-35">Errors</h4>
+<ul>
+  <li><a href="#accessdeniederror"><code class="highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
+<code class="highlighter-rouge">executionContext/canModify</code> capability for this context.</li>
+  <li><a href="#stackitemnotfounderror"><code class="highlighter-rouge">StackItemNotFoundError</code></a> when the request stack
+item could not be found.</li>
+  <li><a href="#invalidstackitemerror"><code class="highlighter-rouge">InvalidStackItemError</code></a> when pushing <code class="highlighter-rouge">LocalCall</code> on
+top of the empty stack, or pushing <code class="highlighter-rouge">ExplicitCall</code> on top of non-empty stack.</li>
+  <li><a href="#executionfailederror"><code class="highlighter-rouge">ExecutionFailedError</code></a> when the runtime fails to
+execute the stack item.</li>
+</ul>
+
+<h3 id="executioncontextpop"><code class="highlighter-rouge">executionContext/pop</code></h3>
+<p>Sent from the client to the server move the execution context up the stack,
+corresponding to the client clicking out of the current breadcrumb.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-35">Parameters</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-28">Result</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-36">Errors</h4>
+<ul>
+  <li><a href="#accessdeniederror"><code class="highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
+<code class="highlighter-rouge">executionContext/canModify</code> capability for this context.</li>
+  <li><a href="#emptystackerror"><code class="highlighter-rouge">EmptyStackError</code></a> when the user tries to pop an empty
+stack.</li>
+  <li><a href="#executionfailederror"><code class="highlighter-rouge">ExecutionFailedError</code></a> when the runtime fails to
+execute the stack after popping an item.</li>
+</ul>
+
+<h3 id="executioncontextrecompute"><code class="highlighter-rouge">executionContext/recompute</code></h3>
+<p>Sent from the client to the server to force recomputation of current position.
+May include a list of expressions for which caches should be invalidated.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-36">Parameters</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
+  <span class="nl">invalidatedExpressions</span><span class="p">?:</span> <span class="dl">"</span><span class="s2">all</span><span class="dl">"</span> <span class="o">|</span> <span class="p">[</span><span class="nx">ExpressionId</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-29">Result</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-37">Errors</h4>
+<ul>
+  <li><a href="#accessdeniederror"><code class="highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
+<code class="highlighter-rouge">executionContext/canModify</code> capability for this context.</li>
+  <li><a href="#emptystackerror"><code class="highlighter-rouge">EmptyStackError</code></a> when the user tries to recompute an
+empty stack.</li>
+  <li><a href="#executionfailederror"><code class="highlighter-rouge">ExecutionFailedError</code></a> when the runtime fails to
+re-execute the current position on the stack.</li>
+</ul>
+
+<h3 id="executioncontextexpressionvaluescomputed"><code class="highlighter-rouge">executionContext/expressionValuesComputed</code></h3>
+<p>Sent from the server to the client to inform about new information for certain
+expressions becoming available.</p>
+
+<ul>
+  <li><strong>Type:</strong> Notification</li>
+  <li><strong>Direction:</strong> Server -&gt; Client</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-37">Parameters</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
+  <span class="nl">updates</span><span class="p">:</span> <span class="p">[</span><span class="nx">ExpressionValueUpdate</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-38">Errors</h4>
+<p>None</p>
+
+<h3 id="executioncontextattachvisualisation"><code class="highlighter-rouge">executionContext/attachVisualisation</code></h3>
+<p>This message allows the client to attach a visualisation, potentially
+preprocessed by some arbitrary Enso code, to a given node in the program.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-38">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">AttachVisualisationRequest</span> <span class="p">{</span>
+  <span class="nl">visualisationId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+  <span class="nl">expressionId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+  <span class="nl">visualisationConfig</span><span class="p">:</span> <span class="nx">VisualisationConfiguration</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-30">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-39">Errors</h4>
+<ul>
+  <li><a href="#accessdeniederror"><code class="highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
+<code class="highlighter-rouge">executionContext/canModify</code> capability for this context.</li>
+  <li><a href="#contextnotfounderror"><code class="highlighter-rouge">ContextNotFoundError</code></a> when context can not be found
+by provided id.</li>
+  <li><a href="#modulenotfounderror"><code class="highlighter-rouge">ModuleNotFoundError</code></a> to signal that the module with
+the visualisation cannot be found.</li>
+  <li><a href="#visualisationexpressionerror"><code class="highlighter-rouge">VisualisationExpressionError</code></a> to signal that
+the expression specified in the <code class="highlighter-rouge">VisualisationConfiguration</code> cannot be
+evaluated.</li>
+</ul>
+
+<h3 id="executioncontextdetachvisualisation"><code class="highlighter-rouge">executionContext/detachVisualisation</code></h3>
+<p>This message allows a client to detach a visualisation from the executing code.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-39">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">DetachVisualisationRequest</span> <span class="p">{</span>
+  <span class="nl">executionContextId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+  <span class="nl">visualisationId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+  <span class="nl">expressionId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-31">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-40">Errors</h4>
+<ul>
+  <li><a href="#accessdeniederror"><code class="highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
+<code class="highlighter-rouge">executionContext/canModify</code> capability for this context.</li>
+  <li><a href="#contextnotfounderror"><code class="highlighter-rouge">ContextNotFoundError</code></a> when context can not be found
+by provided id.</li>
+  <li><a href="#visualisationnotfounderror"><code class="highlighter-rouge">VisualisationNotFoundError</code></a> when a
+visualisation can not be found.</li>
+</ul>
+
+<h3 id="executioncontextmodifyvisualisation"><code class="highlighter-rouge">executionContext/modifyVisualisation</code></h3>
+<p>This message allows a client to modify the configuration for an existing
+visualisation.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-40">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ModifyVisualisationRequest</span> <span class="p">{</span>
+  <span class="nl">visualisationId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+  <span class="nl">visualisationConfig</span><span class="p">:</span> <span class="nx">VisualisationConfiguration</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-32">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-41">Errors</h4>
+<ul>
+  <li><a href="#accessdeniederror"><code class="highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
+<code class="highlighter-rouge">executionContext/canModify</code> capability for this context.</li>
+  <li><a href="#contextnotfounderror"><code class="highlighter-rouge">ContextNotFoundError</code></a> when context can not be found
+by provided id.</li>
+  <li><a href="#modulenotfounderror"><code class="highlighter-rouge">ModuleNotFoundError</code></a> to signal that the module with
+the visualisation cannot be found.</li>
+  <li><a href="#visualisationexpressionerror"><code class="highlighter-rouge">VisualisationExpressionError</code></a> to signal that
+the expression specified in the <code class="highlighter-rouge">VisualisationConfiguration</code> cannot be
+evaluated.</li>
+  <li><a href="#visualisationnotfounderror"><code class="highlighter-rouge">VisualisationNotFoundError</code></a> when a
+visualisation can not be found.</li>
+</ul>
+
+<h3 id="executioncontextvisualisationupdate"><code class="highlighter-rouge">executionContext/visualisationUpdate</code></h3>
+<p>This message is responsible for providing a visualisation data update to the
+client.</p>
+
+<ul>
+  <li><strong>Type:</strong> Notification</li>
+  <li><strong>Direction:</strong> Server -&gt; Client</li>
+  <li><strong>Connection:</strong> Data</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<p>The <code class="highlighter-rouge">visualisationData</code> component of the table definition <em>must</em> be
+pre-serialized before being inserted into this message. As far as this level of
+transport is concerned, it is just a binary blob.</p>
+
+<h4 id="parameters-41">Parameters</h4>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+//A visualisation context identifying a concrete visualisation.
+table VisualisationContext {
+
+  //A visualisation identifier.
+  visualisationId: EnsoUUID (required);
+
+  //A context identifier.
+  contextId: EnsoUUID (required);
+
+  //An expression identifier.
+  expressionId: EnsoUUID (required);
+
+}
+
+//An event signaling visualisation update.
+table VisualisationUpdate {
+
+  //A visualisation context identifying a concrete visualisation.
+  visualisationContext: VisualisationContext (required);
+
+  //A visualisation data.
+  data: [ubyte] (required);
+
+}
+
+root_type VisualisationUpdate;
+</code></pre>
+
+<h4 id="errors-42">Errors</h4>
+<p>N/A</p>
+
+<h2 id="errors-43">Errors</h2>
+<p>The language server component also has its own set of errors. This section is
+not a complete specification and will be updated as new errors are added.</p>
+
+<h3 id="accessdeniederror"><code class="highlighter-rouge">AccessDeniedError</code></h3>
+<p>It signals that a user doesn’t have access to a resource.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Access denied</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="filesystemerror"><code class="highlighter-rouge">FileSystemError</code></h3>
+<p>This error signals generic file system errors.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="nb">String</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="contentrootnotfounderror"><code class="highlighter-rouge">ContentRootNotFoundError</code></h3>
+<p>The error informs that the requested content root cannot be found.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">1001</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Content root not found</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="filenotfound"><code class="highlighter-rouge">FileNotFound</code></h3>
+<p>It signals that requested file doesn’t exist.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">1003</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">File not found</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="fileexists-1"><code class="highlighter-rouge">FileExists</code></h3>
+<p>It signals that file already exists.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">1004</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">File already exists</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="operationtimeouterror"><code class="highlighter-rouge">OperationTimeoutError</code></h3>
+<p>It signals that IO operation timed out.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">1005</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">IO operation timeout</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="notdirectory"><code class="highlighter-rouge">NotDirectory</code></h3>
+<p>It signals that provided path is not a directory.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">1006</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Path is not a directory</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="stackitemnotfounderror"><code class="highlighter-rouge">StackItemNotFoundError</code></h3>
+<p>It signals that provided stack item was not found.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">2001</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Stack item not found</span><span class="dl">"</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h3 id="contextnotfounderror"><code class="highlighter-rouge">ContextNotFoundError</code></h3>
+<p>It signals that provided context was not found.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">2002</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Context not found</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="emptystackerror"><code class="highlighter-rouge">EmptyStackError</code></h3>
+<p>It signals that stack is empty.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">2003</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Stack is empty</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="invalidstackitemerror"><code class="highlighter-rouge">InvalidStackItemError</code></h3>
+<p>It signals that stack is invalid in this context.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">2004</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Invalid stack item</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="modulenotfounderror"><code class="highlighter-rouge">ModuleNotFoundError</code></h3>
+<p>It signals that the given module cannot be found.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">2005</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Module not found [Foo.Bar.Baz]</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="visualisationnotfounderror"><code class="highlighter-rouge">VisualisationNotFoundError</code></h3>
+<p>It signals that the visualisation cannot be found.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">2006</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Visualisation not found</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="visualisationexpressionerror"><code class="highlighter-rouge">VisualisationExpressionError</code></h3>
+<p>It signals that the expression specified in the <code class="highlighter-rouge">VisualisationConfiguration</code>
+cannot be evaluated.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">2007</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Evaluation of the visualisation expression failed [i is not defined]</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="visualisationevaluationerror"><code class="highlighter-rouge">VisualisationEvaluationError</code></h3>
+<p>It is a push message. It signals that an evaluation of a code responsible for
+generating visualisation data failed.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">2008</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Evaluation of the visualisation failed [cannot execute foo]</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="executionfailederror"><code class="highlighter-rouge">ExecutionFailedError</code></h3>
+<p>Signals that execution of a context failed.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">2009</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Execution failed [error in function: main]</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="filenotopenederror"><code class="highlighter-rouge">FileNotOpenedError</code></h3>
+<p>Signals that a file wasn’t opened.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">3001</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">File not opened</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="texteditvalidationerror"><code class="highlighter-rouge">TextEditValidationError</code></h3>
+<p>Signals that validation has failed for a series of edits.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">3002</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">The start position is after the end position</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="invalidversionerror"><code class="highlighter-rouge">InvalidVersionError</code></h3>
+<p>Signals that version provided by a client doesn’t match to the version
+computed by the server.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">3003</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Invalid version [client version: ade2967cab172183d1a67ea40cb8e92e23218764bc9934c3795fcea5, server version: 7602967cab172183d1a67ea40cb8e92e23218764bc9934c3795fcea5]</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="writedeniederror"><code class="highlighter-rouge">WriteDeniedError</code></h3>
+<p>Signals that the client doesn’t hold write lock to the buffer.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">3004</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Write denied</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="capabilitynotacquired"><code class="highlighter-rouge">CapabilityNotAcquired</code></h3>
+<p>Signals that requested capability is not acquired.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">5001</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Capability not acquired</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="sessionnotinitialisederror"><code class="highlighter-rouge">SessionNotInitialisedError</code></h3>
+<p>Signals that requested cannot be proccessed, beacuse session is not initialised.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">6001</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Session not initialised</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="sessionalreadyinitialisederror"><code class="highlighter-rouge">SessionAlreadyInitialisedError</code></h3>
+<p>Signals that session is already initialised.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">6002</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Session already initialised</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+                    </section>
+                </div>
+
+                 <!--<div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},
+            "sharing": {
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+                "facebook": true,
+                "google": false,
+                "instapaper": false,
+                "twitter": true,
+                "vk": false,
+                "weibo": false
+            },
+            "theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            }
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "Jekyll Gitbook",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "docs/language-server/protocol-language-server.md",
+        "mtime": "",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.3",
+        "time": "2020-05-15 16:34:05 +0000"
+    },
+    "basePath": "",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/gitbook/gitbook.js"></script>
+<script src="/gitbook/theme.js"></script>
+
+<script src="/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+<script src="/gitbook/gitbook-plugin-sharing/buttons.js"></script>
+
+<!-- <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script> --></body>
+</html>

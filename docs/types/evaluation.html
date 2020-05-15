@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>License · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Evaluation and Typing · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Build Jekyll site with the GitBook style.
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
 <link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
-            <link rel="prev" href="/jekyll/2019-04-28-howto.html" />
+            <link rel="prev" href="/" />
         
 
         
@@ -57,7 +57,7 @@
                 </li>
             
                 
-                <li class="chapter active" data-level="1.2" data-path="/jekyll/2019-04-28-license.html">
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
                 
                     <a href="/jekyll/2019-04-28-license.html">
                         License
@@ -80,7 +80,7 @@
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >License</a>
+                <a href="." >Evaluation and Typing</a>
             
         </h1>
     </div>
@@ -91,13 +91,51 @@
                     <section class="normal markdown-section">
 
                         
-                            <h1 id="/jekyll/license">License</h1>
+                            <h1 id="">Evaluation and Typing</h1>
                         
 
-                        <p>This work is open sourced under the Apache License, Version 2.0, using the
-same license as the original <a href="https://github.com/GitbookIO/gitbook">GitBook</a> repository.</p>
+                        <h1 id="evaluation-and-typing">Evaluation and Typing</h1>
+<p>Enso is a language that has strict semantics by default, but it can still be
+very useful to be able to opt-in to suspended computations (thunks) for the
+design of certain APIs.</p>
 
-<p>Copyright 2019 Tao He.</p>
+<p>To that end, Enso provides a mechanism for this through the type system. The
+standard library defines a <code class="highlighter-rouge">Suspend a</code> type which, when used in explicit type
+signatures, will cause the corresponding expression to be suspended.</p>
+
+<ul>
+  <li>The explicit calls to <code class="highlighter-rouge">Suspend</code> and <code class="highlighter-rouge">force</code> are inserted automatically by the
+compiler doing demand analysis.</li>
+  <li>This demand analysis process will also ensure that there are not polynomial
+chains of suspend and force being inserted to ensure performance.</li>
+</ul>
+
+<blockquote>
+  <p>The actionables for this section are as follows:</p>
+
+  <ul>
+    <li>Specify this much better.</li>
+  </ul>
+</blockquote>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#specifying-suspension-in-the-type-system">Specifying Suspension in the Type System</a></li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="specifying-suspension-in-the-type-system">Specifying Suspension in the Type System</h2>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Actually specify how the type system interacts with eager and lazy
+evaluation.</li>
+  </ul>
+</blockquote>
 
                     </section>
                 </div>
@@ -116,7 +154,7 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
     </div>
 </div>
 
-                    <a href="/jekyll/2019-04-28-howto.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: How to Get Started">
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -204,8 +242,8 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
         "gitbook": "*"
     },
     "file": {
-        "path": "_posts/2019-04-29-license.md",
-        "mtime": "2019-04-28 00:00:00 +0000",
+        "path": "docs/types/evaluation.md",
+        "mtime": "",
         "type": "markdown"
     },
     "gitbook": {

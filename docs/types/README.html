@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>License · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso&#39;s Type System · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Build Jekyll site with the GitBook style.
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
 <link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
-            <link rel="prev" href="/jekyll/2019-04-28-howto.html" />
+            <link rel="prev" href="/" />
         
 
         
@@ -57,7 +57,7 @@
                 </li>
             
                 
-                <li class="chapter active" data-level="1.2" data-path="/jekyll/2019-04-28-license.html">
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
                 
                     <a href="/jekyll/2019-04-28-license.html">
                         License
@@ -80,7 +80,7 @@
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >License</a>
+                <a href="." >Enso&#39;s Type System</a>
             
         </h1>
     </div>
@@ -91,13 +91,79 @@
                     <section class="normal markdown-section">
 
                         
-                            <h1 id="/jekyll/license">License</h1>
+                            <h1 id="">Enso&#39;s Type System</h1>
                         
 
-                        <p>This work is open sourced under the Apache License, Version 2.0, using the
-same license as the original <a href="https://github.com/GitbookIO/gitbook">GitBook</a> repository.</p>
+                        <h1 id="ensos-type-system">Enso’s Type System</h1>
+<p>On the spectrum of programming type systems ranging from dynamically typed to
+statically typed, one likes to think that there is a happy medium between the
+two. A language that <em>feels</em> dynamic, with high levels of type inference, but
+lets the users add more type information as they want more safety and
+compile-time checking.</p>
 
-<p>Copyright 2019 Tao He.</p>
+<p>Enso aims to be that language, providing a statically-typed language with a type
+system that makes it feel dynamic. It will infer sensible types in many cases,
+but as users move from exploratory pipelines to production systems, they are
+able to add more and more type information to their programs, proving more and
+more properties using the type system. This is based on a novel type-inference
+engine, and a fusion of nominal and structural typing, combined with dependent
+types.</p>
+
+<p>All in all, the type system should stay out of the users’ ways unless they make
+a mistake, but give more experienced users the tools to build the programs that
+they require.</p>
+
+<p>This document contains discussion and designs for the type-system’s behaviour,
+as well as formal specifications where necessary. It discusses the impact of
+many syntactic language features upon inference and type checking, and is
+instrumental for ensuring that we build the right language.</p>
+
+<blockquote>
+  <h4 id="a-note-on-syntax">A Note on Syntax</h4>
+  <p>In the aid of precision, this document will use syntax that <em>may not</em> be
+exposed to users. The appearance of a piece of syntax here that is not
+described in the <a href="../syntax/README.md">syntax</a> document makes no promises as 
+to whether said syntax will be exposed in the surface language.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Please Note:</strong>
+The designs in this section are currently very exploratory as the type system
+is not slated from implementation until after 2.0.</p>
+</blockquote>
+
+<p>Information on the type system is broken up into the following sections:</p>
+
+<ul>
+  <li><a href="./goals.md"><strong>Goals for the Type System:</strong></a> The goals for the
+Enso type system, particularly around usability and user experience.</li>
+  <li><a href="./hierarchy.md"><strong>The Type Hierarchy:</strong></a> The type hierarchy in Enso.</li>
+  <li><a href="./function-types.md"><strong>Function Types:</strong></a> Function types in Enso.</li>
+  <li><a href="./access-modifiers.md"><strong>Access Modification:</strong></a> Access modifiers in Enso
+(e.g. <code class="highlighter-rouge">private</code> and <code class="highlighter-rouge">unsafe</code>),</li>
+  <li><a href="./pattern-matching.md"><strong>Pattern Matching:</strong></a> The typing of pattern match
+expressions in Enso.</li>
+  <li><a href="./dynamic-dispatch.md"><strong>Dynamic Dispatch:</strong></a> How dynamic dispatch interacts
+with the type system in Enso.</li>
+  <li><a href="./modules.md"><strong>Modules:</strong></a> A description of the Enso module system.</li>
+  <li><a href="./contexts.md"><strong>Monadic Contexts:</strong></a> A description of the typing and
+functionality of Enso’s monadic contexts.</li>
+  <li><a href="./evaluation.md"><strong>Strictness and Suspension:</strong></a> A description of how the
+type system interacts with Enso’s evaluation semantics.</li>
+  <li><a href="./parallelism.md"><strong>Analysing Parallelism:</strong></a> A description of how the type
+system interacts with the planned automated parallelism analysis.</li>
+  <li><a href="./type-directed-programming.md"><strong>Type-Directed Programming:</strong></a> A description
+of how the type system aids type-directed programming, and the features it
+has to support this approach.</li>
+  <li><a href="./errors.md"><strong>Errors:</strong></a> The interaction between Enso’s errors and the type
+system.</li>
+  <li><a href="./inference-and-checking.md"><strong>Type Inference and Checking:</strong></a> A description
+of Enso’s type inference and checking system.</li>
+  <li><a href="./dependent-typing.md"><strong>Dependent Typing:</strong></a> A description of the dependent
+nature of Enso’s type system.</li>
+  <li><a href="./references.md"><strong>References:</strong></a> Useful references for working on the type
+system and its theory.</li>
+</ul>
 
                     </section>
                 </div>
@@ -116,7 +182,7 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
     </div>
 </div>
 
-                    <a href="/jekyll/2019-04-28-howto.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: How to Get Started">
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -204,8 +270,8 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
         "gitbook": "*"
     },
     "file": {
-        "path": "_posts/2019-04-29-license.md",
-        "mtime": "2019-04-28 00:00:00 +0000",
+        "path": "docs/types/README.md",
+        "mtime": "",
         "type": "markdown"
     },
     "gitbook": {

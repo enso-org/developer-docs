@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>License · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Modules · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Build Jekyll site with the GitBook style.
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
 <link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
-            <link rel="prev" href="/jekyll/2019-04-28-howto.html" />
+            <link rel="prev" href="/" />
         
 
         
@@ -57,7 +57,7 @@
                 </li>
             
                 
-                <li class="chapter active" data-level="1.2" data-path="/jekyll/2019-04-28-license.html">
+                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
                 
                     <a href="/jekyll/2019-04-28-license.html">
                         License
@@ -80,7 +80,7 @@
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >License</a>
+                <a href="." >Modules</a>
             
         </h1>
     </div>
@@ -91,13 +91,96 @@
                     <section class="normal markdown-section">
 
                         
-                            <h1 id="/jekyll/license">License</h1>
+                            <h1 id="">Modules</h1>
                         
 
-                        <p>This work is open sourced under the Apache License, Version 2.0, using the
-same license as the original <a href="https://github.com/GitbookIO/gitbook">GitBook</a> repository.</p>
+                        <h1 id="modules">Modules</h1>
+<p>With such a flexible type system in Enso, the need for making modules
+first-class is obviated. Instead, a module is very much its own entity, being
+simply a container for bindings (whether they be functions, methods, atoms, or
+more generic typesets).</p>
 
-<p>Copyright 2019 Tao He.</p>
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Characterise modules in more depth as we need them.</li>
+  </ul>
+</blockquote>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#resolving-name-clashes">Resolving Name Clashes</a></li>
+  <li><a href="#scoping-and-imports">Scoping and Imports</a></li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="resolving-name-clashes">Resolving Name Clashes</h2>
+<p>Enso modules employ the following rules in order to avoid name clashes:</p>
+
+<ul>
+  <li>Where the module name clashes with a member contained in the module, the
+member is preferred. If you need the module you must import it qualified under
+another name.</li>
+  <li>We provide the alias <code class="highlighter-rouge">here</code> as a way to access the name of the current module.</li>
+</ul>
+
+<h2 id="scoping-and-imports">Scoping and Imports</h2>
+<p>To use the contents of a module we need a way to bring them into scope. Like
+most languages, Enso provides an <em>import</em> mechanism for this. Enso has four
+different kinds of imports that may be combined freely, all of which take a
+module path as their first argument.</p>
+
+<ol>
+  <li><strong>Unqualified Imports:</strong> These import all symbols from the module into the
+current scope (<code class="highlighter-rouge">import M</code>).</li>
+  <li><strong>Qualified Imports:</strong> These import all symbols from the module into the
+current scope with symbols qualified under a name <em>different</em> from the
+module name (<code class="highlighter-rouge">import M as T</code>).</li>
+  <li><strong>Restricted Imports:</strong> These import only the specific symbols from the
+module into the current scope (<code class="highlighter-rouge">import M only sym1 sym2</code>).</li>
+  <li><strong>Hiding Imports:</strong> These are the inverse of restricted imports, and import
+<em>all</em> symbols other than the named ones into the current scope
+(<code class="highlighter-rouge">import M hiding sym1 sym2</code>),</li>
+</ol>
+
+<p>Imports may introduce ambiguous symbols, but this is not an error until one of
+the ambiguous symbols is used in user code.</p>
+
+<p>When importing a module <code class="highlighter-rouge">X</code> into the current module <code class="highlighter-rouge">Y</code>, the bindings in <code class="highlighter-rouge">X</code>
+become available in <code class="highlighter-rouge">Y</code> (modified by the import type). However, these bindings
+are <em>not</em> available in <code class="highlighter-rouge">Y</code> externally. This means that we need a re-export
+mechanism. Similarly to imports, this has four kinds, all of which take a module
+path as their first argument, and all of which <em>may</em> introduce the module it
+exports into scope (if it is not already imported).</p>
+
+<ol>
+  <li><strong>Unqualified Exports:</strong> These export all symbols from the module as if they
+were defined in the exporting module (<code class="highlighter-rouge">export X</code>).</li>
+  <li><strong>Qualified Exports:</strong> These export all symbols from the module as if they
+were defined in another module accessible in the exporting module
+(<code class="highlighter-rouge">export X as Y</code>).</li>
+  <li><strong>Restricted Exports:</strong> These export only the specified symbols from the
+module as if they were defined in the exporting module (<code class="highlighter-rouge">export X only sym</code>)</li>
+  <li><strong>Hiding Exports:</strong> These export all symbols from the module except those
+explicitly specified (<code class="highlighter-rouge">export X hiding sym1 sym2</code>).</li>
+</ol>
+
+<p>Exports effectively act to ‘paste’ the contents of the exported module into the
+module declaring the export. This means that exports that create name clashes
+must be resolved at the source.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Are we <em>really, really</em> sure we want unqualified by default?</li>
+    <li>Think about how to handle imports properly in the type checker. What, if
+they have any, are the impacts of imports on inference and checking?</li>
+  </ul>
+</blockquote>
 
                     </section>
                 </div>
@@ -116,7 +199,7 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
     </div>
 </div>
 
-                    <a href="/jekyll/2019-04-28-howto.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: How to Get Started">
+                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -204,8 +287,8 @@ same license as the original <a href="https://github.com/GitbookIO/gitbook">GitB
         "gitbook": "*"
     },
     "file": {
-        "path": "_posts/2019-04-29-license.md",
-        "mtime": "2019-04-28 00:00:00 +0000",
+        "path": "docs/types/modules.md",
+        "mtime": "",
         "type": "markdown"
     },
     "gitbook": {
