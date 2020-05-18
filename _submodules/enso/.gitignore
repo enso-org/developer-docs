@@ -1,0 +1,106 @@
+
+#############
+## GraalVM ##
+#############
+
+graal_dumps
+
+##########
+## Java ##
+##########
+
+*.class
+
+###########
+## Scala ##
+###########
+
+graal_dumps/
+target/
+*.class
+*.log
+
+##########
+## Rust ##
+##########
+
+Cargo.lock
+
+#############
+## Haskell ##
+#############
+
+dist
+cabal-dev
+*.o
+*.hi
+*.chi
+*.chs.h
+*.dyn_o
+*.dyn_hi
+.hpc
+.hsenv
+.cabal-sandbox/
+cabal.sandbox.config
+*.cabal
+*.prof
+*.aux
+*.hp
+*.DS_Store
+.stack-work/
+
+############
+## System ##
+############
+
+# OSX
+.DS_Store
+
+############
+## Images ##
+############
+
+*.jpg
+*.jpeg
+*.bmp
+*.psd
+
+######################
+## Tooling Specific ##
+######################
+
+.idea/
+*.swp
+.projections.json
+
+############################
+## Rendered Documentation ##
+############################
+
+javadoc/
+scaladoc/
+
+#######################
+## Benchmark Reports ##
+#######################
+bench-report.xml
+
+##############
+## Binaries ##
+##############
+
+/enso
+/enso.jar
+
+#########
+## IDE ##
+#########
+
+.editorconfig
+.bloop
+
+
+#########
+## NPM ##
+#########
+node_modules/

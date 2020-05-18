@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Issues with the Enso Developer Documentation?
+    url: https://github.com/luna/enso/issues/new/choose
+    about: Please report problems with the Enso dev documentation here.

@@ -1,0 +1,5 @@
+import TestNonImportedOverloads.Util
+
+X.method = 10
+
+Main.main = Unit.util (X 1)
