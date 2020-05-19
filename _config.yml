@@ -32,12 +32,21 @@ readme_index:
   remove_originals: true
   with_frontmatter: true
 
+# Site search and indexing
+algolia: 
+  application_id: 3PBI3MMCBE
+  index_name: jekyll
+  search_only_api_key: 55d673c313b717b7386df8c9418588d4
+
+
 # Permalinks
 permalink:        /:categories/:year-:month-:day-:title:output_ext
 
 exclude:
   - _drafts
   - _submodules
+  - node_modules
+  - _scripts
 
 destination:      ./_site
 incremental:      false
@@ -46,3 +55,4 @@ regenerate:       true
 plugins:
   - jemoji
   - jekyll-readme-index
+  - jekyll-algolia

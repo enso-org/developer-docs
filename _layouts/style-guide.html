@@ -4,14 +4,30 @@
 
         {%- include head.html -%}
 
-        {% if page.previous %}
-            <link rel="prev" href="{{site.baseurl}}{{page.previous.url}}" />
+        {% assign previousOrder = page.order | minus: 1%}
+        {% assign previousPage = site.pages | where_exp: "item", "item.order == previousOrder" %}
+        {% for prevPage in previousPage %}
+            {% if prevPage.dir == page.dir %}
+                {% assign prevPageLink = prevPage %}
+            {% endif %}
+        {% endfor %}
+
+        {% assign nextOrder = page.order | plus: 1%}
+        {% assign nextPage = site.pages | where_exp: "item", "item.order == nextOrder" %}
+        {% for nextPage in nextPage %}
+            {% if nextPage.dir == page.dir %}
+                {% assign nextPageLink = nextPage %}
+            {% endif %}
+        {% endfor %}
+
+        {% if prevPageLink %}
+            <link rel="prev" href="{{site.baseurl}}{{prevPageLink.url}}" />
         {% else %}
             <link rel="prev" href="{{site.baseurl}}/" />
         {% endif %}
 
-        {% if page.next %}
-            <link rel="next" href="{{site.baseurl}}{{page.next.url}}" />
+        {% if nextPageLink %}
+            <link rel="next" href="{{site.baseurl}}{{nextPageLink.url}}" />
         {% endif %}
     </head>
     <body>
@@ -21,22 +37,22 @@
 
             <div class="book-body">
                 {%- include body.html -%}
-
-                {% if page.previous %}
-                    <a href="{{site.baseurl}}{{page.previous.url}}" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{page.previous.title}}">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
+                {% if prevPageLink %}
+                <a href="{{site.baseurl}}{{prevPageLink.url}}" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{prevPageLink.title}}">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 {% else %}
                     <a href="{{site.baseurl}}/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{site.title}}">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 {% endif %}
 
-                {% if page.next %}
-                    <a href="{{site.baseurl}}{{page.next.url}}" class="navigation navigation-next navigation-unique" aria-label="Next page: {{page.next.title}}">
+                {% if nextPageLink %}
+                    <a href="{{site.baseurl}}{{nextPageLink.url}}" class="navigation navigation-next navigation-unique" aria-label="Next page: {{nextPageLink.title}}">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 {% endif %}
+            
             </div>
 
             <script>

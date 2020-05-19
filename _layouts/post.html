@@ -21,22 +21,36 @@
 
             <div class="book-body">
                 {%- include body.html -%}
+                        Page dir {{ page.dir }}
+                        {% assign previousOrder = page.order | minus: 1%}
+                        Previous order: {{ previousOrder }}
+                        {% assign previousPage = site.pages | where_exp: "item", "item.order == previousOrder" %}
+                        Previous page size {{ previousPage | size }}
+                        {{ page.dir }}
+                        {% for prevPage in previousPage %}
+                        {{ prevPage.dir }}
+                            {% if prevPage.dir == page.dir %}
+                            <a href="{{site.baseurl}}{{prevPage.url}}" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{page.previous.title}}">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            {% endif %}
+                        {% endfor %}
 
-                {% if page.previous %}
-                    <a href="{{site.baseurl}}{{page.previous.url}}" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{page.previous.title}}">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
-                {% else %}
-                    <a href="{{site.baseurl}}/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{site.title}}">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
-                {% endif %}
-
-                {% if page.next %}
-                    <a href="{{site.baseurl}}{{page.next.url}}" class="navigation navigation-next navigation-unique" aria-label="Next page: {{page.next.title}}">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                {% endif %}
+                        {% assign nextOrder = page.order | plus: 1%}
+                        Next order: {{ nextOrder }}
+                        {% assign nextPage = site.pages | where_exp: "item", "item.order == nextOrder" %}
+                        next page size {{ nextPage | size }}
+                        {{ page.dir }}
+                        {% for nextPage in nextPage %}
+                        {{ nextPage.dir }}
+                            {% if nextPage.dir == page.dir %}
+                            <a href="{{site.baseurl}}{{nextPage.url}}" class="navigation navigation-next navigation-unique" aria-label="Next page: {{page.next.title}}">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                            {% endif %}
+                        {% endfor %}
+                          
+            
             </div>
 
             <script>
