@@ -4,33 +4,74 @@
 
         {%- include head.html -%}
 
-        {% assign reversed_posts = site.posts | reverse %}
+        {% assign dirpath = page.path | split: "/" %}
+        {% assign dirlength = dirpath | size %}
 
-        {% if reversed_posts %}
-            <link rel="next" href="{{site.baseurl}}{{reversed_posts.first.url}}" />
+        {% if page.path contains 'README' %}
+            {% assign dirpath = dirpath | pop %}
+            {% assign dirpath = dirpath | pop %}
+        {% else %}
+            {% assign dirpath = dirpath | pop %}
+        {% endif %}
+        {% assign dirpath = dirpath | join:"/" %}
+
+
+        {% assign previousOrder = page.order | minus: 1%}
+        {% assign previousPage = site.pages | where_exp: "item", "item.order == previousOrder" %}
+        {% for prevPage in previousPage %}
+            {% if prevPage.dir == page.dir %}
+                {% assign prevPageLink = prevPage %}
+            {% endif %}
+        {% endfor %}
+
+        {% assign nextOrder = page.order | plus: 1%}
+        {% assign nextPage = site.pages | where_exp: "item", "item.order == nextOrder" %}
+        {% for nextPage in nextPage %}
+            {% if nextPage.dir == page.dir %}
+                {% assign nextPageLink = nextPage %}
+            {% endif %}
+        {% endfor %}
+
+        {% if prevPageLink %}
+            <link rel="prev" href="{{site.baseurl}}{{prevPageLink.url}}" />
+        {% else %}
+            <link rel="prev" href="{{site.baseurl}}/{{dirpath}}" />
+        {% endif %}
+
+        {% if nextPageLink %}
+            <link rel="next" href="{{site.baseurl}}{{nextPageLink.url}}" />
         {% endif %}
     </head>
     <body>
+        
         <div class="book">
 
             {%- include toc-date.html -%}
 
             <div class="book-body">
                 {%- include body.html -%}
+                {% if prevPageLink %}
+                <a href="{{site.baseurl}}{{prevPageLink.url}}" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{prevPageLink.title}}">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                {% else %}
+                    <a href="{{site.baseurl}}/{{dirpath}}" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{site.title}} {{dirpath}}">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                {% endif %}
 
-                {% if reversed_posts %}
-                    <a href="{{site.baseurl}}{{reversed_posts.first.url}}" class="navigation navigation-next navigation-unique" aria-label="Next page: {{reversed_posts.first.title}}">
+                {% if nextPageLink %}
+                    <a href="{{site.baseurl}}{{nextPageLink.url}}" class="navigation navigation-next navigation-unique" aria-label="Next page: {{nextPageLink.title}}">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 {% endif %}
+            
             </div>
-
-            <!-- {%- include search.html -%} -->
 
             <script>
             var gitbook = gitbook || [];
             gitbook.push(function() {
-                gitbook.page.hasChanged({%- include metadata-home.json.tpl -%});
+                gitbook.page.hasChanged({%- include metadata-post.json.tpl -%});
             });
             </script>
         </div>

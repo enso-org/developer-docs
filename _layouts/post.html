@@ -4,52 +4,67 @@
 
         {%- include head.html -%}
 
-        {% if page.previous %}
-            <link rel="prev" href="{{site.baseurl}}{{page.previous.url}}" />
+        {% assign dirpath = page.path | split: "/" %}
+        {% assign dirlength = dirpath | size %}
+
+        {% if page.path contains 'README' %}
+            {% assign dirpath = dirpath | pop %}
+            {% assign dirpath = dirpath | pop %}
         {% else %}
-            <link rel="prev" href="{{site.baseurl}}/" />
+            {% assign dirpath = dirpath | pop %}
+        {% endif %}
+        {% assign dirpath = dirpath | join:"/" %}
+
+
+        {% assign previousOrder = page.order | minus: 1%}
+        {% assign previousPage = site.pages | where_exp: "item", "item.order == previousOrder" %}
+        {% for prevPage in previousPage %}
+            {% if prevPage.dir == page.dir %}
+                {% assign prevPageLink = prevPage %}
+            {% endif %}
+        {% endfor %}
+
+        {% assign nextOrder = page.order | plus: 1%}
+        {% assign nextPage = site.pages | where_exp: "item", "item.order == nextOrder" %}
+        {% for nextPage in nextPage %}
+            {% if nextPage.dir == page.dir %}
+                {% assign nextPageLink = nextPage %}
+            {% endif %}
+        {% endfor %}
+
+        {% if prevPageLink %}
+            <link rel="prev" href="{{site.baseurl}}{{prevPageLink.url}}" />
+        {% else %}
+            <link rel="prev" href="{{site.baseurl}}/{{dirpath}}" />
         {% endif %}
 
-        {% if page.next %}
-            <link rel="next" href="{{site.baseurl}}{{page.next.url}}" />
+        {% if nextPageLink %}
+            <link rel="next" href="{{site.baseurl}}{{nextPageLink.url}}" />
         {% endif %}
     </head>
     <body>
+        
         <div class="book">
 
             {%- include toc-date.html -%}
 
             <div class="book-body">
                 {%- include body.html -%}
-                        Page dir {{ page.dir }}
-                        {% assign previousOrder = page.order | minus: 1%}
-                        Previous order: {{ previousOrder }}
-                        {% assign previousPage = site.pages | where_exp: "item", "item.order == previousOrder" %}
-                        Previous page size {{ previousPage | size }}
-                        {{ page.dir }}
-                        {% for prevPage in previousPage %}
-                        {{ prevPage.dir }}
-                            {% if prevPage.dir == page.dir %}
-                            <a href="{{site.baseurl}}{{prevPage.url}}" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{page.previous.title}}">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                            {% endif %}
-                        {% endfor %}
+                {% if prevPageLink %}
+                <a href="{{site.baseurl}}{{prevPageLink.url}}" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{prevPageLink.title}}">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                {% else %}
+                    <a href="{{site.baseurl}}/{{dirpath}}" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{site.title}} {{dirpath}}">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                {% endif %}
 
-                        {% assign nextOrder = page.order | plus: 1%}
-                        Next order: {{ nextOrder }}
-                        {% assign nextPage = site.pages | where_exp: "item", "item.order == nextOrder" %}
-                        next page size {{ nextPage | size }}
-                        {{ page.dir }}
-                        {% for nextPage in nextPage %}
-                        {{ nextPage.dir }}
-                            {% if nextPage.dir == page.dir %}
-                            <a href="{{site.baseurl}}{{nextPage.url}}" class="navigation navigation-next navigation-unique" aria-label="Next page: {{page.next.title}}">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                            {% endif %}
-                        {% endfor %}
-                          
+                {% if nextPageLink %}
+                    <a href="{{site.baseurl}}{{nextPageLink.url}}" class="navigation navigation-next navigation-unique" aria-label="Next page: {{nextPageLink.title}}">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                {% endif %}
             
             </div>
 

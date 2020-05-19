@@ -4,6 +4,18 @@
 
         {%- include head.html -%}
 
+        {% assign dirpath = page.path | split: "/" %}
+        {% assign dirlength = dirpath | size %}
+
+        {% if page.path contains 'README' %}
+            {% assign dirpath = dirpath | pop %}
+            {% assign dirpath = dirpath | pop %}
+        {% else %}
+            {% assign dirpath = dirpath | pop %}
+        {% endif %}
+        {% assign dirpath = dirpath | join:"/" %}
+
+
         {% assign previousOrder = page.order | minus: 1%}
         {% assign previousPage = site.pages | where_exp: "item", "item.order == previousOrder" %}
         {% for prevPage in previousPage %}
@@ -23,7 +35,7 @@
         {% if prevPageLink %}
             <link rel="prev" href="{{site.baseurl}}{{prevPageLink.url}}" />
         {% else %}
-            <link rel="prev" href="{{site.baseurl}}/" />
+            <link rel="prev" href="{{site.baseurl}}/{{dirpath}}" />
         {% endif %}
 
         {% if nextPageLink %}
@@ -31,6 +43,7 @@
         {% endif %}
     </head>
     <body>
+        
         <div class="book">
 
             {%- include toc-date.html -%}
@@ -42,7 +55,7 @@
                     <i class="fa fa-angle-left"></i>
                 </a>
                 {% else %}
-                    <a href="{{site.baseurl}}/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{site.title}}">
+                    <a href="{{site.baseurl}}/{{dirpath}}" class="navigation navigation-prev navigation-unique" aria-label="Previous page: {{site.title}} {{dirpath}}">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 {% endif %}
