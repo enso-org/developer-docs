@@ -40,7 +40,7 @@ var hitTemplate = function(hit) {
 search.addWidget(
   instantsearch.widgets.searchBox({
     container: '#search-searchbar',
-    placeholder: 'Search into posts...',
+    placeholder: 'Search the docs',
     poweredBy: true // This is required if you're on the free Community plan
   })
 );
@@ -91,10 +91,6 @@ search.start();
   display: none;
 }
 
-.post-item__empty-query .post-snippet {
-  display: none;
-}
-
 .post-list {
     list-style:none;
     margin:0;
@@ -103,5 +99,14 @@ search.start();
     -moz-transition:top .5s ease;
     -o-transition:top .5s ease;
     transition:top .5s ease
+}
+
+#search-hits::after {
+    content: '';
+    display: block;
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: rgba(0,0,0,.07);
 }
 </style>
