@@ -54,6 +54,8 @@
             {% assign sorted_pages = site.pages | sort: "order" %}
             {% assign dirlevel = page.dir %}
             {% for post in sorted_pages %}
+            {% if post.path contains '404' %}
+            {% else %}
                 {% if post.dir == page.dir %}
                     {% if page.url == post.url %}
                     <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
@@ -65,6 +67,7 @@
                         </a>
                     </li>
                 {% endif %}
+            {% endif %}
             {% endfor %}
 
             {% if page.path contains 'README' %}
