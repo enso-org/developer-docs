@@ -61,7 +61,7 @@ jobs:
       - name: 🔍 Create Algolia index
         run: bundle exec jekyll algolia 
         env: 
-          ALGOLIA_API_KEY: {{ secrets.ALGOLIA_KEY }}
+          ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_KEY }}
 
       - name: 🚀 deploy
         uses: peaceiris/actions-gh-pages@v3
