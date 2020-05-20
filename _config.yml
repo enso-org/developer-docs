@@ -56,3 +56,4 @@ plugins:
   - jemoji
   - jekyll-readme-index
   - jekyll-algolia
+  - jekyll-relative-links
