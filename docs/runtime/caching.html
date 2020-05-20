@@ -558,16 +558,21 @@ than having to recompute the entire program.</p>
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
 <ul>
-  <li><a href="#cache-candidates">Cache Candidates</a></li>
+  <li><a href="#cache-candidates">Cache Candidates</a>
+    <ul>
+      <li><a href="#initial-cache-candidates">Initial Cache Candidates</a></li>
+      <li><a href="#further-development-of-cache-candidates">Further Development of Cache Candidates</a></li>
+    </ul>
+  </li>
   <li><a href="#partial-evaluation-and-side-effects">Partial-Evaluation and Side-Effects</a>
     <ul>
       <li><a href="#side-effects-in-the-initial-version">Side Effects in the Initial Version</a></li>
       <li><a href="#in-the-future">In The Future</a></li>
     </ul>
   </li>
-  <li><a href="#cache-eviction-strategies">Cache Eviction Strategies</a>
+  <li><a href="#cache-eviction-strategy">Cache Eviction Strategy</a>
     <ul>
-      <li><a href="#initial-eviction-strategies">Initial Eviction Strategies</a></li>
+      <li><a href="#initial-eviction-strategy">Initial Eviction Strategy</a></li>
       <li><a href="#future-eviction-strategies">Future Eviction Strategies</a></li>
     </ul>
   </li>
@@ -577,7 +582,21 @@ than having to recompute the entire program.</p>
       <li><a href="#specifying-dataflow">Specifying Dataflow</a></li>
     </ul>
   </li>
-  <li><a href="#cache-eviction-strategy">Cache Eviction Strategy</a></li>
+  <li><a href="#cache-backend">Cache Backend</a>
+    <ul>
+      <li><a href="#initial-implementation-of-cache-backend">Initial Implementation of Cache Backend</a></li>
+      <li><a href="#further-development-of-cache-backend">Further Development of Cache Backend</a></li>
+    </ul>
+  </li>
+  <li><a href="#memory-bounded-caches">Memory Bounded Caches</a>
+    <ul>
+      <li><a href="#soft-references">Soft References</a></li>
+      <li><a href="#serialization">Serialization</a></li>
+      <li><a href="#instrumentation">Instrumentation</a></li>
+      <li><a href="#manual-memory-management">Manual Memory Management</a></li>
+      <li><a href="#comparison-of-memory-management-approaches">Comparison of Memory Management Approaches</a></li>
+    </ul>
+  </li>
 </ul>
 
 <!-- /MarkdownTOC -->
@@ -602,9 +621,36 @@ this function (in this case <code class="highlighter-rouge">c</code> and <code c
 (in this case <code class="highlighter-rouge">a</code>, and <code class="highlighter-rouge">b</code>).</p>
 
 <p>All intermediate results and inputs are considered as candidates, though as the
-cache design evolves, the <em>selected</em> candidates may be refined. Once the values
-for each candidate are stored, changes to the code will re-use these cached
-values as much as possible.</p>
+cache design evolves, the <em>selected</em> candidates may be refined. Ultimately we
+want to cache and reuse as much as possible to minimize the computation
+costs. At the same time, we want to limit the memory consumed by the cache.</p>
+
+<h3 id="initial-cache-candidates">Initial Cache Candidates</h3>
+<p>The initial version of the cache only stores the right-hand-sides of binding
+expressions. This is for two main reasons:</p>
+
+<ul>
+  <li>Firstly, this allows us to ensure that the cache does not cause the JVM to
+go out of memory between executions, allowing us to avoid the implementation
+of a <a href="#memory-management">memory-bounded cache</a> for now.</li>
+  <li>It also simplifies the initial implementation of weighting program components.</li>
+</ul>
+
+<h3 id="further-development-of-cache-candidates">Further Development of Cache Candidates</h3>
+<p>The next step for the cache is to expand the portions of the introspected scope
+that we cache. In general, this means the caching of intermediate expressions.</p>
+
+<p>However, once we do this, we can no longer guarantee that we do not push the
+JVM out of memory between two program executions. This is best demonstrated
+by example.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a = (computeHugeObject b).size
+</code></pre></div></div>
+
+<p>Here we compute a value that takes up a significant amount of memory, but from
+it we only compute a small derived value (its size). Hence, if we want to cache
+the intermediate result of the discarded <code class="highlighter-rouge">computeHugeObject b</code> expression, we
+need some way of tracking the sizes of individual cache entries.</p>
 
 <h2 id="partial-evaluation-and-side-effects">Partial-Evaluation and Side-Effects</h2>
 <p>The more theoretically-minded people among those reading this document may
@@ -680,11 +726,11 @@ capabilities that will be useful in doing so.</li>
   </ul>
 </blockquote>
 
-<h2 id="cache-eviction-strategies">Cache Eviction Strategies</h2>
+<h2 id="cache-eviction-strategy">Cache Eviction Strategy</h2>
 <p>The cache eviction strategy refers to the method by which we determine which
 entries in the cache are invalidated (if any) after a given change to the code.</p>
 
-<h3 id="initial-eviction-strategies">Initial Eviction Strategies</h3>
+<h3 id="initial-eviction-strategy">Initial Eviction Strategy</h3>
 <p>In the initial version of the caching mechanism, the eviction strategies are
 intended to be fairly simplistic and conservative to ensure correctness.</p>
 
@@ -692,13 +738,35 @@ intended to be fairly simplistic and conservative to ensure correctness.</p>
   <li>The compiler performs data-dependency analysis between expressions.</li>
   <li>If an expression is changed, all cached values for expressions that depend on
 it are evicted from the cache.</li>
-  <li>These evicted values must be computed.</li>
+  <li>Expressions that have been evicted from the cache subsequently have to be
+recomputed by the runtime.</li>
 </ul>
+
+<p>The following rules are applied when an expression identified by some key <code class="highlighter-rouge">k</code> is
+changed:</p>
+
+<ol>
+  <li>All expressions that depend on the result of <code class="highlighter-rouge">k</code> are evicted from the cache.</li>
+  <li>If <code class="highlighter-rouge">k</code> is a dynamic symbol, all expressions that depend on <em>any instance</em> of
+the dynamic symbol are evicted from the cache.</li>
+</ol>
 
 <h3 id="future-eviction-strategies">Future Eviction Strategies</h3>
 <p>In the future, however, the increasing sophistication of the front-end compiler
 for Enso will allow us to do better than this by accounting for more granular
 information in the eviction decisions.</p>
+
+<p>Cache eviction takes into account the following aspects:</p>
+
+<ul>
+  <li><strong>Visualization:</strong> In the first place, we should care about nodes that have
+visualization attached in the IDE.</li>
+  <li><strong>Priority:</strong> The runtime can assign a score to a node, meaning how valuable
+this node is. Less valuable nodes should be evicted first.</li>
+  <li><strong>Computation time:</strong> The runtime can calculate the time that node took to
+compute. Less computationally intensive nodes should be evicted first. Memory
+limit. The cache should not exceed the specified memory limit.</li>
+</ul>
 
 <blockquote>
   <p>The actionables for this section are:</p>
@@ -878,20 +946,156 @@ caseBranch &lt;- expression
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>comment &lt;- commented
 </code></pre></div></div>
 
-<h2 id="cache-eviction-strategy">Cache Eviction Strategy</h2>
-<p>The cache eviction strategy refers to the process by which, for a given change,
-we decide which elements should be evicted from the cache. In the current form,
-the following rules are applied when an expression identified by some key <code class="highlighter-rouge">k</code> is
-changed:</p>
+<h2 id="cache-backend">Cache Backend</h2>
+<p>The cache is implemented as key-value storage with an eviction function.</p>
+
+<p>The cache stores the right-hand side expressions of the bindings in the
+key-value storage. The storage can be as simple as a Hash Map with values
+wrapped into the Soft References as a fallback strategy of clearing the
+cache. The eviction function purges invalidated expressions from previous
+program execution.</p>
+
+<h3 id="further-development">Further development</h3>
+<p>Cache intermediate results of expressions to reduce the cost of new computations
+and extend the eviction strategy to clear the cache based on memory consumption.</p>
+
+<p>Extend the eviction strategy by adding an asynchronous scoring task that
+computes some properties of stored objects (e.g., the size of the object). Those
+properties can be used in the eviction strategy as optional clues, improving the
+hit ratio.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>
+      <p>Evolve the cache by storing the results of intermediate expressions</p>
+    </li>
+    <li>
+      <p>Evolve the cache eviction strategy implementation by employing more
+information of the stored values</p>
+    </li>
+  </ul>
+</blockquote>
+
+<h2 id="memory-bounded-caches">Memory Bounded Caches</h2>
+<p>Memory management refers to a way of controlling the size of the cache, avoiding
+the Out Of Memory errors.</p>
+
+<p>The methods below can be divided into two approaches.</p>
 
 <ol>
-  <li>All expressions that depend on the result of <code class="highlighter-rouge">k</code> are evicted from the cache.</li>
-  <li>If <code class="highlighter-rouge">k</code> is a dynamic symbol, all expressions that depend on <em>any instance</em> of
-the dynamic symbol are evicted from the cache.</li>
+  <li>Limiting the overall JVM memory and relying on garbage collection.</li>
+  <li>Calculating the object’s size and using it in the eviction strategy.</li>
 </ol>
 
-<p>Expressions that have been evicted from the cache subsequently have to be
-recomputed by the runtime.</p>
+<p>In general, to control the memory size on JVM, anything besides limiting the
+total amount involves some tradeoffs.</p>
+
+<h3 id="soft-references">Soft References</h3>
+<p>Soft References is a way to mark the cache entries available for garbage
+collection whenever JVM runs a GC. In practice, it can cause long GC times and
+reduced overall performance. This strategy is generally considered as a last
+resort measure.</p>
+
+<p>The effect of the GC can be mitigated by using the <em>isolates</em> (JSR121
+implemented in GraalVM). One can think of an <em>isolate</em> as a lightweight JVM,
+running in a thread with their own heap, memory limit, and garbage collection.</p>
+
+<p>The problem is that <em>isolates</em> can’t share objects. And even if we move the
+cache to the separate <em>isolate</em>, that would require creating a mechanism of
+sharing objects based on pointers, which requires implementing serialization. On
+the other hand, serialization itself can provide the size of the object, which
+is enough to implement the eviction policy, even without running the <em>isolates</em>.</p>
+
+<h3 id="serialization">Serialization</h3>
+<p>One approach to get the size of the value stored in the cache is
+<em>serialization</em>. The downside is the computational overhead of transforming the
+object into a byte sequence.</p>
+
+<h3 id="instrumentation">Instrumentation</h3>
+<p>Another way of getting the object’s size is to use JVM instrumentation. This
+approach requires running JVM with <em>javaagent</em> attached, which can complicate
+the deployment and have indirect performance penalties.</p>
+
+<h3 id="manual-memory-management">Manual Memory Management</h3>
+<p>This method implies tracking the size of the values by hand. It can be done for
+the values of Enso language, knowing the size of its primitive types. For
+interacting with other languages, Enso can provide an interface that developers
+should implement to have a better experience with the cache.</p>
+
+<h3 id="comparison-of-memory-management-approaches">Comparison of Memory Management Approaches</h3>
+<p>Below are some key takeaways after experimenting with the <em>instrumentation</em> and
+<em>serialization</em> approaches.</p>
+
+<h4 id="enso-runtime-benchmark">Enso Runtime Benchmark</h4>
+<p>The existing runtime benchmark was executed with the java agent attached to
+measure the impact of instrumentation.</p>
+
+<h4 id="serialization-benchmark">Serialization Benchmark</h4>
+<p><a href="https://github.com/RuedigerMoeller/fast-serialization">FST</a> library was used
+for the serialization benchmark. It doesn’t require an explicit scheme and
+relies on Java <code class="highlighter-rouge">Serializable</code> interface.</p>
+
+<h4 id="instrumentation-benchmark">Instrumentation Benchmark</h4>
+<p>Java
+<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/instrument/Instrumentation.html">`Instrumentation#getObjectSize()</a>
+can only provide a <em>shallow</em> memory of the object. It does not follow the
+references and only takes into account public fields containing primitive types.</p>
+
+<p>Benchmark used the <code class="highlighter-rouge">MemoryUtil#deepMemoryUsageOf</code> function of
+<a href="https://www.javamex.com/classmexer/">Classmexer</a> library. It utilizes Java
+reflection to follow the references and access the private fields of the object.</p>
+
+<h4 id="benchmark-results">Benchmark Results</h4>
+<p>Benchmarks measured Java array, <code class="highlighter-rouge">java.util.LinkedList</code>, and a custom
+implementation of lined list <code class="highlighter-rouge">ConsList</code>, an object that maintains references for
+its head and tail.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">ConsList</span><span class="o">&lt;</span><span class="no">A</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="no">A</span> <span class="n">head</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">ConsList</span><span class="o">&lt;</span><span class="no">A</span><span class="o">&gt;</span> <span class="n">tail</span><span class="o">;</span>
+<span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Function execution time measured in milliseconds per operation (lower is
+better).</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Benchmark                               (size)  Mode  Cnt     Score     Error  Units
+FstBenchmark.serializeArray               1000  avgt    5    21.862 ±   0.503  us/op
+FstBenchmark.serializeConsList            1000  avgt    5   151.791 ±  45.200  us/op
+FstBenchmark.serializeLinkedList          1000  avgt    5    38.139 ±  12.932  us/op
+InstrumentBenchmark.memoryOfArray         1000  avgt    5    17.700 ±   0.068  us/op
+InstrumentBenchmark.memoryOfConsList      1000  avgt    5  1706.224 ±  61.631  us/op
+InstrumentBenchmark.memoryOfLinkedList    1000  avgt    5  1866.783 ± 557.296  us/op
+</code></pre></div></div>
+
+<ul>
+  <li>There are no slowdowns in running the Enso runtime benchmark with the
+instrumentation <code class="highlighter-rouge">javaagent</code> attached.</li>
+  <li>Serialization works in microsecond time range and operates on all Java objects
+implementing <em>Serializable</em> interface.</li>
+  <li>Java `Instrumentation#getObjectSize() performs in nanosecond time range. The
+<em>deep</em> inspection approach based on the reflection was significantly slower
+than the serialization.</li>
+</ul>
+
+<p>The resulting approach can be a combination of one of the approaches with the
+introspection of the value. For example, it can be a case statement, analyzing
+the value and applying the appropriate method.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">long</span> <span class="nf">getSize</span><span class="o">(</span><span class="nc">Object</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="k">instanceof</span> <span class="nc">Primitive</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nf">getPrimitiveSize</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+  <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="k">instanceof</span> <span class="nc">EnsoNode</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nf">introspectNode</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+  <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
 
                     </section>
                 </div>
@@ -1122,7 +1326,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-20 11:36:01 +0000"
+        "time": "2020-05-20 13:35:22 +0000"
     },
     "basePath": "",
     "book": {
