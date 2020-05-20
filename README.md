@@ -1,3 +1,10 @@
+---
+layout: docs-index
+title: README
+tags: [readme]
+order: 0
+---
+
 # Enso Documentation
 
 This site hosts the internal documentation for developers working on Enso and Enso projects. Most of the documentation is currently drawn from the [Enso engine](https://github.com/luna/enso/tree/master/docs). 
