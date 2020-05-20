@@ -225,6 +225,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/">
                     
@@ -232,6 +236,10 @@ search.start();
                             Enso Developer Documentation
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -540,7 +548,7 @@ sections of this document are linked below:</p>
 <!-- /MarkdownTOC -->
 
 <p>All contributions to Enso should be in keeping with our
-<a href="https://github.com/luna/luna/blob/CODE_OF_CONDUCT.md">Code of Conduct</a>.</p>
+<a href="/docs/CODE_OF_CONDUCT.html">Code of Conduct</a>.</p>
 
 <h2 id="the-contributor-license-agreement">The Contributor License Agreement</h2>
 <p>As part of your first contribution to this repository, you need to accept the
@@ -554,19 +562,30 @@ this CLA.</p>
 so you will only have to sign it once at the start of your contributions.</p>
 
 <h2 id="issues">Issues</h2>
-<p>If you are looking for somewhere to start, check out the <code class="highlighter-rouge">Help Wanted</code> tag in
-the following repositories:</p>
+<p>If you’re wanting to get involved with Enso’s development and are looking for
+somewhere to start, you can check out the following tags in our issues:</p>
+
 <ul>
-  <li><a href="https://github.com/luna/enso/labels/Status%3A%20Help%20Wanted">Enso</a></li>
-  <li><a href="https://github.com/luna/ide/labels/Status%3A%20Help%20Wanted">Enso Studio</a></li>
+  <li><a href="https://github.com/luna/enso/labels/Status%3A%20Good%20First%20Issue">Good First Issue</a></li>
+  <li><a href="https://github.com/luna/enso/labels/Status%3A%20Help%20Wanted">Help Wanted</a></li>
 </ul>
+
+<p>You can use the “Size” and “Difficulty” labels that should be assigned to every
+issue to get a better idea of how much work a given issue might be.</p>
 
 <h2 id="feature-enhancements">Feature Enhancements</h2>
 <p>If you feel like you have a suggestion for a change to the way that Enso works
-as a language, please open an issue in our
-<a href="https://github.com/luna/luna-rfcs">RFCs Repository</a>, rather than in this one!
-New features and other significant language changes must go through the RFC
-process so they can be properly discussed.</p>
+as a language, please take a look at the
+<a href="/docs/rfcs/">Enso RFC process</a> to learn how to file an RFC for the
+project.</p>
+
+<p>In essence, the RFC process provides a way to propose major changes to the
+language, the compiler, and the runtime in a way that ensures that they get
+seen and discussed by all the major stakeholders involved.</p>
+
+<p>If, on the other hand, you’re asking for a smaller feature, please feel free to
+submit a <a href="https://github.com/luna/enso/issues/new?assignees=&amp;labels=Type%3A+Enhancement&amp;template=feature-request.md&amp;title=">feature request</a>
+to the repository.</p>
 
 <h2 id="bug-reports">Bug Reports</h2>
 <p>While it’s never great to find a bug, they are a reality of software and
@@ -575,7 +594,7 @@ about, so report as many bugs as you can! If you’re not sure whether something
 is a bug, file it anyway!</p>
 
 <p><strong>If you are concerned that your bug publicly presents a security risk to the
-users of Enso, please look at our <a href="./security.md">security guidelines</a>.</strong></p>
+users of Enso, please look at our <a href="/docs/SECURITY.html">security guidelines</a>.</strong></p>
 
 <p>Even though GitHub search can be a bit hard to use sometimes, we’d appreciate if
 you could
@@ -584,7 +603,8 @@ your issue before filing a bug as it’s possible that someone else has already
 reported the issue. We know the search isn’t the best, and it can be hard to
 know what to search for, so we really don’t mind if you do submit a duplicate!</p>
 
-<p>Opening an issue is as easy as following <a href="https://github.com/luna/enso/issues/new?template=bug-report.md">this link</a>
+<p>Opening an issue is as easy as following
+<a href="https://github.com/luna/enso/issues/new?template=bug-report.md">this link</a>
 and filling out the fields. The template is intended to collect all the
 information we need to best diagnose the issue, so please take the time to fill
 it out accurately.</p>
@@ -605,7 +625,7 @@ look at the design documentation for the language. These files explain provide
 both a rigorous specification of Enso’s design, but also insight into the <em>why</em>
 behind the decisions that have been made.</p>
 
-<p>These can be found in <a href="doc/design/"><code class="highlighter-rouge">doc/design/</code></a>, and are organised by the
+<p>These can be found in <a href="docs/design/"><code class="highlighter-rouge">docs/design/</code></a>, and are organised by the
 part of the compiler that they relate to.</p>
 
 <h3 id="system-requirements">System Requirements</h3>
@@ -800,7 +820,7 @@ to add it using the ‘New’ button if it isn’t already set up.</li>
 with an open SBT shell, which can be interacted with as described above. You
 will want to use scalafmt for formatting of Scala code, and install Google
 Java Format for formatting Java code. For more information see the relevant
-<a href="doc/">Style Guides</a>.</li>
+<a href="docs/style-guide">Style Guides</a>.</li>
 </ol>
 
 <p>However, as mentioned in the <a href="#troubleshooting">Troubleshooting</a> section below,
@@ -915,8 +935,8 @@ to bring those changes into the main Enso repository.</p>
 the tests yourself locally first! This can be done by running <code class="highlighter-rouge">test</code> in the
 <code class="highlighter-rouge">enso</code> project in sbt.</li>
   <li>Additionally, please ensure that your code conforms to the Enso style guides,
-particularly the <a href="./doc/scala-style-guide.md">Scala Style Guide</a> and the
-<a href="./doc/java-style-guide.md">Java Style Guide</a>.</li>
+particularly the <a href="./docs/style-guide/scala.md">Scala Style Guide</a> and the
+<a href="./docs/style-guide/java.md">Java Style Guide</a>.</li>
 </ul>
 
 <p>Make sure you perform these checks before <em>every</em> pull request. You can even add
@@ -940,12 +960,13 @@ please feel free to discuss the suggestions and comments! We can only achieve
 the best results through open collaboration.</p>
 
 <h2 id="documentation">Documentation</h2>
-<p>Documentation improvements are very welcome! The source for the Enso, Book can be
-found in <a href="https://github.com/luna/luna-book"><code class="highlighter-rouge">luna/luna-book</code></a>, but most of the
-API documentation is generated directly from the code!</p>
+<p>Documentation improvements are very welcome! For now, the main documentation
+available is the <em>developer</em> documentation for the language, which can be found
+at the <a href="https://dev.enso.org">dev docs site</a>. The source for this documentation
+is found in the <a href="./docs/"><code class="highlighter-rouge">docs/</code></a> folder, and can be altered from there.</p>
 
-<p>Documentation pull requests are reviewed in exactly the same way as normal pull
-requests.</p>
+<p>Documentation pull requests will be reviewed in exactly the same way as normal
+pull requests.</p>
 
 <p>To find documentation-related issues, sort by the
 <a href="hhttps://github.com/luna/enso/labels/Category%3A%20Documentation">Category: Documentation</a>
@@ -968,7 +989,8 @@ issue triage.</p>
 <a href="https://github.com/luna/enso/labels/Difficulty%3A%20Beginner">Difficulty: Beginner</a>
 issue label, as well as the
 <a href="https://github.com/luna/enso/labels/Status%3A%20Help%20Wanted">Status: Help Wanted</a>
-label.</p>
+and
+<a href="https://github.com/luna/enso/labels/Status%3A%20Good%20First%20Issue">Status: Good First Issue</a> labels.</p>
 
 <h2 id="out-of-tree-contributions">Out-of-Tree Contributions</h2>
 <p>As helpful as contributing to Enso directly is, it can also be just as helpful
@@ -984,9 +1006,10 @@ to contribute in other ways outside this repository:</p>
 seasoned developers, some useful places to look for information are:</p>
 
 <ul>
-  <li>The <a href="doc/design/">design documentation</a>.</li>
+  <li>The <a href="docs/">design documentation</a>.</li>
   <li>The community! Don’t be afraid to ask questions.</li>
 </ul>
+
 
                     </section>
                 </div>
@@ -1217,7 +1240,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-20 10:51:24 +0000"
+        "time": "2020-05-20 11:22:54 +0000"
     },
     "basePath": "",
     "book": {
