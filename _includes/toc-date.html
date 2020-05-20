@@ -34,6 +34,7 @@
 
             {% assign dirpath = page.path | split: "/" %}
             {% assign dirlength = dirpath | size %}
+            {% assign dirlevel = page.dir | split:"/" | size %}
 
             {% if page.path contains 'README' %}
                 {% assign dirpath = dirpath | pop %}
@@ -43,16 +44,17 @@
             {% endif %}
             {% assign dirpath = dirpath | join:"/" %}
         
+            {% if dirlevel > 0 %}
             <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}/{{dirpath}} ">
                     <a href="{{site.baseurl}}/{{dirpath}}">
                         Go back
                     </a>
                 </li>
-
-            <li class="divider"></li>
+                <li class="divider"></li>
+            {% endif %}
+                
             
             {% assign sorted_pages = site.pages | sort: "order" %}
-            {% assign dirlevel = page.dir %}
             {% for post in sorted_pages %}
             {% if post.path contains '404' %}
             {% else %}
@@ -72,8 +74,16 @@
 
             {% if page.path contains 'README' %}
                 {% assign dirindexes = "" | split: "" %}
+
+                {% if dirlevel == 0 %}
+                    {% assign nextlevel = dirlevel | plus: 2 %}
+                {% else %}
+                    {% assign nextlevel = dirlevel | plus: 1 %}
+                {% endif %}
+                
                 {% for post in sorted_pages %}
-                    {% if post.path contains 'README' and post.dir contains dirlevel and post.url != page.url %}
+                    {% assign postlevel = post.dir | split:"/" | size %}
+                    {% if post.path contains 'README' and postlevel == nextlevel and post.url != page.url %}
                         {% assign dirindexes = dirindexes | push: post %}
                     {% endif %}
                 {% endfor %}
