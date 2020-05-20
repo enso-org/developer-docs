@@ -594,12 +594,12 @@ The following is an example of this manifest file.</p>
 <span class="na">version</span><span class="pi">:</span> <span class="s">1.0.1</span>
 <span class="na">author</span><span class="pi">:</span> <span class="s2">"</span><span class="s">John</span><span class="nv"> </span><span class="s">Doe</span><span class="nv"> </span><span class="s">&lt;john.doe@example.com&gt;"</span>
 <span class="na">maintainer</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Jane</span><span class="nv"> </span><span class="s">Doe</span><span class="nv"> </span><span class="s">&lt;jane.doe@example.com&gt;"</span>
-<span class="na">enso_version</span><span class="pi">:</span> <span class="s">1.2.0</span>
-<span class="na">dependencies</span><span class="pi">:</span>
-  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Base</span>
-    <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.2.0"</span>
-  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Http</span>
-    <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">4.5.3"</span>
+<span class="na">resolver</span><span class="pi">:</span> <span class="s">lts-1.2.0</span>
+<span class="na">extra-dependencies</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Base</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.2.0"</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Http</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">4.5.3"</span>
 </code></pre></div></div>
 
 <p>The following is the specification of the manifest fields.</p>
@@ -621,9 +621,10 @@ the author(s) of this library, in the <code class="highlighter-rouge">Name &lt;c
 of the current maintainer(s) of this library, in the <code class="highlighter-rouge">Name &lt;contact&gt;</code> or <code class="highlighter-rouge">Name</code>
 format.</p>
 
-<h4 id="enso_version">enso_version</h4>
-<p><strong>Required</strong> <em>String</em>: The version of the Enso compiler this library is created
-for.</p>
+<h4 id="resolver">resolver</h4>
+<p><strong>Note</strong> This field is not currently implemented.
+<strong>Required</strong> <em>String</em>: The resolver name, used to choose compiler version and
+basic libraries set.</p>
 
 <blockquote>
   <p>The actionables for this section are:</p>
@@ -633,10 +634,13 @@ for.</p>
   </ul>
 </blockquote>
 
-<h4 id="dependencies">dependencies</h4>
-<p><strong>Optional</strong> <em>List of Library objects</em>: The list of all libraries this package
-requires to function properly. Defaults to an empty list.
-A library object is of the form:</p>
+<h4 id="extra-dependencies">extra-dependencies</h4>
+<p><strong>Note</strong> This field is not currently implemented.
+<strong>Optional</strong> <em>List of Library objects</em>: The list of libraries this package
+requires to function properly and that are not included in the resolver.
+Defaults to an empty list.</p>
+
+<p>A library object is of the form:</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">&lt;name of the library&gt;</span>
 <span class="na">version</span><span class="pi">:</span> <span class="s">&lt;semver string of the required library version&gt;</span>
@@ -891,7 +895,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-20 13:35:22 +0000"
+        "time": "2020-05-20 15:25:39 +0000"
     },
     "basePath": "",
     "book": {
