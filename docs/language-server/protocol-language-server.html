@@ -639,6 +639,18 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#executioncontextvisualisationupdate"><code class="highlighter-rouge">executionContext/visualisationUpdate</code></a></li>
     </ul>
   </li>
+  <li><a href="#input-output-operations">Input/Output Operations</a>
+    <ul>
+      <li><a href="#ioredirectstdardoutput"><code class="highlighter-rouge">io/redirectStandardOutput</code></a></li>
+      <li><a href="#iosuppressstdardoutput"><code class="highlighter-rouge">io/suppressStandardOutput</code></a></li>
+      <li><a href="#iostandardoutputappended"><code class="highlighter-rouge">io/standardOutputAppended</code></a></li>
+      <li><a href="#ioredirectstdarderror"><code class="highlighter-rouge">io/redirectStandardError</code></a></li>
+      <li><a href="#iosuppressstdarderror"><code class="highlighter-rouge">io/suppressStandardError</code></a></li>
+      <li><a href="#iostandarderrorappended"><code class="highlighter-rouge">io/standardErrorAppended</code></a></li>
+      <li><a href="#iofeedstandardinput"><code class="highlighter-rouge">io/feedStandardInput</code></a></li>
+      <li><a href="#iowaitingforstandardinput"><code class="highlighter-rouge">io/waitingForStandardInput</code></a></li>
+    </ul>
+  </li>
   <li><a href="#errors">Errors</a>
     <ul>
       <li><a href="#accessdeniederror"><code class="highlighter-rouge">AccessDeniedError</code></a></li>
@@ -2684,7 +2696,180 @@ root_type VisualisationUpdate;
 <h4 id="errors-42">Errors</h4>
 <p>N/A</p>
 
-<h2 id="errors-43">Errors</h2>
+<h2 id="inputoutput-operations">Input/Output Operations</h2>
+<p>The input/output portion of the language server API deals with redirecting
+stdin/stdout/stderr of Enso programs to the clients of the language server. 
+This is incredibly important for enabling the high levels of interactivity 
+required by Enso Studio.</p>
+
+<h3 id="ioredirectstandardoutput"><code class="highlighter-rouge">io/redirectStandardOutput</code></h3>
+<p>This message allows a client to redirect the standard output of Enso programs. 
+Once the standard output is redirected, the Language server will notify the 
+client about new output data by emitting <code class="highlighter-rouge">io/standardOutputAppended</code> messages.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-42">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+<h4 id="result-33">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-43">Errors</h4>
+<p>N/A</p>
+
+<h3 id="iosuppressstandardoutput"><code class="highlighter-rouge">io/suppressStandardOutput</code></h3>
+<p>This message allows a client to suppress the redirection of the standard output.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-43">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+<h4 id="result-34">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-44">Errors</h4>
+<p>N/A</p>
+
+<h3 id="iostandardoutputappended"><code class="highlighter-rouge">io/standardOutputAppended</code></h3>
+<p>Sent from the server to the client to inform that new output data are available 
+for the standard output.</p>
+
+<ul>
+  <li><strong>Type:</strong> Notification</li>
+  <li><strong>Direction:</strong> Server -&gt; Client</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-44">Parameters</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">output</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="ioredirectstandarderror"><code class="highlighter-rouge">io/redirectStandardError</code></h3>
+<p>This message allows a client to redirect the standard error of Enso programs. 
+Once the standard error is redirected, the Language server will notify the 
+client about new output data by emitting <code class="highlighter-rouge">io/standardErrorAppended</code> messages.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-45">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+<h4 id="result-35">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-45">Errors</h4>
+<p>N/A</p>
+
+<h3 id="iosuppressstandarderror"><code class="highlighter-rouge">io/suppressStandardError</code></h3>
+<p>This message allows a client to suppress the redirection of the standard error.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-46">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+<h4 id="result-36">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-46">Errors</h4>
+<p>N/A</p>
+
+<h3 id="iostandarderrorappended"><code class="highlighter-rouge">io/standardErrorAppended</code></h3>
+<p>Sent from the server to the client to inform that new output data are available 
+for the standard error.</p>
+
+<ul>
+  <li><strong>Type:</strong> Notification</li>
+  <li><strong>Direction:</strong> Server -&gt; Client</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-47">Parameters</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">output</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="iofeedstandardinput"><code class="highlighter-rouge">io/feedStandardInput</code></h3>
+<p>This message allows a client to feed the standard input of Enso programs.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-48">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">input</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">isLineTerminated</span><span class="p">:</span> <span class="nb">Boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h4 id="result-37">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h4 id="errors-47">Errors</h4>
+<p>N/A</p>
+
+<h3 id="iowaitingforstandardinput"><code class="highlighter-rouge">io/waitingForStandardInput</code></h3>
+<p>Sent from the server to the client to inform that an Enso program is suspended 
+by <code class="highlighter-rouge">IO.readln</code>. This message is used to notify a client that she should feed the
+standard input.</p>
+
+<ul>
+  <li><strong>Type:</strong> Notification</li>
+  <li><strong>Direction:</strong> Server -&gt; Client</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-49">Parameters</h4>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
+
+<h2 id="errors-48">Errors</h2>
 <p>The language server component also has its own set of errors. This section is
 not a complete specification and will be updated as new errors are added.</p>
 
@@ -3124,7 +3309,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-20 15:43:26 +0000"
+        "time": "2020-05-20 18:24:34 +0000"
     },
     "basePath": "",
     "book": {
