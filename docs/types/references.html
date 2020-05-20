@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>References · Jekyll Gitbook</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="description" content="Build Jekyll site with the GitBook style.
-"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="HE Tao"><link rel="stylesheet" href="/gitbook/style.css">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>References · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
 <!-- <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css"> -->
 
@@ -15,66 +15,493 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
 <link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
-            <link rel="prev" href="/" />
+        
+
+        
+        
+
+
+        
+        
+        
+
+        
+        
+        
+
+        
+            <link rel="prev" href="/docs/types/dependent-typing.html" />
         
 
         
     </head>
     <body>
+        
         <div class="book"><div class="book-summary">
-    <div id="book-search-input" role="search">
-        <input type="text" placeholder="Type to search" />
+    <div id="search-searchbar">
     </div>
+    <div class="post-list" id="search-hits">
+        
+          <div class="post-item">
+            
+            <span class="post-meta">Apr 28, 2019</span>
+    
+            <h2>
+              <a class="post-link" href="/jekyll/2019-04-28-license.html">
+                License
+              </a>
+            </h2>
+    
+            <div class="post-snippet"><p>This work is open sourced under the Apache License, Version 2.0, using the
+same license as the original <a href="https://github.com/GitbookIO/gitbook">GitBook</a> repository.</p>
+</div>
+          </div>
+        
+          <div class="post-item">
+            
+            <span class="post-meta">Apr 28, 2019</span>
+    
+            <h2>
+              <a class="post-link" href="/jekyll/2019-04-28-howto.html">
+                How to Get Started
+              </a>
+            </h2>
+    
+            <div class="post-snippet"><p>This theme can be used just as other <a href="https://pages.github.com/themes">Jekyll themes</a>.</p>
+
+</div>
+          </div>
+        
+          <div class="post-item">
+            
+            <span class="post-meta">Apr 27, 2019</span>
+    
+            <h2>
+              <a class="post-link" href="/jekyll/2019-04-27-why.html">
+                Why Jekyll with GitBook
+              </a>
+            </h2>
+    
+            <div class="post-snippet"><p>GitBook is an amazing frontend style to present and organize contents (such as book chapters
+and blogs) on Web. The typical to deploy GitBook at <a href="https://pages.github.com">Github Pages</a>
+is building HTML files locally and then push to Github repository, usually to the <code class="highlighter-rouge">gh-pages</code>
+branch. However, it’s quite annoying to repeat such workload and make it hard for people do
+version control via git for when there are generated HTML files to be staged in and out.</p>
+
+</div>
+          </div>
+        
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+var search = instantsearch({
+  appId: '3PBI3MMCBE',
+  apiKey: '55d673c313b717b7386df8c9418588d4',
+  indexName: 'jekyll',
+  searchFunction(helper) {
+    var container = document.querySelector('#search-hits');
+    container.style.display = helper.state.query === '' ? 'none' : '';
+
+    helper.search();
+  }
+});
+
+var hitTemplate = function(hit) {
+  let date = '';
+  if (hit.date) {
+    date = moment.unix(hit.date).format('MMM D, YYYY');
+  }
+
+  let url = `${hit.url}#${hit.anchor}`;
+
+  var title = hit._highlightResult.title.value;
+
+  var content = hit._highlightResult.html.value;
+
+  return `
+    <li class="post-item chapter">
+      <a href="${url}" class="post-link">${title}</a>
+      <div class="post-snippet">${content}</div>
+    </li>
+  `;
+}
+
+
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-searchbar',
+    placeholder: 'Search the docs',
+    poweredBy: true // This is required if you're on the free Community plan
+  })
+);
+
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '#search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+search.start();
+</script>
+
+<style>
+.ais-search-box {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.post-item {
+  margin-bottom: 30px;
+}
+.post-link .ais-Highlight {
+  color: #111;
+  font-style: normal;
+  text-decoration: underline;
+}
+.post-breadcrumbs {
+  color: #424242;
+  display: block;
+}
+.post-breadcrumb {
+  font-size: 18px;
+  color: #424242;
+}
+.post-breadcrumb .ais-Highlight {
+  font-weight: bold;
+  font-style: normal;
+}
+.post-snippet .ais-Highlight {
+  color: #2a7ae2;
+  font-style: normal;
+  font-weight: bold;
+}
+.post-snippet img {
+  display: none;
+}
+
+.post-list {
+    list-style:none;
+    margin:0;
+    padding: 10px 15px;
+    -webkit-transition:top .5s ease;
+    -moz-transition:top .5s ease;
+    -o-transition:top .5s ease;
+    transition:top .5s ease
+}
+
+#search-hits::after {
+    content: '';
+    display: block;
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: rgba(0,0,0,.07);
+}
+</style>
     <nav role="navigation">
         <ul class="summary">
             
             <li class="chapter" data-level="1.1" data-path="">
             
                 <a href="">
-                    Jekyll Gitbook
+                    Enso Developer Documentation
                 </a>
             </li>
 
             <li class="divider"></li>
 
             
+            
 
             
-                
-                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-27-why.html">
-                
-                    <a href="/jekyll/2019-04-27-why.html">
-                        Why Jekyll with GitBook
+            
+        
+            <li class="chapter" data-level="1.1" data-path="/docs/types ">
+                    <a href="/docs/types">
+                        Go back
                     </a>
                 </li>
-            
-                
-                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-howto.html">
-                
-                    <a href="/jekyll/2019-04-28-howto.html">
-                        How to Get Started
-                    </a>
-                </li>
-            
-                
-                <li class="chapter" data-level="1.1" data-path="/jekyll/2019-04-28-license.html">
-                
-                    <a href="/jekyll/2019-04-28-license.html">
-                        License
-                    </a>
-                </li>
-            
 
             <li class="divider"></li>
+            
+            
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/types/">
+                    
+                        <a href="/docs/types/">
+                            Enso&#39;s Type System
+                        </a>
+                    </li>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/types/goals.html">
+                    
+                        <a href="/docs/types/goals.html">
+                            Goals for the Enso Type System
+                        </a>
+                    </li>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/types/hierarchy.html">
+                    
+                        <a href="/docs/types/hierarchy.html">
+                            The Enso Type Hierarchy
+                        </a>
+                    </li>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/types/function-types.html">
+                    
+                        <a href="/docs/types/function-types.html">
+                            Function Types
+                        </a>
+                    </li>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/types/access-modifiers.html">
+                    
+                        <a href="/docs/types/access-modifiers.html">
+                            Access Modifiers
+                        </a>
+                    </li>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/types/pattern-matching.html">
+                    
+                        <a href="/docs/types/pattern-matching.html">
+                            Pattern Matching
+                        </a>
+                    </li>
+                
+            
+                
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/types/dynamic-dispatch.html">
+                    
+                        <a href="/docs/types/dynamic-dispatch.html">
+                            Dynamic Dispatch
+                        </a>
+                    </li>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/types/modules.html">
+                    
+                        <a href="/docs/types/modules.html">
+                            Modules
+                        </a>
+                    </li>
+                
+            
+                
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/types/contexts.html">
+                    
+                        <a href="/docs/types/contexts.html">
+                            Monadic Contexts
+                        </a>
+                    </li>
+                
+            
+                
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/types/evaluation.html">
+                    
+                        <a href="/docs/types/evaluation.html">
+                            Evaluation and Typing
+                        </a>
+                    </li>
+                
+            
+                
+            
+                
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/types/parallelism.html">
+                    
+                        <a href="/docs/types/parallelism.html">
+                            Automated Parallelism Analysis
+                        </a>
+                    </li>
+                
+            
+                
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/types/type-directed-programming.html">
+                    
+                        <a href="/docs/types/type-directed-programming.html">
+                            Type-Directed Programming
+                        </a>
+                    </li>
+                
+            
+                
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/types/errors.html">
+                    
+                        <a href="/docs/types/errors.html">
+                            Errors
+                        </a>
+                    </li>
+                
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/types/inference-and-checking.html">
+                    
+                        <a href="/docs/types/inference-and-checking.html">
+                            Inference and Checking
+                        </a>
+                    </li>
+                
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/types/dependent-typing.html">
+                    
+                        <a href="/docs/types/dependent-typing.html">
+                            Dependent Typing
+                        </a>
+                    </li>
+                
+            
+                
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/types/references.html">
+                    
+                        <a href="/docs/types/references.html">
+                            References
+                        </a>
+                    </li>
+                
+            
 
-            <li>
-                <a href="https://github.com/sighingnow/jekyll-gitbook/fork" target="blank" class="gitbook-link">
-                    Fork it Now!
-                </a>
-            </li>
+            
+        
         </ul>
     </nav>
-</div><div class="book-body"><div class="body-inner">
+</div>
+<div class="book-body"><div class="body-inner">
     <div class="book-header" role="navigation">
         <!-- Title -->
         <h1>
@@ -89,11 +516,6 @@
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-
-                        
-                            <h1 id="">References</h1>
-                        
-
                         <h1 id="references">References</h1>
 <p>This file contains a variety of useful references for those wanting to 
 understand the concepts and research that underlie Enso’s type system and type
@@ -197,18 +619,132 @@ theory.</p>
     <div class="no-results">
         <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
     </div>
-</div>-->
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+var search = instantsearch({
+  appId: '3PBI3MMCBE',
+  apiKey: '55d673c313b717b7386df8c9418588d4',
+  indexName: 'jekyll',
+  searchFunction(helper) {
+    var container = document.querySelector('#search-hits');
+    container.style.display = helper.state.query === '' ? 'none' : '';
+
+    helper.search();
+  }
+});
+
+var hitTemplate = function(hit) {
+  let date = '';
+  if (hit.date) {
+    date = moment.unix(hit.date).format('MMM D, YYYY');
+  }
+
+  let url = `${hit.url}#${hit.anchor}`;
+
+  var title = hit._highlightResult.title.value;
+
+  var content = hit._highlightResult.html.value;
+
+  return `
+    <li class="post-item chapter">
+      <a href="${url}" class="post-link">${title}</a>
+      <div class="post-snippet">${content}</div>
+    </li>
+  `;
+}
+
+
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-searchbar',
+    placeholder: 'Search the docs',
+    poweredBy: true // This is required if you're on the free Community plan
+  })
+);
+
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '#search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+search.start();
+</script>
+
+<style>
+.ais-search-box {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.post-item {
+  margin-bottom: 30px;
+}
+.post-link .ais-Highlight {
+  color: #111;
+  font-style: normal;
+  text-decoration: underline;
+}
+.post-breadcrumbs {
+  color: #424242;
+  display: block;
+}
+.post-breadcrumb {
+  font-size: 18px;
+  color: #424242;
+}
+.post-breadcrumb .ais-Highlight {
+  font-weight: bold;
+  font-style: normal;
+}
+.post-snippet .ais-Highlight {
+  color: #2a7ae2;
+  font-style: normal;
+  font-weight: bold;
+}
+.post-snippet img {
+  display: none;
+}
+
+.post-list {
+    list-style:none;
+    margin:0;
+    padding: 10px 15px;
+    -webkit-transition:top .5s ease;
+    -moz-transition:top .5s ease;
+    -o-transition:top .5s ease;
+    transition:top .5s ease
+}
+
+#search-hits::after {
+    content: '';
+    display: block;
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: rgba(0,0,0,.07);
+}
+</style>-->
             </div>
         </div>
     </div>
 </div>
 
-                    <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Jekyll Gitbook">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
+                <a href="/docs/types/dependent-typing.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Dependent Typing">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
 
                 
+            
             </div>
 
             <script>
@@ -286,7 +822,7 @@ theory.</p>
             "readme": "README.md",
         },
         "variables": {},
-        "title": "Jekyll Gitbook",
+        "title": "Enso Developer Documentation",
         "language": "en",
         "gitbook": "*"
     },
@@ -297,7 +833,7 @@ theory.</p>
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-18 15:12:26 +0000"
+        "time": "2020-05-20 07:03:26 +0000"
     },
     "basePath": "",
     "book": {

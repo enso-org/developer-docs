@@ -1,3 +1,24 @@
-<h1 id="enso-developer-documentation">Enso Developer Documentation</h1>
+<h1 id="enso-documentation">Enso Documentation</h1>
 
-<p>Under construction, check back soon</p>
+<p>This site hosts the internal documentation for developers working on Enso and Enso projects. Most of the documentation is currently drawn from the <a href="https://github.com/luna/enso/tree/master/docs">Enso engine</a>.</p>
+
+<p>If you want to add documentation for another project, see the instructions below.</p>
+
+<h2 id="installation-and-usage">Installation and usage</h2>
+
+<p>The site is built with Jekyll, and hosted on GitHub Pages. The content is mostly hosted in other repositories via Git submodules.</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle install 
+git submodule update --init --recursive
+bundle exec jekyll build
+</code></pre></div></div>
+
+<h2 id="adding-new-documentation">Adding new documentation</h2>
+
+<p>To add new documentation:</p>
+
+<ul>
+  <li>Add a new submodule under <code class="highlighter-rouge">_submodules</code>.</li>
+  <li>Create a symlink to the desired repository at the root.</li>
+  <li>To the target repository, add a <a href="https://github.com/luna/enso/blob/master/.github/workflows/docs.yml">GitHub Action</a> to automatically checkout the submodule when changes are made.</li>
+</ul>
