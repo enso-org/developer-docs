@@ -1,15 +1,15 @@
 # Configurations
-title:            Jekyll Gitbook
-longtitle:        Jekyll Gitbook
-author:           HE Tao
-email:            sighingnow@gmail.com
+title:            Enso Developer Documentation
+longtitle:        Enso Developer Documentation
+author:           Enso.org
+email:            contact@enso.org
 description: >
-  Build Jekyll site with the GitBook style.
+  The developer documentation for the Enso compiler, runtime, and IDE..
 
 version:          1.0
 gitbook_version:  3.2.3
 
-url:              'https://sighingnow.github.io'
+url:              'https://dev.enso.org'
 baseurl:          ''
 rss:              RSS
 
@@ -27,12 +27,26 @@ kramdown:
 
 markdown_ext:     markdown,mkdown,mkdn,mkd,md
 
+# Readme Index
+readme_index:
+  remove_originals: true
+  with_frontmatter: true
+
+# Site search and indexing
+algolia: 
+  application_id: 3PBI3MMCBE
+  index_name: jekyll
+  search_only_api_key: 55d673c313b717b7386df8c9418588d4
+
+
 # Permalinks
 permalink:        /:categories/:year-:month-:day-:title:output_ext
 
 exclude:
   - _drafts
   - _submodules
+  - node_modules
+  - _scripts
 
 destination:      ./_site
 incremental:      false
@@ -41,3 +55,4 @@ regenerate:       true
 plugins:
   - jemoji
   - jekyll-readme-index
+  - jekyll-algolia

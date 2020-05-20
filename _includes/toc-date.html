@@ -1,7 +1,23 @@
 <div class="book-summary">
-    <div id="book-search-input" role="search">
-        <input type="text" placeholder="Type to search" />
+    <div id="search-searchbar">
     </div>
+    <div class="post-list" id="search-hits">
+        {% for post in site.posts %}
+          <div class="post-item">
+            {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
+            <span class="post-meta">{{ post.date | date: date_format }}</span>
+    
+            <h2>
+              <a class="post-link" href="{{ post.url | relative_url }}">
+                {{ post.title | escape }}
+              </a>
+            </h2>
+    
+            <div class="post-snippet">{{ post.excerpt }}</div>
+          </div>
+        {% endfor %}
+      </div>
+      {% include algolia.html %}
     <nav role="navigation">
         <ul class="summary">
             {% if page.url == "/index.html" or page.url == "/" %}
@@ -16,27 +32,65 @@
 
             <li class="divider"></li>
 
-            {% assign reversed_posts = site.posts | reverse %}
+            {% assign dirpath = page.path | split: "/" %}
+            {% assign dirlength = dirpath | size %}
 
-            {% for post in reversed_posts %}
-                {% if page.url == post.url %}
-                <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
-                {% else %}
-                <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
-                {% endif %}
-                    <a href="{{site.baseurl}}{{post.url}}">
-                        {{ post.title | escape }}
+            {% if page.path contains 'README' %}
+                {% assign dirpath = dirpath | pop %}
+                {% assign dirpath = dirpath | pop %}
+            {% else %}
+                {% assign dirpath = dirpath | pop %}
+            {% endif %}
+            {% assign dirpath = dirpath | join:"/" %}
+        
+            <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}/{{dirpath}} ">
+                    <a href="{{site.baseurl}}/{{dirpath}}">
+                        Go back
                     </a>
                 </li>
-            {% endfor %}
 
             <li class="divider"></li>
+            
+            {% assign sorted_pages = site.pages | sort: "order" %}
+            {% assign dirlevel = page.dir %}
+            {% for post in sorted_pages %}
+                {% if post.dir == page.dir %}
+                    {% if page.url == post.url %}
+                    <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
+                    {% else %}
+                    <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
+                    {% endif %}
+                        <a href="{{site.baseurl}}{{post.url}}">
+                            {{ post.title | escape }}
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
 
-            <li>
-                <a href="https://github.com/sighingnow/jekyll-gitbook/fork" target="blank" class="gitbook-link">
-                    Fork it Now!
-                </a>
-            </li>
+            {% if page.path contains 'README' %}
+                {% assign dirindexes = "" | split: "" %}
+                {% for post in sorted_pages %}
+                    {% if post.path contains 'README' and post.dir contains dirlevel and post.url != page.url %}
+                        {% assign dirindexes = dirindexes | push: post %}
+                    {% endif %}
+                {% endfor %}
+                {% assign dirsize = dirindexes | size %}
+                {% if dirsize > 0 %}
+                <li class="divider"></li>
+                {% for post in dirindexes %}
+                    {% if page.url == post.url %}
+                        <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
+                        {% else %}
+                        <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{post.url}}">
+                        {% endif %}
+                            <a href="{{site.baseurl}}{{post.url}}">
+                                {{ post.title | escape }}
+                            </a>
+                        </li>
+                {% endfor %}
+                {% endif %}
+            {% endif %}
+        
         </ul>
     </nav>
 </div>

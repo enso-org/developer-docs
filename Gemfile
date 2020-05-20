@@ -11,3 +11,9 @@ gem "jekyll", "~> 4.0"
 gem "jemoji", "~> 0.12.0"
 
 gem "jekyll-readme-index", "~> 0.3.0"
+
+gem "jekyll-algolia", "~> 1.6"
+
+group :jekyll_plugins do
+    gem "jekyll-algolia", "~> 1.6"
+  end
