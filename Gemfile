@@ -18,3 +18,5 @@ group :jekyll_plugins do
     gem "jekyll-algolia", "~> 1.6"
   end
 
+
+gem "jekyll-optional-front-matter", "~> 0.3.2"

@@ -52,8 +52,17 @@ destination:      ./_site
 incremental:      false
 regenerate:       true
 
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+      type: "pages" 
+    values:
+      layout: "developer-doc"
+
 plugins:
   - jemoji
   - jekyll-readme-index
   - jekyll-algolia
   - jekyll-relative-links
+  - jekyll-optional-front-matter
