@@ -916,6 +916,13 @@ after applying the changes. In other words,</p>
 
 <p>it’s a sanity check to make sure that the diffs are applied consistently.</p>
 
+<p>Consecutive text edits are applied sequentially, every one acting on the result
+of applying previous ones on the original buffer contents. In pseudocode:</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">applyEdits</span> <span class="n">buffer</span> <span class="kt">[]</span> <span class="o">=</span> <span class="n">buffer</span>
+<span class="n">applyEdits</span> <span class="n">buffer</span> <span class="p">(</span><span class="n">first</span> <span class="o">:</span> <span class="n">rest</span><span class="p">)</span> <span class="o">=</span> <span class="n">applyEdits</span> <span class="p">(</span><span class="n">applyTextEdit</span> <span class="n">buffer</span> <span class="n">first</span><span class="p">)</span> <span class="n">rest</span>
+</code></pre></div></div>
+
 <h4 id="format-9">Format</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">FileEdit</span> <span class="p">{</span>
@@ -3323,7 +3330,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 14:54:40 +0000"
+        "time": "2020-05-22 15:24:44 +0000"
     },
     "basePath": "",
     "book": {
