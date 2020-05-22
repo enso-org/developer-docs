@@ -16,6 +16,10 @@
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         {{ content }}
+                        {% assign dirpath = page.path | split: "/" %}
+                        {% if dirpath[0] == "docs" %}
+                        <a href="https://github.com/luna/enso/blob/master/{{page.path}}">Open this doc on GitHub</a>
+                        {% endif %}
                     </section>
                 </div>
 

@@ -8,8 +8,7 @@
         {% assign dirlength = dirpath | size %}
 
         {% if page.path contains 'README' %}
-            {% assign dirpath = dirpath | pop %}
-            {% assign dirpath = dirpath | pop %}
+            {% assign dirpath = dirpath | pop | pop %}
         {% else %}
             {% assign dirpath = dirpath | pop %}
         {% endif %}
