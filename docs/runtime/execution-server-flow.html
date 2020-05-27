@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>The Enso Macro Syntax · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Execution Server Flow · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -30,11 +30,9 @@
         
 
         
-            <link rel="prev" href="/docs/syntax/types.html" />
+            <link rel="prev" href="/docs/runtime/unbounded-recursion.html" />
         
 
-        
-            <link rel="next" href="/docs/syntax/top-level.html" />
         
     </head>
     <body>
@@ -177,8 +175,8 @@ search.start();
             
         
             
-            <li class="chapter" data-level="1.1" data-path="/docs/syntax ">
-                    <a href="/docs/syntax">
+            <li class="chapter" data-level="1.1" data-path="/docs/runtime ">
+                    <a href="/docs/runtime">
                         Go back
                     </a>
                 </li>
@@ -197,12 +195,268 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/syntax/">
+                    <li class="chapter" data-level="1.1" data-path="/docs/runtime/">
                     
-                        <a href="/docs/syntax/">
+                        <a href="/docs/runtime/">
                             
-                                Enso&#39;s Syntax
+                                Enso Runtime
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/runtime/caching.html">
+                    
+                        <a href="/docs/runtime/caching.html">
+                            
+                                Caching
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/runtime/demand-analysis.html">
+                    
+                        <a href="/docs/runtime/demand-analysis.html">
+                            
+                                Demand Analysis
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/runtime/function-call-flow.html">
+                    
+                        <a href="/docs/runtime/function-call-flow.html">
+                            
+                                Function Calling Flow
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/runtime/runtime-features.html">
+                    
+                        <a href="/docs/runtime/runtime-features.html">
+                            
+                                Runtime Features
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/runtime/unbounded-recursion.html">
+                    
+                        <a href="/docs/runtime/unbounded-recursion.html">
+                            
+                                Unbounded Recursion
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/runtime/execution-server-flow.html">
+                    
+                        <a href="/docs/runtime/execution-server-flow.html">
+                            
+                                Execution Server Flow
                             
                         </a>
                     </li>
@@ -262,322 +516,6 @@ search.start();
             
             
             
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/syntax/encoding.html">
-                    
-                        <a href="/docs/syntax/encoding.html">
-                            
-                                Source File Encoding
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/syntax/naming.html">
-                    
-                        <a href="/docs/syntax/naming.html">
-                            
-                                Naming
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/syntax/layout.html">
-                    
-                        <a href="/docs/syntax/layout.html">
-                            
-                                Layout Rules
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/syntax/literals.html">
-                    
-                        <a href="/docs/syntax/literals.html">
-                            
-                                Literals
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/syntax/assignment.html">
-                    
-                        <a href="/docs/syntax/assignment.html">
-                            
-                                Assignment Expressions
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/syntax/types.html">
-                    
-                        <a href="/docs/syntax/types.html">
-                            
-                                Types and Type Signatures
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter active" data-level="1.2" data-path="/docs/syntax/macros.html">
-                    
-                        <a href="/docs/syntax/macros.html">
-                            
-                                The Enso Macro Syntax
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/syntax/top-level.html">
-                    
-                        <a href="/docs/syntax/top-level.html">
-                            
-                                Enso Top-Level Syntax
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/syntax/functions.html">
-                    
-                        <a href="/docs/syntax/functions.html">
-                            
-                                Defining Functions
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/syntax/function-arguments.html">
-                    
-                        <a href="/docs/syntax/function-arguments.html">
-                            
-                                Function Arguments
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/syntax/projections.html">
-                    
-                        <a href="/docs/syntax/projections.html">
-                            
-                                Projections and Field Access
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/syntax/comments.html">
-                    
-                        <a href="/docs/syntax/comments.html">
-                            
-                                Comments
-                            
-                        </a>
-                    </li>
                 
             
             
@@ -609,7 +547,7 @@ search.start();
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >The Enso Macro Syntax</a>
+                <a href="." >Execution Server Flow</a>
             
         </h1>
     </div>
@@ -618,79 +556,131 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <h1 id="the-enso-macro-syntax">The Enso Macro Syntax</h1>
-<p>Enso provides a macro system that allows users to perform AST to AST
-transformations on the provided pieces of code. While many languages’ macros
-provide their users with access to the compilation and type-checking phases
-(scala, for example), there are a few reasons that we don’t want to:</p>
-
-<ul>
-  <li>The power of a dependently-typed language obviates the need for the ability to
-manipulate types at compile time.</li>
-  <li>Syntactic macros are far more predictable than those that can perform type
-manipulation and compute values.</li>
-  <li>We do not want to introduce a metaprogramming system that is too complex.</li>
-</ul>
-
-<blockquote>
-  <p>The actionables for this section are:</p>
-
-  <ul>
-    <li>Fully specify the macro system.</li>
-    <li>Fully specify the interactions between the parser-based macro system and the
-runtime.</li>
-  </ul>
-</blockquote>
+                        <h1 id="execution-server-flow">Execution Server Flow</h1>
+<p>This document describes the API and workflow of the internal execution server.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
 <ul>
-  <li><a href="#annotations">Annotations</a></li>
-  <li><a href="#automatic-deriving">Automatic Deriving</a></li>
+  <li><a href="#opening-a-connection">Opening a Connection</a></li>
+  <li><a href="#api">API</a></li>
+  <li><a href="#internal-architecture">Internal Architecture</a>
+    <ul>
+      <li><a href="#job-queue">Job Queue</a></li>
+      <li><a href="#job-types">Job Types</a></li>
+      <li><a href="#scheduling-rules">Scheduling Rules</a></li>
+      <li><a href="#api-methods-to-jobs-translation">API Methods to Jobs Translation</a></li>
+    </ul>
+  </li>
 </ul>
 
 <!-- /MarkdownTOC -->
 
-<h2 id="annotations">Annotations</h2>
-<p>Much like annotations on the JVM, annotations in Enso are tags that perform a
-purely syntactic transformation on the entity to which they are applied. The
-implementation of this requires both parser changes and support for
-user-defined macros, but for now it would be possible to work only with a set
-of hard-coded annotation macros.</p>
+<h2 id="opening-a-connection">Opening a Connection</h2>
+<blockquote>
+  <p>The actionables for this section are:</p>
 
-<p>Annotations can be arbitrarily nested, so a set of annotation macros become
-implicitly nested inside each other:</p>
+  <ol>
+    <li>describe the <code class="language-plaintext highlighter-rouge">org.graalvm.polyglot.Context.Builder.serverTransport</code>
+workflow of connecting to the server.</li>
+  </ol>
+</blockquote>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="vi">@derive</span> <span class="no">Eq</span> <span class="no">Debug</span>
-<span class="vi">@make_magic</span>
-<span class="n">type</span> <span class="no">Maybe</span> <span class="n">a</span>
-    <span class="n">use</span> <span class="no">Nothing</span>
-    <span class="n">type</span> <span class="no">Just</span>
-</code></pre></div></div>
+<h2 id="api">API</h2>
+<blockquote>
+  <p>The actionables for this section are:</p>
 
-<p>The above example is logically translated to:</p>
+  <ol>
+    <li>Document the server’s API.</li>
+  </ol>
+</blockquote>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">derive</span> <span class="no">Eq</span> <span class="no">Debug</span>
-    <span class="n">make_magic</span>
-        <span class="n">type</span> <span class="no">Maybe</span> <span class="n">a</span>
-            <span class="n">use</span> <span class="no">Nothing</span>
-            <span class="n">type</span> <span class="no">Just</span> <span class="p">(</span><span class="n">value</span> <span class="p">:</span> <span class="n">a</span><span class="p">)</span>
-</code></pre></div></div>
+<h2 id="internal-architecture">Internal Architecture</h2>
+<p>This section describes certain implementation details of the execution server,
+allowing it to perform its operations safely and interactively.</p>
 
-<p>In the presence of annotations and macros, it becomes more and more important
-that we are able to reserve words such as <code class="language-plaintext highlighter-rouge">type</code> to ensure that users can
-always have a good sense of what the most common constructs in the language
-mean, rather than allowing them to be overridden outside of the stdlib.</p>
+<h3 id="job-queue">Job Queue</h3>
+<p>The execution server uses a job queue containing requests to be performed.
+An API method may queue multiple jobs.</p>
 
-<h2 id="automatic-deriving">Automatic Deriving</h2>
-<p>In order to make the language easier to debug, we have all types automatically
-derive an interface <code class="language-plaintext highlighter-rouge">DebugShow</code>. This interface provides a function that will
-print all the significant information about the value (e.g. locations, types,
-source information, etc).</p>
+<h3 id="job-types">Job Types</h3>
+<p>There are a number of job types used internally for handling different
+scenarios:</p>
+
+<h4 id="ensurecompiled"><code class="language-plaintext highlighter-rouge">EnsureCompiled</code></h4>
+<p>Takes a set of module names that must be compiled and ensures that the
+corresponding modules are compiled in the newest version.
+It also performs cache invalidations on changes since the last batch.
+Caches should be invalidated for all contexts affected by this recompilation.
+This operation is idempotent and should be run before any <code class="language-plaintext highlighter-rouge">Execute</code> action.
+This operation is not currently interruptible, but may become so in the future.</p>
+
+<h4 id="execute"><code class="language-plaintext highlighter-rouge">Execute</code></h4>
+<p>Takes a context ID and an optional set of expression IDs that should be
+executed. and executes the Enso code corresponding to the context’s stack.
+Updates caches and sends updates to the users.</p>
+
+<p>This operation is interruptible through <code class="language-plaintext highlighter-rouge">Thread.interrupt()</code>.</p>
+
+<h3 id="scheduling-rules">Scheduling Rules</h3>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">EnsureCompiled</code> jobs must be run sequentially (i.e. no other state
+modifications or executions are allowed during this job’s run).</li>
+  <li><code class="language-plaintext highlighter-rouge">Execute</code> jobs may be run in parallel with each other (but not with
+<code class="language-plaintext highlighter-rouge">EnsureCompiled</code> jobs).</li>
+  <li><code class="language-plaintext highlighter-rouge">EnsureCompiled</code> jobs may be collapsed into one, by unifying their module
+sets.</li>
+  <li><code class="language-plaintext highlighter-rouge">Execute</code> jobs with the same <code class="language-plaintext highlighter-rouge">contextId</code> may be collapsed into one, by
+merging their <code class="language-plaintext highlighter-rouge">expression IDs</code> sets.</li>
+  <li>All enqueued <code class="language-plaintext highlighter-rouge">EnsureCompiled</code> jobs should run before any <code class="language-plaintext highlighter-rouge">Execute</code> jobs.</li>
+  <li>The order of <code class="language-plaintext highlighter-rouge">EnsureCompiled</code> jobs can be freely changed by the compiler.</li>
+</ol>
+
+<h3 id="api-methods-to-jobs-translation">API Methods to Jobs Translation</h3>
+<p>The following describes handling of API messages through job queue
+modifications.</p>
+
+<ol>
+  <li>EditFile:
+    <ol>
+      <li>Abort and/or dequeue all pending and running messages (if possible).</li>
+      <li>Synchronously perform all code updates.</li>
+      <li>Enqueue an <code class="language-plaintext highlighter-rouge">EnsureCompiled</code> with all affected files.</li>
+      <li>Enqueue an <code class="language-plaintext highlighter-rouge">Execute</code> for each existing context.</li>
+    </ol>
+  </li>
+  <li>Stack Modifications and Recomputes:
+    <ol>
+      <li>Abort and/or dequeue all pending and running requests relevant to the
+affected context.</li>
+      <li>Synchronously perform all state updates.</li>
+      <li>Respond to the user.</li>
+      <li>Enqueue EnsureCompiled for the file at the bottom of the affected
+context’s stack.</li>
+      <li>Enqueue Execute for the affected context.</li>
+    </ol>
+  </li>
+  <li>Visualization modifications:
+    <ol>
+      <li>Synchronously perform all state updates.</li>
+      <li>Respond to the user.</li>
+      <li>Enqueue <code class="language-plaintext highlighter-rouge">EnsureCompiled</code> and <code class="language-plaintext highlighter-rouge">Execute</code> for the affected context.
+Set the minimal set of expressions required to compute to
+<code class="language-plaintext highlighter-rouge">Set(visualizedExpression)</code> in the <code class="language-plaintext highlighter-rouge">Execute</code> command.</li>
+    </ol>
+  </li>
+  <li>Create/Destroy context:
+    <ol>
+      <li>Abort any jobs concerning the affected context.</li>
+      <li>Perform state updates / cleanups. No jobs to schedule.</li>
+    </ol>
+  </li>
+</ol>
 
                         
                         
-                        <a href="https://github.com/luna/enso/blob/master/docs/syntax/macros.md">Open this doc on GitHub</a>
+                        <a href="https://github.com/luna/enso/blob/master/docs/runtime/execution-server-flow.md">Open this doc on GitHub</a>
                         
                     </section>
                 </div>
@@ -822,15 +812,11 @@ search.start();
     </div>
 </div>
 
-                <a href="/docs/syntax/types.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Types and Type Signatures">
+                <a href="/docs/runtime/unbounded-recursion.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Unbounded Recursion">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
 
-                
-                    <a href="/docs/syntax/top-level.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Enso Top-Level Syntax">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
                 
             
             </div>
@@ -915,7 +901,7 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "docs/syntax/macros.md",
+        "path": "docs/runtime/execution-server-flow.md",
         "mtime": "",
         "type": "markdown"
     },
