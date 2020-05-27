@@ -193,26 +193,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/semantics/">
                     
@@ -222,6 +202,26 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -603,23 +603,23 @@ applications. Otherwise they return curried functions.</li>
 <h2 id="optional-suspension">Optional Suspension</h2>
 <p>Laziness, however, can often be quite useful for defining certain kinds of API.
 To that end, Enso provides support for optional laziness, more specifically
-optional <em>suspension</em>, through the built-in <code class="highlighter-rouge">Suspended</code> type.</p>
+optional <em>suspension</em>, through the built-in <code class="language-plaintext highlighter-rouge">Suspended</code> type.</p>
 
 <ul>
-  <li>When a type <code class="highlighter-rouge">a</code> is wrapped in a <code class="highlighter-rouge">Suspended</code>, it is turned into a thunk.</li>
-  <li>A value of type <code class="highlighter-rouge">Suspended a</code> may be forced to execute the suspended
-computation and thereby obtain an <code class="highlighter-rouge">a</code>.</li>
+  <li>When a type <code class="language-plaintext highlighter-rouge">a</code> is wrapped in a <code class="language-plaintext highlighter-rouge">Suspended</code>, it is turned into a thunk.</li>
+  <li>A value of type <code class="language-plaintext highlighter-rouge">Suspended a</code> may be forced to execute the suspended
+computation and thereby obtain an <code class="language-plaintext highlighter-rouge">a</code>.</li>
 </ul>
 
 <p>This forcing can take place in two ways:</p>
 
 <ul>
-  <li>The user calls the standard library function <code class="highlighter-rouge">force : Suspended a -&gt; a</code> on the
+  <li>The user calls the standard library function <code class="language-plaintext highlighter-rouge">force : Suspended a -&gt; a</code> on the
 value.</li>
   <li>Automatically, at a site where its evaluation is demanded. The algorithm for
-this is simple. If a value of type <code class="highlighter-rouge">Suspended a</code> is provided in a location
-that expects a value of type <code class="highlighter-rouge">a</code>, the compiler will insert an implicit call to
-<code class="highlighter-rouge">force</code> to produce the <code class="highlighter-rouge">a</code>.</li>
+this is simple. If a value of type <code class="language-plaintext highlighter-rouge">Suspended a</code> is provided in a location
+that expects a value of type <code class="language-plaintext highlighter-rouge">a</code>, the compiler will insert an implicit call to
+<code class="language-plaintext highlighter-rouge">force</code> to produce the <code class="language-plaintext highlighter-rouge">a</code>.</li>
 </ul>
 
 <blockquote>
@@ -863,7 +863,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

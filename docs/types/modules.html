@@ -217,14 +217,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/types/">
                     
@@ -234,6 +226,14 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -674,7 +674,7 @@ more generic typesets).</p>
   <li>Where the module name clashes with a member contained in the module, the
 member is preferred. If you need the module you must import it qualified under
 another name.</li>
-  <li>We provide the alias <code class="highlighter-rouge">here</code> as a way to access the name of the current module.</li>
+  <li>We provide the alias <code class="language-plaintext highlighter-rouge">here</code> as a way to access the name of the current module.</li>
 </ul>
 
 <h2 id="scoping-and-imports">Scoping and Imports</h2>
@@ -685,37 +685,37 @@ module path as their first argument.</p>
 
 <ol>
   <li><strong>Unqualified Imports:</strong> These import all symbols from the module into the
-current scope (<code class="highlighter-rouge">import M</code>).</li>
+current scope (<code class="language-plaintext highlighter-rouge">import M</code>).</li>
   <li><strong>Qualified Imports:</strong> These import all symbols from the module into the
 current scope with symbols qualified under a name <em>different</em> from the
-module name (<code class="highlighter-rouge">import M as T</code>).</li>
+module name (<code class="language-plaintext highlighter-rouge">import M as T</code>).</li>
   <li><strong>Restricted Imports:</strong> These import only the specific symbols from the
-module into the current scope (<code class="highlighter-rouge">import M only sym1 sym2</code>).</li>
+module into the current scope (<code class="language-plaintext highlighter-rouge">import M only sym1 sym2</code>).</li>
   <li><strong>Hiding Imports:</strong> These are the inverse of restricted imports, and import
 <em>all</em> symbols other than the named ones into the current scope
-(<code class="highlighter-rouge">import M hiding sym1 sym2</code>),</li>
+(<code class="language-plaintext highlighter-rouge">import M hiding sym1 sym2</code>),</li>
 </ol>
 
 <p>Imports may introduce ambiguous symbols, but this is not an error until one of
 the ambiguous symbols is used in user code.</p>
 
-<p>When importing a module <code class="highlighter-rouge">X</code> into the current module <code class="highlighter-rouge">Y</code>, the bindings in <code class="highlighter-rouge">X</code>
-become available in <code class="highlighter-rouge">Y</code> (modified by the import type). However, these bindings
-are <em>not</em> available in <code class="highlighter-rouge">Y</code> externally. This means that we need a re-export
+<p>When importing a module <code class="language-plaintext highlighter-rouge">X</code> into the current module <code class="language-plaintext highlighter-rouge">Y</code>, the bindings in <code class="language-plaintext highlighter-rouge">X</code>
+become available in <code class="language-plaintext highlighter-rouge">Y</code> (modified by the import type). However, these bindings
+are <em>not</em> available in <code class="language-plaintext highlighter-rouge">Y</code> externally. This means that we need a re-export
 mechanism. Similarly to imports, this has four kinds, all of which take a module
 path as their first argument, and all of which <em>may</em> introduce the module it
 exports into scope (if it is not already imported).</p>
 
 <ol>
   <li><strong>Unqualified Exports:</strong> These export all symbols from the module as if they
-were defined in the exporting module (<code class="highlighter-rouge">export X</code>).</li>
+were defined in the exporting module (<code class="language-plaintext highlighter-rouge">export X</code>).</li>
   <li><strong>Qualified Exports:</strong> These export all symbols from the module as if they
 were defined in another module accessible in the exporting module
-(<code class="highlighter-rouge">export X as Y</code>).</li>
+(<code class="language-plaintext highlighter-rouge">export X as Y</code>).</li>
   <li><strong>Restricted Exports:</strong> These export only the specified symbols from the
-module as if they were defined in the exporting module (<code class="highlighter-rouge">export X only sym</code>)</li>
+module as if they were defined in the exporting module (<code class="language-plaintext highlighter-rouge">export X only sym</code>)</li>
   <li><strong>Hiding Exports:</strong> These export all symbols from the module except those
-explicitly specified (<code class="highlighter-rouge">export X hiding sym1 sym2</code>).</li>
+explicitly specified (<code class="language-plaintext highlighter-rouge">export X hiding sym1 sym2</code>).</li>
 </ol>
 
 <p>Exports effectively act to ‘paste’ the contents of the exported module into the
@@ -965,7 +965,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

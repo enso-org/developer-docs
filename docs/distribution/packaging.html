@@ -215,6 +215,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/distribution/">
                     
@@ -224,10 +228,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -523,9 +523,9 @@ well as future directions and enhancements to it.</p>
 <ul>
   <li><a href="#enso-package-structure">Enso Package Structure</a>
     <ul>
-      <li><a href="#the-src-directory">The <code class="highlighter-rouge">src</code> Directory</a></li>
-      <li><a href="#the-polyglot-directory">The <code class="highlighter-rouge">polyglot</code> Directory</a></li>
-      <li><a href="#the-packageyaml-file">The <code class="highlighter-rouge">package.yaml</code> File</a></li>
+      <li><a href="#the-src-directory">The <code class="language-plaintext highlighter-rouge">src</code> Directory</a></li>
+      <li><a href="#the-polyglot-directory">The <code class="language-plaintext highlighter-rouge">polyglot</code> Directory</a></li>
+      <li><a href="#the-packageyaml-file">The <code class="language-plaintext highlighter-rouge">package.yaml</code> File</a></li>
     </ul>
   </li>
   <li><a href="#build-reproducibility">Build Reproducibility</a></li>
@@ -536,7 +536,7 @@ well as future directions and enhancements to it.</p>
 <h2 id="enso-package-structure">Enso Package Structure</h2>
 <p>The general directory structure of an Enso package is as follows:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My_Package
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My_Package
 ├── package.yaml
 ├── polyglot
 │   ├── java
@@ -550,16 +550,16 @@ well as future directions and enhancements to it.</p>
         └── Util.enso
 </code></pre></div></div>
 
-<h3 id="the-src-directory">The <code class="highlighter-rouge">src</code> Directory</h3>
-<p>The <code class="highlighter-rouge">src</code> directory contains all Enso sources, organized in a hierarchical
+<h3 id="the-src-directory">The <code class="language-plaintext highlighter-rouge">src</code> Directory</h3>
+<p>The <code class="language-plaintext highlighter-rouge">src</code> directory contains all Enso sources, organized in a hierarchical
 structure. The structure of this directory dictates how particular modules
 are imported in all of Enso code.</p>
 
 <p>Note that all files and directories in this subtree must be named according
-to the Enso style for referent names (i.e. <code class="highlighter-rouge">Upper_Snake_Case</code>, see
+to the Enso style for referent names (i.e. <code class="language-plaintext highlighter-rouge">Upper_Snake_Case</code>, see
 <a href="/docs/syntax/naming.html#naming-constructs">the syntax specification</a>).</p>
 
-<p>A file located at the path <code class="highlighter-rouge">My_Package/src/Sub_Module/Helper.enso</code> will be
+<p>A file located at the path <code class="language-plaintext highlighter-rouge">My_Package/src/Sub_Module/Helper.enso</code> will be
 imported like so:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">import</span> <span class="no">My_Package</span><span class="o">.</span><span class="no">Sub_Module</span><span class="o">.</span><span class="no">Helper</span>
@@ -570,7 +570,7 @@ imported like so:</p>
 <ul>
   <li>The name of the package appears as the first segment of the name.</li>
   <li>The package name is not specified by the containing directory’s name,
-but rather it is described in the <code class="highlighter-rouge">package.yaml</code> file.</li>
+but rather it is described in the <code class="language-plaintext highlighter-rouge">package.yaml</code> file.</li>
 </ul>
 
 <p>The exact transformation is as follows:</p>
@@ -578,20 +578,20 @@ but rather it is described in the <code class="highlighter-rouge">package.yaml</
 <ol>
   <li>The name of the package becomes the first segment of the qualified module
 name.</li>
-  <li>Any subdirectories on the path from the <code class="highlighter-rouge">src</code> directory to the source file
+  <li>Any subdirectories on the path from the <code class="language-plaintext highlighter-rouge">src</code> directory to the source file
 are appended as consecutive segments.</li>
-  <li>The name of the source file, with the <code class="highlighter-rouge">.enso</code> extension stripped, becomes
+  <li>The name of the source file, with the <code class="language-plaintext highlighter-rouge">.enso</code> extension stripped, becomes
 the last segment.</li>
 </ol>
 
-<h3 id="the-polyglot-directory">The <code class="highlighter-rouge">polyglot</code> Directory</h3>
-<p>The <code class="highlighter-rouge">polyglot</code> directory contains per-language subdirectories containing files
+<h3 id="the-polyglot-directory">The <code class="language-plaintext highlighter-rouge">polyglot</code> Directory</h3>
+<p>The <code class="language-plaintext highlighter-rouge">polyglot</code> directory contains per-language subdirectories containing files
 used by the supported polyglot languages. The contents of each subdirectory is
 specified on a per-language basis, in the
 <a href="/docs/polyglot/">polyglot documentation</a>.</p>
 
-<h3 id="the-packageyaml-file">The <code class="highlighter-rouge">package.yaml</code> File</h3>
-<p><code class="highlighter-rouge">package.yaml</code> describes certain package metadata, such as its name, authors
+<h3 id="the-packageyaml-file">The <code class="language-plaintext highlighter-rouge">package.yaml</code> File</h3>
+<p><code class="language-plaintext highlighter-rouge">package.yaml</code> describes certain package metadata, such as its name, authors
 and version. It also includes the list of dependencies of the package.
 The following is an example of this manifest file.</p>
 
@@ -612,19 +612,19 @@ The following is an example of this manifest file.</p>
 
 <h4 id="license">license</h4>
 <p><strong>Optional</strong> <em>String</em>: The short license name of this package. Defaults to
-<code class="highlighter-rouge">None</code>, meaning the package is not safe for use by third parties.</p>
+<code class="language-plaintext highlighter-rouge">None</code>, meaning the package is not safe for use by third parties.</p>
 
 <h4 id="version">version</h4>
 <p><strong>Required</strong> <em>String</em>: The <a href="https://semver.org/">semantic versioning</a> string,
-in the <code class="highlighter-rouge">major.minor.patch</code> format.</p>
+in the <code class="language-plaintext highlighter-rouge">major.minor.patch</code> format.</p>
 
 <h4 id="author">author</h4>
 <p><strong>Optional</strong> <em>String</em> or <em>List of Strings</em>: The name(s) and contact info(s) of
-the author(s) of this library, in the <code class="highlighter-rouge">Name &lt;contact&gt;</code> or <code class="highlighter-rouge">Name</code> format.</p>
+the author(s) of this library, in the <code class="language-plaintext highlighter-rouge">Name &lt;contact&gt;</code> or <code class="language-plaintext highlighter-rouge">Name</code> format.</p>
 
 <h4 id="maintainer">maintainer</h4>
 <p><strong>Optional</strong> <em>String</em> or <em>List of Strings</em>: The name(s) and contact info(s)
-of the current maintainer(s) of this library, in the <code class="highlighter-rouge">Name &lt;contact&gt;</code> or <code class="highlighter-rouge">Name</code>
+of the current maintainer(s) of this library, in the <code class="language-plaintext highlighter-rouge">Name &lt;contact&gt;</code> or <code class="language-plaintext highlighter-rouge">Name</code>
 format.</p>
 
 <h4 id="resolver">resolver</h4>
@@ -905,7 +905,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

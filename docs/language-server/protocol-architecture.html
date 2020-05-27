@@ -209,6 +209,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/language-server/">
                     
@@ -218,10 +222,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -675,7 +675,7 @@ dealing with the minutiae of connection negotiation and request handling.</p>
 <p>Additionally, it is <em>very important</em> to note that the language server <em>must not</em>
 depend directly on the runtime (as a compile-time dependency). This would
 introduce significant coupling between the runtime implementation and the
-language server. Instead, the LS should only depend on <code class="highlighter-rouge">org.graalvm.polyglot</code> to
+language server. Instead, the LS should only depend on <code class="language-plaintext highlighter-rouge">org.graalvm.polyglot</code> to
 interface with the runtime.</p>
 
 <h2 id="textual-protocol">Textual Protocol</h2>
@@ -807,7 +807,7 @@ metadata within the language server.</p>
 
 <ul>
   <li>These updates should be sent as part of each diff the client provides (as a
-separate segment in the <code class="highlighter-rouge">didChange</code> message).</li>
+separate segment in the <code class="language-plaintext highlighter-rouge">didChange</code> message).</li>
   <li>We may support this <em>in the future</em>, but we do not for now.</li>
 </ul>
 
@@ -825,8 +825,8 @@ in the compiler’s incremental pipeline.</li>
 <p>The implementation is as follows:</p>
 
 <ul>
-  <li>Support for the LSP messages <code class="highlighter-rouge">didOpen</code>, <code class="highlighter-rouge">didChange</code>, <code class="highlighter-rouge">willSaveWaitUntil</code>,
-<code class="highlighter-rouge">didSave</code>, <code class="highlighter-rouge">didClose</code>, and support for informing the runtime on each of these.</li>
+  <li>Support for the LSP messages <code class="language-plaintext highlighter-rouge">didOpen</code>, <code class="language-plaintext highlighter-rouge">didChange</code>, <code class="language-plaintext highlighter-rouge">willSaveWaitUntil</code>,
+<code class="language-plaintext highlighter-rouge">didSave</code>, <code class="language-plaintext highlighter-rouge">didClose</code>, and support for informing the runtime on each of these.</li>
   <li>It must track which files are currently open in the editor.</li>
   <li>The language server and runtime should watch the project folder in order to
 track updates as necessary.</li>
@@ -853,12 +853,12 @@ to connect additional clients. The extensions should be minimal and should
   <li>We will extend the protocol (or use extension mechanisms) to implement
 write-lock negotiation. The first client to connect is granted write-lock, but
 this may be changed later via negotiation.</li>
-  <li>If any client sends a <code class="highlighter-rouge">didChange</code> message without holding the write lock, it
-should receive an <code class="highlighter-rouge">applyEdit</code> message that reverts the change, as well as a
+  <li>If any client sends a <code class="language-plaintext highlighter-rouge">didChange</code> message without holding the write lock, it
+should receive an <code class="language-plaintext highlighter-rouge">applyEdit</code> message that reverts the change, as well as a
 notification of the error.</li>
   <li>The language server / gateway is responsible for synchronising state with new
 clients as they connect. As part of initialisation it should receive client
-state, and then <code class="highlighter-rouge">applyEdit</code> to synchronise views of the code.</li>
+state, and then <code class="language-plaintext highlighter-rouge">applyEdit</code> to synchronise views of the code.</li>
 </ul>
 
 <h3 id="project-state-management">Project State Management</h3>
@@ -917,7 +917,7 @@ listener.</li>
   <li>Force cache invalidation for arbitrary code spans.</li>
   <li>Attach an automatic execution request.</li>
   <li>Detach an automatic execution request.</li>
-  <li>Redirect <code class="highlighter-rouge">stdout</code>/<code class="highlighter-rouge">stdin</code>/<code class="highlighter-rouge">stderr</code> to and from the IDE.</li>
+  <li>Redirect <code class="language-plaintext highlighter-rouge">stdout</code>/<code class="language-plaintext highlighter-rouge">stdin</code>/<code class="language-plaintext highlighter-rouge">stderr</code> to and from the IDE.</li>
 </ul>
 
 <p>All of these functionalities will need to take the form of custom extensions to
@@ -954,8 +954,8 @@ the runtime.</p>
 <ul>
   <li>This cache stores intermediate values, and every value can be in one of three
 states: invalid, valid but evicted, and valid but present.</li>
-  <li>The cache works based on dependencies between data, such that if <code class="highlighter-rouge">foo</code> is used
-by <code class="highlighter-rouge">bar</code>, then changing <code class="highlighter-rouge">foo</code> must recompute <code class="highlighter-rouge">bar</code>.</li>
+  <li>The cache works based on dependencies between data, such that if <code class="language-plaintext highlighter-rouge">foo</code> is used
+by <code class="language-plaintext highlighter-rouge">bar</code>, then changing <code class="language-plaintext highlighter-rouge">foo</code> must recompute <code class="language-plaintext highlighter-rouge">bar</code>.</li>
 </ul>
 
 <p>The cache eviction strategy is one that will need to evolve. This comes down to
@@ -968,8 +968,8 @@ name when a name is changed. Internally this is implemented as the
 invalidation of all occurrences of a dynamic symbol by name, while ignoring
 the type it was defined on.</li>
   <li>We also need to account for dependencies between data such that if there is a
-dependency <code class="highlighter-rouge">b =&gt; a</code>, then a change to <code class="highlighter-rouge">a</code> must invalidate the cache result of
-<code class="highlighter-rouge">b</code>.</li>
+dependency <code class="language-plaintext highlighter-rouge">b =&gt; a</code>, then a change to <code class="language-plaintext highlighter-rouge">a</code> must invalidate the cache result of
+<code class="language-plaintext highlighter-rouge">b</code>.</li>
   <li>In future, the typechecker will be able to help constrain the set of evicted
 methods by exploiting dependencies between values and types with more
 information.</li>
@@ -1010,7 +1010,7 @@ should be used to refine suggestions and help suggest functionality relevant
 to user tasks.</li>
   <li>Browsing the symbol hierarchy. The user should be able to click through
 modules to browse the various symbols contained within.</li>
-  <li>Import Completion for when a user has typed <code class="highlighter-rouge">import</code> and hits <code class="highlighter-rouge">&lt;tab&gt;</code>. This
+  <li>Import Completion for when a user has typed <code class="language-plaintext highlighter-rouge">import</code> and hits <code class="language-plaintext highlighter-rouge">&lt;tab&gt;</code>. This
 feature should suggest libraries that are available, along with provide their
 top-level documentation to give users an idea of what they can be used for.</li>
 </ul>
@@ -1020,12 +1020,12 @@ above criteria. This will involve combining knowledge from both the compiler and
 the interpreter to deliver a sensible set of hints.</p>
 
 <ul>
-  <li>Hints should be scored on a type match. For example, if we have a type <code class="highlighter-rouge">5</code>,
-<code class="highlighter-rouge">foo : 5 -&gt; String</code> scores higher than <code class="highlighter-rouge">bar : Nat -&gt; Dynamic</code>, scores higher
-than <code class="highlighter-rouge">baz : Any -&gt; Any</code>. This should be done by heuristics initially, and
+  <li>Hints should be scored on a type match. For example, if we have a type <code class="language-plaintext highlighter-rouge">5</code>,
+<code class="language-plaintext highlighter-rouge">foo : 5 -&gt; String</code> scores higher than <code class="language-plaintext highlighter-rouge">bar : Nat -&gt; Dynamic</code>, scores higher
+than <code class="language-plaintext highlighter-rouge">baz : Any -&gt; Any</code>. This should be done by heuristics initially, and
 later by querying the typechecker for subsumption relationships (the notion of
 specificity discussed in the types design document).</li>
-  <li>Information contained in the <code class="highlighter-rouge">tags</code> section of the documentation should also
+  <li>Information contained in the <code class="language-plaintext highlighter-rouge">tags</code> section of the documentation should also
 be used to rank candidates.</li>
   <li>Please note that this ranking algorithm will be required to get more complex
 in the future, so please design it for extensibility <em>and</em> high performance.</li>
@@ -1035,7 +1035,7 @@ in the future, so please design it for extensibility <em>and</em> high performan
 <p>From an implementation perspective, the following notes apply:</p>
 
 <ul>
-  <li>This will be implemented on top of the <code class="highlighter-rouge">completion</code> and <code class="highlighter-rouge">completionResolve</code>
+  <li>This will be implemented on top of the <code class="language-plaintext highlighter-rouge">completion</code> and <code class="language-plaintext highlighter-rouge">completionResolve</code>
 messages provided by the LSP spec.</li>
   <li>We will extend these messages with an <em>optional</em> field that specifies the type
 being queried upon. This is a stop-gap solution until inference can determine
@@ -1055,7 +1055,7 @@ semantics, they must be explicitly supported by the language server:</p>
 
 <ul>
   <li><strong>List Symbols in Scope:</strong> The scope should be specified by a code span.</li>
-  <li><strong>Insert Import for Symbol:</strong> This should use an <code class="highlighter-rouge">applyEdit</code> message to ask
+  <li><strong>Insert Import for Symbol:</strong> This should use an <code class="language-plaintext highlighter-rouge">applyEdit</code> message to ask
 the IDE to insert an import for the symbol specified in the request. If the
 file is closed, then the edit should be made directly, as the LSP specifies.</li>
 </ul>
@@ -1102,9 +1102,9 @@ will reset the node layout and can be quite annoying.</li>
   <li><strong>True Multi-Client Support:</strong> The initial release will only support multiple
 connected clients through the use of a write lock. This is not a great user
 experience, and in future we should instead use proper conflict resolution for
-true collaborative editing. This will use a combination of <code class="highlighter-rouge">didChange</code> and
-<code class="highlighter-rouge">applyEdit</code> messages to reconcile all clients’ views of the files. This is
-also why <code class="highlighter-rouge">willSaveWaitUntil</code> is important, as it can ensure that no client
+true collaborative editing. This will use a combination of <code class="language-plaintext highlighter-rouge">didChange</code> and
+<code class="language-plaintext highlighter-rouge">applyEdit</code> messages to reconcile all clients’ views of the files. This is
+also why <code class="language-plaintext highlighter-rouge">willSaveWaitUntil</code> is important, as it can ensure that no client
 editor saves until it has the authority to do so (all changes are reconciled).</li>
   <li><strong>Enhanced Semantic Analysis:</strong> Enhanced semantic analysis operations that
 rely on compiler analysis and typechecking. This includes things like “find
@@ -1260,11 +1260,11 @@ passing the socket information as part of the initialisation flow.</li>
 be used to identify the client while it is connected.</li>
   <li><strong>Protocol Connection Initialisation:</strong> The client performs the init for the
 textual protocol connection, passing its client identifier as it does so.
-See <a href="/docs/language-server/protocol-language-server.html#sessioninitprotocolconnection"><code class="highlighter-rouge">session/initProtocolConnection</code></a>
+See <a href="/docs/language-server/protocol-language-server.html#sessioninitprotocolconnection"><code class="language-plaintext highlighter-rouge">session/initProtocolConnection</code></a>
 for more information.</li>
   <li><strong>Data Connection Initialisation:</strong> The client performs the init for the
 data connection, passing its client identifier as it does so. See
-<a href="/docs/language-server/protocol-language-server.html#sessioninitdataconnection"><code class="highlighter-rouge">session/initDataConnection</code></a> below more
+<a href="/docs/language-server/protocol-language-server.html#sessioninitdataconnection"><code class="language-plaintext highlighter-rouge">session/initDataConnection</code></a> below more
 information.</li>
 </ol>
 
@@ -1276,7 +1276,7 @@ involved process.</p>
 
 <ol>
   <li><strong>Notify the Engine:</strong> <em>Prior</em> to disconnecting from the sockets, the client
-must send <code class="highlighter-rouge">session/end</code> to the server.</li>
+must send <code class="language-plaintext highlighter-rouge">session/end</code> to the server.</li>
   <li><strong>Disconnect:</strong> Once that message has been sent, the client may disconnect
 at any time.</li>
 </ol>
@@ -1514,7 +1514,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

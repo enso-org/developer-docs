@@ -650,14 +650,14 @@ following rules around naming:</p>
   <li>All identifiers are named as follows. This is known as ‘variable’ form.
     <ul>
       <li>Each ‘word’ in the identifier must be lower-case or a number.</li>
-      <li>Words in the identifier are separated using <code class="highlighter-rouge">_</code>.</li>
+      <li>Words in the identifier are separated using <code class="language-plaintext highlighter-rouge">_</code>.</li>
       <li>Numbers may not occur as the first ‘word’ in an identifier.</li>
     </ul>
   </li>
   <li>An identifier named as above can be referred to by capitalizing the first
 letter of each ‘word’ in the identifier. This is known as ‘referent’ form.</li>
-  <li>No mixed-format names are allowed (e.g. <code class="highlighter-rouge">HTTP</code>, <code class="highlighter-rouge">foO</code>, <code class="highlighter-rouge">make_New</code>, or
-<code class="highlighter-rouge">Make_new</code>). These should be rejected by the compiler.</li>
+  <li>No mixed-format names are allowed (e.g. <code class="language-plaintext highlighter-rouge">HTTP</code>, <code class="language-plaintext highlighter-rouge">foO</code>, <code class="language-plaintext highlighter-rouge">make_New</code>, or
+<code class="language-plaintext highlighter-rouge">Make_new</code>). These should be rejected by the compiler.</li>
   <li>We <em>strongly encourage</em> using capitalised identifiers to refer to atoms.</li>
 </ul>
 
@@ -672,10 +672,10 @@ interpreted as the creation of a fresh identifier.</li>
   <li>This behaviour <em>only</em> occurs in pattern contexts. In all other contexts,
 both conventions refer to that name already in scope.</li>
   <li>Operator names behave as variable names when placed in a prefix position
-(e.g. <code class="highlighter-rouge">+ a b</code>).</li>
+(e.g. <code class="language-plaintext highlighter-rouge">+ a b</code>).</li>
   <li>Operator names behave as referent names when placed in an infix position (e.g.
-<code class="highlighter-rouge">a + b</code>).</li>
-  <li>All literals (e.g. <code class="highlighter-rouge">1</code> and <code class="highlighter-rouge">"Hello"</code>) are treated as referent names.</li>
+<code class="language-plaintext highlighter-rouge">a + b</code>).</li>
+  <li>All literals (e.g. <code class="language-plaintext highlighter-rouge">1</code> and <code class="language-plaintext highlighter-rouge">"Hello"</code>) are treated as referent names.</li>
 </ul>
 
 <p>Identifiers are introduced by:</p>
@@ -692,9 +692,9 @@ above) can be used to introduce new identifiers into the scope containing the
 pattern context. The following spans are pattern contexts:</p>
 
 <ul>
-  <li>The left-hand-side of the assignment operator (<code class="highlighter-rouge">=</code>).</li>
-  <li>The right-hand-side of the ascription operator (<code class="highlighter-rouge">:</code>).</li>
-  <li>The left-hand-side of the arrow operator (<code class="highlighter-rouge">-&gt;</code>).</li>
+  <li>The left-hand-side of the assignment operator (<code class="language-plaintext highlighter-rouge">=</code>).</li>
+  <li>The right-hand-side of the ascription operator (<code class="language-plaintext highlighter-rouge">:</code>).</li>
+  <li>The left-hand-side of the arrow operator (<code class="language-plaintext highlighter-rouge">-&gt;</code>).</li>
 </ul>
 
 <p>The following behaviours occur within a pattern context:</p>
@@ -707,12 +707,12 @@ matching a typeset, atom, or some combination thereof), and allows for
 matching these fields recursively.</li>
   <li>Any literals (e.g. numbers) behave as type names.</li>
   <li>In any place where a variable identifier may be introduced in a pattern
-context, an <code class="highlighter-rouge">_</code> (known as an ignore) may be substituted. This does <em>not</em> bind
+context, an <code class="language-plaintext highlighter-rouge">_</code> (known as an ignore) may be substituted. This does <em>not</em> bind
 a new name, and hence cannot be used later.</li>
 </ul>
 
 <p>In the core language, it should be noted that all non-trivial constructs are
-desugared into the set of above constructs plus <code class="highlighter-rouge">case ... of</code> expressions. This
+desugared into the set of above constructs plus <code class="language-plaintext highlighter-rouge">case ... of</code> expressions. This
 means that these are the <em>only</em> constructs which introduce pattern contexts.</p>
 
 <blockquote>
@@ -734,15 +734,15 @@ optional localised names as part of a function’s documentation.</p>
 names in the language server, and in Enso Studio.</p>
 
 <h2 id="operator-naming">Operator Naming</h2>
-<p>Operator names are those built solely from operator symbols (e.g. <code class="highlighter-rouge">+</code> or <code class="highlighter-rouge">&lt;*&gt;</code>).
+<p>Operator names are those built solely from operator symbols (e.g. <code class="language-plaintext highlighter-rouge">+</code> or <code class="language-plaintext highlighter-rouge">&lt;*&gt;</code>).
 Operator symbols are defined as characters in the following set.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!$%&amp;*+-/&lt;&gt;?^~|:\,.()[]{}=
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!$%&amp;*+-/&lt;&gt;?^~|:\,.()[]{}=
 </code></pre></div></div>
 
 <p>Please note that not every sequence that can be created from the above is a
 <em>valid</em> operator name, as some may collide with built-in language constructs
-(e.g. <code class="highlighter-rouge">[</code> and <code class="highlighter-rouge">]</code>, which start and end a vector literal respectively).</p>
+(e.g. <code class="language-plaintext highlighter-rouge">[</code> and <code class="language-plaintext highlighter-rouge">]</code>, which start and end a vector literal respectively).</p>
 
 <h2 id="reserved-names">Reserved Names</h2>
 <p>Even though we do not intend to reserve any names at the level of the lexer or
@@ -755,21 +755,21 @@ enforced in the compiler.</p>
 the readability and consistency of Enso code. They are as follows:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">type</code>: This reserved name is used to define new atoms and typesets.</li>
-  <li><code class="highlighter-rouge">-&gt;</code>: This reserved name is the ‘function’ type, and represents a mapping from
+  <li><code class="language-plaintext highlighter-rouge">type</code>: This reserved name is used to define new atoms and typesets.</li>
+  <li><code class="language-plaintext highlighter-rouge">-&gt;</code>: This reserved name is the ‘function’ type, and represents a mapping from
 the type of its first operand to the type of its second operand.</li>
-  <li><code class="highlighter-rouge">:</code>: This reserved name is the type attribution operator. It ascribes the type
+  <li><code class="language-plaintext highlighter-rouge">:</code>: This reserved name is the type attribution operator. It ascribes the type
 described by its right operand to its left operand.</li>
-  <li><code class="highlighter-rouge">=</code>: This reserved name is the assignment operator, and assigns the value of
+  <li><code class="language-plaintext highlighter-rouge">=</code>: This reserved name is the assignment operator, and assigns the value of
 its right operand to the name on its left. Under the hood this desugars to the
 relevant implementation of monadic bind.</li>
-  <li><code class="highlighter-rouge">.</code>: This is the forward function chaining operator.</li>
-  <li><code class="highlighter-rouge">case ... of</code>: This reserved name is the case expression that is fundamental
+  <li><code class="language-plaintext highlighter-rouge">.</code>: This is the forward function chaining operator.</li>
+  <li><code class="language-plaintext highlighter-rouge">case ... of</code>: This reserved name is the case expression that is fundamental
 to the operation of control flow in the language.</li>
-  <li><code class="highlighter-rouge">this</code>:  This reserved name is the one used to refer to the enclosing type in
+  <li><code class="language-plaintext highlighter-rouge">this</code>:  This reserved name is the one used to refer to the enclosing type in
 a method or type definition.</li>
-  <li><code class="highlighter-rouge">here</code>: This reserved name is the one used to refer to the enclosing module.</li>
-  <li><code class="highlighter-rouge">in</code>: Used to specify the monadic context(s) in a type signature.</li>
+  <li><code class="language-plaintext highlighter-rouge">here</code>: This reserved name is the one used to refer to the enclosing module.</li>
+  <li><code class="language-plaintext highlighter-rouge">in</code>: Used to specify the monadic context(s) in a type signature.</li>
 </ul>
 
 <p>Many of these reserved words are implemented as macros in the parser, but these
@@ -779,7 +779,7 @@ macros are always in scope and cannot be overridden, hidden, or redefined.</p>
   <p>The actionables for this section are as follows:</p>
 
   <ul>
-    <li>In the future, we need to determine if we need <code class="highlighter-rouge">all</code> and <code class="highlighter-rouge">each</code> explicit
+    <li>In the future, we need to determine if we need <code class="language-plaintext highlighter-rouge">all</code> and <code class="language-plaintext highlighter-rouge">each</code> explicit
 keywords in the case of dependency. Explicit examples are required.</li>
   </ul>
 </blockquote>
@@ -1017,7 +1017,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

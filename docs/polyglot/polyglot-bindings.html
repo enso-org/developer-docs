@@ -193,6 +193,14 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/polyglot/">
                     
@@ -202,14 +210,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
-                
-            
-            
-            
                 
             
             
@@ -537,7 +537,7 @@ main mechanisms:</p>
   <li><strong>Polyglot FFI:</strong> The low-level polyglot support provides a fairly low-level
 syntax sugar system for working with values from foreign languages.</li>
   <li><strong>Embedded Syntax:</strong> This system allows users to write code from other
-languages directly in their <code class="highlighter-rouge">.enso</code> files, and to seamlessly share values
+languages directly in their <code class="language-plaintext highlighter-rouge">.enso</code> files, and to seamlessly share values
 between Enso and that foreign code.</li>
 </ol>
 
@@ -639,13 +639,13 @@ two things which have no real equivalent in the Enso type system.</p>
 constructed as follows:</p>
 
 <ul>
-  <li>The <code class="highlighter-rouge">polyglot</code> keyword</li>
-  <li>A language identifier (e.g. <code class="highlighter-rouge">java</code>).</li>
-  <li>The keyword <code class="highlighter-rouge">import</code>.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">polyglot</code> keyword</li>
+  <li>A language identifier (e.g. <code class="language-plaintext highlighter-rouge">java</code>).</li>
+  <li>The keyword <code class="language-plaintext highlighter-rouge">import</code>.</li>
   <li>Optionally (where the language supports it), an identifier for the type of
-language entity being imported (e.g. <code class="highlighter-rouge">struct</code> for <code class="highlighter-rouge">c</code>).</li>
+language entity being imported (e.g. <code class="language-plaintext highlighter-rouge">struct</code> for <code class="language-plaintext highlighter-rouge">c</code>).</li>
   <li>A path that uniquely identifies the polyglot object to import.</li>
-  <li>Optionally, the keyword <code class="highlighter-rouge">as</code>, followed by a new name.</li>
+  <li>Optionally, the keyword <code class="language-plaintext highlighter-rouge">as</code>, followed by a new name.</li>
 </ul>
 
 <p>For example:</p>
@@ -667,8 +667,8 @@ variadic syntax for calling these polyglot bindings using vectors.</p>
 <p>It works as follows:</p>
 
 <ul>
-  <li>It is a method called <code class="highlighter-rouge">method</code> defined on the <code class="highlighter-rouge">Polyglot</code> type. The name
-<code class="highlighter-rouge">method</code> is, however, a stand-in for the name of the method in question.</li>
+  <li>It is a method called <code class="language-plaintext highlighter-rouge">method</code> defined on the <code class="language-plaintext highlighter-rouge">Polyglot</code> type. The name
+<code class="language-plaintext highlighter-rouge">method</code> is, however, a stand-in for the name of the method in question.</li>
   <li>It takes an object instance of the polyglot object.</li>
   <li>It takes a vector of arguments (and is hence variadic).</li>
   <li>And it returns some value.</li>
@@ -685,7 +685,7 @@ variadic syntax for calling these polyglot bindings using vectors.</p>
 </code></pre></div></div>
 
 <h3 id="finding-polyglot-bindings">Finding Polyglot Bindings</h3>
-<p>Polyglot objects for various languages are found in the <code class="highlighter-rouge">polyglot</code> subdirectory
+<p>Polyglot objects for various languages are found in the <code class="language-plaintext highlighter-rouge">polyglot</code> subdirectory
 of an Enso project. This folder is subdivided into directories based on the
 polyglot language. The name of each subdirectory must match the language
 identifier used in the source code.</p>
@@ -696,7 +696,7 @@ the language-specific documentation for details.</p>
 
 <h2 id="embedded-syntax">Embedded Syntax</h2>
 <p>The term “Embedded Syntax” is our terminology for the ability to use foreign
-language syntaxes from directly inside <code class="highlighter-rouge">.enso</code> files. This system builds upon
+language syntaxes from directly inside <code class="language-plaintext highlighter-rouge">.enso</code> files. This system builds upon
 the more generic mechanisms used by the <a href="#the-polyglot-ffi">polyglot FFI</a> to
 provide a truly seamless user experience.</p>
 
@@ -704,11 +704,11 @@ provide a truly seamless user experience.</p>
 <p>A polyglot block is introduced as follows:</p>
 
 <ul>
-  <li>The <code class="highlighter-rouge">polyglot</code> keyword starts a block.</li>
-  <li>This must be followed by a language identifier (e.g. <code class="highlighter-rouge">java</code>).</li>
+  <li>The <code class="language-plaintext highlighter-rouge">polyglot</code> keyword starts a block.</li>
+  <li>This must be followed by a language identifier (e.g. <code class="language-plaintext highlighter-rouge">java</code>).</li>
   <li>After the language identifier, the remaining syntax behaves like it is an
-Enso function definition until the <code class="highlighter-rouge">=</code>.</li>
-  <li>After the <code class="highlighter-rouge">=</code>, the user may write their foreign code.</li>
+Enso function definition until the <code class="language-plaintext highlighter-rouge">=</code>.</li>
+  <li>After the <code class="language-plaintext highlighter-rouge">=</code>, the user may write their foreign code.</li>
 </ul>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">polyglot</span> <span class="n">python</span> <span class="n">concat</span> <span class="n">a</span> <span class="n">b</span> <span class="o">=</span>
@@ -716,8 +716,8 @@ Enso function definition until the <code class="highlighter-rouge">=</code>.</li
     <span class="n">str</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">str</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>In the above example, this defines a function <code class="highlighter-rouge">concat</code> that takes two arguments
-<code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code>, implemented in Python.</p>
+<p>In the above example, this defines a function <code class="language-plaintext highlighter-rouge">concat</code> that takes two arguments
+<code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code>, implemented in Python.</p>
 
 <blockquote>
   <p>The actionables for this section are:</p>
@@ -960,7 +960,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

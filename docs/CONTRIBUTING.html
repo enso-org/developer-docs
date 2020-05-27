@@ -621,7 +621,7 @@ it out accurately.</p>
 
 <p>The reproduction steps are particularly important, as the more easily we can
 reproduce it, the faster we can fix the bug! It’s also helpful to have the
-output of <code class="highlighter-rouge">enso --version</code>, as that will let us know if the bug is Operating
+output of <code class="language-plaintext highlighter-rouge">enso --version</code>, as that will let us know if the bug is Operating
 System or Architecture specific.</p>
 
 <h2 id="hacking-on-enso">Hacking on Enso</h2>
@@ -635,7 +635,7 @@ look at the design documentation for the language. These files explain provide
 both a rigorous specification of Enso’s design, but also insight into the <em>why</em>
 behind the decisions that have been made.</p>
 
-<p>These can be found in <a href="docs/design/"><code class="highlighter-rouge">docs/design/</code></a>, and are organised by the
+<p>These can be found in <a href="docs/design/"><code class="language-plaintext highlighter-rouge">docs/design/</code></a>, and are organised by the
 part of the compiler that they relate to.</p>
 
 <h3 id="system-requirements">System Requirements</h3>
@@ -644,7 +644,7 @@ part of the compiler that they relate to.</p>
 <ul>
   <li><a href="https://www.scala-sbt.org/">sbt</a> with version at least 1.3.0.</li>
   <li><a href="https://www.graalvm.org/">GraalVM</a> with version at least that described in
-the <a href="build.sbt"><code class="highlighter-rouge">build.sbt</code></a> file, and Java 8, configured as your default JVM.</li>
+the <a href="build.sbt"><code class="language-plaintext highlighter-rouge">build.sbt</code></a> file, and Java 8, configured as your default JVM.</li>
   <li><a href="https://google.github.io/flatbuffers">Flatbuffers Compiler</a> with version
 1.12.0.</li>
 </ul>
@@ -652,15 +652,15 @@ the <a href="build.sbt"><code class="highlighter-rouge">build.sbt</code></a> fil
 <p>Managing multiple JVM installations can be a pain, so some of the team use
 <a href="http://www.jenv.be/">Jenv</a>: A useful tool for managing multiple JVMs.</p>
 
-<p>The flatbuffers <code class="highlighter-rouge">flatc</code> compiler can be installed from the following locations:</p>
+<p>The flatbuffers <code class="language-plaintext highlighter-rouge">flatc</code> compiler can be installed from the following locations:</p>
 
 <ul>
-  <li>Using the <code class="highlighter-rouge">conda</code> package manager (<code class="highlighter-rouge">conda install flatbuffers</code>). This will
-work on all platforms, but requires some knowledge of <code class="highlighter-rouge">conda</code> and how its
+  <li>Using the <code class="language-plaintext highlighter-rouge">conda</code> package manager (<code class="language-plaintext highlighter-rouge">conda install flatbuffers</code>). This will
+work on all platforms, but requires some knowledge of <code class="language-plaintext highlighter-rouge">conda</code> and how its
 environments work.</li>
   <li>Windows users can download binaries directly from the flatbuffers github
 <a href="https://github.com/google/flatbuffers/releases">releases</a>.</li>
-  <li>MacOS users can install it via homebrew (<code class="highlighter-rouge">brew install flatbuffers</code>).</li>
+  <li>MacOS users can install it via homebrew (<code class="language-plaintext highlighter-rouge">brew install flatbuffers</code>).</li>
 </ul>
 
 <h3 id="getting-the-sources">Getting the Sources</h3>
@@ -672,7 +672,7 @@ inkling where to look!. You can clone Enso using two methods:</p>
 read-only.</li>
 </ul>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/luna/enso.git
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/luna/enso.git
 </code></pre></div></div>
 
 <ul>
@@ -681,12 +681,12 @@ over SSH may provide a better user experience (but requires setting up your
 SSH Keys with GitHub).</li>
 </ul>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone git@github.com:luna/enso.git
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone git@github.com:luna/enso.git
 </code></pre></div></div>
 
 <h3 id="building-enso">Building Enso</h3>
 <p>There are multiple projects in this repository, but all can be built, run and
-tested using <code class="highlighter-rouge">sbt</code>. As long as your configuration is correct, with the correct
+tested using <code class="language-plaintext highlighter-rouge">sbt</code>. As long as your configuration is correct, with the correct
 versions of SBT and GraalVM, the same steps can be followed on all of our
 supported platforms (Linux, MacOS and Windows).</p>
 
@@ -699,30 +699,30 @@ to provide work-arounds for building on that platform while it is still in an
 unstable state.</p>
 
 <h4 id="building-enso-components">Building Enso Components</h4>
-<p>In order to build a specific component (e.g. <code class="highlighter-rouge">runtime</code>), please follow the
+<p>In order to build a specific component (e.g. <code class="language-plaintext highlighter-rouge">runtime</code>), please follow the
 following steps.</p>
 
 <ol>
-  <li>Enter the sbt shell in the repository root directory by typing <code class="highlighter-rouge">sbt</code>.</li>
-  <li>Change to the project you are concerned with (in our case <code class="highlighter-rouge">runtime</code>) by
-executing <code class="highlighter-rouge">project runtime</code>.</li>
-  <li>Execute <code class="highlighter-rouge">compile</code> in order to compile the project in question. This will
+  <li>Enter the sbt shell in the repository root directory by typing <code class="language-plaintext highlighter-rouge">sbt</code>.</li>
+  <li>Change to the project you are concerned with (in our case <code class="language-plaintext highlighter-rouge">runtime</code>) by
+executing <code class="language-plaintext highlighter-rouge">project runtime</code>.</li>
+  <li>Execute <code class="language-plaintext highlighter-rouge">compile</code> in order to compile the project in question. This will
 compile the project and all its dependencies as necessary.</li>
 </ol>
 
-<p>You can substitute both <code class="highlighter-rouge">bench</code> and <code class="highlighter-rouge">test</code> for <code class="highlighter-rouge">compile</code> in step 3, and the sbt
-shell will execute the appropriate thing. Furthermore we have <code class="highlighter-rouge">testOnly</code> and
-<code class="highlighter-rouge">benchOnly</code> that accept a glob pattern that delineates some subset of the tests
-or benchmarks to run (e.g. <code class="highlighter-rouge">testOnly *FunctionArguments*</code>).</p>
+<p>You can substitute both <code class="language-plaintext highlighter-rouge">bench</code> and <code class="language-plaintext highlighter-rouge">test</code> for <code class="language-plaintext highlighter-rouge">compile</code> in step 3, and the sbt
+shell will execute the appropriate thing. Furthermore we have <code class="language-plaintext highlighter-rouge">testOnly</code> and
+<code class="language-plaintext highlighter-rouge">benchOnly</code> that accept a glob pattern that delineates some subset of the tests
+or benchmarks to run (e.g. <code class="language-plaintext highlighter-rouge">testOnly *FunctionArguments*</code>).</p>
 
 <h4 id="building-the-interpreter-cli-fat-jar">Building the Interpreter CLI Fat Jar</h4>
-<p>In order to build a fat jar with the CLI component, run the <code class="highlighter-rouge">assembly</code> task
-inside the <code class="highlighter-rouge">runner</code> subproject:</p>
+<p>In order to build a fat jar with the CLI component, run the <code class="language-plaintext highlighter-rouge">assembly</code> task
+inside the <code class="language-plaintext highlighter-rouge">runner</code> subproject:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt <span class="s2">"runner/assembly"</span>
 </code></pre></div></div>
 
-<p>This will produce an executable <code class="highlighter-rouge">enso.jar</code> fat jar in the repository root.
+<p>This will produce an executable <code class="language-plaintext highlighter-rouge">enso.jar</code> fat jar in the repository root.
 It’s self contained, with its only dependencies being available inside
 a vanilla GraalVM distribution. To run it, use:</p>
 
@@ -730,7 +730,7 @@ a vanilla GraalVM distribution. To run it, use:</p>
 </code></pre></div></div>
 
 <p>If you decide not to use the default launcher script, make sure to pass
-the <code class="highlighter-rouge">-XX:-UseJVMCIClassLoader</code> option to the <code class="highlighter-rouge">java</code> command.</p>
+the <code class="language-plaintext highlighter-rouge">-XX:-UseJVMCIClassLoader</code> option to the <code class="language-plaintext highlighter-rouge">java</code> command.</p>
 
 <h4 id="installing-the-jupyter-kernel">Installing the Jupyter kernel</h4>
 <p>Enso has a highly experimental and not-actively-maintained Jupyer Kernel.
@@ -738,9 +738,9 @@ To run it:</p>
 
 <ol>
   <li>Build (or download from the CI server) the CLI Fat Jar.</li>
-  <li>Fill in the <code class="highlighter-rouge">engine/language-server/jupyter-kernel/enso/kernel.json</code>
-file, providing correct paths to the <code class="highlighter-rouge">enso.jar</code> distribution and GraalVM
-<code class="highlighter-rouge">JAVA_HOME</code>.</li>
+  <li>Fill in the <code class="language-plaintext highlighter-rouge">engine/language-server/jupyter-kernel/enso/kernel.json</code>
+file, providing correct paths to the <code class="language-plaintext highlighter-rouge">enso.jar</code> distribution and GraalVM
+<code class="language-plaintext highlighter-rouge">JAVA_HOME</code>.</li>
   <li>Run:</li>
 </ol>
 
@@ -754,25 +754,25 @@ file, providing correct paths to the <code class="highlighter-rouge">enso.jar</c
 the compilation graph during JIT optimisation, and the ASM generated by the JIT.</p>
 
 <p>However, as we don’t want these things polluting our standard builds, we provide
-a helper SBT command <code class="highlighter-rouge">withDebug</code> to allow for passing these options. It supports
+a helper SBT command <code class="language-plaintext highlighter-rouge">withDebug</code> to allow for passing these options. It supports
 the following flags:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">--dumpGraphs</code>: This dumps the IGV (a Graal tool) graphs for the program to
+  <li><code class="language-plaintext highlighter-rouge">--dumpGraphs</code>: This dumps the IGV (a Graal tool) graphs for the program to
 allow for manual analysis and discovery of optimisation failures.</li>
-  <li><code class="highlighter-rouge">--showCompilations</code>: Prints the truffle compilation trace information.</li>
-  <li><code class="highlighter-rouge">--printAssembly</code>: Prints the assembly output from the HotSpot JIT tier.</li>
+  <li><code class="language-plaintext highlighter-rouge">--showCompilations</code>: Prints the truffle compilation trace information.</li>
+  <li><code class="language-plaintext highlighter-rouge">--printAssembly</code>: Prints the assembly output from the HotSpot JIT tier.</li>
 </ul>
 
 <p>For more information on this sbt command, please see
 <a href="project/WithDebugCommand.scala">WithDebugCommand.scala</a>.</p>
 
-<p>It is used as an addendum to the basic sbt command you want to run (e.g. <code class="highlighter-rouge">test</code>
-from above). The format is <code class="highlighter-rouge">withDebug COMMAND [OPTIONS...]</code>, and if you need to
-pass any additional options to <code class="highlighter-rouge">COMMAND</code> you must do so following a <code class="highlighter-rouge">--</code>. For
+<p>It is used as an addendum to the basic sbt command you want to run (e.g. <code class="language-plaintext highlighter-rouge">test</code>
+from above). The format is <code class="language-plaintext highlighter-rouge">withDebug COMMAND [OPTIONS...]</code>, and if you need to
+pass any additional options to <code class="language-plaintext highlighter-rouge">COMMAND</code> you must do so following a <code class="language-plaintext highlighter-rouge">--</code>. For
 example:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>withDebug run --dumpGraphs --printAssembly -- --run MyFile.enso
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>withDebug run --dumpGraphs --printAssembly -- --run MyFile.enso
 withDebug benchOnly --showCompilations -- RecursionBenchmark
 </code></pre></div></div>
 
@@ -785,7 +785,7 @@ assembly. It can be acquired for MacOS and Linux
 please choose one best suited for you.</p>
 
 <p>Once you have a copy of the dynamic library, it needs to be placed in
-<code class="highlighter-rouge">$JVM_HOME/jre/lib/server</code> on a JDK-8 install, or in <code class="highlighter-rouge">$JVM_HOME/lib/server</code> for
+<code class="language-plaintext highlighter-rouge">$JVM_HOME/jre/lib/server</code> on a JDK-8 install, or in <code class="language-plaintext highlighter-rouge">$JVM_HOME/lib/server</code> for
 a JDK-10 or later install (once this is supported).</p>
 
 <h4 id="native-image">Native Image</h4>
@@ -794,8 +794,8 @@ generation of native executables from JVM language programs (such as the Enso
 interpreter itself). However, it results in significantly degraded peak
 performance, so it is not part of our roadmap currently.</p>
 
-<p>If you would like to experiment with it, you can execute the <code class="highlighter-rouge">buildNativeImage</code>
-command in the sbt shell while inside the <code class="highlighter-rouge">runner</code> project. Please note
+<p>If you would like to experiment with it, you can execute the <code class="language-plaintext highlighter-rouge">buildNativeImage</code>
+command in the sbt shell while inside the <code class="language-plaintext highlighter-rouge">runner</code> project. Please note
 that while the command is available at the moment, and you are welcome to
 <a href="https://github.com/luna/enso/issues/new?assignees=&amp;labels=Type%3A+Bug&amp;template=bug-report.md&amp;title=">report an issue</a>
 with the functionality, any bugs you report will <em>not</em> be considered high
@@ -813,8 +813,8 @@ getting the project into a working state in IntelliJ.</p>
   <li>Open IntelliJ</li>
   <li>File -&gt; New -&gt; Project From Existing Sources.</li>
   <li>Navigate to the directory into which you cloned the project sources. By
-default this will be called <code class="highlighter-rouge">enso</code>. Select the directory, and not the
-<code class="highlighter-rouge">build.sbt</code> file it contains.</li>
+default this will be called <code class="language-plaintext highlighter-rouge">enso</code>. Select the directory, and not the
+<code class="language-plaintext highlighter-rouge">build.sbt</code> file it contains.</li>
   <li>In the ‘Import Project’ dialogue, select ‘Import project from external
 model’ and choose ‘sbt’.</li>
   <li>Where it says ‘Download:’, ensure you check both ‘Library Sources’ and ‘sbt
@@ -826,7 +826,7 @@ both ‘for imports’ and ‘for builds’.</li>
 GraalVM version as described in <a href="#requirements">Requirements</a>. You may need
 to add it using the ‘New’ button if it isn’t already set up.</li>
   <li>Click ‘Finish’. This will prompt you as to whether you want to overwrite the
-<code class="highlighter-rouge">project</code> folder. Select ‘Yes’ to continue. The Enso project will load up
+<code class="language-plaintext highlighter-rouge">project</code> folder. Select ‘Yes’ to continue. The Enso project will load up
 with an open SBT shell, which can be interacted with as described above. You
 will want to use scalafmt for formatting of Scala code, and install Google
 Java Format for formatting Java code. For more information see the relevant
@@ -840,19 +840,19 @@ need to follow these steps:</p>
 
 <ol>
   <li>Go to Run -&gt; Edit Configurations.</li>
-  <li>Click the <code class="highlighter-rouge">+</code> button in the header of the ‘Run/Debug Configurations’
+  <li>Click the <code class="language-plaintext highlighter-rouge">+</code> button in the header of the ‘Run/Debug Configurations’
 dialogue that pops up.</li>
   <li>Select ‘Remote’ and name the new configuration appropriately.</li>
   <li>In the options for that configuration select ‘Listen to remote JVM’ under
 ‘Debugger mode:’</li>
   <li>Where it provides the command-line arguments for the remote JVM, copy these
-and add them to <code class="highlighter-rouge">truffleRunOptions</code> in <a href="build.sbt"><code class="highlighter-rouge">build.sbt</code></a>. Remove the
-portion of these options after <code class="highlighter-rouge">suspend=y</code>, including the comma. They are
+and add them to <code class="language-plaintext highlighter-rouge">truffleRunOptions</code> in <a href="build.sbt"><code class="language-plaintext highlighter-rouge">build.sbt</code></a>. Remove the
+portion of these options after <code class="language-plaintext highlighter-rouge">suspend=y</code>, including the comma. They are
 placeholders that we don’t use.</li>
   <li>Now, when you want to debug something, you can place a breakpoint as usual in
 IntelliJ, and then execute your remote debugging configuration. Now, in the
 SBT shell, run a command to execute the code you want to debug (e.g.
-<code class="highlighter-rouge">testOnly *CurryingTest*</code>). This will open the standard debugger interface
+<code class="language-plaintext highlighter-rouge">testOnly *CurryingTest*</code>). This will open the standard debugger interface
 and will allow you to step through your code.</li>
 </ol>
 
@@ -864,11 +864,11 @@ configuration as they are specific to your machine.</p>
 filing an issue with us.</p>
 
 <ul>
-  <li><strong><code class="highlighter-rouge">StackOverflowError</code> During Compilation:</strong> Please ensure that your version
-of sbt is respecting the project’s <code class="highlighter-rouge">.jvmopts</code> settings. We make significant
+  <li><strong><code class="language-plaintext highlighter-rouge">StackOverflowError</code> During Compilation:</strong> Please ensure that your version
+of sbt is respecting the project’s <code class="language-plaintext highlighter-rouge">.jvmopts</code> settings. We make significant
 use of recursion when expanding macros for the parser, and these require use
-of additional stack. Alternatively, you can explicitly pass <code class="highlighter-rouge">-Xss8M</code> to the
-<code class="highlighter-rouge">sbt</code> invocation.</li>
+of additional stack. Alternatively, you can explicitly pass <code class="language-plaintext highlighter-rouge">-Xss8M</code> to the
+<code class="language-plaintext highlighter-rouge">sbt</code> invocation.</li>
   <li><strong>Debugging Not Working:</strong> The sbt tasks run the invoked programs in a forked
 JVM. This means that to attach a debugger to it you need to use the JVM remote
 debugging support. We cannot support all possible configurations for this, but
@@ -882,34 +882,34 @@ in our issue tracker and we will get back to you as soon as possible.</p>
 
 <h3 id="running-enso">Running Enso</h3>
 <p>The only component in this repository with a proper executable is the Enso
-interpreter. It can be run using the sbt <code class="highlighter-rouge">run</code> command in the project
-<code class="highlighter-rouge">runner</code> and provides a rudimentary command-line interface to the basic
+interpreter. It can be run using the sbt <code class="language-plaintext highlighter-rouge">run</code> command in the project
+<code class="language-plaintext highlighter-rouge">runner</code> and provides a rudimentary command-line interface to the basic
 capabilities of the interpreter.</p>
 
-<p>Detailed information on the flags it supports can be obtained by executing <code class="highlighter-rouge">run
+<p>Detailed information on the flags it supports can be obtained by executing <code class="language-plaintext highlighter-rouge">run
 --help</code>, but the primary functionality is as follows:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">--new PATH</code>: Creates a new Enso project at the location spcified by <code class="highlighter-rouge">PATH</code>.</li>
-  <li><code class="highlighter-rouge">--run PATH</code>: Executes the interpreter on the Enso source specified by <code class="highlighter-rouge">PATH</code>.
-In this case, <code class="highlighter-rouge">PATH</code> must point to either a standalone Enso file or an Enso
+  <li><code class="language-plaintext highlighter-rouge">--new PATH</code>: Creates a new Enso project at the location spcified by <code class="language-plaintext highlighter-rouge">PATH</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">--run PATH</code>: Executes the interpreter on the Enso source specified by <code class="language-plaintext highlighter-rouge">PATH</code>.
+In this case, <code class="language-plaintext highlighter-rouge">PATH</code> must point to either a standalone Enso file or an Enso
 project.</li>
 </ul>
 
 <h4 id="language-server-mode">Language Server Mode</h4>
-<p>The Language Server can be run using the <code class="highlighter-rouge">--server</code> option. It requires also a
-content root to be provided (<code class="highlighter-rouge">--root-id</code> and <code class="highlighter-rouge">--path</code> options). Command-line
+<p>The Language Server can be run using the <code class="language-plaintext highlighter-rouge">--server</code> option. It requires also a
+content root to be provided (<code class="language-plaintext highlighter-rouge">--root-id</code> and <code class="language-plaintext highlighter-rouge">--path</code> options). Command-line
 interface of the runner prints all server options when you execute it with
-<code class="highlighter-rouge">--help</code> option.</p>
+<code class="language-plaintext highlighter-rouge">--help</code> option.</p>
 
 <p>Below are options uses by the Language Server:</p>
 <ul>
-  <li><code class="highlighter-rouge">--server</code>: Runs the Language Server</li>
-  <li><code class="highlighter-rouge">--root-id &lt;uuid&gt;</code>: Content root id.</li>
-  <li><code class="highlighter-rouge">--path &lt;path&gt;</code>: Path to the content root.</li>
-  <li><code class="highlighter-rouge">--interface &lt;interface&gt;</code>: Interface for processing all incoming connections.
+  <li><code class="language-plaintext highlighter-rouge">--server</code>: Runs the Language Server</li>
+  <li><code class="language-plaintext highlighter-rouge">--root-id &lt;uuid&gt;</code>: Content root id.</li>
+  <li><code class="language-plaintext highlighter-rouge">--path &lt;path&gt;</code>: Path to the content root.</li>
+  <li><code class="language-plaintext highlighter-rouge">--interface &lt;interface&gt;</code>: Interface for processing all incoming connections.
 Default value is 127.0.0.1</li>
-  <li><code class="highlighter-rouge">--port &lt;port&gt;</code>: Port for processing all incoming connections. Default value
+  <li><code class="language-plaintext highlighter-rouge">--port &lt;port&gt;</code>: Port for processing all incoming connections. Default value
 is 8080.</li>
 </ul>
 
@@ -925,8 +925,8 @@ is 8080.</li>
 specify the following options:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">--interface</code>: The interface on which the socket will exist (e.g. <code class="highlighter-rouge">0.0.0.0</code>).</li>
-  <li><code class="highlighter-rouge">--port</code>: The port on <code class="highlighter-rouge">interface</code> where the socket will be opened (e.g. <code class="highlighter-rouge">80</code>).</li>
+  <li><code class="language-plaintext highlighter-rouge">--interface</code>: The interface on which the socket will exist (e.g. <code class="language-plaintext highlighter-rouge">0.0.0.0</code>).</li>
+  <li><code class="language-plaintext highlighter-rouge">--port</code>: The port on <code class="language-plaintext highlighter-rouge">interface</code> where the socket will be opened (e.g. <code class="language-plaintext highlighter-rouge">80</code>).</li>
 </ul>
 
 <h2 id="pull-requests">Pull Requests</h2>
@@ -938,12 +938,12 @@ development. It is as described
 and involves people pushing changes to their own fork and creating pull requests
 to bring those changes into the main Enso repository.</p>
 
-<p>Please make all pull requests against the <code class="highlighter-rouge">master</code> branch.</p>
+<p>Please make all pull requests against the <code class="language-plaintext highlighter-rouge">master</code> branch.</p>
 
 <ul>
   <li>We run CI on all contributions to Enso, but it’s still useful for you to run
-the tests yourself locally first! This can be done by running <code class="highlighter-rouge">test</code> in the
-<code class="highlighter-rouge">enso</code> project in sbt.</li>
+the tests yourself locally first! This can be done by running <code class="language-plaintext highlighter-rouge">test</code> in the
+<code class="language-plaintext highlighter-rouge">enso</code> project in sbt.</li>
   <li>Additionally, please ensure that your code conforms to the Enso style guides,
 particularly the <a href="./docs/style-guide/scala.md">Scala Style Guide</a> and the
 <a href="./docs/style-guide/java.md">Java Style Guide</a>.</li>
@@ -973,7 +973,7 @@ the best results through open collaboration.</p>
 <p>Documentation improvements are very welcome! For now, the main documentation
 available is the <em>developer</em> documentation for the language, which can be found
 at the <a href="https://dev.enso.org">dev docs site</a>. The source for this documentation
-is found in the <a href="./docs/"><code class="highlighter-rouge">docs/</code></a> folder, and can be altered from there.</p>
+is found in the <a href="./docs/"><code class="language-plaintext highlighter-rouge">docs/</code></a> folder, and can be altered from there.</p>
 
 <p>Documentation pull requests will be reviewed in exactly the same way as normal
 pull requests.</p>
@@ -1254,7 +1254,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

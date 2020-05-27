@@ -217,14 +217,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/types/">
                     
@@ -234,6 +226,14 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -668,9 +668,9 @@ provides an explicit mechanism for access modification.</p>
 indented block.</li>
   <li>All members in the block have the access modifier attributed to them.</li>
   <li>By default, accessing any member under an access modifier will be an error.</li>
-  <li>To use members under an access modifier, you use the syntax <code class="highlighter-rouge">use &lt;mod&gt;</code>, where
-<code class="highlighter-rouge">&lt;mod&gt;</code> is a modifier. This syntax ‘takes’ an expression, including blocks,
-within which the user may access members qualified by the modifier <code class="highlighter-rouge">&lt;mod&gt;</code>.</li>
+  <li>To use members under an access modifier, you use the syntax <code class="language-plaintext highlighter-rouge">use &lt;mod&gt;</code>, where
+<code class="language-plaintext highlighter-rouge">&lt;mod&gt;</code> is a modifier. This syntax ‘takes’ an expression, including blocks,
+within which the user may access members qualified by the modifier <code class="language-plaintext highlighter-rouge">&lt;mod&gt;</code>.</li>
 </ul>
 
 <blockquote>
@@ -682,22 +682,22 @@ within which the user may access members qualified by the modifier <code class="
 </blockquote>
 
 <h2 id="private">Private</h2>
-<p>The <code class="highlighter-rouge">private</code> modifier acts to hide implementation details from clients of the
+<p>The <code class="language-plaintext highlighter-rouge">private</code> modifier acts to hide implementation details from clients of the
 API. It is:</p>
 
 <ul>
-  <li>Available by default in the <code class="highlighter-rouge">Base</code> library.</li>
+  <li>Available by default in the <code class="language-plaintext highlighter-rouge">Base</code> library.</li>
   <li>Able to be overridden using the above-described mechanism.</li>
 </ul>
 
 <h2 id="unsafe">Unsafe</h2>
-<p>While <code class="highlighter-rouge">private</code> works as you might expect, coming from other languages, the
-<code class="highlighter-rouge">unsafe</code> annotation has additional restrictions:</p>
+<p>While <code class="language-plaintext highlighter-rouge">private</code> works as you might expect, coming from other languages, the
+<code class="language-plaintext highlighter-rouge">unsafe</code> annotation has additional restrictions:</p>
 
 <ul>
-  <li>It must be explicitly imported from <code class="highlighter-rouge">Std.Unsafe</code>.</li>
-  <li>When you use <code class="highlighter-rouge">unsafe</code>, you must write a documentation comment on its usage
-that contains a section <code class="highlighter-rouge">Safety</code> that describes why this usage of unsafe is
+  <li>It must be explicitly imported from <code class="language-plaintext highlighter-rouge">Std.Unsafe</code>.</li>
+  <li>When you use <code class="language-plaintext highlighter-rouge">unsafe</code>, you must write a documentation comment on its usage
+that contains a section <code class="language-plaintext highlighter-rouge">Safety</code> that describes why this usage of unsafe is
 valid.</li>
 </ul>
 
@@ -705,7 +705,7 @@ valid.</li>
   <p>The actionables for this section are:</p>
 
   <ul>
-    <li>Specify <code class="highlighter-rouge">unsafe</code> properly.</li>
+    <li>Specify <code class="language-plaintext highlighter-rouge">unsafe</code> properly.</li>
   </ul>
 </blockquote>
 
@@ -942,7 +942,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

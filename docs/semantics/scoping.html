@@ -191,26 +191,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/semantics/">
                     
@@ -220,6 +200,26 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -603,8 +603,8 @@ occurs. A nested scope may:</p>
   <li>Identifiers are bound by using a variable name in a pattern context (e.g. the
 LHS of a binding, a function argument, or a case expression pattern).</li>
   <li>Identifiers are accessible only <em>after</em> they have been defined.</li>
-  <li>Identifiers introduced into a given scope <code class="highlighter-rouge">s</code> are accessible in <code class="highlighter-rouge">s</code> and all
-the children of <code class="highlighter-rouge">s</code>, <em>after</em> the point at which they are introduced.</li>
+  <li>Identifiers introduced into a given scope <code class="language-plaintext highlighter-rouge">s</code> are accessible in <code class="language-plaintext highlighter-rouge">s</code> and all
+the children of <code class="language-plaintext highlighter-rouge">s</code>, <em>after</em> the point at which they are introduced.</li>
   <li>If a scope uses an identifier defined in an outer scope, and then later (in
 the thread of execution) shadows that variable, any usage before the shadowing
 point refers to the occurrence in the outer scope.</li>
@@ -619,8 +619,8 @@ valid entity,” and hence implies “can have its value used.”</p>
   <ul>
     <li>In the future we may want to relax the forward-definition restriction for
 pure bindings, allowing a form of recursive pure binding hoisting (like a
-let block). This would use the monadic context’s <code class="highlighter-rouge">fix</code> function.</li>
-    <li>Once we are capable of supporting <code class="highlighter-rouge">fix</code> and recursive pure bindings in
+let block). This would use the monadic context’s <code class="language-plaintext highlighter-rouge">fix</code> function.</li>
+    <li>Once we are capable of supporting <code class="language-plaintext highlighter-rouge">fix</code> and recursive pure bindings in
 contexts, we need to revisit the above rules.</li>
   </ul>
 </blockquote>
@@ -630,7 +630,7 @@ contexts, we need to revisit the above rules.</li>
 
 <ul>
   <li><strong>Modules:</strong> Each module (file) introduces a new scope.</li>
-  <li><strong>The Function Arrow <code class="highlighter-rouge">(-&gt;)</code>:</strong> The arrow operator introduces a new scope that
+  <li><strong>The Function Arrow <code class="language-plaintext highlighter-rouge">(-&gt;)</code>:</strong> The arrow operator introduces a new scope that
 is shared by both of its operands. This is true both when it is used for a
 lambda (value or type), and when used to denote case branches.</li>
   <li><strong>Code Blocks:</strong> A code block introduces a new scope.</li>
@@ -659,11 +659,11 @@ is simply because the method definition desugars to a lambda definition.</li>
     <li>Write this out in more detail when we have time. The above is only intended
 as a brief summary.</li>
     <li>Decide if we want to support local overloads at all (differing in the type
-of <code class="highlighter-rouge">this</code>). Local overloads are those that are not defined at the top level
+of <code class="language-plaintext highlighter-rouge">this</code>). Local overloads are those that are not defined at the top level
 of a module, and are currently unsupported.</li>
     <li>We need to refine the specification for body-signature mutual scoping.</li>
     <li>NOTE: The note about case-branch scoping needs to be refined as the
-implementation of <code class="highlighter-rouge">case</code> evolves.</li>
+implementation of <code class="language-plaintext highlighter-rouge">case</code> evolves.</li>
   </ul>
 </blockquote>
 
@@ -958,7 +958,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

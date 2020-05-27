@@ -217,14 +217,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/types/">
                     
@@ -234,6 +226,14 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -650,7 +650,7 @@ for usability, as users can write very flexible code that still plays nicely
 with the GUI.</p>
 
 <p>The current implementation of Enso supports single dispatch (dispatch purely on
-the type of <code class="highlighter-rouge">this</code>), but there are broader visions afoot for the final
+the type of <code class="language-plaintext highlighter-rouge">this</code>), but there are broader visions afoot for the final
 implementation of dynamic dispatch in Enso.</p>
 
 <blockquote>
@@ -679,23 +679,23 @@ effectively an algorithm for determining which candidate is more specific than
 another.</p>
 
 <ul>
-  <li>Always prefer a member function for both <code class="highlighter-rouge">x.f y</code> and <code class="highlighter-rouge">f y x</code> notations.</li>
+  <li>Always prefer a member function for both <code class="language-plaintext highlighter-rouge">x.f y</code> and <code class="language-plaintext highlighter-rouge">f y x</code> notations.</li>
   <li>Only member functions, current module’s functions, and imported functions are
-considered to be in scope. Local variable <code class="highlighter-rouge">f</code> could not be used in the <code class="highlighter-rouge">x.f y</code>
+considered to be in scope. Local variable <code class="language-plaintext highlighter-rouge">f</code> could not be used in the <code class="language-plaintext highlighter-rouge">x.f y</code>
 syntax.</li>
   <li>Selecting the matching function:
     <ol>
       <li>Look up the member function. If it exists, select it.</li>
       <li>If not, find all functions with the matching name in the current module and
 all directly imported modules. These functions are the <em>candidates</em>.</li>
-      <li>Eliminate any candidate <code class="highlighter-rouge">X</code> for which there is another candidate <code class="highlighter-rouge">Y</code> whose
-<code class="highlighter-rouge">this</code> argument type is strictly more specific. That is, <code class="highlighter-rouge">Y</code> this type is a
-substitution of <code class="highlighter-rouge">X</code> this type but not vice versa.</li>
+      <li>Eliminate any candidate <code class="language-plaintext highlighter-rouge">X</code> for which there is another candidate <code class="language-plaintext highlighter-rouge">Y</code> whose
+<code class="language-plaintext highlighter-rouge">this</code> argument type is strictly more specific. That is, <code class="language-plaintext highlighter-rouge">Y</code> this type is a
+substitution of <code class="language-plaintext highlighter-rouge">X</code> this type but not vice versa.</li>
       <li>If not all of the remaining candidates have the same this type, the search
 fails.</li>
-      <li>Eliminate any candidate <code class="highlighter-rouge">X</code> for which there is another candidate <code class="highlighter-rouge">Y</code> which
-type signature is strictly more specific. That is, <code class="highlighter-rouge">Y</code> type signature is a
-substitution of <code class="highlighter-rouge">X</code> type signature.</li>
+      <li>Eliminate any candidate <code class="language-plaintext highlighter-rouge">X</code> for which there is another candidate <code class="language-plaintext highlighter-rouge">Y</code> which
+type signature is strictly more specific. That is, <code class="language-plaintext highlighter-rouge">Y</code> type signature is a
+substitution of <code class="language-plaintext highlighter-rouge">X</code> type signature.</li>
       <li>If exactly one candidate remains, select it. Otherwise, the search fails.</li>
     </ol>
   </li>
@@ -715,7 +715,7 @@ arguments).</li>
 <h2 id="multiple-dispatch">Multiple Dispatch</h2>
 <p>It is an open question as to whether we want to support proper multiple dispatch
 in Enso. Multiple dispatch refers to the dynamic dispatch target being
-determined based not only on the type of the <code class="highlighter-rouge">this</code> argument, but the types of
+determined based not only on the type of the <code class="language-plaintext highlighter-rouge">this</code> argument, but the types of
 the other arguments to the function.</p>
 
 <p>To do multiple dispatch properly, it is very important to get a rigorous
@@ -726,8 +726,8 @@ specification of the specificity algorithm. It must account for:</p>
   <li>The ordering of arguments.</li>
   <li>How to handle defaulted and lazy arguments.</li>
   <li>
-    <p>Constraints in types. This means that for two candidates <code class="highlighter-rouge">f</code> and <code class="highlighter-rouge">g</code>, being
-dispatched on a type <code class="highlighter-rouge">t</code> with constraint <code class="highlighter-rouge">c</code>, the more specific candidate is
+    <p>Constraints in types. This means that for two candidates <code class="language-plaintext highlighter-rouge">f</code> and <code class="language-plaintext highlighter-rouge">g</code>, being
+dispatched on a type <code class="language-plaintext highlighter-rouge">t</code> with constraint <code class="language-plaintext highlighter-rouge">c</code>, the more specific candidate is
 the one that explicitly matches the constraints. An example follows:</p>
 
     <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">type</span> <span class="no">HasName</span>
@@ -748,7 +748,7 @@ the one that explicitly matches the constraints. An example follows:</p>
   <span class="n">greet</span> <span class="mi">7</span>  <span class="c1"># I have no name</span>
 </code></pre></div>    </div>
 
-    <p>Here, because <code class="highlighter-rouge">Person</code> conforms to the <code class="highlighter-rouge">HasName</code> interface, the second <code class="highlighter-rouge">greet</code>
+    <p>Here, because <code class="language-plaintext highlighter-rouge">Person</code> conforms to the <code class="language-plaintext highlighter-rouge">HasName</code> interface, the second <code class="language-plaintext highlighter-rouge">greet</code>
 implementation is chosen because the constraints make it more specific.</p>
   </li>
 </ul>
@@ -986,7 +986,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

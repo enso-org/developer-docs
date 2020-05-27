@@ -191,6 +191,14 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/polyglot/">
                     
@@ -200,14 +208,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
-                
-            
-            
-            
                 
             
             
@@ -539,15 +539,15 @@ Java in the runtime. Please familiarise yourself with the general operation of
 
 <h2 id="class-lookup">Class Lookup</h2>
 <p>In order for the Enso runtime to effectively find Java objects for working with
-in a polyglot fashion, it will look in the <code class="highlighter-rouge">polyglot/java</code> subdirectory of an
+in a polyglot fashion, it will look in the <code class="language-plaintext highlighter-rouge">polyglot/java</code> subdirectory of an
 Enso project. This directory has the following requirements placed on it.</p>
 
 <ul>
-  <li>The top level of the <code class="highlighter-rouge">java</code> directory should contain only <code class="highlighter-rouge">.jar</code> files and
+  <li>The top level of the <code class="language-plaintext highlighter-rouge">java</code> directory should contain only <code class="language-plaintext highlighter-rouge">.jar</code> files and
 directories.</li>
-  <li>Each directory must provide a valid class-path structure, with <code class="highlighter-rouge">.class</code> files
+  <li>Each directory must provide a valid class-path structure, with <code class="language-plaintext highlighter-rouge">.class</code> files
 at the appropriate points.</li>
-  <li>Both <code class="highlighter-rouge">.jar</code> files and directories are added to the runtime class-path for
+  <li>Both <code class="language-plaintext highlighter-rouge">.jar</code> files and directories are added to the runtime class-path for
 Enso, and hence be made available to Enso programs.</li>
 </ul>
 
@@ -555,7 +555,7 @@ Enso, and hence be made available to Enso programs.</li>
   <p>The actionables for this section are:</p>
 
   <ul>
-    <li>In future, we want to expand this to support <code class="highlighter-rouge">.class</code> files directly, and
+    <li>In future, we want to expand this to support <code class="language-plaintext highlighter-rouge">.class</code> files directly, and
 maybe even compiling Java code.</li>
   </ul>
 </blockquote>
@@ -566,9 +566,9 @@ allowing Enso code to work with them through a runtime reflection-style
 mechanism. It is comprised of the following components:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">Java.lookup_class : Class.Path -&gt; Maybe Class</code>: A function that lets
+  <li><code class="language-plaintext highlighter-rouge">Java.lookup_class : Class.Path -&gt; Maybe Class</code>: A function that lets
 users look up a class by a given name on the runtime classpath.</li>
-  <li><code class="highlighter-rouge">Polyglot.instantiate : Class -&gt; Object</code>: A function that lets users
+  <li><code class="language-plaintext highlighter-rouge">Polyglot.instantiate : Class -&gt; Object</code>: A function that lets users
 instantiate a class into an object.</li>
   <li>A whole host of functions on the polyglot type that let you dynamically work
 with object bindings.</li>
@@ -853,7 +853,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

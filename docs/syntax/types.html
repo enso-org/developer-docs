@@ -627,7 +627,7 @@ it is expected that you have read the above-linked document on the type-system
 design as well.</p>
 
 <p>Additionally, this document will colloquially refer to the left and right hand
-sides of the type ascription operator <code class="highlighter-rouge">:</code> as the ‘term’ and ‘type’ levels,
+sides of the type ascription operator <code class="language-plaintext highlighter-rouge">:</code> as the ‘term’ and ‘type’ levels,
 respectively. In reality, there is no separation between the two in Enso, but it
 is a useful way of thinking about things when discussing type signatures.</p>
 
@@ -647,8 +647,8 @@ is a useful way of thinking about things when discussing type signatures.</p>
 
 <h2 id="type-signatures">Type Signatures</h2>
 <p>Enso allows users to provide explicit type signatures for values through use of
-the type ascription operator <code class="highlighter-rouge">:</code>. The expression <code class="highlighter-rouge">a : b</code> says that the value
-<code class="highlighter-rouge">a</code> has the type <code class="highlighter-rouge">b</code> attributed to it.</p>
+the type ascription operator <code class="language-plaintext highlighter-rouge">:</code>. The expression <code class="language-plaintext highlighter-rouge">a : b</code> says that the value
+<code class="language-plaintext highlighter-rouge">a</code> has the type <code class="language-plaintext highlighter-rouge">b</code> attributed to it.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">foo</span> <span class="p">:</span> <span class="p">(</span><span class="n">m</span> <span class="p">:</span> <span class="no">Monoid</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">m</span><span class="p">.</span><span class="nf">this</span>
 </code></pre></div></div>
@@ -657,17 +657,17 @@ the type ascription operator <code class="highlighter-rouge">:</code>. The expre
 
 <ul>
   <li>
-    <p>The reserved name <code class="highlighter-rouge">in</code> is used to specify the monadic context in which a value
-resides. The Enso expression <code class="highlighter-rouge">a in IO</code> is equivalent to the Haskell
-<code class="highlighter-rouge">MonadIO a</code>.</p>
+    <p>The reserved name <code class="language-plaintext highlighter-rouge">in</code> is used to specify the monadic context in which a value
+resides. The Enso expression <code class="language-plaintext highlighter-rouge">a in IO</code> is equivalent to the Haskell
+<code class="language-plaintext highlighter-rouge">MonadIO a</code>.</p>
 
     <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">foo</span> <span class="p">:</span> <span class="no">Int</span> <span class="o">-&gt;</span> <span class="no">Int</span> <span class="k">in</span> <span class="no">IO</span>
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>The operator <code class="highlighter-rouge">!</code> is used to specify the potential for an <em>error</em> value in a
-type. The expression <code class="highlighter-rouge">a ! E</code> says that the type is either an <code class="highlighter-rouge">a</code> or an error
-value of type <code class="highlighter-rouge">E</code>.</p>
+    <p>The operator <code class="language-plaintext highlighter-rouge">!</code> is used to specify the potential for an <em>error</em> value in a
+type. The expression <code class="language-plaintext highlighter-rouge">a ! E</code> says that the type is either an <code class="language-plaintext highlighter-rouge">a</code> or an error
+value of type <code class="language-plaintext highlighter-rouge">E</code>.</p>
 
     <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sr">/ : Number -&gt; Number -&gt; Number ! ArithError
 </span></code></pre></div>    </div>
@@ -687,11 +687,11 @@ intention as a type.</li>
 constraints will be introduced on that type.</li>
   <li>Where the type of the value is known, ascription can be used to constrain that
 type further.</li>
-  <li>It is legal to add constraints to an identifier using <code class="highlighter-rouge">:</code> in any scope in
+  <li>It is legal to add constraints to an identifier using <code class="language-plaintext highlighter-rouge">:</code> in any scope in
 which the identifier is visible.</li>
 </ul>
 
-<p>From a syntactic perspective, the type ascription operator <code class="highlighter-rouge">:</code> has the following
+<p>From a syntactic perspective, the type ascription operator <code class="language-plaintext highlighter-rouge">:</code> has the following
 properties:</p>
 
 <ul>
@@ -700,9 +700,9 @@ properties:</p>
   <li>It is not possible to ascribe a type to an identifier without also assigning
 to that identifier.</li>
   <li>Introduced identifiers will always shadow other identifiers in scope due to
-the fact that <code class="highlighter-rouge">:</code> introduces a new scope on its RHS.</li>
-  <li>Constraint implication is purely feed-forward. The expression <code class="highlighter-rouge">b:A</code> only
-introduces constraints to <code class="highlighter-rouge">b</code>.</li>
+the fact that <code class="language-plaintext highlighter-rouge">:</code> introduces a new scope on its RHS.</li>
+  <li>Constraint implication is purely feed-forward. The expression <code class="language-plaintext highlighter-rouge">b:A</code> only
+introduces constraints to <code class="language-plaintext highlighter-rouge">b</code>.</li>
 </ul>
 
 <blockquote>
@@ -719,11 +719,11 @@ introduces constraints to <code class="highlighter-rouge">b</code>.</li>
 of typesets. Their syntax is as follows:</p>
 
 <ul>
-  <li><strong>Union - <code class="highlighter-rouge">|</code>:</strong> The resultant typeset may contain a value of the union of its
+  <li><strong>Union - <code class="language-plaintext highlighter-rouge">|</code>:</strong> The resultant typeset may contain a value of the union of its
 arguments.</li>
-  <li><strong>Intersection - <code class="highlighter-rouge">&amp;</code>:</strong> The resultant typeset may contain values that are
+  <li><strong>Intersection - <code class="language-plaintext highlighter-rouge">&amp;</code>:</strong> The resultant typeset may contain values that are
 members of <em>both</em> its arguments.</li>
-  <li><strong>Subtraction - <code class="highlighter-rouge">\</code>:</strong> The resultant typeset may contain values that are in
+  <li><strong>Subtraction - <code class="language-plaintext highlighter-rouge">\</code>:</strong> The resultant typeset may contain values that are in
 the first argument’s set but not in the second.</li>
 </ul>
 
@@ -737,7 +737,7 @@ supersedes this section while this actionable exists.</li>
 </blockquote>
 
 <h2 id="type-definitions">Type Definitions</h2>
-<p>Types in Enso are defined by using the <code class="highlighter-rouge">type</code> reserved name. This works in a
+<p>Types in Enso are defined by using the <code class="language-plaintext highlighter-rouge">type</code> reserved name. This works in a
 context-dependent manner that is discussed properly in the
 <a href="/docs/types/">type system design document</a>, but is summarised
 briefly below.</p>
@@ -766,8 +766,8 @@ by returning a typeset.</p>
     <span class="n">nothing</span> <span class="o">=</span> <span class="n">not</span> <span class="n">isJust</span>
 </code></pre></div>    </div>
 
-    <p>Please note that the <code class="highlighter-rouge">type Foo (a : t)</code> is syntax only allowable inside a type
-definition. It defines an atom <code class="highlighter-rouge">Foo</code>, but constrains the type variable of the
+    <p>Please note that the <code class="language-plaintext highlighter-rouge">type Foo (a : t)</code> is syntax only allowable inside a type
+definition. It defines an atom <code class="language-plaintext highlighter-rouge">Foo</code>, but constrains the type variable of the
 atom <em>in this usage</em>.</p>
   </li>
   <li>
@@ -781,7 +781,7 @@ it.</p>
   </li>
 </ul>
 
-<p>In addition, users may write explicit <code class="highlighter-rouge">this</code> constraints in a type definition,
+<p>In addition, users may write explicit <code class="language-plaintext highlighter-rouge">this</code> constraints in a type definition,
 using the standard type-ascription syntax:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">type</span> <span class="no">Semigroup</span>
@@ -800,21 +800,21 @@ propose an explicit mechanism for access modification that works as follows:</p>
 
 <ul>
   <li>We provide explicit access modifiers that, at the definition site, start an
-indented block. These are <code class="highlighter-rouge">private</code> and <code class="highlighter-rouge">unsafe</code>.</li>
+indented block. These are <code class="language-plaintext highlighter-rouge">private</code> and <code class="language-plaintext highlighter-rouge">unsafe</code>.</li>
   <li>All members in the block have the access modifier attributed to them.</li>
   <li>By default, accessing any member under an access modifier will be an error.</li>
-  <li>To use members under an access modifier, you use the syntax <code class="highlighter-rouge">use &lt;mod&gt;</code>, where
-<code class="highlighter-rouge">&lt;mod&gt;</code> is a modifier. This syntax ‘takes’ an expression, including blocks,
-within which the user may access members qualified by the modifier <code class="highlighter-rouge">&lt;mod&gt;</code>.</li>
+  <li>To use members under an access modifier, you use the syntax <code class="language-plaintext highlighter-rouge">use &lt;mod&gt;</code>, where
+<code class="language-plaintext highlighter-rouge">&lt;mod&gt;</code> is a modifier. This syntax ‘takes’ an expression, including blocks,
+within which the user may access members qualified by the modifier <code class="language-plaintext highlighter-rouge">&lt;mod&gt;</code>.</li>
 </ul>
 
-<p>While <code class="highlighter-rouge">private</code> works as you might expect, coming from other languages, the
-<code class="highlighter-rouge">unsafe</code> annotation has additional restrictions:</p>
+<p>While <code class="language-plaintext highlighter-rouge">private</code> works as you might expect, coming from other languages, the
+<code class="language-plaintext highlighter-rouge">unsafe</code> annotation has additional restrictions:</p>
 
 <ul>
-  <li>It must be explicitly imported from <code class="highlighter-rouge">Std.Unsafe</code>.</li>
-  <li>When you use <code class="highlighter-rouge">unsafe</code>, you must write a documentation comment on its usage
-that contains a section <code class="highlighter-rouge">Safety</code> that describes why this usage of unsafe is
+  <li>It must be explicitly imported from <code class="language-plaintext highlighter-rouge">Std.Unsafe</code>.</li>
+  <li>When you use <code class="language-plaintext highlighter-rouge">unsafe</code>, you must write a documentation comment on its usage
+that contains a section <code class="language-plaintext highlighter-rouge">Safety</code> that describes why this usage of unsafe is
 valid.</li>
 </ul>
 
@@ -1051,7 +1051,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

@@ -201,6 +201,30 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/style-guide/">
                     
@@ -210,30 +234,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
                 
             
             
@@ -602,11 +602,11 @@ or sections lest rustfmt produce code that is hard to read and write. Thus, it
 is very important to write code in such a way that we can be proud of its
 quality.</p>
 
-<p>Due to the fact that <code class="highlighter-rouge">rustfmt</code> doesn’t support multiple of our requirements, we
+<p>Due to the fact that <code class="language-plaintext highlighter-rouge">rustfmt</code> doesn’t support multiple of our requirements, we
 have created a guide for how to format Rust code for this project. Please read
 it carefully.</p>
 
-<p>We hope that, in the future, <code class="highlighter-rouge">rustfmt</code> will come to support many of the things
+<p>We hope that, in the future, <code class="language-plaintext highlighter-rouge">rustfmt</code> will come to support many of the things
 described below, but even so, many portions of this guide will need to be
 handled manually.</p>
 
@@ -812,9 +812,9 @@ variables, and divide them up to a set of single-line expressions.</p>
 following constructs should be aligned vertically where possible:</p>
 
 <ul>
-  <li>Assignment operators (<code class="highlighter-rouge">=</code>)</li>
-  <li>Type operators (<code class="highlighter-rouge">:</code>)</li>
-  <li>Match arrows (<code class="highlighter-rouge">=&gt;</code>)</li>
+  <li>Assignment operators (<code class="language-plaintext highlighter-rouge">=</code>)</li>
+  <li>Type operators (<code class="language-plaintext highlighter-rouge">:</code>)</li>
+  <li>Match arrows (<code class="language-plaintext highlighter-rouge">=&gt;</code>)</li>
   <li>Similar parameters or types</li>
 </ul>
 
@@ -839,11 +839,11 @@ alignment rules above:</p>
 to our code to aid readability:</p>
 
 <ul>
-  <li>The type operator is not spaced: <code class="highlighter-rouge">fn test(foo:String, bar:Int) { ... }</code></li>
+  <li>The type operator is not spaced: <code class="language-plaintext highlighter-rouge">fn test(foo:String, bar:Int) { ... }</code></li>
   <li>Commas between complex expressions (including the argument list) are spaced</li>
-  <li>Commas between simple elements are not spaced: <code class="highlighter-rouge">Result&lt;Self,Error&gt;</code></li>
-  <li>Arguments to functions are not spaced: <code class="highlighter-rouge">build(builder,"out",qual)</code></li>
-  <li>Operators are always spaced: <code class="highlighter-rouge">let foo = a + b * c;</code></li>
+  <li>Commas between simple elements are not spaced: <code class="language-plaintext highlighter-rouge">Result&lt;Self,Error&gt;</code></li>
+  <li>Arguments to functions are not spaced: <code class="language-plaintext highlighter-rouge">build(builder,"out",qual)</code></li>
+  <li>Operators are always spaced: <code class="language-plaintext highlighter-rouge">let foo = a + b * c;</code></li>
 </ul>
 
 <h4 id="spacing-examples-as-function-definitions">Spacing Examples as Function Definitions</h4>
@@ -884,7 +884,7 @@ spacing.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>Long <code class="highlighter-rouge">where</code> clauses are formatted like this:</p>
+<p>Long <code class="language-plaintext highlighter-rouge">where</code> clauses are formatted like this:</p>
 
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pub</span> <span class="k">fn</span> <span class="n">new</span><span class="o">&lt;</span><span class="n">D</span><span class="p">,</span><span class="n">L</span><span class="o">&gt;</span><span class="p">(</span><span class="n">dom</span><span class="p">:</span><span class="n">D</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span><span class="n">L</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Result</span><span class="o">&lt;</span><span class="n">Self</span><span class="p">,</span><span class="n">Error</span><span class="o">&gt;</span>
 <span class="k">where</span> <span class="n">D</span><span class="p">:</span><span class="n">AsRef</span><span class="o">&lt;</span><span class="nb">str</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">L</span><span class="p">:</span><span class="n">IsLogger</span> <span class="p">{</span>
@@ -904,7 +904,7 @@ spacing.</p>
 
 <h3 id="impl-definitions">Impl Definitions</h3>
 <p>In order to aid in fast discovery of the header of an impl definition, we use
-the following style. In all cases, the <code class="highlighter-rouge">where</code> block should be placed after a
+the following style. In all cases, the <code class="language-plaintext highlighter-rouge">where</code> block should be placed after a
 line break.</p>
 
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// No constraints</span>
@@ -931,9 +931,9 @@ line break.</p>
 <p>We have the following rules for getters and setters in our codebase.</p>
 
 <ul>
-  <li>Getters do not have the <code class="highlighter-rouge">get_</code> prefix, while setters do have the <code class="highlighter-rouge">set_</code>
+  <li>Getters do not have the <code class="language-plaintext highlighter-rouge">get_</code> prefix, while setters do have the <code class="language-plaintext highlighter-rouge">set_</code>
 prefix.</li>
-  <li>If a setter is provided, a <code class="highlighter-rouge">mut</code> accessor should be provided as well.</li>
+  <li>If a setter is provided, a <code class="language-plaintext highlighter-rouge">mut</code> accessor should be provided as well.</li>
 </ul>
 
 <p>Correct examples for the definition of getters and setters can be found below:</p>
@@ -956,10 +956,10 @@ prefix.</li>
 however, make one situation quite tricky. In order to use methods defined inside
 a trait, that trait has to be in scope.</p>
 
-<p>Consider a trait <code class="highlighter-rouge">display::Object</code>. We want to use it in a function definition
-like the following <code class="highlighter-rouge">fn test&lt;T:display::Object&gt;(t:T) { ... }</code>, and we also want
+<p>Consider a trait <code class="language-plaintext highlighter-rouge">display::Object</code>. We want to use it in a function definition
+like the following <code class="language-plaintext highlighter-rouge">fn test&lt;T:display::Object&gt;(t:T) { ... }</code>, and we also want
 the ability to use methods defined in the trait (and hence it has to be in
-scope). Under these circumstances, <code class="highlighter-rouge">clippy</code> warns that <code class="highlighter-rouge">display::Object</code> is
+scope). Under these circumstances, <code class="language-plaintext highlighter-rouge">clippy</code> warns that <code class="language-plaintext highlighter-rouge">display::Object</code> is
 being subject to unnecessary qualification, but we don’t want to perform the
 replacement.</p>
 
@@ -974,7 +974,7 @@ replacement.</p>
 </code></pre></div></div>
 
 <p>Once we have such a definition, we can import traits into scope using the simple
-<code class="highlighter-rouge">use display::object::traits::*</code>, which will avoid any warnings about
+<code class="language-plaintext highlighter-rouge">use display::object::traits::*</code>, which will avoid any warnings about
 unnecessary qualification.</p>
 
 <h2 id="naming">Naming</h2>
@@ -982,11 +982,11 @@ unnecessary qualification.</p>
 below may provide more rules for use in specific cases.</p>
 
 <ul>
-  <li>Types are written using <code class="highlighter-rouge">UpperCamelCase</code>.</li>
-  <li>Variables and function names are written using <code class="highlighter-rouge">snake_case</code>.</li>
+  <li>Types are written using <code class="language-plaintext highlighter-rouge">UpperCamelCase</code>.</li>
+  <li>Variables and function names are written using <code class="language-plaintext highlighter-rouge">snake_case</code>.</li>
   <li>If a name contains an initialism or acronym, all parts of that initialism
-should be lower-case: <code class="highlighter-rouge">make_http_request</code>, not <code class="highlighter-rouge">make_HTTP_request</code>.</li>
-  <li>Short variable names such as <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code> should only be used in the following
+should be lower-case: <code class="language-plaintext highlighter-rouge">make_http_request</code>, not <code class="language-plaintext highlighter-rouge">make_HTTP_request</code>.</li>
+  <li>Short variable names such as <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code> should only be used in the following
 contexts:
     <ul>
       <li>Where there is no other appropriate name.</li>
@@ -997,36 +997,36 @@ temporaries should be given descriptive names.</li>
   </li>
   <li>Names should be descriptive, even if this makes them longer.</li>
   <li>Any function that performs an unsafe operation that is not documented in its
-type (e.g. <code class="highlighter-rouge">fn head&lt;T&gt;(ts: Vec&lt;T&gt;) -&gt; T</code>, which fails if the list is empty),
-must be named using the word ‘unsafe’ (e.g. <code class="highlighter-rouge">unsafeHead</code>). For more
+type (e.g. <code class="language-plaintext highlighter-rouge">fn head&lt;T&gt;(ts: Vec&lt;T&gt;) -&gt; T</code>, which fails if the list is empty),
+must be named using the word ‘unsafe’ (e.g. <code class="language-plaintext highlighter-rouge">unsafeHead</code>). For more
 information on unsafe function usage, see the section on <a href="#safety">safety</a>.</li>
   <li>Naming should use American English spelling.</li>
 </ul>
 
 <h2 id="package-structure-and-naming">Package Structure and Naming</h2>
 <p>Enso follows the standard rust convention for structuring crates, as provided
-by <code class="highlighter-rouge">cargo new</code>. This is discussed more in depth
+by <code class="language-plaintext highlighter-rouge">cargo new</code>. This is discussed more in depth
 <a href="https://learning-rust.github.io/docs/a4.cargo,crates_and_basic_project_structure.html#Project-Structure">here</a>.</p>
 
 <p>In order to match up with the project naming convention we use for Scala and
-Java projects, any rust code must be in a directory named using <code class="highlighter-rouge">UpperCamelCase</code>
-in the root of the project (e.g. <code class="highlighter-rouge">enso/BaseGL</code>).</p>
+Java projects, any rust code must be in a directory named using <code class="language-plaintext highlighter-rouge">UpperCamelCase</code>
+in the root of the project (e.g. <code class="language-plaintext highlighter-rouge">enso/BaseGL</code>).</p>
 
 <h3 id="the-public-api">The Public API</h3>
 <p>Whereas Rust defaults to making module members <em>private</em> by default, this is not
 the philosophy used by the Enso codebases. We tend to want our codebase to be
 flexible for consumers, so we tend to avoid making things private. Instead, we
-use the concept of an <code class="highlighter-rouge">internal</code> module to separate public from private.</p>
+use the concept of an <code class="language-plaintext highlighter-rouge">internal</code> module to separate public from private.</p>
 
-<p>If you are writing code in a module <code class="highlighter-rouge">foo.bar.baz</code> and would like to signal that
+<p>If you are writing code in a module <code class="language-plaintext highlighter-rouge">foo.bar.baz</code> and would like to signal that
 a particular construct (e.g. a function) is for internal use in that package,
-you should create a <code class="highlighter-rouge">foo.bar.baz.internal</code> package. You can then write the
+you should create a <code class="language-plaintext highlighter-rouge">foo.bar.baz.internal</code> package. You can then write the
 relevant language construct in that package instead of the source package.</p>
 
 <h4 id="using-access-modifiers">Using Access Modifiers</h4>
-<p>Given Rust’s performance guarantees, making things <code class="highlighter-rouge">pub</code> has no impact on the
+<p>Given Rust’s performance guarantees, making things <code class="language-plaintext highlighter-rouge">pub</code> has no impact on the
 performance of the compiled code. As a result, the <em>only</em> circumstance under
-which things are allowed to not be <code class="highlighter-rouge">pub</code> is when doing so would allow consumers
+which things are allowed to not be <code class="language-plaintext highlighter-rouge">pub</code> is when doing so would allow consumers
 of an API to break internal guarantees provided by that API (e.g. building an
 immutable collection on top of a mutable buffer).</p>
 
@@ -1140,19 +1140,19 @@ achieve the goals in question.</p>
 
 <ol>
   <li><strong>Referrer:</strong> This is a small comment left at the point where the explanation
-is relevant. It takes the following form: <code class="highlighter-rouge">// Note [Note Name]</code>, where
-<code class="highlighter-rouge">Note Name</code> is a unique identifier across the codebase. These names should be
+is relevant. It takes the following form: <code class="language-plaintext highlighter-rouge">// Note [Note Name]</code>, where
+<code class="language-plaintext highlighter-rouge">Note Name</code> is a unique identifier across the codebase. These names should be
 descriptive, and make sure you search for it before using it, in case it is
 already in use.</li>
   <li><strong>Source Note:</strong> This is the comment itself, which is a large block comment
 placed after the first function in which it is referred to in the module. The
 first line names the note using the same referrer as above:
-<code class="highlighter-rouge">// Note [Note Name]</code>. The name(s) in the note are underlined using a string
-of the <code class="highlighter-rouge">=</code> (equals) character.</li>
+<code class="language-plaintext highlighter-rouge">// Note [Note Name]</code>. The name(s) in the note are underlined using a string
+of the <code class="language-plaintext highlighter-rouge">=</code> (equals) character.</li>
 </ol>
 
 <p>A source note may contain sections within it where necessary. These are titled
-using the following syntax: <code class="highlighter-rouge">== Note [Note Name (Section Name)]</code>, and can be
+using the following syntax: <code class="language-plaintext highlighter-rouge">== Note [Note Name (Section Name)]</code>, and can be
 referred to from a referrer much as the main source note can be.</p>
 
 <p>Sometimes it is necessary to reference a source note in another module, but this
@@ -1186,12 +1186,12 @@ additional context to that reference.</p>
 </code></pre></div></div>
 
 <h3 id="todo-comments">TODO Comments</h3>
-<p>We follow a simple convention for <code class="highlighter-rouge">TODO</code> comments in our codebases:</p>
+<p>We follow a simple convention for <code class="language-plaintext highlighter-rouge">TODO</code> comments in our codebases:</p>
 
 <ul>
-  <li>The line starts with <code class="highlighter-rouge">TODO</code> or <code class="highlighter-rouge">FIXME</code>.</li>
-  <li>It is then followed by the author’s initials <code class="highlighter-rouge">[ARA]</code>, or for multiple people
-<code class="highlighter-rouge">[ARA, MK]</code>, in square brackets.</li>
+  <li>The line starts with <code class="language-plaintext highlighter-rouge">TODO</code> or <code class="language-plaintext highlighter-rouge">FIXME</code>.</li>
+  <li>It is then followed by the author’s initials <code class="language-plaintext highlighter-rouge">[ARA]</code>, or for multiple people
+<code class="language-plaintext highlighter-rouge">[ARA, MK]</code>, in square brackets.</li>
   <li>It is then followed by an explanation of what needs to be done.</li>
 </ul>
 
@@ -1232,11 +1232,11 @@ comprehension.</li>
 
 <h3 id="safety">Safety</h3>
 <p>Whereas most languages don’t have a concept of <em>safety</em>, rust comes with a built
-in notion of <code class="highlighter-rouge">unsafe</code>. When working with <code class="highlighter-rouge">unsafe</code> functions and code blocks, you
+in notion of <code class="language-plaintext highlighter-rouge">unsafe</code>. When working with <code class="language-plaintext highlighter-rouge">unsafe</code> functions and code blocks, you
 must account for the following:</p>
 
 <ul>
-  <li>As unsafe functions are explicitly declared with the keyword <code class="highlighter-rouge">unsafe</code>, we do
+  <li>As unsafe functions are explicitly declared with the keyword <code class="language-plaintext highlighter-rouge">unsafe</code>, we do
 not need any special naming convention for them.</li>
   <li>Usage of unsafety should be confined to the smallest possible block.</li>
   <li>Usage of unsafety should be accompanied by a source note that explains why it
@@ -1523,7 +1523,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

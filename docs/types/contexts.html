@@ -217,14 +217,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/types/">
                     
@@ -234,6 +226,14 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -662,8 +662,8 @@ the compiler, and hence can be automatically lifted to aid usability.</p>
 
   <ul>
     <li>Think about subsumption for contexts.</li>
-    <li>Contexts (e.g. IO) are represented using <code class="highlighter-rouge">T in IO</code>. Multiple contexts are
-combined as standard <code class="highlighter-rouge">(IO | State Int)</code>, and it is written the same in arg
+    <li>Contexts (e.g. IO) are represented using <code class="language-plaintext highlighter-rouge">T in IO</code>. Multiple contexts are
+combined as standard <code class="language-plaintext highlighter-rouge">(IO | State Int)</code>, and it is written the same in arg
 position.</li>
     <li>Do we definitely want to use monads, or can we use arrows or other
 interpreter-based effects systems? These may aid with parallelism analysis.</li>
@@ -685,18 +685,18 @@ interpreter-based effects systems? These may aid with parallelism analysis.</li>
 <p>There are three main notes about the syntax of contexts:</p>
 
 <ol>
-  <li>Monadic contexts are defined using the <code class="highlighter-rouge">in</code> keyword (e.g. <code class="highlighter-rouge">Int in IO</code>).</li>
-  <li>We have a symbol <code class="highlighter-rouge">!</code>, which is short-hand for putting something into the
-<code class="highlighter-rouge">Exception</code> monadic context. This is related to broken values.</li>
+  <li>Monadic contexts are defined using the <code class="language-plaintext highlighter-rouge">in</code> keyword (e.g. <code class="language-plaintext highlighter-rouge">Int in IO</code>).</li>
+  <li>We have a symbol <code class="language-plaintext highlighter-rouge">!</code>, which is short-hand for putting something into the
+<code class="language-plaintext highlighter-rouge">Exception</code> monadic context. This is related to broken values.</li>
   <li>Contexts can be combined by using the standard typeset operators, or nested
-through repeated uses of <code class="highlighter-rouge">in</code>.</li>
+through repeated uses of <code class="language-plaintext highlighter-rouge">in</code>.</li>
 </ol>
 
 <h2 id="monadic-bind">Monadic Bind</h2>
-<p>It is also important to note that Enso has no equivalent to <code class="highlighter-rouge">&lt;-</code> in Haskell.
-Instead, pure computations are implicitly placed in the <code class="highlighter-rouge">Pure</code> monadic context,
-and <code class="highlighter-rouge">=</code> acts to ‘peel off’ the outermost layer of contexts. As such, this means
-that <code class="highlighter-rouge">=</code> <em>always</em> acts as <code class="highlighter-rouge">bind</code>, greatly simplifying how the type-checker has
+<p>It is also important to note that Enso has no equivalent to <code class="language-plaintext highlighter-rouge">&lt;-</code> in Haskell.
+Instead, pure computations are implicitly placed in the <code class="language-plaintext highlighter-rouge">Pure</code> monadic context,
+and <code class="language-plaintext highlighter-rouge">=</code> acts to ‘peel off’ the outermost layer of contexts. As such, this means
+that <code class="language-plaintext highlighter-rouge">=</code> <em>always</em> acts as <code class="language-plaintext highlighter-rouge">bind</code>, greatly simplifying how the type-checker has
 to work.</p>
 
 <h2 id="context-definitions">Context Definitions</h2>
@@ -952,7 +952,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

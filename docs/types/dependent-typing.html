@@ -217,14 +217,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/types/">
                     
@@ -234,6 +226,14 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -694,12 +694,12 @@ however is that where that paper was required to deal with
 backwards-compatibility concerns, we are not, and hence can generalise all
 definitions to be matchability polymorphic where appropriate.</li>
   <li>
-    <p>Provide some keyword (<code class="highlighter-rouge">prove</code>) to tell the compiler that a certain property
+    <p>Provide some keyword (<code class="language-plaintext highlighter-rouge">prove</code>) to tell the compiler that a certain property
 should hold when typechecking. It takes an unrestricted expression on types,
 and utilises this when typechecking. It may also take a string description of
 the property to prove, allowing for nicer error messages:</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  append : (v1 : Vector a) -&gt; (v2 : Vector a) -&gt; (v3 : Vector a)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  append : (v1 : Vector a) -&gt; (v2 : Vector a) -&gt; (v3 : Vector a)
   append = vec1 -&gt; vec2 -&gt;
       prove (v3.size == v1.size + v2.size) "appending augments length"
       ...
@@ -707,7 +707,7 @@ the property to prove, allowing for nicer error messages:</p>
 
     <p>Sample error:</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [line, col] Unable to prove that "appending augments length":
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [line, col] Unable to prove that "appending augments length":
       Required Property: v3.size == v1.size + v2.size
       Proof State:       &lt;state&gt;
 
@@ -985,7 +985,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

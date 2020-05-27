@@ -643,8 +643,8 @@ file is non-executable. The top level may contain the following constructs:</p>
 
 <h2 id="main">Main</h2>
 <p>The entry point for an Enso program is defined in a special top-level binding
-called <code class="highlighter-rouge">main</code> in the file <code class="highlighter-rouge">Main.enso</code>. However, we also provide for a scripting
-workflow in the form of <code class="highlighter-rouge">enso run</code>, which will look for a definition of <code class="highlighter-rouge">main</code>
+called <code class="language-plaintext highlighter-rouge">main</code> in the file <code class="language-plaintext highlighter-rouge">Main.enso</code>. However, we also provide for a scripting
+workflow in the form of <code class="language-plaintext highlighter-rouge">enso run</code>, which will look for a definition of <code class="language-plaintext highlighter-rouge">main</code>
 in the file it is provided.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">main</span> <span class="o">=</span> <span class="no">IO</span><span class="p">.</span><span class="nf">println</span> <span class="s2">"Hello, World!"</span>
@@ -665,31 +665,31 @@ corresponding analysis is provided here for posterity.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code class="highlighter-rouge">[?,_]</code></td>
+      <td><code class="language-plaintext highlighter-rouge">[?,_]</code></td>
       <td>We don’t know how to implement it, but it may be possible.</td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">[-,_]</code></td>
+      <td><code class="language-plaintext highlighter-rouge">[-,_]</code></td>
       <td>Not possible to implement using purely syntactic macros.</td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">[M,_]</code></td>
+      <td><code class="language-plaintext highlighter-rouge">[M,_]</code></td>
       <td>Possible to implement using purely syntactic macros.</td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">[_,H]</code></td>
+      <td><code class="language-plaintext highlighter-rouge">[_,H]</code></td>
       <td>High priority. This will be used often.</td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">[_,M]</code></td>
+      <td><code class="language-plaintext highlighter-rouge">[_,M]</code></td>
       <td>Medium priority. This will be used with a medium frequency.</td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">[_,L]</code></td>
+      <td><code class="language-plaintext highlighter-rouge">[_,L]</code></td>
       <td>Low priority. Nice to have, but we can likely live without it.</td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">[_,!]</code></td>
+      <td><code class="language-plaintext highlighter-rouge">[_,!]</code></td>
       <td>Something that we never want to have in the language.</td>
     </tr>
   </tbody>
@@ -706,35 +706,35 @@ corresponding analysis is provided here for posterity.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code class="highlighter-rouge">[-,L]</code></td>
-      <td>Creating top-level constructs in <code class="highlighter-rouge">IO</code>, such as <code class="highlighter-rouge">IORef</code>. This is, in general, considered to be bad style, but can sometimes be useful.</td>
+      <td><code class="language-plaintext highlighter-rouge">[-,L]</code></td>
+      <td>Creating top-level constructs in <code class="language-plaintext highlighter-rouge">IO</code>, such as <code class="language-plaintext highlighter-rouge">IORef</code>. This is, in general, considered to be bad style, but can sometimes be useful.</td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">[-,L]</code></td>
+      <td><code class="language-plaintext highlighter-rouge">[-,L]</code></td>
       <td>Using enso files like python is able to be for scripting work. The ability to write constructs at the top-level and just evaluate them.</td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">[M,H]</code></td>
+      <td><code class="language-plaintext highlighter-rouge">[M,H]</code></td>
       <td>The ability to generate structures and / types for a dataframe at compilation time, or the automatic generation of an API for a library. A key recognition is that dependent types and type-level execution replace much of the need to be able to query the type-checker and runtime while writing a syntactic macro.</td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">[M,H]</code></td>
-      <td>Static metaprogramming (transformations from <code class="highlighter-rouge">AST -&gt; AST</code>) to let users generate types and functions based on existing AST. There is the potential to want to be able to evaluate actions in <code class="highlighter-rouge">IO</code> while doing this, but it may not be necessary.</td>
+      <td><code class="language-plaintext highlighter-rouge">[M,H]</code></td>
+      <td>Static metaprogramming (transformations from <code class="language-plaintext highlighter-rouge">AST -&gt; AST</code>) to let users generate types and functions based on existing AST. There is the potential to want to be able to evaluate actions in <code class="language-plaintext highlighter-rouge">IO</code> while doing this, but it may not be necessary.</td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">[-,!]</code></td>
-      <td>Dynamic metaprogramming to let users mutate program state at runtime (e.g. changing atom shapes, function definitions), also known as ‘monkey patching’. This is not something we want in the language, but we do perhaps want the ability to do so on values of type <code class="highlighter-rouge">Dynamic</code>.</td>
+      <td><code class="language-plaintext highlighter-rouge">[-,!]</code></td>
+      <td>Dynamic metaprogramming to let users mutate program state at runtime (e.g. changing atom shapes, function definitions), also known as ‘monkey patching’. This is not something we want in the language, but we do perhaps want the ability to do so on values of type <code class="language-plaintext highlighter-rouge">Dynamic</code>.</td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">[M,H]</code></td>
-      <td>‘Remembering’ things when compiling a file, such as remembering all structures marked by an <code class="highlighter-rouge">AST</code> annotation. An example use case for a mechanism like this is to generate pattern matches for all possible <code class="highlighter-rouge">AST</code> types. This can be done by letting macros write to a per-file peristent block of storage that could be serialised during precompilation.</td>
+      <td><code class="language-plaintext highlighter-rouge">[M,H]</code></td>
+      <td>‘Remembering’ things when compiling a file, such as remembering all structures marked by an <code class="language-plaintext highlighter-rouge">AST</code> annotation. An example use case for a mechanism like this is to generate pattern matches for all possible <code class="language-plaintext highlighter-rouge">AST</code> types. This can be done by letting macros write to a per-file peristent block of storage that could be serialised during precompilation.</td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">[M,H]</code></td>
-      <td>Grouping of macros (e.g. <code class="highlighter-rouge">deriveAll = derive Ord Debug Show</code>). This can be easily handled by doing discovery on functions used as macros, and treating it as a macro as well.</td>
+      <td><code class="language-plaintext highlighter-rouge">[M,H]</code></td>
+      <td>Grouping of macros (e.g. <code class="language-plaintext highlighter-rouge">deriveAll = derive Ord Debug Show</code>). This can be easily handled by doing discovery on functions used as macros, and treating it as a macro as well.</td>
     </tr>
     <tr>
-      <td><code class="highlighter-rouge">[?,M]</code></td>
+      <td><code class="language-plaintext highlighter-rouge">[?,M]</code></td>
       <td>Method-missing magic, akin to ruby. This is likely able to be handled using other, existing language mechanisms.</td>
     </tr>
   </tbody>
@@ -742,13 +742,13 @@ corresponding analysis is provided here for posterity.</p>
 
 <p>In summary and when considering the above use-cases, it seems that there is
 little need for top-level expression evaluation in Enso. We can support all of
-the above-listed important use-cases using syntactic (<code class="highlighter-rouge">AST -&gt; AST</code>) macros,
+the above-listed important use-cases using syntactic (<code class="language-plaintext highlighter-rouge">AST -&gt; AST</code>) macros,
 while allowing for top-level evaluation would enable users to write a lot of
 overly-magical code, which will always be a code-smell.</p>
 
 <p>Syntactic macros, however, do not easily support a scripting workflow, but the
-solution to this problem is simple. We can just provide an <code class="highlighter-rouge">enso run &lt;file&gt;</code>
-command which will search for and execute the <code class="highlighter-rouge">main</code> function in the provided
+solution to this problem is simple. We can just provide an <code class="language-plaintext highlighter-rouge">enso run &lt;file&gt;</code>
+command which will search for and execute the <code class="language-plaintext highlighter-rouge">main</code> function in the provided
 file.</p>
 
                         
@@ -984,7 +984,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

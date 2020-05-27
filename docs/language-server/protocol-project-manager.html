@@ -209,6 +209,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/language-server/">
                     
@@ -218,10 +222,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -548,31 +548,31 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
 <ul>
   <li><a href="#types">Types</a>
     <ul>
-      <li><a href="#projectmetadata"><code class="highlighter-rouge">ProjectMetadata</code></a></li>
+      <li><a href="#projectmetadata"><code class="language-plaintext highlighter-rouge">ProjectMetadata</code></a></li>
     </ul>
   </li>
   <li><a href="#project-management-operations">Project Management Operations</a>
     <ul>
-      <li><a href="#projectopen"><code class="highlighter-rouge">project/open</code></a></li>
-      <li><a href="#projectclose"><code class="highlighter-rouge">project/close</code></a></li>
-      <li><a href="#projectlistrecent"><code class="highlighter-rouge">project/listRecent</code></a></li>
-      <li><a href="#projectcreate"><code class="highlighter-rouge">project/create</code></a></li>
-      <li><a href="#projectdelete"><code class="highlighter-rouge">project/delete</code></a></li>
-      <li><a href="#projectlistsample"><code class="highlighter-rouge">project/listSample</code></a></li>
+      <li><a href="#projectopen"><code class="language-plaintext highlighter-rouge">project/open</code></a></li>
+      <li><a href="#projectclose"><code class="language-plaintext highlighter-rouge">project/close</code></a></li>
+      <li><a href="#projectlistrecent"><code class="language-plaintext highlighter-rouge">project/listRecent</code></a></li>
+      <li><a href="#projectcreate"><code class="language-plaintext highlighter-rouge">project/create</code></a></li>
+      <li><a href="#projectdelete"><code class="language-plaintext highlighter-rouge">project/delete</code></a></li>
+      <li><a href="#projectlistsample"><code class="language-plaintext highlighter-rouge">project/listSample</code></a></li>
     </ul>
   </li>
   <li><a href="#language-server-management">Language Server Management</a></li>
   <li><a href="#errors">Errors</a>
     <ul>
-      <li><a href="#projectnamevalidationerror"><code class="highlighter-rouge">ProjectNameValidationError</code></a></li>
-      <li><a href="#projectdatastoreerror"><code class="highlighter-rouge">ProjectDataStoreError</code></a></li>
-      <li><a href="#projectexistserror"><code class="highlighter-rouge">ProjectExistsError</code></a></li>
-      <li><a href="#projectnotfounderror"><code class="highlighter-rouge">ProjectNotFoundError</code></a></li>
-      <li><a href="#projectopenerror"><code class="highlighter-rouge">ProjectOpenError</code></a></li>
-      <li><a href="#projectcloseerror"><code class="highlighter-rouge">ProjectCloseError</code></a></li>
-      <li><a href="#projectnotopenerror"><code class="highlighter-rouge">ProjectNotOpenError</code></a></li>
-      <li><a href="#projectopenbyotherpeerserror"><code class="highlighter-rouge">ProjectOpenByOtherPeersError</code></a></li>
-      <li><a href="#cannotremoveopenprojecterror"><code class="highlighter-rouge">CannotRemoveOpenProjectError</code></a></li>
+      <li><a href="#projectnamevalidationerror"><code class="language-plaintext highlighter-rouge">ProjectNameValidationError</code></a></li>
+      <li><a href="#projectdatastoreerror"><code class="language-plaintext highlighter-rouge">ProjectDataStoreError</code></a></li>
+      <li><a href="#projectexistserror"><code class="language-plaintext highlighter-rouge">ProjectExistsError</code></a></li>
+      <li><a href="#projectnotfounderror"><code class="language-plaintext highlighter-rouge">ProjectNotFoundError</code></a></li>
+      <li><a href="#projectopenerror"><code class="language-plaintext highlighter-rouge">ProjectOpenError</code></a></li>
+      <li><a href="#projectcloseerror"><code class="language-plaintext highlighter-rouge">ProjectCloseError</code></a></li>
+      <li><a href="#projectnotopenerror"><code class="language-plaintext highlighter-rouge">ProjectNotOpenError</code></a></li>
+      <li><a href="#projectopenbyotherpeerserror"><code class="language-plaintext highlighter-rouge">ProjectOpenByOtherPeersError</code></a></li>
+      <li><a href="#cannotremoveopenprojecterror"><code class="language-plaintext highlighter-rouge">CannotRemoveOpenProjectError</code></a></li>
     </ul>
   </li>
 </ul>
@@ -583,7 +583,7 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
 <p>There are a number of types that are used only within the project server’s
 protocol messages. These are specified here.</p>
 
-<h3 id="projectmetadata"><code class="highlighter-rouge">ProjectMetadata</code></h3>
+<h3 id="projectmetadata"><code class="language-plaintext highlighter-rouge">ProjectMetadata</code></h3>
 <p>This type represents information about a project.</p>
 
 <h4 id="format">Format</h4>
@@ -599,7 +599,7 @@ protocol messages. These are specified here.</p>
 <p>The primary responsibility of the project managers is to allow users to manage
 their projects.</p>
 
-<h3 id="projectopen"><code class="highlighter-rouge">project/open</code></h3>
+<h3 id="projectopen"><code class="language-plaintext highlighter-rouge">project/open</code></h3>
 <p>This message requests that the project manager open a specified project. This
 operation also includes spawning an instance of the language server open on the
 specified project.</p>
@@ -628,14 +628,14 @@ specified project.</p>
 
 <h4 id="errors">Errors</h4>
 <ul>
-  <li><a href="#projectnotfounderror"><code class="highlighter-rouge">ProjectNotFoundError</code></a> to signal that the project
+  <li><a href="#projectnotfounderror"><code class="language-plaintext highlighter-rouge">ProjectNotFoundError</code></a> to signal that the project
 doesn’t exist.</li>
-  <li><a href="#projectdatastoreerror"><code class="highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
+  <li><a href="#projectdatastoreerror"><code class="language-plaintext highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
 underlying data store.</li>
-  <li><a href="#projectopenerror"><code class="highlighter-rouge">ProjectOpenError</code></a> to signal failures during server boot.</li>
+  <li><a href="#projectopenerror"><code class="language-plaintext highlighter-rouge">ProjectOpenError</code></a> to signal failures during server boot.</li>
 </ul>
 
-<h3 id="projectclose"><code class="highlighter-rouge">project/close</code></h3>
+<h3 id="projectclose"><code class="language-plaintext highlighter-rouge">project/close</code></h3>
 <p>This message requests that the project manager close a specified project. This
 operation includes shutting down the language server gracefully so that it can
 persist state to disk as needed.</p>
@@ -661,19 +661,19 @@ persist state to disk as needed.</p>
 
 <h4 id="errors-1">Errors</h4>
 <ul>
-  <li><a href="#projectnotfounderror"><code class="highlighter-rouge">ProjectNotFoundError</code></a> to signal that the project
+  <li><a href="#projectnotfounderror"><code class="language-plaintext highlighter-rouge">ProjectNotFoundError</code></a> to signal that the project
 doesn’t exist.</li>
-  <li><a href="#projectdatastoreerror"><code class="highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
+  <li><a href="#projectdatastoreerror"><code class="language-plaintext highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
 underlying data store.</li>
-  <li><a href="#projectcloseerror"><code class="highlighter-rouge">ProjectCloseError</code></a> to signal failures that occurred
+  <li><a href="#projectcloseerror"><code class="language-plaintext highlighter-rouge">ProjectCloseError</code></a> to signal failures that occurred
 during language server stoppage.</li>
-  <li><a href="#projectnotopenerror"><code class="highlighter-rouge">ProjectNotOpenError</code></a> to signal cannot close a project
+  <li><a href="#projectnotopenerror"><code class="language-plaintext highlighter-rouge">ProjectNotOpenError</code></a> to signal cannot close a project
 that is not open.</li>
-  <li><a href="#projectopenbyotherpeerserror"><code class="highlighter-rouge">ProjectOpenByOtherPeersError</code></a> to signal
+  <li><a href="#projectopenbyotherpeerserror"><code class="language-plaintext highlighter-rouge">ProjectOpenByOtherPeersError</code></a> to signal
 that cannot close a project that is open by other clients.</li>
 </ul>
 
-<h3 id="projectlistrecent"><code class="highlighter-rouge">project/listRecent</code></h3>
+<h3 id="projectlistrecent"><code class="language-plaintext highlighter-rouge">project/listRecent</code></h3>
 <p>This message requests that the project manager lists the user’s most recently
 opened projects.</p>
 
@@ -700,11 +700,11 @@ opened projects.</p>
 
 <h4 id="errors-2">Errors</h4>
 <ul>
-  <li><a href="#projectdatastoreerror"><code class="highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
+  <li><a href="#projectdatastoreerror"><code class="language-plaintext highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
 underlying data store.</li>
 </ul>
 
-<h3 id="projectcreate"><code class="highlighter-rouge">project/create</code></h3>
+<h3 id="projectcreate"><code class="language-plaintext highlighter-rouge">project/create</code></h3>
 <p>This message requests the creation of a new project.</p>
 
 <ul>
@@ -730,15 +730,15 @@ underlying data store.</li>
 
 <h4 id="errors-3">Errors</h4>
 <ul>
-  <li><a href="#projectnamevalidationerror"><code class="highlighter-rouge">ProjectNameValidationError</code></a> to signal
+  <li><a href="#projectnamevalidationerror"><code class="language-plaintext highlighter-rouge">ProjectNameValidationError</code></a> to signal
 validation failures.</li>
-  <li><a href="#projectdatastoreerror"><code class="highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
+  <li><a href="#projectdatastoreerror"><code class="language-plaintext highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
 underlying data store.</li>
-  <li><a href="#projectexistserror"><code class="highlighter-rouge">ProjectExistsError</code></a> to signal that the project
+  <li><a href="#projectexistserror"><code class="language-plaintext highlighter-rouge">ProjectExistsError</code></a> to signal that the project
 already exists.</li>
 </ul>
 
-<h3 id="projectdelete"><code class="highlighter-rouge">project/delete</code></h3>
+<h3 id="projectdelete"><code class="language-plaintext highlighter-rouge">project/delete</code></h3>
 <p>This message requests the deletion of a project.</p>
 
 <ul>
@@ -762,15 +762,15 @@ already exists.</li>
 
 <h4 id="errors-4">Errors</h4>
 <ul>
-  <li><a href="#projectdatastoreerror"><code class="highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
+  <li><a href="#projectdatastoreerror"><code class="language-plaintext highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
 underlying data store.</li>
-  <li><a href="#projectnotfounderror"><code class="highlighter-rouge">ProjectNotFoundError</code></a> to signal that the project
+  <li><a href="#projectnotfounderror"><code class="language-plaintext highlighter-rouge">ProjectNotFoundError</code></a> to signal that the project
 doesn’t exist.</li>
-  <li><a href="#cannotremoveopenprojecterror"><code class="highlighter-rouge">CannotRemoveOpenProjectError</code></a> to signal that
+  <li><a href="#cannotremoveopenprojecterror"><code class="language-plaintext highlighter-rouge">CannotRemoveOpenProjectError</code></a> to signal that
 the project cannot be removed, because is open by at least one user.</li>
 </ul>
 
-<h3 id="projectlistsample"><code class="highlighter-rouge">project/listSample</code></h3>
+<h3 id="projectlistsample"><code class="language-plaintext highlighter-rouge">project/listSample</code></h3>
 <p>This request lists the sample projects that are available to the user.</p>
 
 <ul>
@@ -815,7 +815,7 @@ relationship is going to work.</li>
 <p>The project manager component has its own set of errors. This section is not a
 complete specification and will be updated as new errors are added.</p>
 
-<h3 id="projectnamevalidationerror"><code class="highlighter-rouge">ProjectNameValidationError</code></h3>
+<h3 id="projectnamevalidationerror"><code class="language-plaintext highlighter-rouge">ProjectNameValidationError</code></h3>
 <p>Signals validation failures.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -824,7 +824,7 @@ complete specification and will be updated as new errors are added.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h3 id="projectdatastoreerror"><code class="highlighter-rouge">ProjectDataStoreError</code></h3>
+<h3 id="projectdatastoreerror"><code class="language-plaintext highlighter-rouge">ProjectDataStoreError</code></h3>
 <p>Signals problems with underlying data store.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -833,7 +833,7 @@ complete specification and will be updated as new errors are added.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h3 id="projectexistserror"><code class="highlighter-rouge">ProjectExistsError</code></h3>
+<h3 id="projectexistserror"><code class="language-plaintext highlighter-rouge">ProjectExistsError</code></h3>
 <p>Signals that the project already exists.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -842,7 +842,7 @@ complete specification and will be updated as new errors are added.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h3 id="projectnotfounderror"><code class="highlighter-rouge">ProjectNotFoundError</code></h3>
+<h3 id="projectnotfounderror"><code class="language-plaintext highlighter-rouge">ProjectNotFoundError</code></h3>
 <p>Signals that the project doesn’t exist.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -851,7 +851,7 @@ complete specification and will be updated as new errors are added.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h3 id="projectopenerror"><code class="highlighter-rouge">ProjectOpenError</code></h3>
+<h3 id="projectopenerror"><code class="language-plaintext highlighter-rouge">ProjectOpenError</code></h3>
 <p>Signals that the project cannot be open due to boot failures.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -860,7 +860,7 @@ complete specification and will be updated as new errors are added.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h3 id="projectcloseerror"><code class="highlighter-rouge">ProjectCloseError</code></h3>
+<h3 id="projectcloseerror"><code class="language-plaintext highlighter-rouge">ProjectCloseError</code></h3>
 <p>Signals failures during shutdown of a server.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -869,7 +869,7 @@ complete specification and will be updated as new errors are added.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h3 id="projectnotopenerror"><code class="highlighter-rouge">ProjectNotOpenError</code></h3>
+<h3 id="projectnotopenerror"><code class="language-plaintext highlighter-rouge">ProjectNotOpenError</code></h3>
 <p>Signals that cannot close project that is not open.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -878,7 +878,7 @@ complete specification and will be updated as new errors are added.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h3 id="projectopenbyotherpeerserror"><code class="highlighter-rouge">ProjectOpenByOtherPeersError</code></h3>
+<h3 id="projectopenbyotherpeerserror"><code class="language-plaintext highlighter-rouge">ProjectOpenByOtherPeersError</code></h3>
 <p>Signals that cannot close a project that is open by other clients.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -887,7 +887,7 @@ complete specification and will be updated as new errors are added.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h3 id="cannotremoveopenprojecterror"><code class="highlighter-rouge">CannotRemoveOpenProjectError</code></h3>
+<h3 id="cannotremoveopenprojecterror"><code class="language-plaintext highlighter-rouge">CannotRemoveOpenProjectError</code></h3>
 <p>Signals that cannot remove open project.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -1129,7 +1129,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

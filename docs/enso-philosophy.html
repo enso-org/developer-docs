@@ -844,10 +844,10 @@ of the function.</li>
 </ol>
 
 <p>An example of this trade-off is reading a opening a file handle with
-<code class="highlighter-rouge">openHandle</code>.</p>
+<code class="language-plaintext highlighter-rouge">openHandle</code>.</p>
 
-<p>Unlike more specialised functions such as <code class="highlighter-rouge">readFile</code> and <code class="highlighter-rouge">writeFile</code>,
-<code class="highlighter-rouge">openHandle</code> is much more flexible about how it opens the file. In such cases,
+<p>Unlike more specialised functions such as <code class="language-plaintext highlighter-rouge">readFile</code> and <code class="language-plaintext highlighter-rouge">writeFile</code>,
+<code class="language-plaintext highlighter-rouge">openHandle</code> is much more flexible about how it opens the file. In such cases,
 users making use of this file function can generally be assumed to want to open
 the file for both reading <em>and</em> writing.</p>
 
@@ -869,7 +869,7 @@ a defaulted keyword argument to the function:</p>
 
 <ul>
   <li>It takes a file path, which represents the location of a file on the user’s
-local system (as opposed to a <code class="highlighter-rouge">Resource.Path</code>, which is a location for a
+local system (as opposed to a <code class="language-plaintext highlighter-rouge">Resource.Path</code>, which is a location for a
 generic resource).</li>
   <li>It has an <em>explicit</em> default behaviour that it opens the file for both reading
 and writing, that is defaulted as part of the definition, but can be
@@ -878,9 +878,9 @@ overridden if necessary.</li>
 
 <p>As a result, this design allows for <em>explicit</em> communication of the behaviour of
 the function, both under default, and non-default circumstances. Hence, the user
-who would like to open a file for appending (via <code class="highlighter-rouge">appendHandle</code>), as well as
-reading and writing, can call it as follows: <code class="highlighter-rouge">openHandle path (fileMode = RWA)</code>,
-or just <code class="highlighter-rouge">openHandle path RWA</code>.</p>
+who would like to open a file for appending (via <code class="language-plaintext highlighter-rouge">appendHandle</code>), as well as
+reading and writing, can call it as follows: <code class="language-plaintext highlighter-rouge">openHandle path (fileMode = RWA)</code>,
+or just <code class="language-plaintext highlighter-rouge">openHandle path RWA</code>.</p>
 
 <h3 id="guidance-over-on-boarding">Guidance Over On-Boarding</h3>
 <p>While it is important to have an on-boarding process to help bring new users up
@@ -1154,7 +1154,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

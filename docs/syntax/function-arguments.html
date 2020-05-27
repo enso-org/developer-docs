@@ -645,15 +645,15 @@ this is necessary for that argument to be used. However, what Enso allows is for
 users to then <em>call</em> those arguments by name.</p>
 
 <ul>
-  <li>An argument is called by name using the syntax <code class="highlighter-rouge">(name = value)</code> (or one may
-also take advantage of the operator precedence to write <code class="highlighter-rouge">name=value</code>).</li>
+  <li>An argument is called by name using the syntax <code class="language-plaintext highlighter-rouge">(name = value)</code> (or one may
+also take advantage of the operator precedence to write <code class="language-plaintext highlighter-rouge">name=value</code>).</li>
   <li>Named arguments are applied in the order they are given. This means that if
-you positionally apply to an argument <code class="highlighter-rouge">foo</code> and then try to later apply to it
+you positionally apply to an argument <code class="language-plaintext highlighter-rouge">foo</code> and then try to later apply to it
 by name, this will fail due to currying of functions.</li>
   <li>Named arguments <em>cannot</em> be used while using operator syntax. This means that
-an expression of the form <code class="highlighter-rouge">a + b</code> cannot apply arguments by name. However,
-when calling the operator as a method (<code class="highlighter-rouge">a.+ b</code>), the call-by-name syntax may
-indeed be used (<code class="highlighter-rouge">a.+ (that = b)</code>).</li>
+an expression of the form <code class="language-plaintext highlighter-rouge">a + b</code> cannot apply arguments by name. However,
+when calling the operator as a method (<code class="language-plaintext highlighter-rouge">a.+ b</code>), the call-by-name syntax may
+indeed be used (<code class="language-plaintext highlighter-rouge">a.+ (that = b)</code>).</li>
 </ul>
 
 <p>This is a great usability boon as in complex APIs it can often be difficult to
@@ -666,20 +666,20 @@ experiment and iterate quickly by only providing the arguments that they want to
 customise.</p>
 
 <ul>
-  <li>An argument is defined with a default using the syntax <code class="highlighter-rouge">(name = default_val)</code>,
+  <li>An argument is defined with a default using the syntax <code class="language-plaintext highlighter-rouge">(name = default_val)</code>,
 which, as above, accounts for precedence rules.</li>
   <li>Argument defaults are applied to the function if no argument value is provided
 by position or name for that argument.</li>
   <li>Argument defaults are evaluated lazily if the function is lazy in that
 argument.</li>
-  <li>We provide a <code class="highlighter-rouge">...</code> operator which suspends application of the default
+  <li>We provide a <code class="language-plaintext highlighter-rouge">...</code> operator which suspends application of the default
 arguments for the purposes of currying.</li>
 </ul>
 
 <h2 id="optional-arguments">Optional Arguments</h2>
 <p>There are certain cases where the type information for an argument may be able
 to be inferred by the compiler. This is best explained by example. Consider the
-implementation of a <code class="highlighter-rouge">read</code> function that reads text and outputs a value of a
+implementation of a <code class="language-plaintext highlighter-rouge">read</code> function that reads text and outputs a value of a
 particular type.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">read</span> <span class="p">:</span> <span class="no">Text</span> <span class="o">-&gt;</span> <span class="n">t</span> <span class="o">-&gt;</span> <span class="n">t</span>
@@ -694,7 +694,7 @@ of the following ways:</p>
 </code></pre></div></div>
 
 <p>This, however, is often tedious, especially in contexts where this information
-could be inferred by the compiler. We can re-write <code class="highlighter-rouge">read</code> as follows:</p>
+could be inferred by the compiler. We can re-write <code class="language-plaintext highlighter-rouge">read</code> as follows:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">read</span> <span class="p">:</span> <span class="no">Text</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span>
 <span class="n">read</span> <span class="n">text</span> <span class="p">(</span><span class="n">this</span><span class="o">=</span><span class="n">this</span><span class="p">)</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="nf">fromText</span> <span class="n">text</span>
@@ -704,8 +704,8 @@ could be inferred by the compiler. We can re-write <code class="highlighter-roug
 the case where it is not provided, the compiler will attempt to infer it from
 usage. If this is impossible, an error would be raised.</p>
 
-<p>Enso provides a syntactic sugar for the <code class="highlighter-rouge">t=t</code> syntax. The above code can be
-written instead using <code class="highlighter-rouge">?</code>.</p>
+<p>Enso provides a syntactic sugar for the <code class="language-plaintext highlighter-rouge">t=t</code> syntax. The above code can be
+written instead using <code class="language-plaintext highlighter-rouge">?</code>.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">read</span> <span class="p">:</span> <span class="no">Text</span> <span class="o">-&gt;</span> <span class="n">t?</span> <span class="o">-&gt;</span> <span class="n">t</span>
 <span class="n">read</span> <span class="n">text</span> <span class="n">this?</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="nf">fromText</span> <span class="n">text</span>
@@ -718,7 +718,7 @@ and flexible code.</p>
 
 <ul>
   <li>These work for both positional and keyword arguments.</li>
-  <li>They are defined using the syntax <code class="highlighter-rouge">name...</code>, where <code class="highlighter-rouge">name</code> is an arbitrary
+  <li>They are defined using the syntax <code class="language-plaintext highlighter-rouge">name...</code>, where <code class="language-plaintext highlighter-rouge">name</code> is an arbitrary
 argument name.</li>
 </ul>
 
@@ -738,22 +738,22 @@ and for writing ad-hoc code. Much like the named-arguments in applications
 above, Enso also provides a syntax for refining types at the application site.</p>
 
 <ul>
-  <li>To refine an argument type by name at the application site, use the <code class="highlighter-rouge">:=</code>
-operator (e.g. <code class="highlighter-rouge">arg_name := T</code>).</li>
-  <li>This <em>will</em> be type-checked by the compiler, and so <code class="highlighter-rouge">T</code> must be a valid
+  <li>To refine an argument type by name at the application site, use the <code class="language-plaintext highlighter-rouge">:=</code>
+operator (e.g. <code class="language-plaintext highlighter-rouge">arg_name := T</code>).</li>
+  <li>This <em>will</em> be type-checked by the compiler, and so <code class="language-plaintext highlighter-rouge">T</code> must be a valid
 subtype for the type inferred for (or defined for) the function being called.</li>
 </ul>
 
 <h2 id="underscore-arguments">Underscore Arguments</h2>
-<p>Enso provides the <code class="highlighter-rouge">_</code> argument as a quick way to create a lambda from a function
+<p>Enso provides the <code class="language-plaintext highlighter-rouge">_</code> argument as a quick way to create a lambda from a function
 call. It obeys the following rules.</p>
 
 <ul>
-  <li>Replacing any function argument with <code class="highlighter-rouge">_</code> will create a lambda that accepts an
+  <li>Replacing any function argument with <code class="language-plaintext highlighter-rouge">_</code> will create a lambda that accepts an
 argument and passes it in the place of the underscore. All other function
 arguments are applied as normal.</li>
   <li>This works both by name and positionally.</li>
-  <li>When a function is provided multiple <code class="highlighter-rouge">_</code> arguments, they are desugared left to
+  <li>When a function is provided multiple <code class="language-plaintext highlighter-rouge">_</code> arguments, they are desugared left to
 right as the arguments would be applied to the function definition, creating
 nested lambdas.</li>
 </ul>
@@ -991,7 +991,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

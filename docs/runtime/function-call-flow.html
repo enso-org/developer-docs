@@ -577,7 +577,7 @@ looping constructs in the language.</p>
 Whenever we call a possibly-tail-recursive function in a tail position, a tail
 call exception containing the function and its arguments is thrown. This
 exception is then caught in a loop, effectively translating recursion into a
-loop. With the use of Truffle’s <code class="highlighter-rouge">ControlFlowException</code>, this code is optimized
+loop. With the use of Truffle’s <code class="language-plaintext highlighter-rouge">ControlFlowException</code>, this code is optimized
 like a builtin language loop construct.</p>
 
 <p>In pseudocode, a tail recursive function, like:</p>
@@ -609,7 +609,7 @@ like a builtin language loop construct.</p>
     <span class="n">_args</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="nf">args</span>
 </code></pre></div></div>
 
-<p>This logic is encapsulated in the various subclasses of <code class="highlighter-rouge">CallOptimiserNode</code>.</p>
+<p>This logic is encapsulated in the various subclasses of <code class="language-plaintext highlighter-rouge">CallOptimiserNode</code>.</p>
 
 <h2 id="named-application-arguments">Named Application Arguments</h2>
 <p>Enso allows applying function arguments by name, e.g.</p>
@@ -640,10 +640,10 @@ standard Truffle Polymorphic Inline Cache is used to store these mappings,
 therefore it may be subject to the standard problems – storing rarely accessed
 paths in the cache, as well as cache misses for highly polymorphic call sites.</p>
 
-<p>This logic is encapsulated in the <code class="highlighter-rouge">ArgumentSorterNode</code>.</p>
+<p>This logic is encapsulated in the <code class="language-plaintext highlighter-rouge">ArgumentSorterNode</code>.</p>
 
 <h2 id="definition-site-argument-suspension">Definition-Site Argument Suspension</h2>
-<p>Enso allows functions to define certain arguments as <code class="highlighter-rouge">Suspended</code>, so that when
+<p>Enso allows functions to define certain arguments as <code class="language-plaintext highlighter-rouge">Suspended</code>, so that when
 these are passed to a function, the corresponding expressions are not evaluated
 at the call side, but are instead passed to the function as closures for 
 evaluation at the function’s discretion.</p>
@@ -651,7 +651,7 @@ evaluation at the function’s discretion.</p>
 <p>Therefore, all application arguments are actually treated as thunks and only
 evaluated at call-site when the function signature defines them as eager.</p>
 
-<p>Argument execution is happening inside the <code class="highlighter-rouge">ArgumentSorterNode</code>.</p>
+<p>Argument execution is happening inside the <code class="language-plaintext highlighter-rouge">ArgumentSorterNode</code>.</p>
 
 <h2 id="currying-and-eta-expansion">Currying and Eta-Expansion</h2>
 <p>Functions can also be applied partially (i.e. with less arguments than required
@@ -660,14 +660,14 @@ fixed) or over-saturated (i.e. if a function returns another function, in which
 case arguments for 2 consecutive calls can be passed in a single application
 expression).</p>
 
-<p>This logic is handled inside the <code class="highlighter-rouge">CurryNode</code>.</p>
+<p>This logic is handled inside the <code class="language-plaintext highlighter-rouge">CurryNode</code>.</p>
 
 <h2 id="dynamic-dispatch">Dynamic Dispatch</h2>
 <p>Functions can be dispatched dynamically, meaning a name can denote different
 functions, based on the (runtime) type of the first argument.</p>
 
-<p>This logic is fairly straightforward. It is triggered from <code class="highlighter-rouge">InvokeCallableNode</code>
-and performed (with caching) in the <code class="highlighter-rouge">MethodResolverNode</code>.</p>
+<p>This logic is fairly straightforward. It is triggered from <code class="language-plaintext highlighter-rouge">InvokeCallableNode</code>
+and performed (with caching) in the <code class="language-plaintext highlighter-rouge">MethodResolverNode</code>.</p>
 
 <h2 id="defaulted-arguments-and-application">Defaulted Arguments and Application</h2>
 <p>As we want to provide a consistent semantics in the language (especially with
@@ -683,8 +683,8 @@ it.</p>
 
 <h2 id="flow-diagram">Flow Diagram</h2>
 <p>The following diagram summarizes all the nodes participating in a function
-call. The entry points to this system are <code class="highlighter-rouge">ApplicationNode</code> (for in-language
-function calls) and <code class="highlighter-rouge">InteropLibrary&lt;Function&gt;</code> (for polyglot function calls).</p>
+call. The entry points to this system are <code class="language-plaintext highlighter-rouge">ApplicationNode</code> (for in-language
+function calls) and <code class="language-plaintext highlighter-rouge">InteropLibrary&lt;Function&gt;</code> (for polyglot function calls).</p>
 
 <p><img src="/docs/runtime/resources/function-call-diagram.png" alt="diagram" /></p>
 
@@ -921,7 +921,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

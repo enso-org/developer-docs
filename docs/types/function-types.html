@@ -217,14 +217,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/types/">
                     
@@ -234,6 +226,14 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -645,7 +645,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="function-types">Function Types</h1>
-<p>As a functional programming language, the type of functions in Enso (<code class="highlighter-rouge">-&gt;</code>) is
+<p>As a functional programming language, the type of functions in Enso (<code class="language-plaintext highlighter-rouge">-&gt;</code>) is
 key. There are a few things that should be noted about functions in Enso.</p>
 
 <blockquote>
@@ -694,7 +694,7 @@ lexical scoping. For a detailed discussion of scoping, please see
 <h2 id="structural-type-shorthand">Structural Type Shorthand</h2>
 <p>In Enso, we want to be able to write a type-signature that represents types in
 terms of the operations that take place on the input values. A classical example
-is <code class="highlighter-rouge">add</code>:</p>
+is <code class="language-plaintext highlighter-rouge">add</code>:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">add</span> <span class="p">:</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">b</span> <span class="o">-&gt;</span> <span class="n">b</span> <span class="o">+</span> <span class="n">a</span>
 <span class="n">add</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">b</span> <span class="o">-&gt;</span> <span class="n">b</span> <span class="o">+</span> <span class="n">a</span>
@@ -703,10 +703,10 @@ is <code class="highlighter-rouge">add</code>:</p>
 <p>There are a few things to note about this signature from a design standpoint:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code> are not the same type. This may, at first glance, seem like a
+  <li><code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code> are not the same type. This may, at first glance, seem like a
 signature that can’t work, but the return type, in combination with our
-integrated <code class="highlighter-rouge">Convertible</code> mechanism gives us the tools to make it work.</li>
-  <li>The return type is <code class="highlighter-rouge">a + b</code>. This is a shorthand expression for a detailed
+integrated <code class="language-plaintext highlighter-rouge">Convertible</code> mechanism gives us the tools to make it work.</li>
+  <li>The return type is <code class="language-plaintext highlighter-rouge">a + b</code>. This is a shorthand expression for a detailed
 desugaring. The desugaring provided below is what the typechecker would infer
 based on such a signature.</li>
 </ul>
@@ -718,25 +718,25 @@ based on such a signature.</li>
 follows:</p>
 
 <ol>
-  <li>The expression <code class="highlighter-rouge">b + a</code> is syntactic sugar for a method call on a: <code class="highlighter-rouge">a.+ b</code>.</li>
-  <li>This means that there must be a <code class="highlighter-rouge">+</code> method on a that takes both an <code class="highlighter-rouge">a</code> and a
-<code class="highlighter-rouge">b</code>, with return-type unspecified as of yet: <code class="highlighter-rouge">+ : a -&gt; b -&gt; ?</code></li>
-  <li>However, as <code class="highlighter-rouge">Convertible</code> is built into the language, we have to consider
-that for <code class="highlighter-rouge">a.+ b</code> to work, the <code class="highlighter-rouge">+</code> method can actually take any type to which
-<code class="highlighter-rouge">b</code> converts. This introduces the constraint <code class="highlighter-rouge">Convertible b c</code>, and we get
-<code class="highlighter-rouge">+ : a -&gt; c -&gt; ?</code></li>
+  <li>The expression <code class="language-plaintext highlighter-rouge">b + a</code> is syntactic sugar for a method call on a: <code class="language-plaintext highlighter-rouge">a.+ b</code>.</li>
+  <li>This means that there must be a <code class="language-plaintext highlighter-rouge">+</code> method on a that takes both an <code class="language-plaintext highlighter-rouge">a</code> and a
+<code class="language-plaintext highlighter-rouge">b</code>, with return-type unspecified as of yet: <code class="language-plaintext highlighter-rouge">+ : a -&gt; b -&gt; ?</code></li>
+  <li>However, as <code class="language-plaintext highlighter-rouge">Convertible</code> is built into the language, we have to consider
+that for <code class="language-plaintext highlighter-rouge">a.+ b</code> to work, the <code class="language-plaintext highlighter-rouge">+</code> method can actually take any type to which
+<code class="language-plaintext highlighter-rouge">b</code> converts. This introduces the constraint <code class="language-plaintext highlighter-rouge">Convertible b c</code>, and we get
+<code class="language-plaintext highlighter-rouge">+ : a -&gt; c -&gt; ?</code></li>
   <li>The return type from a function need not be determined by its arguments, so
 hence in the general case we have to default to an unrestricted type variable
-giving <code class="highlighter-rouge">+ a -&gt; c -&gt; d</code>.</li>
-  <li>This method must exist on the type <code class="highlighter-rouge">a</code>, resulting in the constraint that the
-row <code class="highlighter-rouge">{+ : a -&gt; c -&gt; d} &lt;: a</code> must conform to that interface.</li>
-  <li>We now know the return type of <code class="highlighter-rouge">a + b</code>, and can rewrite it in the signature
-as <code class="highlighter-rouge">d</code>.</li>
+giving <code class="language-plaintext highlighter-rouge">+ a -&gt; c -&gt; d</code>.</li>
+  <li>This method must exist on the type <code class="language-plaintext highlighter-rouge">a</code>, resulting in the constraint that the
+row <code class="language-plaintext highlighter-rouge">{+ : a -&gt; c -&gt; d} &lt;: a</code> must conform to that interface.</li>
+  <li>We now know the return type of <code class="language-plaintext highlighter-rouge">a + b</code>, and can rewrite it in the signature
+as <code class="language-plaintext highlighter-rouge">d</code>.</li>
 </ol>
 
-<p>Please note that <code class="highlighter-rouge">a &lt;: b</code> (which can be flipped as <code class="highlighter-rouge">:&gt;</code>) means that <code class="highlighter-rouge">a</code> is a row
-that is a sub-row contained within the row <code class="highlighter-rouge">b</code>. The containment relation allows
-for the possibility that <code class="highlighter-rouge">a == b</code>.</p>
+<p>Please note that <code class="language-plaintext highlighter-rouge">a &lt;: b</code> (which can be flipped as <code class="language-plaintext highlighter-rouge">:&gt;</code>) means that <code class="language-plaintext highlighter-rouge">a</code> is a row
+that is a sub-row contained within the row <code class="language-plaintext highlighter-rouge">b</code>. The containment relation allows
+for the possibility that <code class="language-plaintext highlighter-rouge">a == b</code>.</p>
 
 <p>The inferred type for any function should, in general, match the given type
 signature. Cases where this break down should only exist where the type
@@ -755,30 +755,30 @@ typesets.</li>
 
 <h2 id="function-composition">Function Composition</h2>
 <p>Enso introduces a function composition operator which composes functions after
-all arguments have been applied. This operator is <code class="highlighter-rouge">&gt;&gt;</code> (and its backwards cousin
-<code class="highlighter-rouge">&lt;&lt;</code>). It takes a function <code class="highlighter-rouge">f</code> with <code class="highlighter-rouge">n</code> arguments, and a function <code class="highlighter-rouge">g</code> with <code class="highlighter-rouge">m</code>
-arguments, and the result consumes <code class="highlighter-rouge">n</code> arguments, applies them to <code class="highlighter-rouge">f</code>, and then
-applies the result of that plus any additional arguments to <code class="highlighter-rouge">g</code>.</p>
+all arguments have been applied. This operator is <code class="language-plaintext highlighter-rouge">&gt;&gt;</code> (and its backwards cousin
+<code class="language-plaintext highlighter-rouge">&lt;&lt;</code>). It takes a function <code class="language-plaintext highlighter-rouge">f</code> with <code class="language-plaintext highlighter-rouge">n</code> arguments, and a function <code class="language-plaintext highlighter-rouge">g</code> with <code class="language-plaintext highlighter-rouge">m</code>
+arguments, and the result consumes <code class="language-plaintext highlighter-rouge">n</code> arguments, applies them to <code class="language-plaintext highlighter-rouge">f</code>, and then
+applies the result of that plus any additional arguments to <code class="language-plaintext highlighter-rouge">g</code>.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">computeCoeff</span> <span class="o">=</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span>
 
 <span class="n">doThing</span> <span class="o">=</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>In addition, we have the operator <code class="highlighter-rouge">.</code>, which acts as standard forward function
-chaining in Enso, and its backwards chaining cousin <code class="highlighter-rouge">&lt;|</code>.</p>
+<p>In addition, we have the operator <code class="language-plaintext highlighter-rouge">.</code>, which acts as standard forward function
+chaining in Enso, and its backwards chaining cousin <code class="language-plaintext highlighter-rouge">&lt;|</code>.</p>
 
 <blockquote>
   <p>The actionables from this section are:</p>
 
   <ul>
-    <li>Examples for the more advanced use-cases of <code class="highlighter-rouge">&gt;&gt;</code> to decide if the type
+    <li>Examples for the more advanced use-cases of <code class="language-plaintext highlighter-rouge">&gt;&gt;</code> to decide if the type
 complexity is worth it.</li>
-    <li>Otherwise, standardise on using <code class="highlighter-rouge">&gt;&gt;</code> and <code class="highlighter-rouge">&lt;&lt;</code> for standard function
+    <li>Otherwise, standardise on using <code class="language-plaintext highlighter-rouge">&gt;&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;&lt;</code> for standard function
 composition:
       <ul>
-        <li><code class="highlighter-rouge">&lt;&lt; : (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c</code> - backwards composition (standard)</li>
-        <li><code class="highlighter-rouge">&gt;&gt; : (a -&gt; b) -&gt; (b -&gt; c) -&gt; a -&gt; c</code> - forwards composition</li>
+        <li><code class="language-plaintext highlighter-rouge">&lt;&lt; : (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c</code> - backwards composition (standard)</li>
+        <li><code class="language-plaintext highlighter-rouge">&gt;&gt; : (a -&gt; b) -&gt; (b -&gt; c) -&gt; a -&gt; c</code> - forwards composition</li>
       </ul>
     </li>
   </ul>
@@ -1017,7 +1017,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

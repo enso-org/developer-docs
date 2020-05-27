@@ -646,7 +646,7 @@ that occurs on its right-hand-side.</li>
   <li>A single line must contain at most one assignment.</li>
   <li>An assignment may only appear as the <em>root expression</em> of a line of code in a
 file.</li>
-  <li>An assignment returns the value <code class="highlighter-rouge">Nothing</code>, and does not return the value that
+  <li>An assignment returns the value <code class="language-plaintext highlighter-rouge">Nothing</code>, and does not return the value that
 is assigned to it.</li>
 </ul>
 
@@ -654,7 +654,7 @@ is assigned to it.</li>
 functions, extension methods, and to perform pattern matching. Each different
 case will see an appropriate desugaring applied (see below).</p>
 
-<p>Please note that not <em>all</em> occurrences of the <code class="highlighter-rouge">=</code> operator are assignments in
+<p>Please note that not <em>all</em> occurrences of the <code class="language-plaintext highlighter-rouge">=</code> operator are assignments in
 the general sense. The above rules do not apply when using said operator to
 pass arguments by name.</p>
 
@@ -663,12 +663,12 @@ pass arguments by name.</p>
 chain, where the left-most name is a <em>variable</em> name, the assignment is
 considered to introduce a <em>function definition</em> (the syntax sugared version).</p>
 
-<p>For a prefix chain <code class="highlighter-rouge">a b c = ...</code>, this operates as follows:</p>
+<p>For a prefix chain <code class="language-plaintext highlighter-rouge">a b c = ...</code>, this operates as follows:</p>
 
 <ul>
-  <li>The name <code class="highlighter-rouge">a</code> is bound in the enclosing scope, and is called the ‘function
+  <li>The name <code class="language-plaintext highlighter-rouge">a</code> is bound in the enclosing scope, and is called the ‘function
 name’.</li>
-  <li>The names <code class="highlighter-rouge">b</code> and <code class="highlighter-rouge">c</code> (the ‘function arguments’) are converted into nested
+  <li>The names <code class="language-plaintext highlighter-rouge">b</code> and <code class="language-plaintext highlighter-rouge">c</code> (the ‘function arguments’) are converted into nested
 lambda arguments in the function body.</li>
 </ul>
 
@@ -678,29 +678,29 @@ lambda arguments in the function body.</li>
 </code></pre></div></div>
 
 <p>Please note that by the rules of naming specified previously, if an operator
-occurs in the same position as <code class="highlighter-rouge">a</code> it will also be defined.</p>
+occurs in the same position as <code class="language-plaintext highlighter-rouge">a</code> it will also be defined.</p>
 
 <h2 id="pattern-match-bindings">Pattern Match Bindings</h2>
 <p>If the left hand side of an assignment is syntactically a prefix application
 chain, where the left-most name is a <em>type</em> name, the assignment is considered
 to introduce a pattern match binding.</p>
 
-<p>It operates as follows for code consisting of a prefix chain <code class="highlighter-rouge">A b c = expr</code> and
-trailing code <code class="highlighter-rouge">tail...</code>.</p>
+<p>It operates as follows for code consisting of a prefix chain <code class="language-plaintext highlighter-rouge">A b c = expr</code> and
+trailing code <code class="language-plaintext highlighter-rouge">tail...</code>.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">A</span> <span class="n">b</span> <span class="n">c</span> <span class="o">=</span> <span class="n">expr</span>
 <span class="n">tail</span><span class="o">...</span>
 </code></pre></div></div>
 
 <ul>
-  <li>A case expression is created with scrutinee <code class="highlighter-rouge">expr</code>.</li>
-  <li>The matching names <code class="highlighter-rouge">A</code>, <code class="highlighter-rouge">b</code>, and <code class="highlighter-rouge">c</code> are used in a case expression branch’s
-pattern. The branch’s expression is <code class="highlighter-rouge">tail...</code>.</li>
-  <li>A catch-all branch is created that has expression <code class="highlighter-rouge">error</code>.</li>
+  <li>A case expression is created with scrutinee <code class="language-plaintext highlighter-rouge">expr</code>.</li>
+  <li>The matching names <code class="language-plaintext highlighter-rouge">A</code>, <code class="language-plaintext highlighter-rouge">b</code>, and <code class="language-plaintext highlighter-rouge">c</code> are used in a case expression branch’s
+pattern. The branch’s expression is <code class="language-plaintext highlighter-rouge">tail...</code>.</li>
+  <li>A catch-all branch is created that has expression <code class="language-plaintext highlighter-rouge">error</code>.</li>
 </ul>
 
 <p>As each branch in a case expression has its own scope, this desugaring means
-that the names <code class="highlighter-rouge">b</code> and <code class="highlighter-rouge">c</code> are made visible in the scope where the pattern match
+that the names <code class="language-plaintext highlighter-rouge">b</code> and <code class="language-plaintext highlighter-rouge">c</code> are made visible in the scope where the pattern match
 binding occurs. This is due to the fact that pattern match branches are lambda
 expressions, and reuse the same scoping rules.</p>
 
@@ -713,11 +713,11 @@ matched against.</p>
 <ol>
   <li><strong>Method Syntax:</strong> If the left-hand-side of an assignment is syntactically a
 prefix application chain where the left-most expression is an infix
-application of <code class="highlighter-rouge">.</code>, this assignment is considered to introduce an extension
+application of <code class="language-plaintext highlighter-rouge">.</code>, this assignment is considered to introduce an extension
 method.</li>
   <li><strong>Function Syntax:</strong> If the left hand side of an assignment is syntactically
   a prefix application chain where the left-most expression is a variable
-  identifier and the second expression from the left is a variable named <code class="highlighter-rouge">this</code>
+  identifier and the second expression from the left is a variable named <code class="language-plaintext highlighter-rouge">this</code>
   with an explicit type ascription, this is also considered to introduce an
   extension method.</li>
 </ol>
@@ -726,9 +726,9 @@ method.</li>
 <p>This syntax for extension methods works as follows:</p>
 
 <ul>
-  <li>The target of the method syntax (left argument to <code class="highlighter-rouge">.</code>) defines the type on
+  <li>The target of the method syntax (left argument to <code class="language-plaintext highlighter-rouge">.</code>) defines the type on
 which the extension method is created.</li>
-  <li>An implicit <code class="highlighter-rouge">this</code> argument is inserted with that type at the start of the
+  <li>An implicit <code class="language-plaintext highlighter-rouge">this</code> argument is inserted with that type at the start of the
 arguments list.</li>
   <li>All arguments are desugared to lambda arguments.</li>
 </ul>
@@ -740,9 +740,9 @@ arguments list.</li>
 <p>This syntax for extension methods works as follows:</p>
 
 <ul>
-  <li>The <code class="highlighter-rouge">this</code> argument type is used to define the type on which the extension
+  <li>The <code class="language-plaintext highlighter-rouge">this</code> argument type is used to define the type on which the extension
 method is created.</li>
-  <li><code class="highlighter-rouge">this</code> and all remaining arguments are desugared to lambda arguments.</li>
+  <li><code class="language-plaintext highlighter-rouge">this</code> and all remaining arguments are desugared to lambda arguments.</li>
 </ul>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">method_name</span> <span class="p">(</span><span class="n">this</span> <span class="p">:</span> <span class="no">My_Type</span><span class="p">)</span> <span class="n">a</span> <span class="n">b</span> <span class="n">c</span> <span class="o">=</span> <span class="o">...</span>
@@ -751,15 +751,15 @@ method is created.</li>
 <h2 id="top-level-assignments">Top-Level Assignments</h2>
 <p>In order to aid with disambiguation, any binding made in the root scope without
 an explicit target is implicitly defined on a type representing the current
-module. For example, a binding <code class="highlighter-rouge">main = ...</code> is implicitly <code class="highlighter-rouge">here.main = ...</code>.</p>
+module. For example, a binding <code class="language-plaintext highlighter-rouge">main = ...</code> is implicitly <code class="language-plaintext highlighter-rouge">here.main = ...</code>.</p>
 
 <p>This works as follows:</p>
 
 <ul>
   <li>All non-extension methods defined at the top level are augmented with an
-implicit first parameter <code class="highlighter-rouge">here</code>.</li>
-  <li>They are callable by <code class="highlighter-rouge">name</code> if not ambiguous, but can be disambiguated by
-using <code class="highlighter-rouge">here.name</code> where necessary.</li>
+implicit first parameter <code class="language-plaintext highlighter-rouge">here</code>.</li>
+  <li>They are callable by <code class="language-plaintext highlighter-rouge">name</code> if not ambiguous, but can be disambiguated by
+using <code class="language-plaintext highlighter-rouge">here.name</code> where necessary.</li>
 </ul>
 
                         
@@ -995,7 +995,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

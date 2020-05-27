@@ -217,14 +217,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/types/">
                     
@@ -234,6 +226,14 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -650,11 +650,11 @@ very useful to be able to opt-in to suspended computations (thunks) for the
 design of certain APIs.</p>
 
 <p>To that end, Enso provides a mechanism for this through the type system. The
-standard library defines a <code class="highlighter-rouge">Suspend a</code> type which, when used in explicit type
+standard library defines a <code class="language-plaintext highlighter-rouge">Suspend a</code> type which, when used in explicit type
 signatures, will cause the corresponding expression to be suspended.</p>
 
 <ul>
-  <li>The explicit calls to <code class="highlighter-rouge">Suspend</code> and <code class="highlighter-rouge">force</code> are inserted automatically by the
+  <li>The explicit calls to <code class="language-plaintext highlighter-rouge">Suspend</code> and <code class="language-plaintext highlighter-rouge">force</code> are inserted automatically by the
 compiler doing demand analysis.</li>
   <li>This demand analysis process will also ensure that there are not polynomial
 chains of suspend and force being inserted to ensure performance.</li>
@@ -920,7 +920,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

@@ -652,7 +652,7 @@ most programming languages.</li>
 <h2 id="disable-comments">Disable Comments</h2>
 <p>Disable comments are the standard form of comment seen in a programming language
 in that they prevent a given piece of code from executing. In Enso, they are
-created by prefixing the expression to disable with the <code class="highlighter-rouge">#</code> character.</p>
+created by prefixing the expression to disable with the <code class="language-plaintext highlighter-rouge">#</code> character.</p>
 
 <p>These aren’t <em>exactly</em> like most language’s disable comments however:</p>
 
@@ -671,6 +671,16 @@ Such comments are automatically connected to the language construct, and can be
 used both for displaying static documentation as well as providing dynamic help
 to the user in Enso Studio itself.</p>
 
+<p>A documentation comment in Enso is a <em>block</em>, and the block is started with a
+double <code class="language-plaintext highlighter-rouge">#</code> character. The block ends when the indentation returns to the
+baseline indentation for that block (see <a href="/docs/syntax/functions.html#code-blocks">blocks</a>
+for more information). By way of example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## My documentation comment
+   continues all the way down
+   until I unindent again.
+</code></pre></div></div>
+
 <p>The tool that generates this documentation aims to be fairly robust, and tries
 to assign produce sensible results even if the user makes a mistake. Such
 mistakes will be highlighted to the user.</p>
@@ -682,14 +692,14 @@ mistakes will be highlighted to the user.</p>
 state. The documentation syntax supports the following tags:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">DEPRECATED</code>: Used for constructs that should no longer be used and that may
+  <li><code class="language-plaintext highlighter-rouge">DEPRECATED</code>: Used for constructs that should no longer be used and that may
 be removed in the future.</li>
-  <li><code class="highlighter-rouge">MODIFIED</code>: Used for constructs that have had their behaviour change after a
+  <li><code class="language-plaintext highlighter-rouge">MODIFIED</code>: Used for constructs that have had their behaviour change after a
 certain version of the library.</li>
-  <li><code class="highlighter-rouge">ADDED</code>: Used to describe when a given construct was added to the library.</li>
-  <li><code class="highlighter-rouge">UPCOMING</code>: Used to describe constructs that will be added in future versions
+  <li><code class="language-plaintext highlighter-rouge">ADDED</code>: Used to describe when a given construct was added to the library.</li>
+  <li><code class="language-plaintext highlighter-rouge">UPCOMING</code>: Used to describe constructs that will be added in future versions
 of the library.</li>
-  <li><code class="highlighter-rouge">REMOVED</code>: Used to describe constructs that have been removed and are no
+  <li><code class="language-plaintext highlighter-rouge">REMOVED</code>: Used to describe constructs that have been removed and are no
 longer functional.</li>
 </ul>
 
@@ -697,7 +707,7 @@ longer functional.</li>
 accompanied by a description. This description directly follows the tag
 declaration with one space.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># DEPRECATED Use `seeFoo` instead</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## DEPRECATED Use `seeFoo` instead</span>
 </code></pre></div></div>
 
 <p>If the user provides an unknown tag the documentation will contain that tag, but
@@ -727,12 +737,12 @@ different types of section:</p>
   <li><strong>Raw:</strong> A block of text, delineated purely by two blank lines before it.</li>
   <li><strong>Important:</strong> A block of text describing important details about the
 functionality of the construct. To create an important section, prefix the
-title with <code class="highlighter-rouge">!</code>.</li>
+title with <code class="language-plaintext highlighter-rouge">!</code>.</li>
   <li><strong>Info:</strong> An information section that should be used to provide non-crucial
 details about the construct’s usage. To create an info section, prefix the
-title with <code class="highlighter-rouge">?</code>.</li>
+title with <code class="language-plaintext highlighter-rouge">?</code>.</li>
   <li><strong>Example:</strong> For providing usage examples to the user. To create an example
-section, prefix the title with <code class="highlighter-rouge">&gt;</code>.</li>
+section, prefix the title with <code class="language-plaintext highlighter-rouge">&gt;</code>.</li>
 </ul>
 
 <h3 id="links">Links</h3>
@@ -741,8 +751,8 @@ can serve to provide access to external resources or demonstrations, and also
 link between various program constructs.</p>
 
 <ul>
-  <li><strong>URLs:</strong> <code class="highlighter-rouge">[Link title](URI)</code></li>
-  <li><strong>Images:</strong> <code class="highlighter-rouge">![Image name](URI)</code></li>
+  <li><strong>URLs:</strong> <code class="language-plaintext highlighter-rouge">[Link title](URI)</code></li>
+  <li><strong>Images:</strong> <code class="language-plaintext highlighter-rouge">![Image name](URI)</code></li>
 </ul>
 
 <p>Linked images are rendered in the generated documentation, and URLs will be
@@ -763,8 +773,8 @@ intended some multiple of 2 spaces from the left margin of the documentation
 comment.</p>
 
 <ul>
-  <li><strong>Unordered:</strong> List items are indicated by the <code class="highlighter-rouge">-</code> character.</li>
-  <li><strong>Ordered:</strong> List items are indicated by the <code class="highlighter-rouge">*</code> character.</li>
+  <li><strong>Unordered:</strong> List items are indicated by the <code class="language-plaintext highlighter-rouge">-</code> character.</li>
+  <li><strong>Ordered:</strong> List items are indicated by the <code class="language-plaintext highlighter-rouge">*</code> character.</li>
 </ul>
 
 <p>To nest a list inside another list, add another 2-character indent to the nested
@@ -775,7 +785,7 @@ list.</p>
 as code rather than prose. It supports two types of code.</p>
 
 <ul>
-  <li><strong>Inline Code:</strong> Text enclosed in <code class="highlighter-rouge">`</code> will be formatted as inline code.</li>
+  <li><strong>Inline Code:</strong> Text enclosed in <code class="language-plaintext highlighter-rouge">`</code> will be formatted as inline code.</li>
   <li><strong>Multi-Line Code:</strong> A block that is indented from the baseline of the current
 section will be formatted as a code block.</li>
 </ul>
@@ -785,9 +795,9 @@ section will be formatted as a code block.</li>
 text formatting to the documentation.</p>
 
 <ul>
-  <li><strong>Italics:</strong> Enclosing text in <code class="highlighter-rouge">_</code> (e.g. <code class="highlighter-rouge">_Italics_</code>).</li>
-  <li><strong>Bold:</strong> Enclosing text in <code class="highlighter-rouge">*</code> (e.g. <code class="highlighter-rouge">*Bold*</code>).</li>
-  <li><strong>Strikethrough:</strong> Enclosing text in <code class="highlighter-rouge">~</code> (e.g. <code class="highlighter-rouge">~Strikethrough~</code>).</li>
+  <li><strong>Italics:</strong> Enclosing text in <code class="language-plaintext highlighter-rouge">_</code> (e.g. <code class="language-plaintext highlighter-rouge">_Italics_</code>).</li>
+  <li><strong>Bold:</strong> Enclosing text in <code class="language-plaintext highlighter-rouge">*</code> (e.g. <code class="language-plaintext highlighter-rouge">*Bold*</code>).</li>
+  <li><strong>Strikethrough:</strong> Enclosing text in <code class="language-plaintext highlighter-rouge">~</code> (e.g. <code class="language-plaintext highlighter-rouge">~Strikethrough~</code>).</li>
 </ul>
 
 <p>These syntaxes may be combined, and the order of opening need not equal the
@@ -1024,7 +1034,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

@@ -209,6 +209,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/language-server/">
                     
@@ -218,10 +222,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -547,9 +547,9 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
   <li><a href="#protocol-message-specification">Protocol Message Specification</a></li>
   <li><a href="#common-types">Common Types</a>
     <ul>
-      <li><a href="#path"><code class="highlighter-rouge">Path</code></a></li>
-      <li><a href="#ipwithsocket"><code class="highlighter-rouge">IPWithSocket</code></a></li>
-      <li><a href="#ensouuid"><code class="highlighter-rouge">EnsoUUID</code></a></li>
+      <li><a href="#path"><code class="language-plaintext highlighter-rouge">Path</code></a></li>
+      <li><a href="#ipwithsocket"><code class="language-plaintext highlighter-rouge">IPWithSocket</code></a></li>
+      <li><a href="#ensouuid"><code class="language-plaintext highlighter-rouge">EnsoUUID</code></a></li>
     </ul>
   </li>
 </ul>
@@ -563,7 +563,7 @@ fields:</p>
 <ul>
   <li><strong>Type:</strong> The type of the message (e.g. Request or Notification).</li>
   <li><strong>Direction:</strong> The direction in which the <em>originating</em> message is sent
-(either <code class="highlighter-rouge">Client -&gt; Server</code> or <code class="highlighter-rouge">Server -&gt; Client</code>).</li>
+(either <code class="language-plaintext highlighter-rouge">Client -&gt; Server</code> or <code class="language-plaintext highlighter-rouge">Server -&gt; Client</code>).</li>
   <li><strong>Connection:</strong> Which connection the message should be sent on. Write
 ‘Protocol’ for the textual connection and ‘Data’ for the binary connection.</li>
   <li><strong>Visibility:</strong> Whether the method should be used by the public or is an
@@ -588,11 +588,11 @@ capability, described using typescript type syntax.</li>
 <p>There are a number of types that are shared between many of the protocol
 messages. They are specified below.</p>
 
-<h3 id="path"><code class="highlighter-rouge">Path</code></h3>
+<h3 id="path"><code class="language-plaintext highlighter-rouge">Path</code></h3>
 <p>A path is a representation of a path relative to a specified content root.</p>
 
 <h4 id="format">Format</h4>
-<p>Please note that segments can only be ordinary file names, <code class="highlighter-rouge">..</code> and <code class="highlighter-rouge">.</code> may not
+<p>Please note that segments can only be ordinary file names, <code class="language-plaintext highlighter-rouge">..</code> and <code class="language-plaintext highlighter-rouge">.</code> may not
 be supported.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Path</span> <span class="p">{</span>
@@ -615,7 +615,7 @@ table Path {
 }
 </code></pre>
 
-<h3 id="ipwithsocket"><code class="highlighter-rouge">IPWithSocket</code></h3>
+<h3 id="ipwithsocket"><code class="language-plaintext highlighter-rouge">IPWithSocket</code></h3>
 <p>A IPWithSocket is an endpoint for communication between machines.</p>
 
 <h4 id="format-1">Format</h4>
@@ -626,7 +626,7 @@ table Path {
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h3 id="ensouuid"><code class="highlighter-rouge">EnsoUUID</code></h3>
+<h3 id="ensouuid"><code class="language-plaintext highlighter-rouge">EnsoUUID</code></h3>
 <p>An EnsoUUID is a value object containing 128-bit universally unique identifier.</p>
 
 <h4 id="format-2">Format</h4>
@@ -878,7 +878,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

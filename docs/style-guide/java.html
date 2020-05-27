@@ -201,6 +201,30 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/style-guide/">
                     
@@ -210,30 +234,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
                 
             
             
@@ -593,11 +593,11 @@ IDE.</p>
 below may provide more rules for use in specific cases.</p>
 
 <ul>
-  <li>Types are written using <code class="highlighter-rouge">UpperCamelCase</code>.</li>
-  <li>Variables and function names are written using <code class="highlighter-rouge">camelCase</code>.</li>
+  <li>Types are written using <code class="language-plaintext highlighter-rouge">UpperCamelCase</code>.</li>
+  <li>Variables and function names are written using <code class="language-plaintext highlighter-rouge">camelCase</code>.</li>
   <li>If a name contains an initialism or acronym, all parts of that initialism
-should be of the same case: <code class="highlighter-rouge">httpRequest</code> or <code class="highlighter-rouge">makeHTTPRequest</code>.</li>
-  <li>Short variable names such as <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code> should only be used in contexts where
+should be of the same case: <code class="language-plaintext highlighter-rouge">httpRequest</code> or <code class="language-plaintext highlighter-rouge">makeHTTPRequest</code>.</li>
+  <li>Short variable names such as <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code> should only be used in contexts where
 there is no other appropriate name, and should <em>never</em> be used to refer to
 temporary data in a function.</li>
   <li>Names should be descriptive, even if this makes them longer.</li>
@@ -609,32 +609,32 @@ temporary data in a function.</li>
 <a href="https://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html">Java convention for naming packages</a>:
 package name components may contain only lower case characters and, if
 necessary, an underscore character. All Enso package names should be prefixed
-with <code class="highlighter-rouge">org.enso</code>. For example, the package for implementation of <code class="highlighter-rouge">File Manager</code>
-project should be named <code class="highlighter-rouge">org.enso.filemanager</code>.</p>
+with <code class="language-plaintext highlighter-rouge">org.enso</code>. For example, the package for implementation of <code class="language-plaintext highlighter-rouge">File Manager</code>
+project should be named <code class="language-plaintext highlighter-rouge">org.enso.filemanager</code>.</p>
 
 <p>When the name of the file in the package is the same as the final component of
 the package name, the file should be moved one level up. For examples, if
-<code class="highlighter-rouge">File Manager</code> project contains <code class="highlighter-rouge">FileManager.java</code> file, then the file should
-be placed directly in the <code class="highlighter-rouge">org.enso</code> package instead of <code class="highlighter-rouge">org.enso.filemanager</code>.
-This is to avoid repetitious constructs like <code class="highlighter-rouge">org.enso.filemanager.FileManager</code>.</p>
+<code class="language-plaintext highlighter-rouge">File Manager</code> project contains <code class="language-plaintext highlighter-rouge">FileManager.java</code> file, then the file should
+be placed directly in the <code class="language-plaintext highlighter-rouge">org.enso</code> package instead of <code class="language-plaintext highlighter-rouge">org.enso.filemanager</code>.
+This is to avoid repetitious constructs like <code class="language-plaintext highlighter-rouge">org.enso.filemanager.FileManager</code>.</p>
 
 <h3 id="the-public-api">The Public API</h3>
 <p>In order to produce as flexible a codebase as possible, we tend not to make use
-of access modifiers in our code (<code class="highlighter-rouge">protected</code>, <code class="highlighter-rouge">private</code>, and so on). Instead, we
-use the concept of <code class="highlighter-rouge">Internal</code> modules to separate public from private.</p>
+of access modifiers in our code (<code class="language-plaintext highlighter-rouge">protected</code>, <code class="language-plaintext highlighter-rouge">private</code>, and so on). Instead, we
+use the concept of <code class="language-plaintext highlighter-rouge">Internal</code> modules to separate public from private.</p>
 
-<p>If you are writing code in a package <code class="highlighter-rouge">X.Y.MyType</code> and would like to signal that
+<p>If you are writing code in a package <code class="language-plaintext highlighter-rouge">X.Y.MyType</code> and would like to signal that
 a particular construct (e.g. a function) is for internal use in that package,
-you should create a <code class="highlighter-rouge">X.Y.MyType.Internal</code> package. You can then write the
+you should create a <code class="language-plaintext highlighter-rouge">X.Y.MyType.Internal</code> package. You can then write the
 relevant language construct in that package instead of the source package.</p>
 
 <h4 id="using-access-modifiers">Using Access Modifiers</h4>
 <p>There are, however, a few notable exceptions to the above:</p>
 
 <ul>
-  <li><strong>Safety:</strong> Privacy modifiers (e.g. <code class="highlighter-rouge">private</code> and <code class="highlighter-rouge">protected</code>) should be
+  <li><strong>Safety:</strong> Privacy modifiers (e.g. <code class="language-plaintext highlighter-rouge">private</code> and <code class="language-plaintext highlighter-rouge">protected</code>) should be
 used to enforce an API contract around safety.</li>
-  <li><strong>Reducing Overhead:</strong> As the <code class="highlighter-rouge">Internal</code> module is a separate module, there
+  <li><strong>Reducing Overhead:</strong> As the <code class="language-plaintext highlighter-rouge">Internal</code> module is a separate module, there
 can (under some circumstances) be some overhead for its use. If you are
 writing code on a performance-critical path, you may instead make use of
 access modifiers.</li>
@@ -693,7 +693,7 @@ it.</li>
 for a consumer of the API to know (that is not encoded in the types). This
 should be written in grammatically correct English.</li>
   <li><strong>Parameters and Returns:</strong> The return value must always be described. If the
-parameters are <em>all</em> obvious from their names, you must omit the <code class="highlighter-rouge">@param</code>
+parameters are <em>all</em> obvious from their names, you must omit the <code class="language-plaintext highlighter-rouge">@param</code>
 annotations. If one or more parameters require explanation (for things not
 expressed in their name or type), then all parameters must be annotated.</li>
 </ol>
@@ -760,19 +760,19 @@ achieve the goals in question.</p>
 
 <ol>
   <li><strong>Referrer:</strong> This is a small comment left at the point where the explanation
-is relevant. It takes the following form: <code class="highlighter-rouge">// Note [Note Name]</code>, where
-<code class="highlighter-rouge">Note Name</code> is a unique identifier across the codebase. These names should be
+is relevant. It takes the following form: <code class="language-plaintext highlighter-rouge">// Note [Note Name]</code>, where
+<code class="language-plaintext highlighter-rouge">Note Name</code> is a unique identifier across the codebase. These names should be
 descriptive, and make sure you search for it before using it, in case it is
 already in use.</li>
   <li><strong>Source Note:</strong> This is the comment itself, which is a large block comment
 placed after the first function in which it is referred to in the module. It
-uses the java block-comment syntax <code class="highlighter-rouge">/* ... */</code>, and the first line names
-the note using the same referrer as above: <code class="highlighter-rouge">/* Note [Note Name]</code>. The name(s)
-in the note are underlined using a string of the <code class="highlighter-rouge">~</code> (tilde) character.</li>
+uses the java block-comment syntax <code class="language-plaintext highlighter-rouge">/* ... */</code>, and the first line names
+the note using the same referrer as above: <code class="language-plaintext highlighter-rouge">/* Note [Note Name]</code>. The name(s)
+in the note are underlined using a string of the <code class="language-plaintext highlighter-rouge">~</code> (tilde) character.</li>
 </ol>
 
 <p>A source note may contain sections within it where necessary. These are titled
-using the following syntax: <code class="highlighter-rouge">== Note [Note Name (Section Name)]</code>, and can be
+using the following syntax: <code class="language-plaintext highlighter-rouge">== Note [Note Name (Section Name)]</code>, and can be
 referred to from a referrer much as the main source note can be.</p>
 
 <p>Sometimes it is necessary to reference a source note in another module, but this
@@ -823,12 +823,12 @@ its usage is safe in this context.</li>
 </ul>
 
 <h3 id="todo-comments">TODO Comments</h3>
-<p>We follow a simple convention for <code class="highlighter-rouge">TODO</code> comments in our codebases:</p>
+<p>We follow a simple convention for <code class="language-plaintext highlighter-rouge">TODO</code> comments in our codebases:</p>
 
 <ul>
-  <li>The line starts with <code class="highlighter-rouge">TODO</code> or <code class="highlighter-rouge">FIXME</code>.</li>
-  <li>It is then followed by the author’s initials <code class="highlighter-rouge">[ARA]</code>, or for multiple people
-<code class="highlighter-rouge">[ARA, MK]</code>, in square brackets.</li>
+  <li>The line starts with <code class="language-plaintext highlighter-rouge">TODO</code> or <code class="language-plaintext highlighter-rouge">FIXME</code>.</li>
+  <li>It is then followed by the author’s initials <code class="language-plaintext highlighter-rouge">[ARA]</code>, or for multiple people
+<code class="language-plaintext highlighter-rouge">[ARA, MK]</code>, in square brackets.</li>
   <li>It is then followed by an explanation of what needs to be done.</li>
 </ul>
 
@@ -1146,7 +1146,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

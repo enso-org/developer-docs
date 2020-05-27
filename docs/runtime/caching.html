@@ -628,9 +628,9 @@ code, we can ensure that the minimal amount of their program is recomputed.</p>
 </code></pre></div></div>
 
 <p>The cache is active for the <em>currently visible scope</em> in Enso Studio, so when a
-user enters the function <code class="highlighter-rouge">foo</code>, the cache stores the intermediate results in
-this function (in this case <code class="highlighter-rouge">c</code> and <code class="highlighter-rouge">d</code>), as well as the inputs to the function
-(in this case <code class="highlighter-rouge">a</code>, and <code class="highlighter-rouge">b</code>).</p>
+user enters the function <code class="language-plaintext highlighter-rouge">foo</code>, the cache stores the intermediate results in
+this function (in this case <code class="language-plaintext highlighter-rouge">c</code> and <code class="language-plaintext highlighter-rouge">d</code>), as well as the inputs to the function
+(in this case <code class="language-plaintext highlighter-rouge">a</code>, and <code class="language-plaintext highlighter-rouge">b</code>).</p>
 
 <p>All intermediate results and inputs are considered as candidates, though as the
 cache design evolves, the <em>selected</em> candidates may be refined. Ultimately we
@@ -656,12 +656,12 @@ that we cache. In general, this means the caching of intermediate expressions.</
 JVM out of memory between two program executions. This is best demonstrated
 by example.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a = (computeHugeObject b).size
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a = (computeHugeObject b).size
 </code></pre></div></div>
 
 <p>Here we compute a value that takes up a significant amount of memory, but from
 it we only compute a small derived value (its size). Hence, if we want to cache
-the intermediate result of the discarded <code class="highlighter-rouge">computeHugeObject b</code> expression, we
+the intermediate result of the discarded <code class="language-plaintext highlighter-rouge">computeHugeObject b</code> expression, we
 need some way of tracking the sizes of individual cache entries.</p>
 
 <h2 id="partial-evaluation-and-side-effects">Partial-Evaluation and Side-Effects</h2>
@@ -698,14 +698,14 @@ we cannot initially do much better.</p>
 information about side-effects, we can implement a stop-gap solution that at
 least allows the GUI to allow users to make the decision about whether or not to
 recompute a side-effecting value. This is very similar to the initial approach
-used for functions with arguments marked as <code class="highlighter-rouge">Suspended</code>, and works as follows:</p>
+used for functions with arguments marked as <code class="language-plaintext highlighter-rouge">Suspended</code>, and works as follows:</p>
 
 <ul>
-  <li>We provide explicit signatures (containing <code class="highlighter-rouge">IO</code>) for functions that perform
+  <li>We provide explicit signatures (containing <code class="language-plaintext highlighter-rouge">IO</code>) for functions that perform
 side-effects.</li>
   <li>Whenever the runtime wants to recompute a value that performs side-effects, it
 can use this information to ask for user input.</li>
-  <li>We can also display a box on these types <code class="highlighter-rouge">always_reevaluate</code> that lets users
+  <li>We can also display a box on these types <code class="language-plaintext highlighter-rouge">always_reevaluate</code> that lets users
 opt in to automatic re-evaluation of these values.</li>
 </ul>
 
@@ -717,14 +717,14 @@ functions as safe for either caching, re-evaluation, or both. What follows is a
 brief sketch of how this might work:</p>
 
 <ul>
-  <li>Rather than having a single type capturing side effects (like <code class="highlighter-rouge">IO</code> in Haskell)
+  <li>Rather than having a single type capturing side effects (like <code class="language-plaintext highlighter-rouge">IO</code> in Haskell)
 we divide the type up into fine-grained descriptions of side-effects that let
 us better describe the particular behaviours of given functions (e.g.
-<code class="highlighter-rouge">IO.Read</code>, <code class="highlighter-rouge">IO.Write</code>), all of which are more-specific versions of the base
-<code class="highlighter-rouge">IO</code> type.</li>
+<code class="language-plaintext highlighter-rouge">IO.Read</code>, <code class="language-plaintext highlighter-rouge">IO.Write</code>), all of which are more-specific versions of the base
+<code class="language-plaintext highlighter-rouge">IO</code> type.</li>
   <li>We provide a set of interfaces that determine whether a given kind of side
-effect can be safely cached or re-evaluated (e.g. <code class="highlighter-rouge">No_Cache</code> or
-<code class="highlighter-rouge">No_Reevaluate</code>).</li>
+effect can be safely cached or re-evaluated (e.g. <code class="language-plaintext highlighter-rouge">No_Cache</code> or
+<code class="language-plaintext highlighter-rouge">No_Reevaluate</code>).</li>
   <li>We can use this information to ask the user about recomputation in far less
 situations.</li>
 </ul>
@@ -754,12 +754,12 @@ it are evicted from the cache.</li>
 recomputed by the runtime.</li>
 </ul>
 
-<p>The following rules are applied when an expression identified by some key <code class="highlighter-rouge">k</code> is
+<p>The following rules are applied when an expression identified by some key <code class="language-plaintext highlighter-rouge">k</code> is
 changed:</p>
 
 <ol>
-  <li>All expressions that depend on the result of <code class="highlighter-rouge">k</code> are evicted from the cache.</li>
-  <li>If <code class="highlighter-rouge">k</code> is a dynamic symbol, all expressions that depend on <em>any instance</em> of
+  <li>All expressions that depend on the result of <code class="language-plaintext highlighter-rouge">k</code> are evicted from the cache.</li>
+  <li>If <code class="language-plaintext highlighter-rouge">k</code> is a dynamic symbol, all expressions that depend on <em>any instance</em> of
 the dynamic symbol are evicted from the cache.</li>
 </ol>
 
@@ -798,13 +798,13 @@ all expressions that depended on that expression.</p>
 <p>Internally we represent this as a directed graph:</p>
 
 <ul>
-  <li>An edge from <code class="highlighter-rouge">a</code> to <code class="highlighter-rouge">b</code> indicates that the expression <code class="highlighter-rouge">a</code> is depended on by
-the expression <code class="highlighter-rouge">b</code>.</li>
-  <li>These dependencies are <em>direct</em> dependencies on <code class="highlighter-rouge">a</code>.</li>
+  <li>An edge from <code class="language-plaintext highlighter-rouge">a</code> to <code class="language-plaintext highlighter-rouge">b</code> indicates that the expression <code class="language-plaintext highlighter-rouge">a</code> is depended on by
+the expression <code class="language-plaintext highlighter-rouge">b</code>.</li>
+  <li>These dependencies are <em>direct</em> dependencies on <code class="language-plaintext highlighter-rouge">a</code>.</li>
   <li>We reconstruct transitive dependencies from this graph.</li>
 </ul>
 
-<p>An expression <code class="highlighter-rouge">a</code> can be any Enso expression, including definitions of dynamic
+<p>An expression <code class="language-plaintext highlighter-rouge">a</code> can be any Enso expression, including definitions of dynamic
 symbols. Given that dynamic symbols need not be in scope, care has to be taken
 with registering them properly.</p>
 
@@ -823,14 +823,14 @@ analysis pass.</p>
 
 <h3 id="specifying-dataflow">Specifying Dataflow</h3>
 <p>Dataflow analysis takes place on the core set of language constructs, defined
-as those that extend <code class="highlighter-rouge">IRKind.Primitive</code>. Their dataflow is specified as follows,
+as those that extend <code class="language-plaintext highlighter-rouge">IRKind.Primitive</code>. Their dataflow is specified as follows,
 with arrows representing edges in the graph.</p>
 
 <h4 id="atom">Atom</h4>
 <p>An atom is dependent on the definitions of its arguments, particularly with
 regard to any defaults.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>atom &lt;- arguments
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>atom &lt;- arguments
 </code></pre></div></div>
 
 <h4 id="method">Method</h4>
@@ -838,21 +838,21 @@ regard to any defaults.</p>
 dataflow analysis runs are ‘bare’ methods, meaning that they are defined as
 functions.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>method &lt;- body
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>method &lt;- body
 </code></pre></div></div>
 
 <h4 id="block">Block</h4>
 <p>The value of a block is dependent purely on the value of its return expression.
 The return expression may depend on other values.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>block &lt;- returnValue
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>block &lt;- returnValue
 </code></pre></div></div>
 
 <h4 id="binding">Binding</h4>
 <p>The value of a binding is dependent both on the name of the binding and the
 expression being assigned in the binding.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>binding &lt;- name
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>binding &lt;- name
 binding &lt;- expression
 </code></pre></div></div>
 
@@ -860,7 +860,7 @@ binding &lt;- expression
 <p>The value of a lambda is dependent on the return value from its body, as well as
 the definitions of any defaults for its arguments.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lambda &lt;- body
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lambda &lt;- body
 lambda &lt;- argumentDefaults
 </code></pre></div></div>
 
@@ -868,14 +868,14 @@ lambda &lt;- argumentDefaults
 <p>The value of a function definition argument is dependent purely on the value of
 its default, if that default is present.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>defArgument &lt;- defaultExpression
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>defArgument &lt;- defaultExpression
 </code></pre></div></div>
 
 <h4 id="prefix-application">Prefix Application</h4>
 <p>The value of a prefix application is dependent on the values of both the
 function expression being called, and the arguments.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>prefix &lt;- function
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>prefix &lt;- function
 prefix &lt;- arguments
 </code></pre></div></div>
 
@@ -883,31 +883,31 @@ prefix &lt;- arguments
 <p>The value of a call argument is dependent both on the value that it’s wrapping,
 as well as the name it has, if it exists.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>callArgument &lt;- argumentValue
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>callArgument &lt;- argumentValue
 callArgument &lt;- argumentName
 </code></pre></div></div>
 
 <h4 id="forced-term">Forced Term</h4>
 <p>A forced term is purely dependent on the value of the term being forced (the
-<code class="highlighter-rouge">target</code>).</p>
+<code class="language-plaintext highlighter-rouge">target</code>).</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>force &lt;- target
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>force &lt;- target
 </code></pre></div></div>
 
 <h4 id="typeset-members">Typeset Members</h4>
 <p>A typeset member is dependent on the definition of its label, as well as the
 possibly present definitions of its type and value.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>typesetMember &lt;- label
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>typesetMember &lt;- label
 typesetMember &lt;- memberType
 typesetMember &lt;- memberValue
 </code></pre></div></div>
 
 <h4 id="typing-operators">Typing Operators</h4>
-<p>All typing operators in Enso (<code class="highlighter-rouge">IR.Type</code>) are dependent on their constituent
+<p>All typing operators in Enso (<code class="language-plaintext highlighter-rouge">IR.Type</code>) are dependent on their constituent
 parts:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>typingExpr &lt;- expressionChildren
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>typingExpr &lt;- expressionChildren
 </code></pre></div></div>
 
 <h4 id="name">Name</h4>
@@ -919,17 +919,17 @@ means that it is broken down into two options:</p>
     <p><strong>Static Dependency:</strong> The definition site for a given usage can be
 statically resolved.</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>name &lt;- staticUseSite
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>name &lt;- staticUseSite
 </code></pre></div>    </div>
   </li>
   <li>
     <p><strong>Dynamic Dependency:</strong> The definition site for a given usage can only be
 determined to be a symbol resolved dynamically.</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>name &lt;- dynamicSymbol
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>name &lt;- dynamicSymbol
 </code></pre></div>    </div>
 
-    <p>Under these circumstances, if any definition for <code class="highlighter-rouge">dynamicSymbol</code> changes,
+    <p>Under these circumstances, if any definition for <code class="language-plaintext highlighter-rouge">dynamicSymbol</code> changes,
 then <em>all</em> usages of that symbol must be invalidated, whether or not they
 used the changed definition in particular.</p>
   </li>
@@ -939,7 +939,7 @@ used the changed definition in particular.</p>
 <p>The value of a case expression depends on the value of its scrutinee, as well
 as the definitions of its branches.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>case &lt;- scrutinee
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>case &lt;- scrutinee
 case &lt;- branches
 case &lt;- fallback
 </code></pre></div></div>
@@ -948,14 +948,14 @@ case &lt;- fallback
 <p>The value of a case branch depends on both the pattern expression and the result
 expression.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>caseBranch &lt;- casePattern
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>caseBranch &lt;- casePattern
 caseBranch &lt;- expression
 </code></pre></div></div>
 
 <h4 id="comments">Comments</h4>
 <p>The value of a comment is purely dependent on the value of the commented entity.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>comment &lt;- commented
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>comment &lt;- commented
 </code></pre></div></div>
 
 <h2 id="cache-backend">Cache Backend</h2>
@@ -1047,7 +1047,7 @@ measure the impact of instrumentation.</p>
 <h4 id="serialization-benchmark">Serialization Benchmark</h4>
 <p><a href="https://github.com/RuedigerMoeller/fast-serialization">FST</a> library was used
 for the serialization benchmark. It doesn’t require an explicit scheme and
-relies on Java <code class="highlighter-rouge">Serializable</code> interface.</p>
+relies on Java <code class="language-plaintext highlighter-rouge">Serializable</code> interface.</p>
 
 <h4 id="instrumentation-benchmark">Instrumentation Benchmark</h4>
 <p>Java
@@ -1055,13 +1055,13 @@ relies on Java <code class="highlighter-rouge">Serializable</code> interface.</p
 can only provide a <em>shallow</em> memory of the object. It does not follow the
 references and only takes into account public fields containing primitive types.</p>
 
-<p>Benchmark used the <code class="highlighter-rouge">MemoryUtil#deepMemoryUsageOf</code> function of
+<p>Benchmark used the <code class="language-plaintext highlighter-rouge">MemoryUtil#deepMemoryUsageOf</code> function of
 <a href="https://www.javamex.com/classmexer/">Classmexer</a> library. It utilizes Java
 reflection to follow the references and access the private fields of the object.</p>
 
 <h4 id="benchmark-results">Benchmark Results</h4>
-<p>Benchmarks measured Java array, <code class="highlighter-rouge">java.util.LinkedList</code>, and a custom
-implementation of lined list <code class="highlighter-rouge">ConsList</code>, an object that maintains references for
+<p>Benchmarks measured Java array, <code class="language-plaintext highlighter-rouge">java.util.LinkedList</code>, and a custom
+implementation of lined list <code class="language-plaintext highlighter-rouge">ConsList</code>, an object that maintains references for
 its head and tail.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">ConsList</span><span class="o">&lt;</span><span class="no">A</span><span class="o">&gt;</span> <span class="o">{</span>
@@ -1086,7 +1086,7 @@ InstrumentBenchmark.memoryOfLinkedList    1000  avgt    5  1866.783 ± 557.296  
 
 <ul>
   <li>There are no slowdowns in running the Enso runtime benchmark with the
-instrumentation <code class="highlighter-rouge">javaagent</code> attached.</li>
+instrumentation <code class="language-plaintext highlighter-rouge">javaagent</code> attached.</li>
   <li>Serialization works in microsecond time range and operates on all Java objects
 implementing <em>Serializable</em> interface.</li>
   <li>Java `Instrumentation#getObjectSize() performs in nanosecond time range. The
@@ -1342,7 +1342,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

@@ -646,20 +646,20 @@ arguments.</p>
 
 <h2 id="lambdas">Lambdas</h2>
 <p>The most primitive non-atom construct in Enso is the lambda. This is an
-anonymous function in one argument. A lambda is defined using the <code class="highlighter-rouge">-&gt;</code> operator,
+anonymous function in one argument. A lambda is defined using the <code class="language-plaintext highlighter-rouge">-&gt;</code> operator,
 where the left hand side is an argument, and the right hand side is the body of
 the function (containing arbitrary code).</p>
 
 <p>Some functional languages such as Haskell allow for the definition of a lambda
-with multiple arguments, but in Enso the type signature use of <code class="highlighter-rouge">-&gt; </code>and the
-lambda use of <code class="highlighter-rouge">-&gt;</code> are one and the same. We do not want to have to put the
+with multiple arguments, but in Enso the type signature use of <code class="language-plaintext highlighter-rouge">-&gt; </code>and the
+lambda use of <code class="language-plaintext highlighter-rouge">-&gt;</code> are one and the same. We do not want to have to put the
 components of a type signature in parentheses, so we only allow one argument
 before each arrow.</p>
 
 <ul>
   <li>Lambdas can close over variables in their surrounding scope.</li>
   <li>If you want to define a multi-argument lambda, you can do it by having a
-lambda return another lambda (e.g. <code class="highlighter-rouge">a -&gt; b -&gt; a + b</code>).</li>
+lambda return another lambda (e.g. <code class="language-plaintext highlighter-rouge">a -&gt; b -&gt; a + b</code>).</li>
 </ul>
 
 <p>Additionally, lambdas in Enso have the following properties:</p>
@@ -669,14 +669,14 @@ lambda return another lambda (e.g. <code class="highlighter-rouge">a -&gt; b -&g
   <li>The left operand introduces a pattern context.</li>
   <li>If a lambda occurs in a pattern context, its left-hand-side identifiers are
 introduced into the scope targeted by the outer pattern context. For example,
-the following is valid <code class="highlighter-rouge">(a -&gt; b) -&gt; a.default + b</code>.</li>
+the following is valid <code class="language-plaintext highlighter-rouge">(a -&gt; b) -&gt; a.default + b</code>.</li>
   <li>Lambdas cannot currently occur in a matching context.</li>
 </ul>
 
 <p>Please note that if a later lambda in a chain shadows an earlier lambda (e.g.
-<code class="highlighter-rouge">a -&gt; a -&gt; a</code>), the shadowed arguments by that name are inaccessible. If you
+<code class="language-plaintext highlighter-rouge">a -&gt; a -&gt; a</code>), the shadowed arguments by that name are inaccessible. If you
 want to unify later arguments with previous ones, you must employ the scope
-reference rule and write (in this case) <code class="highlighter-rouge">a -&gt; A -&gt; a</code>.</p>
+reference rule and write (in this case) <code class="language-plaintext highlighter-rouge">a -&gt; A -&gt; a</code>.</p>
 
 <blockquote>
   <p>The actionables for this section are:</p>
@@ -702,7 +702,7 @@ binds the function name. This means that:</p>
 
 <ul>
   <li>
-    <p>Like any variable, you can use the <code class="highlighter-rouge">:</code> type ascription operator to provide a
+    <p>Like any variable, you can use the <code class="language-plaintext highlighter-rouge">:</code> type ascription operator to provide a
 user-defined type for the function.</p>
 
     <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sum</span> <span class="p">:</span> <span class="p">(</span><span class="ss">a: </span><span class="no">Monoid</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="n">a</span>
@@ -720,14 +720,14 @@ still be inferred.</p>
 
 <h2 id="methods">Methods</h2>
 <p>Enso makes a distinction between functions and methods. In Enso, a method is a
-function where the first argument (known as the <code class="highlighter-rouge">this</code> argument) is associated
+function where the first argument (known as the <code class="language-plaintext highlighter-rouge">this</code> argument) is associated
 with a given atom. Methods are dispatched dynamically based on the type of the
-<code class="highlighter-rouge">this</code> argument, while functions are not.</p>
+<code class="language-plaintext highlighter-rouge">this</code> argument, while functions are not.</p>
 
 <p>Methods can be defined in Enso in two ways:</p>
 
 <ol>
-  <li><strong>In the Body of a Type:</strong> A function defined in the body of a <code class="highlighter-rouge">type</code>
+  <li><strong>In the Body of a Type:</strong> A function defined in the body of a <code class="language-plaintext highlighter-rouge">type</code>
 definition is automatically converted to a method on all the atoms defined in
 the body of that type definition.</li>
 </ol>
@@ -753,16 +753,16 @@ to all the atoms within that typeset.</li>
 </code></pre></div></div>
 
 <ol>
-  <li><strong>As a Function with an Explicit <code class="highlighter-rouge">this</code> Argument:</strong> A function defined with
-the type of the <code class="highlighter-rouge">this</code> argument specified to be a type.</li>
+  <li><strong>As a Function with an Explicit <code class="language-plaintext highlighter-rouge">this</code> Argument:</strong> A function defined with
+the type of the <code class="language-plaintext highlighter-rouge">this</code> argument specified to be a type.</li>
 </ol>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">floor</span> <span class="p">(</span><span class="n">this</span> <span class="p">:</span> <span class="no">Number</span><span class="p">)</span> <span class="o">=</span> <span class="k">case</span> <span class="n">this</span> <span class="n">of</span>
       <span class="no">Integer</span> <span class="o">-&gt;</span> <span class="o">...</span>
 </code></pre></div></div>
 
-<p>If the user does not explicitly specify the <code class="highlighter-rouge">this</code> argument by name when
-defining a method (e.g. they use the <code class="highlighter-rouge">Type.name</code> syntax), it is implicitly added
+<p>If the user does not explicitly specify the <code class="language-plaintext highlighter-rouge">this</code> argument by name when
+defining a method (e.g. they use the <code class="language-plaintext highlighter-rouge">Type.name</code> syntax), it is implicitly added
 to the start of the argument list.</p>
 
 <h2 id="universal-call-syntax">Universal Call Syntax</h2>
@@ -782,8 +782,8 @@ functions, there are needless constraints on writing generic code.</li>
 <p>The rules for the uniform syntax call translation in Enso are as follows:</p>
 
 <ol>
-  <li>For an expression <code class="highlighter-rouge">t.fn &lt;args&gt;</code>, this is equivalent to <code class="highlighter-rouge">fn t &lt;args&gt;</code>.</li>
-  <li>For an expression <code class="highlighter-rouge">fn t &lt;args&gt;</code>, this is equivalent to <code class="highlighter-rouge">t.fn &lt;args&gt;</code>.</li>
+  <li>For an expression <code class="language-plaintext highlighter-rouge">t.fn &lt;args&gt;</code>, this is equivalent to <code class="language-plaintext highlighter-rouge">fn t &lt;args&gt;</code>.</li>
+  <li>For an expression <code class="language-plaintext highlighter-rouge">fn t &lt;args&gt;</code>, this is equivalent to <code class="language-plaintext highlighter-rouge">t.fn &lt;args&gt;</code>.</li>
 </ol>
 
 <h2 id="code-blocks">Code Blocks</h2>
@@ -792,7 +792,7 @@ layout of the code has no impact on semantics of the code:</p>
 
 <ul>
   <li>
-    <p>This means that the following <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code> are equivalent.</p>
+    <p>This means that the following <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code> are equivalent.</p>
 
     <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="n">foo</span> <span class="n">x</span> <span class="n">y</span>
 
@@ -800,7 +800,7 @@ layout of the code has no impact on semantics of the code:</p>
   <span class="n">foo</span> <span class="n">x</span> <span class="n">y</span>
 </code></pre></div>    </div>
   </li>
-  <li>To suspend blocks, we provide a <code class="highlighter-rouge">suspend</code> function in the standard library.</li>
+  <li>To suspend blocks, we provide a <code class="language-plaintext highlighter-rouge">suspend</code> function in the standard library.</li>
   <li>
     <p>This function takes any expression as an argument (including a block), and
 suspends the execution of that expression such that it is not evaluated until
@@ -820,7 +820,7 @@ forced later.</p>
 keeping with the fact that all blocks are monadic contexts).</li>
   <li>If an expression that returns a value is not assigned to an identifier, this
 will issue a warning.</li>
-  <li>To suppress this warning you can assign it to a blank (<code class="highlighter-rouge">_</code>).</li>
+  <li>To suppress this warning you can assign it to a blank (<code class="language-plaintext highlighter-rouge">_</code>).</li>
 </ul>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span> <span class="o">=</span>
@@ -838,7 +838,7 @@ will issue a warning.</li>
 
 <ul>
   <li>If the trailing line of the block (the return value) is an assignment, it will
-return <code class="highlighter-rouge">Nothing</code> as all assignments do.</li>
+return <code class="language-plaintext highlighter-rouge">Nothing</code> as all assignments do.</li>
 </ul>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">foo</span> <span class="o">=</span>
@@ -850,12 +850,12 @@ return <code class="highlighter-rouge">Nothing</code> as all assignments do.</li
 </code></pre></div></div>
 
 <h2 id="operators">Operators</h2>
-<p>In Enso, an operator is a function with a non-alphanumeric name (e.g. <code class="highlighter-rouge">+</code>). We
+<p>In Enso, an operator is a function with a non-alphanumeric name (e.g. <code class="language-plaintext highlighter-rouge">+</code>). We
 only support binary operators, with left and right arguments.</p>
 
 <p>Enso provides a significant amount of flexibility for developers who want to
 define custom operators. Formally, any sequence of the following characters
-forms an operators <code class="highlighter-rouge">.!$%&amp;*+-/&lt;&gt;?^~\</code>. Operator definitions have three main
+forms an operators <code class="language-plaintext highlighter-rouge">.!$%&amp;*+-/&lt;&gt;?^~\</code>. Operator definitions have three main
 parts:</p>
 
 <ul>
@@ -868,8 +868,8 @@ operators. If you do not provide this information, no precedence relations
 will be defined.</li>
   <li><strong>Associativity:</strong> This is an optional block that defines the
 <a href="https://en.wikipedia.org/wiki/Operator_associativity">operator associativity</a>
-to be either <code class="highlighter-rouge">left</code>, <code class="highlighter-rouge">right</code>, or <code class="highlighter-rouge">none</code>. If you do not provide this, the
-operator’s associativity will default to <code class="highlighter-rouge">left</code>.</li>
+to be either <code class="language-plaintext highlighter-rouge">left</code>, <code class="language-plaintext highlighter-rouge">right</code>, or <code class="language-plaintext highlighter-rouge">none</code>. If you do not provide this, the
+operator’s associativity will default to <code class="language-plaintext highlighter-rouge">left</code>.</li>
 </ul>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="vi">@prec</span>  <span class="p">[</span><span class="o">&gt;</span> <span class="o">*</span><span class="p">,</span> <span class="o">&lt;</span> <span class="err">$</span><span class="p">]</span>
@@ -889,7 +889,7 @@ the precedence of other operators.</li>
   <li>Precedence of an operator in Enso depends on whether a particular operator is
 surrounded by spaces or not. This means that the precedence of <em>any</em> operator
 not surrounded by spaces is always higher than the precedence of any operator
-surrounded by spaces. The only exception to this rule is the <code class="highlighter-rouge">,</code> operator,
+surrounded by spaces. The only exception to this rule is the <code class="language-plaintext highlighter-rouge">,</code> operator,
 which retains the same precedence level regardless of whether it is surrounded
 by spaces or not.</li>
 </ul>
@@ -913,7 +913,7 @@ using UCS to an expression that reads left to right:</p>
 </code></pre></div></div>
 
 <p>This is still quite noisy, however, so using the whitespace-sensitive operator
-precedence rules, combined with the fact that the operator <code class="highlighter-rouge">.</code> is a regular
+precedence rules, combined with the fact that the operator <code class="language-plaintext highlighter-rouge">.</code> is a regular
 operator, we get the following.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="o">..</span><span class="mi">100</span> <span class="p">.</span> <span class="nf">each</span> <span class="n">random</span> <span class="p">.</span> <span class="nf">take</span> <span class="mi">10</span> <span class="p">.</span> <span class="nf">sort</span>
@@ -925,7 +925,7 @@ works as follows.</p>
 
 <ul>
   <li>Where an argument is not applied to an operator, the missing argument is
-replaced by an implicit <code class="highlighter-rouge">_</code>.</li>
+replaced by an implicit <code class="language-plaintext highlighter-rouge">_</code>.</li>
   <li>The application is then translated based upon the rules for
 <a href="/docs/syntax/function-arguments.html#underscore-arguments">underscore arguments</a> described
 later.</li>
@@ -939,14 +939,14 @@ defined using a special syntax, and operate as follows:</p>
 
 <ul>
   <li>They are defined using a ‘split snake case’. The first section is written as
-normal, but subsequent sections are prefixed by an underscore (<code class="highlighter-rouge">if c _then a</code>,
+normal, but subsequent sections are prefixed by an underscore (<code class="language-plaintext highlighter-rouge">if c _then a</code>,
 for example).</li>
   <li>The layout rules applied to mixfix functions operate as if each section was a
 separate operator, allowing you to write an indented block of code after each
 section.</li>
 </ul>
 
-<p>Probably the best-known example of a mixfix function is <code class="highlighter-rouge">if-then-else</code>, which
+<p>Probably the best-known example of a mixfix function is <code class="language-plaintext highlighter-rouge">if-then-else</code>, which
 is indeed defined in the Enso standard library.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">foo</span> <span class="o">==</span> <span class="n">bar</span> <span class="k">then</span> <span class="n">frob</span> <span class="k">else</span>
@@ -1187,7 +1187,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

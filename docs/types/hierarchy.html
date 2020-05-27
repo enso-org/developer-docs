@@ -217,14 +217,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/types/">
                     
@@ -234,6 +226,14 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -646,7 +646,7 @@ search.start();
                     <section class="normal markdown-section">
                         <h1 id="the-enso-type-hierarchy">The Enso Type Hierarchy</h1>
 <p>Enso is a statically typed language based upon a theory of set-based typing,
-what we call <code class="highlighter-rouge">typesets</code>. This is a novel approach, and it is key to our intent
+what we call <code class="language-plaintext highlighter-rouge">typesets</code>. This is a novel approach, and it is key to our intent
 for Enso to <em>feel</em> like a dynamic language while still bringing enhanced safety.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
@@ -683,15 +683,15 @@ for Enso to <em>feel</em> like a dynamic language while still bringing enhanced 
 <h2 id="typeset-theory">Typeset Theory</h2>
 <ul>
   <li>All types are denoted by a set of constructors, which represent the atomic
-values of that type. We call these ‘atoms’. For example, the typeset <code class="highlighter-rouge">Nat</code> is
-made up of the atoms <code class="highlighter-rouge">1, 2, 3, ...</code> and so on.</li>
+values of that type. We call these ‘atoms’. For example, the typeset <code class="language-plaintext highlighter-rouge">Nat</code> is
+made up of the atoms <code class="language-plaintext highlighter-rouge">1, 2, 3, ...</code> and so on.</li>
   <li>Constructors are grouped into typesets.</li>
   <li>These typesets are arranged into a modular lattice:
     <ul>
-      <li>The type <code class="highlighter-rouge">Any</code> is the typeset of all typesets.</li>
-      <li>The type <code class="highlighter-rouge">Void</code> is the empty typeset.</li>
+      <li>The type <code class="language-plaintext highlighter-rouge">Any</code> is the typeset of all typesets.</li>
+      <li>The type <code class="language-plaintext highlighter-rouge">Void</code> is the empty typeset.</li>
       <li>All atoms are typesets, but not all typesets are atoms.</li>
-      <li>This lattice is ordered using the <code class="highlighter-rouge">&lt;:</code> subsumption judgement. For more
+      <li>This lattice is ordered using the <code class="language-plaintext highlighter-rouge">&lt;:</code> subsumption judgement. For more
 information please see <a href="#typeset-subsumption">typeset subsumption</a>.</li>
     </ul>
   </li>
@@ -758,16 +758,16 @@ different.</li>
 <p>The other key notion of typesets is that typesets are matched <em>structurally</em>,
 subject to the rules for nominal typing of atoms discussed above.</p>
 
-<p>The definition for a typeset member uses the syntax <code class="highlighter-rouge">label : type = val</code>, where
+<p>The definition for a typeset member uses the syntax <code class="language-plaintext highlighter-rouge">label : type = val</code>, where
 the following rules apply:</p>
 
 <ul>
   <li>If a default is explicitly requested it becomes part of the subsumption
 judgement (see <a href="#typeset-subsumption">below</a>).</li>
   <li>If the type of a label is omitted it is inferred from a default if present,
-and is otherwise inferred to be <code class="highlighter-rouge">Any</code>.</li>
+and is otherwise inferred to be <code class="language-plaintext highlighter-rouge">Any</code>.</li>
   <li>If only the type is present, auto-generated labels are provided using the
-index of the member in the typeset (e.g <code class="highlighter-rouge">{ Int, String }.1</code> has type <code class="highlighter-rouge">Int</code>).
+index of the member in the typeset (e.g <code class="language-plaintext highlighter-rouge">{ Int, String }.1</code> has type <code class="language-plaintext highlighter-rouge">Int</code>).
 These labels act specially for unification.</li>
   <li>Labels are syntactically <em>names</em>, but internally may be other entities (e.g.
 types).</li>
@@ -778,7 +778,7 @@ types).</li>
 
 <ol>
   <li><strong>Anonymous:</strong> An anonymous typeset can be declared using the curly-braces
-syntax <code class="highlighter-rouge">{}</code>. Such a definition must contain zero or more typeset fields (see
+syntax <code class="language-plaintext highlighter-rouge">{}</code>. Such a definition must contain zero or more typeset fields (see
 above).</li>
   <li><strong>Atoms:</strong> An atom definition declares a typeset with a discrete identity,
 using atom definition syntax. Atom fields must only be names.</li>
@@ -844,20 +844,20 @@ Note that because things desugar to functions we can place arbitrary
 manipulate them:</p>
 
 <ul>
-  <li><strong>Subsumption - <code class="highlighter-rouge">&lt;:</code>:</strong> This operator expresses the relation between typesets
+  <li><strong>Subsumption - <code class="language-plaintext highlighter-rouge">&lt;:</code>:</strong> This operator expresses the relation between typesets
 defined below in the section on <a href="#typeset-subsumption">typeset subsumption</a>.</li>
-  <li><strong>Equality - <code class="highlighter-rouge">~</code>:</strong> This operator expresses the relation that two typesets <code class="highlighter-rouge">a</code>
-and <code class="highlighter-rouge">b</code> are equal (such that <code class="highlighter-rouge">a &lt;: b &amp;&amp; b &lt;: a</code>).</li>
-  <li><strong>Concatenation - <code class="highlighter-rouge">,</code>:</strong> This operator combines multiple typesets, and is most
+  <li><strong>Equality - <code class="language-plaintext highlighter-rouge">~</code>:</strong> This operator expresses the relation that two typesets <code class="language-plaintext highlighter-rouge">a</code>
+and <code class="language-plaintext highlighter-rouge">b</code> are equal (such that <code class="language-plaintext highlighter-rouge">a &lt;: b &amp;&amp; b &lt;: a</code>).</li>
+  <li><strong>Concatenation - <code class="language-plaintext highlighter-rouge">,</code>:</strong> This operator combines multiple typesets, and is most
 often used to combine typeset fields. It expresses product types.</li>
-  <li><strong>Union - <code class="highlighter-rouge">|</code>:</strong> This operator creates a typeset that contains all the types
+  <li><strong>Union - <code class="language-plaintext highlighter-rouge">|</code>:</strong> This operator creates a typeset that contains all the types
 in the union of its operand typesets.</li>
-  <li><strong>Intersection - <code class="highlighter-rouge">&amp;</code>:</strong> This operator creates a typeset that contains all the
+  <li><strong>Intersection - <code class="language-plaintext highlighter-rouge">&amp;</code>:</strong> This operator creates a typeset that contains all the
 types in the intersection of its operand typesets.</li>
-  <li><strong>Subtraction - <code class="highlighter-rouge">\</code>:</strong> This operator creates a typeset that contains all the
+  <li><strong>Subtraction - <code class="language-plaintext highlighter-rouge">\</code>:</strong> This operator creates a typeset that contains all the
 types in its first operand that are <em>not</em> also contained in its second
 operand.</li>
-  <li><strong>Function - <code class="highlighter-rouge">-&gt;</code>:</strong> This operator creates a mapping from one typeset to
+  <li><strong>Function - <code class="language-plaintext highlighter-rouge">-&gt;</code>:</strong> This operator creates a mapping from one typeset to
 another, and its result is a typeset containing all the possible types of that
 mapping.</li>
 </ul>
@@ -877,53 +877,53 @@ generative) types?</li>
 </blockquote>
 
 <h3 id="typeset-subsumption">Typeset Subsumption</h3>
-<p>For two typesets <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code>, <code class="highlighter-rouge">a</code> is said to be subsumed by <code class="highlighter-rouge">b</code> (written using
-the notation <code class="highlighter-rouge">a &lt;: b</code>) if the following hold recursively. This can be thought of
+<p>For two typesets <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code>, <code class="language-plaintext highlighter-rouge">a</code> is said to be subsumed by <code class="language-plaintext highlighter-rouge">b</code> (written using
+the notation <code class="language-plaintext highlighter-rouge">a &lt;: b</code>) if the following hold recursively. This can be thought of
 as a ‘can behave as’ relation.</p>
 
 <ol>
-  <li><code class="highlighter-rouge">a</code> contains a subset of the labels in <code class="highlighter-rouge">b</code>. It should be noted that <code class="highlighter-rouge">a</code> is
-not <em>limited to</em> being a subset of the labels in <code class="highlighter-rouge">b</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">a</code> contains a subset of the labels in <code class="language-plaintext highlighter-rouge">b</code>. It should be noted that <code class="language-plaintext highlighter-rouge">a</code> is
+not <em>limited to</em> being a subset of the labels in <code class="language-plaintext highlighter-rouge">b</code>.</li>
   <li>
-    <p>For each label in <code class="highlighter-rouge">a</code>, the type of that label <code class="highlighter-rouge">t</code> is subsumed by the type
-<code class="highlighter-rouge">q</code> of the corresponding label in <code class="highlighter-rouge">b</code>. That is, <code class="highlighter-rouge">t &lt;: q</code>, defined as
+    <p>For each label in <code class="language-plaintext highlighter-rouge">a</code>, the type of that label <code class="language-plaintext highlighter-rouge">t</code> is subsumed by the type
+<code class="language-plaintext highlighter-rouge">q</code> of the corresponding label in <code class="language-plaintext highlighter-rouge">b</code>. That is, <code class="language-plaintext highlighter-rouge">t &lt;: q</code>, defined as
 follows:</p>
 
     <ol>
-      <li>If both <code class="highlighter-rouge">t</code> and <code class="highlighter-rouge">q</code> are atoms, then it holds only if <code class="highlighter-rouge">t</code> and <code class="highlighter-rouge">q</code> are the
+      <li>If both <code class="language-plaintext highlighter-rouge">t</code> and <code class="language-plaintext highlighter-rouge">q</code> are atoms, then it holds only if <code class="language-plaintext highlighter-rouge">t</code> and <code class="language-plaintext highlighter-rouge">q</code> are the
 same atom (have the same identity).</li>
-      <li>If <code class="highlighter-rouge">t</code> is an atom, then it holds only if the fields in <code class="highlighter-rouge">t</code> are subsumed
-by <code class="highlighter-rouge">q</code>.</li>
-      <li>If either <code class="highlighter-rouge">t</code> or <code class="highlighter-rouge">q</code> is a function type but not <em>both</em> <code class="highlighter-rouge">t</code> and q are
+      <li>If <code class="language-plaintext highlighter-rouge">t</code> is an atom, then it holds only if the fields in <code class="language-plaintext highlighter-rouge">t</code> are subsumed
+by <code class="language-plaintext highlighter-rouge">q</code>.</li>
+      <li>If either <code class="language-plaintext highlighter-rouge">t</code> or <code class="language-plaintext highlighter-rouge">q</code> is a function type but not <em>both</em> <code class="language-plaintext highlighter-rouge">t</code> and q are
 function types, then the relation does not hold.</li>
       <li>
-        <p>If both <code class="highlighter-rouge">t</code> and <code class="highlighter-rouge">q</code> are function types, then the relation holds if:</p>
+        <p>If both <code class="language-plaintext highlighter-rouge">t</code> and <code class="language-plaintext highlighter-rouge">q</code> are function types, then the relation holds if:</p>
 
         <ul>
-          <li>If <code class="highlighter-rouge">t</code> contains defaulted arguments, not present in <code class="highlighter-rouge">q</code>, then these
-can be ignored for the purposes of determining whether <code class="highlighter-rouge">t &lt;: q</code>. For
-example, <code class="highlighter-rouge">f : a -&gt; b = x -&gt; c</code> is subsumed by <code class="highlighter-rouge">f : a -&gt; c</code>.</li>
-          <li>For the <em>argument</em> position of both <code class="highlighter-rouge">t</code> and <code class="highlighter-rouge">q</code>, <code class="highlighter-rouge">t.arg &lt;: q.arg</code>
+          <li>If <code class="language-plaintext highlighter-rouge">t</code> contains defaulted arguments, not present in <code class="language-plaintext highlighter-rouge">q</code>, then these
+can be ignored for the purposes of determining whether <code class="language-plaintext highlighter-rouge">t &lt;: q</code>. For
+example, <code class="language-plaintext highlighter-rouge">f : a -&gt; b = x -&gt; c</code> is subsumed by <code class="language-plaintext highlighter-rouge">f : a -&gt; c</code>.</li>
+          <li>For the <em>argument</em> position of both <code class="language-plaintext highlighter-rouge">t</code> and <code class="language-plaintext highlighter-rouge">q</code>, <code class="language-plaintext highlighter-rouge">t.arg &lt;: q.arg</code>
 (the argument position is covariant).</li>
-          <li>For the <em>return</em> position of both <code class="highlighter-rouge">t</code> and <code class="highlighter-rouge">q</code>, if it is not a function
-type, then <code class="highlighter-rouge">t.ret &lt;: q.ret</code> (the return position is covariant). If it
+          <li>For the <em>return</em> position of both <code class="language-plaintext highlighter-rouge">t</code> and <code class="language-plaintext highlighter-rouge">q</code>, if it is not a function
+type, then <code class="language-plaintext highlighter-rouge">t.ret &lt;: q.ret</code> (the return position is covariant). If it
 is a function type then recurse.</li>
         </ul>
       </li>
       <li>If the types have constraints then the constraints must match. A
-constraint is simply an application of the <code class="highlighter-rouge">&lt;:</code> relation.</li>
+constraint is simply an application of the <code class="language-plaintext highlighter-rouge">&lt;:</code> relation.</li>
       <li>The types both have the same relevance and visibility (in the dependent
 sense).</li>
     </ol>
   </li>
-  <li>For any typeset <code class="highlighter-rouge">a</code>, the relation <code class="highlighter-rouge">a &lt;: Any</code> always holds, and the converse
-<code class="highlighter-rouge">Any &lt;: a</code> never holds.</li>
-  <li>For any typeset <code class="highlighter-rouge">a</code>, the relation <code class="highlighter-rouge">a &lt;: Void</code> never holds, and the converse
-<code class="highlighter-rouge">Void &lt;: a</code> always holds.</li>
+  <li>For any typeset <code class="language-plaintext highlighter-rouge">a</code>, the relation <code class="language-plaintext highlighter-rouge">a &lt;: Any</code> always holds, and the converse
+<code class="language-plaintext highlighter-rouge">Any &lt;: a</code> never holds.</li>
+  <li>For any typeset <code class="language-plaintext highlighter-rouge">a</code>, the relation <code class="language-plaintext highlighter-rouge">a &lt;: Void</code> never holds, and the converse
+<code class="language-plaintext highlighter-rouge">Void &lt;: a</code> always holds.</li>
 </ol>
 
-<p>Two typesets <code class="highlighter-rouge">A</code> and <code class="highlighter-rouge">B</code> are defined to be structurally equal if <code class="highlighter-rouge">A &lt;: B</code> and
-<code class="highlighter-rouge">B &lt;: A</code>.</p>
+<p>Two typesets <code class="language-plaintext highlighter-rouge">A</code> and <code class="language-plaintext highlighter-rouge">B</code> are defined to be structurally equal if <code class="language-plaintext highlighter-rouge">A &lt;: B</code> and
+<code class="language-plaintext highlighter-rouge">B &lt;: A</code>.</p>
 
 <blockquote>
   <p>The actionables for this section are as follows:</p>
@@ -935,8 +935,8 @@ examples including all the operators.</li>
 odd under this theory.</li>
     <li>Do we need explicit variance annotations?</li>
     <li>How do constraints factor in?</li>
-    <li>We want users not to have to think about the difference between <code class="highlighter-rouge">~</code>, <code class="highlighter-rouge">:</code> and
-<code class="highlighter-rouge">&lt;:</code> so we need to work out if we can elide them from the surface language.
+    <li>We want users not to have to think about the difference between <code class="language-plaintext highlighter-rouge">~</code>, <code class="language-plaintext highlighter-rouge">:</code> and
+<code class="language-plaintext highlighter-rouge">&lt;:</code> so we need to work out if we can elide them from the surface language.
 This requires considering polymorphic function arguments, partial data,
 qualified function types and variable definitions.</li>
     <li>Reformulate this in terms of row polymorphism. We really want to avoid a
@@ -954,17 +954,17 @@ theory we may.</li>
 themselves, but as atoms are typesets this also applies.</p>
 
 <ul>
-  <li>We define a method <code class="highlighter-rouge">setField : (field : Name) -&gt; (value : Any) -&gt; Nothing</code>
-that performs in-place field mutation of the field <code class="highlighter-rouge">field</code> to set its value to
-<code class="highlighter-rouge">any</code>.</li>
+  <li>We define a method <code class="language-plaintext highlighter-rouge">setField : (field : Name) -&gt; (value : Any) -&gt; Nothing</code>
+that performs in-place field mutation of the field <code class="language-plaintext highlighter-rouge">field</code> to set its value to
+<code class="language-plaintext highlighter-rouge">any</code>.</li>
   <li>In order to prevent this from being used flippantly, this functionality is
-marked <code class="highlighter-rouge">unsafe</code> (see <a href="/docs/types/access-modifiers.html">access modifiers</a> for more).</li>
+marked <code class="language-plaintext highlighter-rouge">unsafe</code> (see <a href="/docs/types/access-modifiers.html">access modifiers</a> for more).</li>
 </ul>
 
 <h2 id="interfaces">Interfaces</h2>
 <p>Because typesets can be matched <em>structurally</em>, all typesets implicitly define
-interfaces. A type <code class="highlighter-rouge">t</code> conforming to an interface <code class="highlighter-rouge">i</code> in Enso is as simple as
-the relation <code class="highlighter-rouge">i &lt;: t</code> (as in <a href="#typeset-subsumption">typeset subsumption</a>)
+interfaces. A type <code class="language-plaintext highlighter-rouge">t</code> conforming to an interface <code class="language-plaintext highlighter-rouge">i</code> in Enso is as simple as
+the relation <code class="language-plaintext highlighter-rouge">i &lt;: t</code> (as in <a href="#typeset-subsumption">typeset subsumption</a>)
 holding.</p>
 
 <p>This means that types need not <em>explicitly</em> implement interfaces, which can be
@@ -1014,7 +1014,7 @@ wrappers for the contained types. This is a big usability bonus for Enso.</p>
     <span class="n">unwrapped</span> <span class="o">=</span> <span class="n">t</span> <span class="c1"># Default implementation based on inferred type.</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">Wrapper</code> is an interface implemented implicitly for all typesets, and boils
+<p><code class="language-plaintext highlighter-rouge">Wrapper</code> is an interface implemented implicitly for all typesets, and boils
 down to delegating to the contained members if a given label is not found on
 the top typeset. This delegation only occurs on the this type.</p>
 
@@ -1038,8 +1038,8 @@ the top typeset. This delegation only occurs on the this type.</p>
 <h4 id="convertible">Convertible</h4>
 <p>Also useful in a language for data science is the ability to have the compiler
 help you by automatically converting between types that have sensible coercions
-between them. This interface is known as <code class="highlighter-rouge">Convertible</code>, and defines a one-way
-conversion between a type <code class="highlighter-rouge">a</code> and a type <code class="highlighter-rouge">b</code>.</p>
+between them. This interface is known as <code class="language-plaintext highlighter-rouge">Convertible</code>, and defines a one-way
+conversion between a type <code class="language-plaintext highlighter-rouge">a</code> and a type <code class="language-plaintext highlighter-rouge">b</code>.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Convertible</span> <span class="n">t</span>
   <span class="n">to</span> <span class="p">:</span> <span class="n">t</span> <span class="o">-&gt;</span> <span class="n">t</span>
@@ -1049,12 +1049,12 @@ conversion between a type <code class="highlighter-rouge">a</code> and a type <c
 
 <ul>
   <li>This interface <em>only</em> applies when implemented explicitly by the type. The
-compiler will not automatically generate implementations for <code class="highlighter-rouge">Convertible t</code>.</li>
+compiler will not automatically generate implementations for <code class="language-plaintext highlighter-rouge">Convertible t</code>.</li>
   <li>It is very important for the conversions to be inserted automatically in the
 correct place. If a conversion is required in the body of a block, the point
 at which the conversion takes place should propagate outwards as far as
 possible. This is very important for proper definition of controls in the GUI.</li>
-  <li><code class="highlighter-rouge">Convertible t</code> can also be implemented by a function that accepts arguments
+  <li><code class="language-plaintext highlighter-rouge">Convertible t</code> can also be implemented by a function that accepts arguments
 <em>iff</em> all of the arguments have default values associated with them. In such
 a case, the GUI should display conversion controls with a checkbox that, when
 checked, can be converted to an explicit conversion call.</li>
@@ -1088,7 +1088,7 @@ controls.</li>
   <p>The actionables for this section are:</p>
 
   <ul>
-    <li>Work out the semantics for working with this only for <code class="highlighter-rouge">this</code> in the dynamic
+    <li>Work out the semantics for working with this only for <code class="language-plaintext highlighter-rouge">this</code> in the dynamic
 case.</li>
     <li>Work out how best the type system can expose the conversion so that you can
 see the additional defaulted parameters and conversion types in the UI.</li>
@@ -1096,12 +1096,12 @@ see the additional defaulted parameters and conversion types in the UI.</li>
 </blockquote>
 
 <h4 id="destruct">Destruct</h4>
-<p>While it is a common idiom in functional languages to implement the <code class="highlighter-rouge">bracket</code>
+<p>While it is a common idiom in functional languages to implement the <code class="language-plaintext highlighter-rouge">bracket</code>
 pattern for acquiring and releasing resources, but this isn’t such a good fit
 for a language where many users aren’t going to be used to thinking about
 resources.</p>
 
-<p>Instead, we have the final of our special traits, called <code class="highlighter-rouge">Destruct</code>, defined as
+<p>Instead, we have the final of our special traits, called <code class="language-plaintext highlighter-rouge">Destruct</code>, defined as
 follows:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">type</span> <span class="no">Destruct</span>
@@ -1112,11 +1112,11 @@ follows:</p>
 principle, this should be a familiar sight. It works as follows:</p>
 
 <ol>
-  <li>All types automatically provide a trivial implementation for <code class="highlighter-rouge">destroy</code>. This
+  <li>All types automatically provide a trivial implementation for <code class="language-plaintext highlighter-rouge">destroy</code>. This
 will recursively call the destructors of the type’s members.</li>
-  <li>A type definition may provide a non-default implementation for <code class="highlighter-rouge">destroy</code>,
+  <li>A type definition may provide a non-default implementation for <code class="language-plaintext highlighter-rouge">destroy</code>,
 such that it implements more complex behaviour.</li>
-  <li>When a type goes out of scope, its <code class="highlighter-rouge">destroy</code> method is called, allowing it
+  <li>When a type goes out of scope, its <code class="language-plaintext highlighter-rouge">destroy</code> method is called, allowing it
 to clean up any resources that it owns.</li>
 </ol>
 
@@ -1125,7 +1125,7 @@ instance is garbage collected, while later, once we are able to perform more
 sophisticated analysis, it will instead be defined as the point at which the
 instance’s lexical lifetime ends.</p>
 
-<p>It should be noted, however, that a type that implements an explicit <code class="highlighter-rouge">destroy</code>
+<p>It should be noted, however, that a type that implements an explicit <code class="language-plaintext highlighter-rouge">destroy</code>
 method should still implement explicit methods for resource handling as lexical
 lifetimes are not always sufficient (e.g. a socket that you may want to close
 and re-open in the same block).</p>
@@ -1140,9 +1140,9 @@ and re-open in the same block).</p>
 
 <h2 id="type-ascription">Type Ascription</h2>
 <p>Like all statically-typed programming languages, Enso provides the means for the
-user to ascribe a type to a value. In Enso, this is done using the <code class="highlighter-rouge">:</code> operator.
-An expression <code class="highlighter-rouge">a : b</code> says that the expression denoted by <code class="highlighter-rouge">a</code> has the type
-denoted by the expression <code class="highlighter-rouge">b</code>. However, unlike in many programming languages,
+user to ascribe a type to a value. In Enso, this is done using the <code class="language-plaintext highlighter-rouge">:</code> operator.
+An expression <code class="language-plaintext highlighter-rouge">a : b</code> says that the expression denoted by <code class="language-plaintext highlighter-rouge">a</code> has the type
+denoted by the expression <code class="language-plaintext highlighter-rouge">b</code>. However, unlike in many programming languages,
 the types ascribed to values in Enso are not the be-all and end-all.</p>
 
 <ul>
@@ -1162,7 +1162,7 @@ value.</li>
 the compiler will raise an error. This includes</li>
 </ul>
 
-<p>Additionally, as Enso is a dependently-typed language, the expression <code class="highlighter-rouge">b</code> may
+<p>Additionally, as Enso is a dependently-typed language, the expression <code class="language-plaintext highlighter-rouge">b</code> may
 contain arbitrary Enso expressions. The type-checking of such signatures is
 discussed further in the section on <a href="/docs/types/dependent-typing.html">dependency</a>.</p>
 
@@ -1181,7 +1181,7 @@ signature’s left hand side.</li>
 the body of the expression, aiding code clarity.</li>
   <li>It does, however, introduce some significant complexity around recursive
 bindings in groups, and the desugaring needs to depend on combinations of
-<code class="highlighter-rouge">&gt;&gt;=</code> and <code class="highlighter-rouge">fix</code>.</li>
+<code class="language-plaintext highlighter-rouge">&gt;&gt;=</code> and <code class="language-plaintext highlighter-rouge">fix</code>.</li>
 </ul>
 
 <h2 id="projections">Projections</h2>
@@ -1215,10 +1215,10 @@ know how to get as much of it working as possible.</li>
 <p>We also define special projections from typesets:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">index</code>: The expression <code class="highlighter-rouge">t.n</code>, where <code class="highlighter-rouge">n</code> is of type <code class="highlighter-rouge">Number</code> is translated to
-<code class="highlighter-rouge">t.index n</code>.</li>
-  <li><code class="highlighter-rouge">field</code>: The expression <code class="highlighter-rouge">t.s</code> where <code class="highlighter-rouge">s</code> is of type <code class="highlighter-rouge">Text</code> is translated to
-<code class="highlighter-rouge">t.fieldByName s</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">index</code>: The expression <code class="language-plaintext highlighter-rouge">t.n</code>, where <code class="language-plaintext highlighter-rouge">n</code> is of type <code class="language-plaintext highlighter-rouge">Number</code> is translated to
+<code class="language-plaintext highlighter-rouge">t.index n</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">field</code>: The expression <code class="language-plaintext highlighter-rouge">t.s</code> where <code class="language-plaintext highlighter-rouge">s</code> is of type <code class="language-plaintext highlighter-rouge">Text</code> is translated to
+<code class="language-plaintext highlighter-rouge">t.fieldByName s</code>.</li>
 </ul>
 
                         
@@ -1454,7 +1454,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

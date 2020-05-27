@@ -217,6 +217,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/distribution/">
                     
@@ -226,10 +230,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -534,13 +534,13 @@ be structured and how it should behave.</p>
 
 <h2 id="enso-home-layout">Enso Home Layout</h2>
 <p>All of Enso’s binaries, packages, etc. are installed into a directory in
-the user’s home directory. For macOS and linux distributions that’s <code class="highlighter-rouge">~/.enso</code>,
+the user’s home directory. For macOS and linux distributions that’s <code class="language-plaintext highlighter-rouge">~/.enso</code>,
 by default. The distribution is fully portable, so it never makes any
 assumptions about actually being placed in any particular directory.</p>
 
 <p>The directory structure is as follows:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/.enso
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/.enso
 ├── bin
 │   └── enso                  # The universal launcher script, responsible for choosing the appropriate compiler version.
 ├── dist                      # Per-compiler-version distribution directories.
@@ -597,7 +597,7 @@ version of the JVM is installed and used.</p>
 
 <p>The layout of such a distribution is as follows:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>enso-1.0.0
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>enso-1.0.0
 ├── component     # Contains all the executable tools and their dependencies.
 │   └── enso.jar  # The main executable of the distribution. CLI entry point.
 └── std-lib       # Contains all the pre-installed libraries compiler version.
@@ -621,7 +621,7 @@ This structure makes use of deep nesting, which may give some with knowledge
 of Windows’ path-name limits pause (windows paths are historically limited to
 256 characters). However, there is no special action required to handle this
 limit as long as we are building on top of the JVM. The JVM automatically
-inserts the <code class="highlighter-rouge">\\?\</code> prefix required to bypass the windows path length limit.</p>
+inserts the <code class="language-plaintext highlighter-rouge">\\?\</code> prefix required to bypass the windows path length limit.</p>
 </blockquote>
 
 <h3 id="standard-library">Standard Library</h3>
@@ -632,7 +632,7 @@ arbitrary choice, but the following are some guidelines:</p>
   <li>Fundamental packages – basic collections and utilities should be a part
 of standard library.</li>
   <li>Packages relying on the compiler internals (e.g. the internal object
-representation). An example of such a package would be <code class="highlighter-rouge">Generic</code>, exposing
+representation). An example of such a package would be <code class="language-plaintext highlighter-rouge">Generic</code>, exposing
 reflective access to Enso objects.</li>
   <li>Packages that the compiler relies on, e.g. compile error definitions, stack
 traces etc.</li>
@@ -887,7 +887,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {

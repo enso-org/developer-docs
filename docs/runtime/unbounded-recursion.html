@@ -605,7 +605,7 @@ that sums the numbers up to 1 million are as follows:</p>
 Enso itself. This is to allow us to estimate the maximum theoretical performance
 possible when executing on the JVM. They have been run on GraalVM 19.1.0, and
 perform the same summation of integers. They have a variable threshold, listed
-in the results as <code class="highlighter-rouge">inputSize</code>.</p>
+in the results as <code class="language-plaintext highlighter-rouge">inputSize</code>.</p>
 
 <h2 id="emulating-stack-segmentation-with-threads">Emulating Stack Segmentation with Threads</h2>
 <p>As each new thread has its own stack, we can exploit this to emulate the notion
@@ -622,7 +622,7 @@ two main approaches:</p>
   <li><strong>Conservative Counting:</strong> You can explicitly maintain a counter that records
 the depth of your call stack.</li>
   <li><strong>Catching the Overflow:</strong> When a thread on the JVM overflows, it throws a
-<code class="highlighter-rouge">StackOverflowError</code>, thus giving information as to when you’ve run out of
+<code class="language-plaintext highlighter-rouge">StackOverflowError</code>, thus giving information as to when you’ve run out of
 stack space.</li>
 </ul>
 
@@ -645,7 +645,7 @@ estimate for how much utilisation we could get out of the thread stacks before
 they overflowed. In practice this seemed to be around 2000, though some runs
 could have it set higher. Using this value gave the following results.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Benchmark                 (inputSize)  Mode  Cnt    Score    Error  Units
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Benchmark                 (inputSize)  Mode  Cnt    Score    Error  Units
 Main.testCountedExecutor          100  avgt    5    0.001 ±  0.001  ms/op
 Main.testCountedExecutor         1000  avgt    5    0.008 ±  0.004  ms/op
 Main.testCountedExecutor        10000  avgt    5    0.951 ±  0.095  ms/op
@@ -662,22 +662,22 @@ that reduces the cost of context switching could make this approach feasible.</p
 
 <h3 id="catching-the-overflow">Catching the Overflow</h3>
 <p>Though it is heavily recommended against by the Java documentation, it is indeed
-possible to catch the <code class="highlighter-rouge">StackOverflowError</code>. While this provides accurate info
+possible to catch the <code class="language-plaintext highlighter-rouge">StackOverflowError</code>. While this provides accurate info
 about when you run out of stack space, it has one major problem: you may not
 unwind enough to have enough stack space to spawn a new thread.</p>
 
 <p>The following is a potential algorithm that ignores this problem for the moment:</p>
 
 <ol>
-  <li>Each recursive call is wrapped in a <code class="highlighter-rouge">try {} catch (StackOverflowError e) {}</code>
+  <li>Each recursive call is wrapped in a <code class="language-plaintext highlighter-rouge">try {} catch (StackOverflowError e) {}</code>
 block in order to detect when the stack overflows.</li>
   <li>All side-effecting operations must take place within a single Java frame.</li>
-  <li>When the stack overflows, a <code class="highlighter-rouge">StackOverflowError</code> is thrown at frame creation.</li>
-  <li>This can be caught, with control-flow entering the <code class="highlighter-rouge">catch</code> block.</li>
+  <li>When the stack overflows, a <code class="language-plaintext highlighter-rouge">StackOverflowError</code> is thrown at frame creation.</li>
+  <li>This can be caught, with control-flow entering the <code class="language-plaintext highlighter-rouge">catch</code> block.</li>
   <li>A new thread is spawned to continue the computation.</li>
 </ol>
 
-<p>This works because the <code class="highlighter-rouge">StackOverflowError</code> is thrown when the attempt to create
+<p>This works because the <code class="language-plaintext highlighter-rouge">StackOverflowError</code> is thrown when the attempt to create
 the new stack frame is made. This means that in the failure case none of the
 function body has executed so we can safely resume on a new thread.</p>
 
@@ -688,7 +688,7 @@ impossible to spawn a new thread and this doesn’t work.</p>
 <p>The benchmarks listed here implement this algorithm without actually performing
 any significant computation.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Benchmark            (inputSize)  Mode  Cnt    Score    Error  Units
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Benchmark            (inputSize)  Mode  Cnt    Score    Error  Units
 Main.testSOExecutor          100  avgt    5   ≈ 10⁻⁴           ms/op
 Main.testSOExecutor         1000  avgt    5    0.003 ±  0.001  ms/op
 Main.testSOExecutor        10000  avgt    5    0.031 ±  0.001  ms/op
@@ -721,7 +721,7 @@ make it into the JVM.</p>
 the stack instead of trying to augment it. This could be implemented as a global
 transformation, or as a local one only for recursive calls.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Benchmark     (inputSize)  Mode  Cnt   Score   Error  Units
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Benchmark     (inputSize)  Mode  Cnt   Score   Error  Units
 Main.testCPS          100  avgt    5   0.001 ±  0.001  ms/op
 Main.testCPS         1000  avgt    5   0.014 ±  0.004  ms/op
 Main.testCPS        10000  avgt    5   0.197 ±  0.038  ms/op
@@ -752,7 +752,7 @@ introspection tools which are necessary for implementing Enso Studio.</li>
 transformation on code which is <em>actually</em> recursive. While you can detect this
 statically via whole-program analysis, you can also track execution on the
 program stack in a thread-safe manner and perform the transformation at runtime
-(e.g. <code class="highlighter-rouge">private static ThreadLocal&lt;Boolean&gt; isExecuting;</code>).</p>
+(e.g. <code class="language-plaintext highlighter-rouge">private static ThreadLocal&lt;Boolean&gt; isExecuting;</code>).</p>
 
 <h3 id="a-hybrid-approach">A Hybrid Approach</h3>
 <p>As we clearly don’t want to CPS transform the program globally, we need some
@@ -764,7 +764,7 @@ use of the Java stack at least in part.</p>
 
 <ol>
   <li>Execute the code using standard recursion on the Java stack until we catch a
-<code class="highlighter-rouge">StackOverflowError</code>.</li>
+<code class="language-plaintext highlighter-rouge">StackOverflowError</code>.</li>
   <li>Spawn a new thread to rewrite the original code to CPS, and then continue
 execution in that style.</li>
 </ol>
@@ -773,7 +773,7 @@ execution in that style.</li>
 the Java stack), but allows for unbounded recursion in the general case. The
 performance profile is as follows.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Benchmark        (inputSize)  Mode  Cnt   Score    Error  Units
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Benchmark        (inputSize)  Mode  Cnt   Score    Error  Units
 Main.testHybrid          100  avgt    5  ≈ 10⁻⁴           ms/op
 Main.testHybrid         1000  avgt    5   0.003 ±  0.001  ms/op
 Main.testHybrid        10000  avgt    5   0.013 ±  0.003  ms/op
@@ -1064,7 +1064,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-05-22 15:24:44 +0000"
+        "time": "2020-05-27 13:00:31 +0000"
     },
     "basePath": "",
     "book": {
