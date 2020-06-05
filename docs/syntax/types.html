@@ -646,7 +646,14 @@ is a useful way of thinking about things when discussing type signatures.</p>
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
 <ul>
-  <li><a href="#type-signatures">Type Signatures</a></li>
+  <li><a href="#type-signatures">Type Signatures</a>
+    <ul>
+      <li><a href="#type-operators">Type Operators</a></li>
+      <li><a href="#typeset-literals">Typeset Literals</a></li>
+      <li><a href="#writing-type-signatures">Writing Type Signatures</a></li>
+      <li><a href="#behaviour-of-type-signatures">Behaviour of Type Signatures</a></li>
+    </ul>
+  </li>
   <li><a href="#operations-on-types">Operations on Types</a></li>
   <li><a href="#type-definitions">Type Definitions</a>
     <ul>
@@ -686,6 +693,241 @@ value of type <code class="language-plaintext highlighter-rouge">E</code>.</p>
   </li>
 </ul>
 
+<h3 id="type-operators">Type Operators</h3>
+<p>Please note that <code class="language-plaintext highlighter-rouge">:</code>, <code class="language-plaintext highlighter-rouge">in</code>, and <code class="language-plaintext highlighter-rouge">!</code> all behave as <em>standard operators</em> in Enso.
+This means that you can section them, which is incredibly useful for programming
+with types. In addition, Enso supports a number of additional operators for
+working with types. These are listed below.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Operator</th>
+      <th style="text-align: center">Precedence Relations</th>
+      <th style="text-align: center">Level</th>
+      <th style="text-align: center">Assoc.</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">:</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&gt; =</code></td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">Left</td>
+      <td style="text-align: left">Ascribes the type (the right operand) to the value of the left operand.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">in</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&gt; :</code>, <code class="language-plaintext highlighter-rouge">&gt; !</code></td>
+      <td style="text-align: center">3</td>
+      <td style="text-align: center">Left</td>
+      <td style="text-align: left">Ascribes the context (the right operand) to the value of the left operand.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">!</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&gt; :</code>, <code class="language-plaintext highlighter-rouge">&gt; -&gt;</code></td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">Left</td>
+      <td style="text-align: left">Combines the left operand with the right operand as an error value.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">-&gt;</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&gt; :</code></td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">Left</td>
+      <td style="text-align: left">Represents a mapping from the left operand to the right operand (function).</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&lt;:</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&gt; !</code>, <code class="language-plaintext highlighter-rouge">&lt; |</code>, <code class="language-plaintext highlighter-rouge">&gt; in</code></td>
+      <td style="text-align: center">4</td>
+      <td style="text-align: center">Left</td>
+      <td style="text-align: left">Asserts that the left operand is structurally subsumed by the right.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">~</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">== &lt;:</code></td>
+      <td style="text-align: center">4</td>
+      <td style="text-align: center">None</td>
+      <td style="text-align: left">Asserts that the left and right operands are structurally equal.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">;</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&lt; :</code>, <code class="language-plaintext highlighter-rouge">&gt; =</code></td>
+      <td style="text-align: center">-2</td>
+      <td style="text-align: center">Left</td>
+      <td style="text-align: left">Concatenates the left and right operand typesets to create a new typeset.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">|</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&gt; &lt;:</code>, <code class="language-plaintext highlighter-rouge">&gt; !</code>, <code class="language-plaintext highlighter-rouge">&gt; in</code>, <code class="language-plaintext highlighter-rouge">&gt; :</code></td>
+      <td style="text-align: center">6</td>
+      <td style="text-align: center">None</td>
+      <td style="text-align: left">Computes the union of the left and right operand typesets.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&amp;</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">= |</code></td>
+      <td style="text-align: center">6</td>
+      <td style="text-align: center">None</td>
+      <td style="text-align: left">Computes the intersection of the left and right operand typesets.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">\</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&lt; |</code>, <code class="language-plaintext highlighter-rouge">&gt; &lt;:</code></td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">None</td>
+      <td style="text-align: left">Computes the subtraction of the right typeset from the left typeset.</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">:=</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">&lt; :</code>, <code class="language-plaintext highlighter-rouge">&gt; =</code>, <code class="language-plaintext highlighter-rouge">&gt; ;</code></td>
+      <td style="text-align: center">-1</td>
+      <td style="text-align: center">Left</td>
+      <td style="text-align: left">Creates a typeset member by assigning a value to a label.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Solving this set of inequalities produces the <em>relative</em> precedence levels for
+these operators shown in the table above. In order to check this, you can use
+the following formula as an input to an SMTLib compatible solver. For reference,
+bind (<code class="language-plaintext highlighter-rouge">=</code>) has a relative level of -3 in this ordering.</p>
+
+<div class="language-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nv">declare-fun</span> <span class="nv">ascrip</span> <span class="p">()</span> <span class="nv">Int</span><span class="p">)</span>   <span class="c1">; `:`</span>
+<span class="p">(</span><span class="nv">declare-fun</span> <span class="nv">bind</span> <span class="p">()</span> <span class="nv">Int</span><span class="p">)</span>     <span class="c1">; `=`</span>
+<span class="p">(</span><span class="nv">declare-fun</span> <span class="nv">in</span> <span class="p">()</span> <span class="nv">Int</span><span class="p">)</span>       <span class="c1">; `in`</span>
+<span class="p">(</span><span class="nv">declare-fun</span> <span class="nv">err</span> <span class="p">()</span> <span class="nv">Int</span><span class="p">)</span>      <span class="c1">; `!`</span>
+<span class="p">(</span><span class="nv">declare-fun</span> <span class="nv">fn</span> <span class="p">()</span> <span class="nv">Int</span><span class="p">)</span>       <span class="c1">; `-&gt;`</span>
+<span class="p">(</span><span class="nv">declare-fun</span> <span class="nv">sub</span> <span class="p">()</span> <span class="nv">Int</span><span class="p">)</span>      <span class="c1">; `&lt;:`</span>
+<span class="p">(</span><span class="nv">declare-fun</span> <span class="nb">eq</span> <span class="p">()</span> <span class="nv">Int</span><span class="p">)</span>       <span class="c1">; `~`</span>
+<span class="p">(</span><span class="nv">declare-fun</span> <span class="nv">tsConcat</span> <span class="p">()</span> <span class="nv">Int</span><span class="p">)</span> <span class="c1">; `;`</span>
+<span class="p">(</span><span class="nv">declare-fun</span> <span class="nv">tsUnion</span> <span class="p">()</span> <span class="nv">Int</span><span class="p">)</span>  <span class="c1">; `|`</span>
+<span class="p">(</span><span class="nv">declare-fun</span> <span class="nv">tsInter</span> <span class="p">()</span> <span class="nv">Int</span><span class="p">)</span>  <span class="c1">; `&amp;`</span>
+<span class="p">(</span><span class="nv">declare-fun</span> <span class="nv">minus</span> <span class="p">()</span> <span class="nv">Int</span><span class="p">)</span>    <span class="c1">; `\`</span>
+<span class="p">(</span><span class="nv">declare-fun</span> <span class="nv">tsMember</span> <span class="p">()</span> <span class="nv">Int</span><span class="p">)</span> <span class="c1">; `:=`</span>
+
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">ascrip</span> <span class="nv">bind</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">in</span> <span class="nv">ascrip</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">in</span> <span class="nv">err</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">err</span> <span class="nv">ascrip</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">err</span> <span class="nv">fn</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">fn</span> <span class="nv">ascrip</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">sub</span> <span class="nv">err</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&lt;</span> <span class="nv">sub</span> <span class="nv">tsUnion</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">sub</span> <span class="nv">in</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">=</span> <span class="nb">eq</span> <span class="nv">sub</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&lt;</span> <span class="nv">tsConcat</span> <span class="nv">ascrip</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">tsConcat</span> <span class="nv">bind</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">tsUnion</span> <span class="nv">sub</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">tsUnion</span> <span class="nv">err</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">tsUnion</span> <span class="nv">in</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">tsUnion</span> <span class="nv">ascrip</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">=</span> <span class="nv">tsInter</span> <span class="nv">tsUnion</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&lt;</span> <span class="nv">minus</span> <span class="nv">tsUnion</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">minus</span> <span class="nv">sub</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&lt;</span> <span class="nv">tsMember</span> <span class="nv">ascrip</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">tsMember</span> <span class="nv">bind</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">assert</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="nv">tsMember</span> <span class="nv">tsConcat</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nv">check-sat</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">get-model</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">exit</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>A permalink to the program using an online Z3 console can be found
+<a href="https://rise4fun.com/Z3/e99K">here</a>.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Decide which of these should be exposed in the surface syntax.</li>
+  </ul>
+</blockquote>
+
+<h3 id="typeset-literals">Typeset Literals</h3>
+<p>Sometimes it is useful or necessary to write a typeset <em>literal</em> in your code.
+These work as follows.</p>
+
+<ul>
+  <li><strong>Typeset Member:</strong> Syntax for typeset members have three components:
+    <ul>
+      <li><strong>Label:</strong> The name of the member. This must always be present.</li>
+      <li><strong>Type:</strong> The type of the member. This need not be present.</li>
+      <li><strong>Value:</strong> A value for the member. This need not be present.</li>
+    </ul>
+
+    <p>This looks like the following:</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">label</span> <span class="p">:</span> <span class="no">Type</span> <span class="p">:</span><span class="o">=</span> <span class="n">value</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Member Concatenation:</strong> Members can be combined into a typeset using the
+concatenation operator <code class="language-plaintext highlighter-rouge">;</code>.</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="p">;</span> <span class="n">y</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Typeset Literals:</strong> A literal can be written using curly braces (<code class="language-plaintext highlighter-rouge">{}</code>) to
+delimit the literal.</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span> <span class="ss">x: </span><span class="no">T</span> <span class="p">;</span> <span class="ss">y: </span><span class="no">Q</span> <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>Typeset literals are considered to be a
+<a href="/docs/syntax/naming.html#pattern-contexts">pattern context</a>, and hence the standard rules
+apply.</p>
+
+<h3 id="writing-type-signatures">Writing Type Signatures</h3>
+<p>When ascribing a type to a value, there are two main ways in which it can be
+done. Both of these ways are <em>semantically</em> equivalent, and ascribe the type
+given by the signature (to the right of the <code class="language-plaintext highlighter-rouge">:</code>) to the expression to the left
+of the <code class="language-plaintext highlighter-rouge">:</code>.</p>
+
+<ol>
+  <li>
+    <p><strong>Inline Ascription:</strong> Using the type ascription operator to associate a
+type signature with an arbitrary expression.</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_expr</span> <span class="p">:</span> <span class="no">Type</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Freestanding Ascription:</strong>  Using the type ascription operator to
+associate a type with a name. The name must be defined on <em>the line below</em>
+the ascription.</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="p">:</span> <span class="no">Type</span>
+<span class="n">a</span> <span class="o">=</span> <span class="o">...</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Binding Ascription:</strong> Using the type ascription operator to associate a
+type with a binding at the binding site.</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="p">:</span> <span class="no">Type</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># this is equivalent to the above example</span>
+
+<span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="no">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">...</span> <span class="c1"># use in a lambda</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>In the future do we want to support freestanding ascription that isn’t
+directly adjacent to the ascribed value?</li>
+  </ul>
+</blockquote>
+
+<h3 id="behaviour-of-type-signatures">Behaviour of Type Signatures</h3>
 <p>In Enso, a type signature operates to constrain the values that a given variable
 can hold. Type signatures are <em>always</em> checked, but Enso may maintain more
 specific information in the type inference and checking engines about the type
@@ -1063,7 +1305,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-05 08:49:07 +0000"
+        "time": "2020-06-05 12:28:33 +0000"
     },
     "basePath": "",
     "book": {

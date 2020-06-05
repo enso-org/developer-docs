@@ -673,6 +673,7 @@ for Enso to <em>feel</em> like a dynamic language while still bringing enhanced 
       <li><a href="#unsafe-typeset-field-mutation">Unsafe Typeset Field Mutation</a></li>
     </ul>
   </li>
+  <li><a href="#dependent-lists">Dependent Lists</a></li>
   <li><a href="#interfaces">Interfaces</a>
     <ul>
       <li><a href="#special-interfaces">Special Interfaces</a></li>
@@ -716,8 +717,8 @@ specificity.</p>
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">7</span> <span class="p">:</span> <span class="mi">7</span> <span class="p">:</span> <span class="no">Natural</span> <span class="p">:</span> <span class="no">Integer</span> <span class="p">:</span> <span class="no">Number</span> <span class="p">:</span> <span class="no">Any</span> <span class="p">:</span> <span class="no">Any</span> <span class="p">:</span> <span class="o">...</span>
 </code></pre></div></div>
 
-<p>A brief note on naming (for more, please see the 
-<a href="/docs/syntax/naming.html">naming syntax</a>:</p>
+<p>A brief note on naming (for more, please see the
+<a href="/docs/syntax/naming.html">naming syntax</a>):</p>
 
 <ul>
   <li>Naming in Enso is case-insensitive.</li>
@@ -762,28 +763,19 @@ share some similarities with records they are a far more general notion.</p>
 <ul>
   <li>A typeset is an entity that contains one or more labels.</li>
   <li>Each label has a type, which <em>may</em> be explicitly ascribed to it.</li>
-  <li>Each label may have a default value provided for it.</li>
-  <li>A label may be <em>duplicated</em>, as long as the types of the duplicate labels are
-different.</li>
+  <li>Each label may have a value provided for it.</li>
 </ul>
 
 <p>The other key notion of typesets is that typesets are matched <em>structurally</em>,
 subject to the rules for nominal typing of atoms discussed above.</p>
 
-<p>The definition for a typeset member uses the syntax <code class="language-plaintext highlighter-rouge">label : type = val</code>, where
-the following rules apply:</p>
-
 <ul>
-  <li>If a default is explicitly requested it becomes part of the subsumption
-judgement (see <a href="#typeset-subsumption">below</a>).</li>
-  <li>If the type of a label is omitted it is inferred from a default if present,
-and is otherwise inferred to be <code class="language-plaintext highlighter-rouge">Any</code>.</li>
-  <li>If only the type is present, auto-generated labels are provided using the
-index of the member in the typeset (e.g <code class="language-plaintext highlighter-rouge">{ Int, String }.1</code> has type <code class="language-plaintext highlighter-rouge">Int</code>).
-These labels act specially for unification.</li>
-  <li>Labels are syntactically <em>names</em>, but internally may be other entities (e.g.
-types).</li>
-  <li>A typeset member is itself a typeset.</li>
+  <li>Typeset members are themselves typesets.</li>
+  <li>A typeset member <em>must</em> have a label, but may also have a type and a value 
+(<code class="language-plaintext highlighter-rouge">label : Type := value</code>)</li>
+  <li>An unspecified type is considered to be a free type variable.</li>
+  <li>The label and the type become part of the typing judgement where present, and
+will be used for unification and subsumption.</li>
 </ul>
 
 <p>Typesets themselves can be declared in two ways:</p>
@@ -791,9 +783,11 @@ types).</li>
 <ol>
   <li><strong>Anonymous:</strong> An anonymous typeset can be declared using the curly-braces
 syntax <code class="language-plaintext highlighter-rouge">{}</code>. Such a definition must contain zero or more typeset fields (see
-above).</li>
+above). Please note that <code class="language-plaintext highlighter-rouge">{}</code> is necessary as it needs to delimit a pattern
+context.</li>
   <li><strong>Atoms:</strong> An atom definition declares a typeset with a discrete identity,
 using atom definition syntax. Atom fields must only be names.</li>
+  <li><strong>Concatenation:</strong> Combining two typeset values using <code class="language-plaintext highlighter-rouge">;</code>.</li>
 </ol>
 
 <p>Typesets can be combined using the <a href="#typeset-operators">typeset operators</a>
@@ -802,12 +796,6 @@ defined below.</p>
 <p>In addition, we provide syntactic sugar for defining typesets as described in
 the syntax document. This syntax has a special desugaring that obeys the
 following rules:</p>
-
-<blockquote>
-  <p>Actually fill in these rules.
-Note that because things desugar to functions we can place arbitrary
-  constraints on initialisation (partial type constructors style).</p>
-</blockquote>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">type</span> <span class="no">Maybe</span> <span class="n">a</span>
     <span class="no">Nothing</span>
@@ -848,34 +836,48 @@ Note that because things desugar to functions we can place arbitrary
 
   <ul>
     <li>Simplify this definition if we decide <em>not</em> to support multiple dispatch.</li>
+    <li>Determine how duplicate labels should work, and if it should work.</li>
+    <li>Note that because things desugar to functions we can place arbitrary
+constraints on initialisation (partial type constructors style).</li>
   </ul>
 </blockquote>
 
 <h3 id="typeset-operators">Typeset Operators</h3>
 <p>Enso defines a set of operations on typesets that can be used to combine and
-manipulate them:</p>
+manipulate them. Any use of these operators introduces typing evidence which 
+may later be discharged through pattern matching.</p>
+
+<p>They are as follows:</p>
 
 <ul>
-  <li><strong>Subsumption - <code class="language-plaintext highlighter-rouge">&lt;:</code>:</strong> This operator expresses the relation between typesets
-defined below in the section on <a href="#typeset-subsumption">typeset subsumption</a>.</li>
-  <li><strong>Equality - <code class="language-plaintext highlighter-rouge">~</code>:</strong> This operator expresses the relation that two typesets <code class="language-plaintext highlighter-rouge">a</code>
-and <code class="language-plaintext highlighter-rouge">b</code> are equal (such that <code class="language-plaintext highlighter-rouge">a &lt;: b &amp;&amp; b &lt;: a</code>).</li>
-  <li><strong>Concatenation - <code class="language-plaintext highlighter-rouge">,</code>:</strong> This operator combines multiple typesets, and is most
-often used to combine typeset fields. It expresses product types.</li>
-  <li><strong>Union - <code class="language-plaintext highlighter-rouge">|</code>:</strong> This operator creates a typeset that contains all the types
-in the union of its operand typesets.</li>
-  <li><strong>Intersection - <code class="language-plaintext highlighter-rouge">&amp;</code>:</strong> This operator creates a typeset that contains all the
-types in the intersection of its operand typesets.</li>
-  <li><strong>Subtraction - <code class="language-plaintext highlighter-rouge">\</code>:</strong> This operator creates a typeset that contains all the
-types in its first operand that are <em>not</em> also contained in its second
-operand.</li>
-  <li><strong>Function - <code class="language-plaintext highlighter-rouge">-&gt;</code>:</strong> This operator creates a mapping from one typeset to
-another, and its result is a typeset containing all the possible types of that
-mapping.</li>
+  <li><strong>Type Ascription - <code class="language-plaintext highlighter-rouge">:</code>:</strong> This operator ascribes the type given by its right
+operand to the expression of its left operand.</li>
+  <li><strong>Context Ascription - <code class="language-plaintext highlighter-rouge">in</code>:</strong> This operator ascribes the monadic context
+given by its right operand to the expression of its left operand.</li>
+  <li><strong>Error Ascription - <code class="language-plaintext highlighter-rouge">!</code>:</strong> This operator combines the type of its left
+operand with the error type of its right. This is <em>effectively</em> an <code class="language-plaintext highlighter-rouge">Either</code>,
+but with <code class="language-plaintext highlighter-rouge">Left</code> and <code class="language-plaintext highlighter-rouge">Right</code> reversed, and integrates with the inbuilt
+mechanism for <a href="/docs/semantics/errors.html#broken-values">broken values</a>.</li>
+  <li><strong>Function - <code class="language-plaintext highlighter-rouge">-&gt;</code>:</strong> This operator defines a mapping from one expression to
+another.</li>
+  <li><strong>Subsumption - <code class="language-plaintext highlighter-rouge">&lt;:</code>:</strong> This operator asserts that the left hand operand is
+<em>structurally subsumed</em> by the right-hand operand. For more details on this
+relationship, see <a href="#typeset-subsumption">typeset subsumption</a> below.</li>
+  <li><strong>Equality - <code class="language-plaintext highlighter-rouge">~</code>:</strong> This operator asserts that the left and right operands are
+structurally equal.</li>
+  <li><strong>Concatenation - <code class="language-plaintext highlighter-rouge">;</code>:</strong> This operator combines multiple typesets, expressing
+product types.</li>
+  <li><strong>Union - <code class="language-plaintext highlighter-rouge">|</code>:</strong> This operator creates a typeset that contains the members in
+the union of its operands.</li>
+  <li><strong>Intersection - <code class="language-plaintext highlighter-rouge">|</code>:</strong> This operator creates a typeset that contains the
+members in the intersection of its operands.</li>
+  <li><strong>Subtraction - <code class="language-plaintext highlighter-rouge">\</code>:</strong> This operator creates a typeset that contains all of
+the members in the left operand that do not occur in the right operand.</li>
 </ul>
 
-<p>Any use of these operators introduces typing evidence which may later be
-discharged through pattern matching.</p>
+<p>For information on the syntactic usage of these operators, please see the
+section on <a href="#../syntax/types.md#type-operators">type operators</a> in the syntax
+design documentation.</p>
 
 <blockquote>
   <p>The actionables for this section are:</p>
@@ -885,6 +887,7 @@ discharged through pattern matching.</p>
 these operators.</li>
     <li>When do applications of these constructors create matchable (injective and
 generative) types?</li>
+    <li>Are <code class="language-plaintext highlighter-rouge">&lt;:</code> and <code class="language-plaintext highlighter-rouge">:</code> equivalent in the surface syntax?</li>
   </ul>
 </blockquote>
 
@@ -972,6 +975,16 @@ that performs in-place field mutation of the field <code class="language-plainte
   <li>In order to prevent this from being used flippantly, this functionality is
 marked <code class="language-plaintext highlighter-rouge">unsafe</code> (see <a href="/docs/types/access-modifiers.html">access modifiers</a> for more).</li>
 </ul>
+
+<h2 id="dependent-lists">Dependent Lists</h2>
+<p>The most-specific type of an Enso list is the list of the types of the list’s
+elements. By way of example, the following are true:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="s2">"String"</span><span class="p">]</span> <span class="p">:</span> <span class="no">List</span> <span class="p">[</span><span class="no">Integer</span><span class="p">,</span> <span class="no">Number</span><span class="p">,</span> <span class="no">String</span><span class="p">]</span> <span class="p">:</span> <span class="no">List</span> <span class="p">[</span><span class="no">Number</span><span class="p">,</span> <span class="no">Number</span><span class="p">,</span> <span class="no">String</span><span class="p">]</span> <span class="p">:</span> <span class="o">...</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">3.0</span><span class="n">f</span><span class="p">]</span> <span class="p">:</span> <span class="no">List</span> <span class="p">[</span><span class="no">Integer</span><span class="p">,</span> <span class="no">Number</span><span class="p">,</span> <span class="no">Double</span><span class="p">]</span> <span class="p">:</span> <span class="no">List</span> <span class="p">[</span><span class="no">Number</span><span class="p">,</span> <span class="no">Real</span><span class="p">,</span> <span class="no">Real</span><span class="p">]</span> <span class="p">:</span> <span class="no">List</span> <span class="no">Number</span> <span class="p">:</span> <span class="o">...</span>
+</code></pre></div></div>
+
+<p>This means that Enso’s lists <em>fully subsume</em> the use cases for standard tuples.</p>
 
 <h2 id="interfaces">Interfaces</h2>
 <p>Because typesets can be matched <em>structurally</em>, all typesets implicitly define
@@ -1466,7 +1479,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-05 08:49:07 +0000"
+        "time": "2020-06-05 12:28:33 +0000"
     },
     "basePath": "",
     "book": {
