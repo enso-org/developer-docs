@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Automated Parallelism Analysis · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso Debugger Protocol Message Specification · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -30,11 +30,9 @@
         
 
         
-            <link rel="prev" href="/docs/types/evaluation.html" />
+            <link rel="prev" href="/docs/debugger/" />
         
 
-        
-            <link rel="next" href="/docs/types/type-directed-programming.html" />
         
     </head>
     <body>
@@ -177,8 +175,8 @@ search.start();
             
         
             
-            <li class="chapter" data-level="1.1" data-path="/docs/types ">
-                    <a href="/docs/types">
+            <li class="chapter" data-level="1.1" data-path="/docs/debugger ">
+                    <a href="/docs/debugger">
                         Go back
                     </a>
                 </li>
@@ -217,12 +215,82 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/">
+                    <li class="chapter" data-level="1.1" data-path="/docs/debugger/">
                     
-                        <a href="/docs/types/">
+                        <a href="/docs/debugger/">
                             
-                                Enso&#39;s Type System
+                                Debugger
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/debugger/protocol.html">
+                    
+                        <a href="/docs/debugger/protocol.html">
+                            
+                                Enso Debugger Protocol Message Specification
                             
                         </a>
                     </li>
@@ -275,87 +343,7 @@ search.start();
             
             
                 
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/goals.html">
-                    
-                        <a href="/docs/types/goals.html">
-                            
-                                Goals for the Enso Type System
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/hierarchy.html">
-                    
-                        <a href="/docs/types/hierarchy.html">
-                            
-                                The Enso Type Hierarchy
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
             
-                
-            
-            
-            
-                
-            
             
             
                 
@@ -363,16 +351,6 @@ search.start();
             
             
                 
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/function-types.html">
-                    
-                        <a href="/docs/types/function-types.html">
-                            
-                                Function Types
-                            
-                        </a>
-                    </li>
-                
             
             
             
@@ -397,16 +375,6 @@ search.start();
             
             
                 
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/access-modifiers.html">
-                    
-                        <a href="/docs/types/access-modifiers.html">
-                            
-                                Access Modifiers
-                            
-                        </a>
-                    </li>
-                
             
             
             
@@ -438,16 +406,6 @@ search.start();
             
             
             
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/pattern-matching.html">
-                    
-                        <a href="/docs/types/pattern-matching.html">
-                            
-                                Pattern Matching
-                            
-                        </a>
-                    </li>
                 
             
             
@@ -457,16 +415,6 @@ search.start();
             
             
                 
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/dynamic-dispatch.html">
-                    
-                        <a href="/docs/types/dynamic-dispatch.html">
-                            
-                                Dynamic Dispatch
-                            
-                        </a>
-                    </li>
-                
             
             
             
@@ -486,16 +434,6 @@ search.start();
             
             
             
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/modules.html">
-                    
-                        <a href="/docs/types/modules.html">
-                            
-                                Modules
-                            
-                        </a>
-                    </li>
                 
             
             
@@ -505,16 +443,6 @@ search.start();
             
             
                 
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/contexts.html">
-                    
-                        <a href="/docs/types/contexts.html">
-                            
-                                Monadic Contexts
-                            
-                        </a>
-                    </li>
-                
             
             
             
@@ -523,16 +451,6 @@ search.start();
             
             
                 
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/evaluation.html">
-                    
-                        <a href="/docs/types/evaluation.html">
-                            
-                                Evaluation and Typing
-                            
-                        </a>
-                    </li>
-                
             
             
             
@@ -544,16 +462,6 @@ search.start();
             
             
             
-                
-                    
-                    <li class="chapter active" data-level="1.2" data-path="/docs/types/parallelism.html">
-                    
-                        <a href="/docs/types/parallelism.html">
-                            
-                                Automated Parallelism Analysis
-                            
-                        </a>
-                    </li>
                 
             
             
@@ -563,16 +471,6 @@ search.start();
             
             
                 
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/type-directed-programming.html">
-                    
-                        <a href="/docs/types/type-directed-programming.html">
-                            
-                                Type-Directed Programming
-                            
-                        </a>
-                    </li>
-                
             
             
             
@@ -580,58 +478,18 @@ search.start();
             
             
             
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/errors.html">
-                    
-                        <a href="/docs/types/errors.html">
-                            
-                                Errors
-                            
-                        </a>
-                    </li>
                 
             
             
             
                 
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/inference-and-checking.html">
-                    
-                        <a href="/docs/types/inference-and-checking.html">
-                            
-                                Inference and Checking
-                            
-                        </a>
-                    </li>
-                
             
             
             
                 
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/dependent-typing.html">
-                    
-                        <a href="/docs/types/dependent-typing.html">
-                            
-                                Dependent Typing
-                            
-                        </a>
-                    </li>
-                
             
             
             
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/references.html">
-                    
-                        <a href="/docs/types/references.html">
-                            
-                                References
-                            
-                        </a>
-                    </li>
                 
             
             
@@ -647,7 +505,7 @@ search.start();
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >Automated Parallelism Analysis</a>
+                <a href="." >Enso Debugger Protocol Message Specification</a>
             
         </h1>
     </div>
@@ -656,45 +514,192 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <h1 id="automated-parallelism-analysis">Automated Parallelism Analysis</h1>
-<p>The nature of Enso’s type system provides the compiler with a significant
-amount of information about the program as it runs. This information can be
-exploited by the compiler to automatically parallelise some sections of Enso
-programs.</p>
+                        <h1 id="enso-debugger-protocol-message-specification">Enso Debugger Protocol Message Specification</h1>
+<p>Binary Protocol for the Debugger is used in communication between the runtime
+and tools exploiting the REPL/debugger functionalities. It can be used to
+implement a simple REPL or add debugging capabilities to the editor.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
 <ul>
-  <li><a href="#supporting-parallelism-analysis-with-types">Supporting Parallelism Analysis with Types</a></li>
-  <li><a href="#constructs-that-can-be-parallelised">Constructs That Can Be Parallelised</a></li>
+  <li><a href="#types">Types</a>
+    <ul>
+      <li><a href="#objectrepr"><code class="language-plaintext highlighter-rouge">ObjectRepr</code></a></li>
+      <li><a href="#stacktraceelement"><code class="language-plaintext highlighter-rouge">StackTraceElement</code></a></li>
+      <li><a href="#exception"><code class="language-plaintext highlighter-rouge">Exception</code></a></li>
+      <li><a href="#binding"><code class="language-plaintext highlighter-rouge">Binding</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#messages">Messages</a>
+    <ul>
+      <li><a href="#session-start">Session start</a></li>
+      <li><a href="#evaluation">Evaluation</a></li>
+      <li><a href="#list-bindings">List bindings</a></li>
+      <li><a href="#session-exit">Session exit</a></li>
+    </ul>
+  </li>
 </ul>
 
 <!-- /MarkdownTOC -->
 
-<h2 id="supporting-parallelism-analysis-with-types">Supporting Parallelism Analysis with Types</h2>
+<h2 id="types">Types</h2>
 
-<blockquote>
-  <p>The actionables for this section are:</p>
+<p>There are some helper types used within the debugger’s protocol. These are
+specified here.</p>
 
-  <ul>
-    <li>Work out how the type checker can support parallelism analysis.</li>
-  </ul>
-</blockquote>
+<h3 id="objectrepr"><code class="language-plaintext highlighter-rouge">ObjectRepr</code></h3>
+<p>External representation of arbitrary values returned by the REPL (internally
+these are of type <code class="language-plaintext highlighter-rouge">Object</code>).</p>
 
-<h2 id="constructs-that-can-be-parallelised">Constructs That Can Be Parallelised</h2>
+<p>As these values are only used for presentation, they are represented by String.</p>
 
-<blockquote>
-  <p>The actionables for this section are:</p>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ObjectRepr</span> <span class="p">{</span>
+  <span class="nl">representation</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
-  <ul>
-    <li>Provide an analysis of the language constructs that could automatically be
-parallelised, and the typing predicates that make them so.</li>
-  </ul>
-</blockquote>
+<h3 id="stacktraceelement"><code class="language-plaintext highlighter-rouge">StackTraceElement</code></h3>
+<p>Represents a line of the stack trace. Corresponds to
+<code class="language-plaintext highlighter-rouge">java.lang.StackTraceElement</code>.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">StackTraceElement</span> <span class="p">{</span>
+  <span class="nl">declaringClass</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">methodName</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">fileName</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">lineNumber</span><span class="p">:</span> <span class="nx">Int</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="exception"><code class="language-plaintext highlighter-rouge">Exception</code></h3>
+<p>Represents an exception that may have been raised during requested execution.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Exception</span> <span class="p">{</span>
+  <span class="nl">message</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">stackTrace</span><span class="p">:</span> <span class="p">[</span><span class="nx">StackTraceElement</span><span class="p">];</span>
+  <span class="nl">cause</span><span class="p">:</span> <span class="nx">Exception</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="binding"><code class="language-plaintext highlighter-rouge">Binding</code></h3>
+<p>Represents a single binding in the current scope.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Binding</span> <span class="p">{</span>
+    <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+    <span class="nl">value</span><span class="p">:</span> <span class="nx">ObjectRepr</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="messages">Messages</h2>
+
+<p>All endpoints accept messages of type <code class="language-plaintext highlighter-rouge">Request</code> and return a <code class="language-plaintext highlighter-rouge">Response</code>. 
+These messages contain unions that contain the actual payload specified for each
+type of message.</p>
+
+<pre><code class="language-idl">namespace org.enso.polyglot.debugger.protocol;
+
+union RequestPayload {
+    EVALUATE: EvaluationRequest,
+    LIST_BINDINGS: ListBindingsRequest,
+    SESSION_EXIT: SessionExitRequest
+}
+
+table Request {
+    payload: RequestPayload (required);
+}
+
+union ResponsePayload {
+    EVALUATION_SUCCESS: EvaluationSuccess,
+    EVALUATION_FAILURE: EvaluationFailure,
+    LIST_BINDINGS: ListBindingsResult,
+    SESSION_EXIT: SessionExitSuccess,
+    SESSION_START: SessionStartNotification
+}
+
+table Response {
+    payload: ResponsePayload (required);
+}
+</code></pre>
+
+<h3 id="session-start">Session start</h3>
+
+<p>When a breakpoint is reached, the debugger sends a notification to the client
+indicating that a REPL session should be started.</p>
+
+<h4 id="notification">Notification</h4>
+<pre><code class="language-idl">namespace org.enso.polyglot.protocol.debugger;
+
+table SessionStartNotification {}
+</code></pre>
+
+<h3 id="evaluation">Evaluation</h3>
+<p>Evaluates an arbitrary expression in the current execution context.</p>
+
+<p>Responds with either a message with the value of successfully evaluated 
+expression or a message with an exception that has been raised during
+evaluation.</p>
+
+<h4 id="request">Request</h4>
+<pre><code class="language-idl">namespace org.enso.polyglot.protocol.debugger;
+
+table ReplEvaluationRequest {
+  expression: String (required);
+}
+</code></pre>
+
+<h4 id="response">Response</h4>
+<pre><code class="language-idl">namespace org.enso.polyglot.protocol.debugger;
+
+table ReplEvaluationSuccess {
+  result: ObjectRepr (required);
+}
+
+table ReplEvaluationFailure {
+  exception: Exception (required);
+}
+</code></pre>
+
+<h3 id="list-bindings">List bindings</h3>
+<p>Lists all the bindings available in the current execution scope and sends them 
+back.</p>
+
+<h4 id="request-1">Request</h4>
+<pre><code class="language-idl">namespace org.enso.polyglot.protocol.debugger;
+
+table ReplListBindingsRequest {}
+</code></pre>
+
+<h4 id="response-1">Response</h4>
+<pre><code class="language-idl">namespace org.enso.polyglot.protocol.debugger;
+
+table ReplListBindingsResult {
+  bindings: [Binding];
+}
+</code></pre>
+
+<h3 id="session-exit">Session exit</h3>
+<p>Terminates this REPL session (and resumes normal program execution).</p>
+
+<p>The last result of Evaluation will be returned from the instrumented node or if
+no expressions have been evaluated, unit is returned.</p>
+
+<p>This function must always be called at the end of REPL session, as otherwise the
+program will never resume.</p>
+
+<h4 id="request-2">Request</h4>
+<pre><code class="language-idl">namespace org.enso.polyglot.protocol.debugger;
+
+table ReplExitRequest {}
+</code></pre>
+
+<h4 id="response-2">Response</h4>
+<pre><code class="language-idl">namespace org.enso.polyglot.protocol.debugger;
+
+table ReplExitSuccess {}
+</code></pre>
 
                         
                         
-                        <a href="https://github.com/luna/enso/blob/master/docs/types/parallelism.md">Open this doc on GitHub</a>
+                        <a href="https://github.com/luna/enso/blob/master/docs/debugger/protocol.md">Open this doc on GitHub</a>
                         
                     </section>
                 </div>
@@ -826,15 +831,11 @@ search.start();
     </div>
 </div>
 
-                <a href="/docs/types/evaluation.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Evaluation and Typing">
+                <a href="/docs/debugger/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Debugger">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
 
-                
-                    <a href="/docs/types/type-directed-programming.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Type-Directed Programming">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
                 
             
             </div>
@@ -919,7 +920,7 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "docs/types/parallelism.md",
+        "path": "docs/debugger/protocol.md",
         "mtime": "",
         "type": "markdown"
     },
