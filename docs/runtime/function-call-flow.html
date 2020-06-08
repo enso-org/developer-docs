@@ -685,7 +685,7 @@ paths in the cache, as well as cache misses for highly polymorphic call sites.</
 <h2 id="definition-site-argument-suspension">Definition-Site Argument Suspension</h2>
 <p>Enso allows functions to define certain arguments as <code class="language-plaintext highlighter-rouge">Suspended</code>, so that when
 these are passed to a function, the corresponding expressions are not evaluated
-at the call side, but are instead passed to the function as closures for 
+at the call site, but are instead passed to the function as closures for
 evaluation at the function’s discretion.</p>
 
 <p>Therefore, all application arguments are actually treated as thunks and only
@@ -726,7 +726,7 @@ it.</p>
 call. The entry points to this system are <code class="language-plaintext highlighter-rouge">ApplicationNode</code> (for in-language
 function calls) and <code class="language-plaintext highlighter-rouge">InteropLibrary&lt;Function&gt;</code> (for polyglot function calls).</p>
 
-<p><img src="/docs/runtime/resources/function-call-diagram.png" alt="diagram" /></p>
+<p><img src="https://user-images.githubusercontent.com/5780639/84035237-5c2d9800-a993-11ea-826d-72f3ddffcb54.png" alt="Function Call Flow" /></p>
 
                         
                         
@@ -961,7 +961,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-08 11:56:59 +0000"
+        "time": "2020-06-08 13:49:35 +0000"
     },
     "basePath": "",
     "book": {
