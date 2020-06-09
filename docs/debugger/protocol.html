@@ -619,7 +619,6 @@ union ResponsePayload {
     EVALUATION_SUCCESS: EvaluationSuccess,
     EVALUATION_FAILURE: EvaluationFailure,
     LIST_BINDINGS: ListBindingsResult,
-    SESSION_EXIT: SessionExitSuccess,
     SESSION_START: SessionStartNotification
 }
 
@@ -632,6 +631,10 @@ table Response {
 
 <p>When a breakpoint is reached, the debugger sends a notification to the client
 indicating that a REPL session should be started.</p>
+
+<p>The whole REPL session should live inside the endpoint’s function handling this
+notification. This means that this function should not return before sending the
+session exit request.</p>
 
 <h4 id="notification">Notification</h4>
 <pre><code class="language-idl">namespace org.enso.polyglot.protocol.debugger;
@@ -690,19 +693,15 @@ table ReplListBindingsResult {
 <p>The last result of Evaluation will be returned from the instrumented node or if
 no expressions have been evaluated, unit is returned.</p>
 
-<p>This function must always be called at the end of REPL session, as otherwise the
-program will never resume.</p>
+<p>This request must always be sent at the end of REPL session, as otherwise the
+program will never resume. It does not return any response. It is important to
+note that a thread calling <code class="language-plaintext highlighter-rouge">sendBinary</code> with this message will never return, as
+control will be passed to the interpreter.</p>
 
 <h4 id="request-2">Request</h4>
 <pre><code class="language-idl">namespace org.enso.polyglot.protocol.debugger;
 
 table ReplExitRequest {}
-</code></pre>
-
-<h4 id="response-2">Response</h4>
-<pre><code class="language-idl">namespace org.enso.polyglot.protocol.debugger;
-
-table ReplExitSuccess {}
 </code></pre>
 
                         
@@ -934,7 +933,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-08 13:49:35 +0000"
+        "time": "2020-06-09 14:33:47 +0000"
     },
     "basePath": "",
     "book": {
