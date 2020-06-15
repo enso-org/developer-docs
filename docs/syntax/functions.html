@@ -834,6 +834,16 @@ forced later.</p>
   <span class="n">x</span> <span class="o">=</span> <span class="n">foo</span> <span class="n">x</span> <span class="n">y</span> <span class="n">z</span>
   <span class="n">x</span><span class="p">.</span><span class="nf">do_thing</span>
 </code></pre></div>    </div>
+
+    <p>Alternatively, it is sufficient to type the binding for the block as
+<code class="language-plaintext highlighter-rouge">Suspended a</code> where <code class="language-plaintext highlighter-rouge">a</code> is the type of the block.</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">susp</span> <span class="p">:</span> <span class="no">Suspended</span> <span class="n">a</span> <span class="o">=</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">foo</span> <span class="n">x</span> <span class="n">y</span> <span class="n">z</span>
+  <span class="n">x</span><span class="p">.</span><span class="nf">do_thing</span>
+</code></pre></div>    </div>
+
+    <p>It should be noted that this does not yet work.</p>
   </li>
 </ul>
 
@@ -1211,7 +1221,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-15 17:14:47 +0000"
+        "time": "2020-06-15 17:15:36 +0000"
     },
     "basePath": "",
     "book": {
