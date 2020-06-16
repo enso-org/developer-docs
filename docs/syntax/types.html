@@ -410,6 +410,36 @@ search.start();
             
                 
                     
+                    <li class="chapter" data-level="1.1" data-path="/docs/syntax/imports.html">
+                    
+                        <a href="/docs/syntax/imports.html">
+                            
+                                Imports and Exports
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
                     <li class="chapter" data-level="1.1" data-path="/docs/syntax/literals.html">
                     
                         <a href="/docs/syntax/literals.html">
@@ -473,10 +503,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
                     
                     <li class="chapter active" data-level="1.2" data-path="/docs/syntax/types.html">
                     
@@ -486,6 +512,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -509,18 +539,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/syntax/top-level.html">
                     
@@ -535,10 +553,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/syntax/functions.html">
                     
@@ -548,6 +562,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -571,6 +589,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/syntax/projections.html">
                     
@@ -585,10 +607,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/syntax/comments.html">
                     
@@ -598,10 +616,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -1069,20 +1083,51 @@ not be touched (as this might break invariants and such like). To this end, we
 propose an explicit mechanism for access modification that works as follows:</p>
 
 <ul>
-  <li>We provide explicit access modifiers that, at the definition site, start an
-indented block. These are <code class="language-plaintext highlighter-rouge">private</code> and <code class="language-plaintext highlighter-rouge">unsafe</code>.</li>
-  <li>All members in the block have the access modifier attributed to them.</li>
-  <li>By default, accessing any member under an access modifier will be an error.</li>
-  <li>To use members under an access modifier, you use the syntax <code class="language-plaintext highlighter-rouge">use &lt;mod&gt;</code>, where
-<code class="language-plaintext highlighter-rouge">&lt;mod&gt;</code> is a modifier. This syntax ‘takes’ an expression, including blocks,
-within which the user may access members qualified by the modifier <code class="language-plaintext highlighter-rouge">&lt;mod&gt;</code>.</li>
+  <li>We have a set of access modifiers, namely <code class="language-plaintext highlighter-rouge">private</code> and <code class="language-plaintext highlighter-rouge">unsafe</code>.</li>
+  <li>
+    <p>We can place these modifiers before a top-level definition.</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">type</span> <span class="no">MyAtomType</span>
+    <span class="n">type</span> <span class="no">MyAtom</span> <span class="n">a</span>
+
+    <span class="n">is_foo</span> <span class="p">:</span> <span class="no">Boolean</span>
+    <span class="n">is_foo</span> <span class="o">=</span> <span class="o">...</span>
+
+    <span class="kp">private</span> <span class="n">private_method</span> <span class="n">a</span> <span class="n">b</span> <span class="o">=</span> <span class="o">...</span>
+
+    <span class="n">unsafe</span> <span class="n">unsafe_method</span> <span class="n">a</span> <span class="n">b</span> <span class="o">=</span> <span class="o">...</span>
+</code></pre></div>    </div>
+  </li>
+  <li>By default, accessing any member under an access modifier is an error when
+performed from another module.</li>
+  <li>
+    <p>To use members protected by an access modifier, you must <em>import</em> that access
+modifier from the file in which you want to access those elements.</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">import</span> <span class="kp">private</span> <span class="no">Base</span><span class="o">.</span><span class="no">Vector</span>
+<span class="n">import</span> <span class="n">unsafe</span> <span class="no">Base</span><span class="o">.</span><span class="no">Atom</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>These modified imports are available in <em>all</em> scopes, so it is possible to
+limit the scope in which you have access to the modified definitions.</p>
+
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">function_using_modifiers</span> <span class="n">v</span> <span class="n">x</span> <span class="o">=</span>
+    <span class="n">import</span> <span class="kp">private</span> <span class="no">Base</span><span class="o">.</span><span class="no">Vector</span>
+    <span class="n">import</span> <span class="n">unsafe</span> <span class="no">Base</span><span class="o">.</span><span class="no">Atom</span>
+
+    <span class="n">v</span><span class="p">.</span><span class="nf">mutate_at_index</span> <span class="mi">0</span> <span class="p">(</span><span class="n">_</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="no">MyAtom</span><span class="p">.</span><span class="nf">mutate_field</span> <span class="nb">name</span><span class="o">=</span><span class="s2">"sum"</span> <span class="p">(</span><span class="n">with</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">20</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">+</span> <span class="mi">20</span>
+</code></pre></div>    </div>
+  </li>
 </ul>
 
 <p>While <code class="language-plaintext highlighter-rouge">private</code> works as you might expect, coming from other languages, the
 <code class="language-plaintext highlighter-rouge">unsafe</code> annotation has additional restrictions:</p>
 
 <ul>
-  <li>It must be explicitly imported from <code class="language-plaintext highlighter-rouge">Std.Unsafe</code>.</li>
+  <li>It must be explicitly imported from <code class="language-plaintext highlighter-rouge">Base.Unsafe</code>.</li>
   <li>When you use <code class="language-plaintext highlighter-rouge">unsafe</code>, you must write a documentation comment on its usage
 that contains a section <code class="language-plaintext highlighter-rouge">Safety</code> that describes why this usage of unsafe is
 valid.</li>
@@ -1321,7 +1366,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-16 11:17:07 +0000"
+        "time": "2020-06-16 12:53:20 +0000"
     },
     "basePath": "",
     "book": {

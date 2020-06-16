@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Source File Encoding · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Imports and Exports · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -30,11 +30,11 @@
         
 
         
-            <link rel="prev" href="/docs/syntax/" />
+            <link rel="prev" href="/docs/syntax/layout.html" />
         
 
         
-            <link rel="next" href="/docs/syntax/naming.html" />
+            <link rel="next" href="/docs/syntax/literals.html" />
         
     </head>
     <body>
@@ -268,7 +268,7 @@ search.start();
             
                 
                     
-                    <li class="chapter active" data-level="1.2" data-path="/docs/syntax/encoding.html">
+                    <li class="chapter" data-level="1.1" data-path="/docs/syntax/encoding.html">
                     
                         <a href="/docs/syntax/encoding.html">
                             
@@ -410,7 +410,7 @@ search.start();
             
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/syntax/imports.html">
+                    <li class="chapter active" data-level="1.2" data-path="/docs/syntax/imports.html">
                     
                         <a href="/docs/syntax/imports.html">
                             
@@ -643,7 +643,7 @@ search.start();
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >Source File Encoding</a>
+                <a href="." >Imports and Exports</a>
             
         </h1>
     </div>
@@ -652,33 +652,134 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <h1 id="source-file-encoding">Source File Encoding</h1>
-<p>While many modern programming languages are moving in a direction of being
-liberal with the input they accept, we find that this often leads to the
-resultant code being more difficult to use.</p>
-
-<p>This file describes the source file encoding for Enso files.</p>
+                        <h1 id="imports-and-exports">Imports and Exports</h1>
+<p>In order to properly modularise and work with Enso code, the language provides
+a robust mechanism for importing code from modules, and also re-exporting that
+code from modules.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
 <ul>
-  <li><a href="#source-encoding">Source Encoding</a></li>
-  <li><a href="#indentation">Indentation</a></li>
+  <li><a href="#import-syntax">Import Syntax</a>
+    <ul>
+      <li><a href="#visibility-of-imported-bindings">Visibility of Imported Bindings</a></li>
+    </ul>
+  </li>
+  <li><a href="#export-syntax">Export Syntax</a>
+    <ul>
+      <li><a href="#visibility-of-export-bindings">Visibility of Export Bindings</a></li>
+    </ul>
+  </li>
 </ul>
 
 <!-- /MarkdownTOC -->
 
-<h2 id="source-encoding">Source Encoding</h2>
-<p>All input source in Enso is UTF-8 encoded.</p>
+<h2 id="import-syntax">Import Syntax</h2>
+<p>Importing a module is a way to bring its contents into scope in the current
+module. Imports in Enso appear as follows:</p>
 
-<h2 id="indentation">Indentation</h2>
-<p>Indentation in Enso is performed using spaces. An indent level is 4 spaces.</p>
+<ul>
+  <li>They start with the <code class="language-plaintext highlighter-rouge">import</code> keyword.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">import</code> keyword is followed by a module path (e.g. <code class="language-plaintext highlighter-rouge">Base.Vector.Unsafe</code>).</li>
+</ul>
 
-<p>This is intentionally not made configurable.</p>
+<p>From there, Enso imports are broken up into four main categories:</p>
+
+<ol>
+  <li><strong>Unqualified Imports:</strong> These import all symbols from the module into the
+current scope, and consist only of the <code class="language-plaintext highlighter-rouge">import</code> keyword and a module path.
+Imported items are imported accessible without qualification.</li>
+  <li><strong>Qualified Imports:</strong> These import all symbols from the module into the
+current scope with symbols qualified under a name <em>different</em> from the
+module name. It consists of the <code class="language-plaintext highlighter-rouge">import</code> keyword followed by a module path
+followed by the <code class="language-plaintext highlighter-rouge">as</code> keyword, followed by a referent name.</li>
+  <li><strong>Restricted Imports:</strong> These import only the specific symbols from the
+module into the current scope. They consist of the <code class="language-plaintext highlighter-rouge">import</code> keyword, followed
+by a module path, followed by the <code class="language-plaintext highlighter-rouge">only</code> keyword, followed by a
+space-separated list of symbols.</li>
+  <li><strong>Hiding Imports:</strong> These are the inverse of restricted imports, and import
+<em>all</em> symbols other than the named ones into the current scope. They consist
+of the <code class="language-plaintext highlighter-rouge">import</code> keyword, followed by a module path, followed by the keyword
+<code class="language-plaintext highlighter-rouge">only</code>, followed by a space-separated list of symbols.</li>
+</ol>
+
+<p>The qualified import syntax can be combined with the restricted and hiding
+import syntaxes.</p>
+
+<p>By way of example, the following code uses a variety of import types:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">import</span> <span class="no">A</span>                          <span class="c1"># unqualified</span>
+<span class="n">import</span> <span class="no">B</span> <span class="n">as</span> <span class="no">T</span>                     <span class="c1"># qualified</span>
+<span class="n">import</span> <span class="no">C</span> <span class="n">only</span> <span class="n">symbol_1</span> <span class="n">symbol_2</span>   <span class="c1"># restricted</span>
+<span class="n">import</span> <span class="no">D</span> <span class="n">hiding</span> <span class="n">symbol_1</span> <span class="n">symbol_2</span> <span class="c1"># hiding</span>
+<span class="n">import</span> <span class="no">E</span> <span class="n">as</span> <span class="no">U</span> <span class="n">only</span> <span class="n">symbol_3</span>       <span class="c1"># qualified + restricted</span>
+<span class="n">import</span> <span class="no">F</span> <span class="n">as</span> <span class="no">V</span> <span class="n">hiding</span> <span class="n">symbol_4</span>     <span class="c1"># qualified + hiding</span>
+</code></pre></div></div>
+<p>Imports in Enso <em>may</em> introduce ambiguous symbols, but this is not an error
+until one of the ambiguous symbols is <em>used</em> in Enso code.</p>
+
+<h3 id="visibility-of-imported-bindings">Visibility of Imported Bindings</h3>
+<p>When importing a module <code class="language-plaintext highlighter-rouge">X</code> into the current module <code class="language-plaintext highlighter-rouge">Y</code>, the bindings from <code class="language-plaintext highlighter-rouge">X</code>
+made available by the import (see above) become available in <code class="language-plaintext highlighter-rouge">Y</code>. However, Enso
+does not re-export imported bindings from a module by default, so the imported
+bindings from <code class="language-plaintext highlighter-rouge">X</code> are not visible in a module <em>importing</em> <code class="language-plaintext highlighter-rouge">Y</code>.</p>
+
+<h2 id="export-syntax">Export Syntax</h2>
+<p>In order to allow for easy composition and aggregation of code, Enso provides
+its users with a mechanism to <em>export</em> imported elements from modules. They
+appear in Enso as follows:</p>
+
+<ul>
+  <li>They start with the <code class="language-plaintext highlighter-rouge">export</code> keyword.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">export</code> keyword is followed by a module name (e.g. <code class="language-plaintext highlighter-rouge">My_Module</code>) that is
+available in the current scope.</li>
+  <li>The <em>current</em> module is implicitly exported unqualified.</li>
+</ul>
+
+<p>From there, Enso exports are broken up into four main categories:</p>
+
+<ol>
+  <li><strong>Unqualified Exports:</strong> These export all symbols from the named module as
+if they were defined in the exporting module. They consist of the <code class="language-plaintext highlighter-rouge">export</code>
+keyword, followed by a visible module name.</li>
+  <li><strong>Qualified Exports:</strong> These export all symbols from the module as if they
+were defined in a module nested within the exporting module. It consists of
+the <code class="language-plaintext highlighter-rouge">export</code> keyword, followed by a module name, followed by the <code class="language-plaintext highlighter-rouge">as</code>
+keyword, followed by another module name.</li>
+  <li><strong>Restricted Exports:</strong> These export only the specified symbols from the
+exporting module, as if they were defined in the exporting module. It
+consists of the <code class="language-plaintext highlighter-rouge">export</code> keyword, followed by a module name, followed by the
+<code class="language-plaintext highlighter-rouge">only</code> keyword, and then a space-separated list of symbols.</li>
+  <li><strong>Hiding Exports:</strong> These export all symbols from the module <em>except</em> those
+explicitly specified. It consists of the <code class="language-plaintext highlighter-rouge">export</code> keyword, followed by a
+module name, followed by the <code class="language-plaintext highlighter-rouge">hiding</code> keyword, and then a space-separated
+list of symbols.</li>
+</ol>
+
+<p>The qualified export syntax can be combined with the restricted and hiding
+export syntaxes.</p>
+
+<p>By way of example, the following code uses a variety of export types:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">export</span> <span class="no">A</span>
+<span class="n">export</span> <span class="no">B</span> <span class="n">as</span> <span class="no">X</span>
+<span class="n">export</span> <span class="no">C</span> <span class="n">only</span> <span class="n">symbol_1</span>
+<span class="n">export</span> <span class="no">D</span> <span class="n">hiding</span> <span class="n">symbol_1</span>
+<span class="n">export</span> <span class="no">E</span> <span class="n">as</span> <span class="no">Y</span> <span class="n">only</span> <span class="n">symbol_1</span>
+<span class="n">export</span> <span class="no">F</span> <span class="n">as</span> <span class="no">Y</span> <span class="n">hiding</span> <span class="n">symbol_1</span>
+</code></pre></div></div>
+
+<p>In essence, an export allows the user to <code class="language-plaintext highlighter-rouge">paste</code> the contents of the module
+being exported into the module declaring the export. This means that exports
+that create name clashes need to be resolved at the <em>export</em> site.</p>
+
+<h3 id="visibility-of-export-bindings">Visibility of Export Bindings</h3>
+<p>Bindings exported from a module <code class="language-plaintext highlighter-rouge">X</code> are available in an identical fashion to
+bindings that are <em>defined</em> in the module <code class="language-plaintext highlighter-rouge">X</code>.</p>
 
                         
                         
-                        <a href="https://github.com/luna/enso/blob/master/docs/syntax/encoding.md">Open this doc on GitHub</a>
+                        <a href="https://github.com/luna/enso/blob/master/docs/syntax/imports.md">Open this doc on GitHub</a>
                         
                     </section>
                 </div>
@@ -810,13 +911,13 @@ search.start();
     </div>
 </div>
 
-                <a href="/docs/syntax/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso's Syntax">
+                <a href="/docs/syntax/layout.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Layout Rules">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
 
                 
-                    <a href="/docs/syntax/naming.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Naming">
+                    <a href="/docs/syntax/literals.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Literals">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -903,7 +1004,7 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "docs/syntax/encoding.md",
+        "path": "docs/syntax/imports.md",
         "mtime": "",
         "type": "markdown"
     },
