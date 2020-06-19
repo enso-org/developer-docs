@@ -201,38 +201,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/language-server/">
                     
@@ -242,6 +210,38 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -591,7 +591,7 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
     <ul>
       <li><a href="#projectopen"><code class="language-plaintext highlighter-rouge">project/open</code></a></li>
       <li><a href="#projectclose"><code class="language-plaintext highlighter-rouge">project/close</code></a></li>
-      <li><a href="#projectlistrecent"><code class="language-plaintext highlighter-rouge">project/listRecent</code></a></li>
+      <li><a href="#projectlist"><code class="language-plaintext highlighter-rouge">project/list</code></a></li>
       <li><a href="#projectcreate"><code class="language-plaintext highlighter-rouge">project/create</code></a></li>
       <li><a href="#projectdelete"><code class="language-plaintext highlighter-rouge">project/delete</code></a></li>
       <li><a href="#projectlistsample"><code class="language-plaintext highlighter-rouge">project/listSample</code></a></li>
@@ -709,9 +709,9 @@ that is not open.</li>
 that cannot close a project that is open by other clients.</li>
 </ul>
 
-<h3 id="projectlistrecent"><code class="language-plaintext highlighter-rouge">project/listRecent</code></h3>
-<p>This message requests that the project manager lists the user’s most recently
-opened projects.</p>
+<h3 id="projectlist"><code class="language-plaintext highlighter-rouge">project/list</code></h3>
+<p>This message requests that the project manager lists all user’s projects. The 
+list of projects is sorted by the open time.</p>
 
 <ul>
   <li><strong>Type:</strong> Request</li>
@@ -722,14 +722,14 @@ opened projects.</p>
 
 <h4 id="parameters-2">Parameters</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectListRecentRequest</span> <span class="p">{</span>
-  <span class="nl">numberOfProjects</span><span class="p">:</span> <span class="nx">Int</span><span class="p">;</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectListRequest</span> <span class="p">{</span>
+  <span class="nl">numberOfProjects</span><span class="p">?:</span> <span class="nx">Int</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
 <h4 id="result-2">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectListRecentResponse</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectListResponse</span> <span class="p">{</span>
   <span class="nl">projects</span><span class="p">:</span> <span class="p">[</span><span class="nx">ProjectMetadata</span><span class="p">];</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -1165,7 +1165,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-16 16:19:04 +0000"
+        "time": "2020-06-19 09:38:34 +0000"
     },
     "basePath": "",
     "book": {
