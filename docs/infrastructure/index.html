@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Language Server · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Infrastructure · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -34,7 +34,7 @@
         
 
         
-            <link rel="next" href="/docs/language-server/protocol-architecture.html" />
+            <link rel="next" href="/docs/infrastructure/sbt.html" />
         
     </head>
     <body>
@@ -201,12 +201,148 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
                     
-                    <li class="chapter active" data-level="1.2" data-path="/docs/language-server/">
+                    <li class="chapter active" data-level="1.2" data-path="/docs/infrastructure/">
                     
-                        <a href="/docs/language-server/">
+                        <a href="/docs/infrastructure/">
                             
-                                Language Server
+                                Infrastructure
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/infrastructure/sbt.html">
+                    
+                        <a href="/docs/infrastructure/sbt.html">
+                            
+                                Build Tools
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/infrastructure/java-11.html">
+                    
+                        <a href="/docs/infrastructure/java-11.html">
+                            
+                                Java 11
                             
                         </a>
                     </li>
@@ -286,162 +422,6 @@ search.start();
             
             
             
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/language-server/protocol-architecture.html">
-                    
-                        <a href="/docs/language-server/protocol-architecture.html">
-                            
-                                The Enso Protocol
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/language-server/protocol-common.html">
-                    
-                        <a href="/docs/language-server/protocol-common.html">
-                            
-                                Enso Protocol Common Message Specification
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/language-server/protocol-project-manager.html">
-                    
-                        <a href="/docs/language-server/protocol-project-manager.html">
-                            
-                                Enso Protocol Project Manager Message Specification
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/language-server/protocol-language-server.html">
-                    
-                        <a href="/docs/language-server/protocol-language-server.html">
-                            
-                                Enso Protocol Language Server Message Specification
-                            
-                        </a>
-                    </li>
                 
             
             
@@ -581,7 +561,7 @@ search.start();
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >Language Server</a>
+                <a href="." >Infrastructure</a>
             
         </h1>
     </div>
@@ -590,52 +570,20 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <h1 id="language-server">Language Server</h1>
-<p>The Enso Language Server is responsible for providing language services to the
-Enso IDE (and other clients). This mainly involves speaking the Enso protocol
-and orchestrating the runtime in response to this. It is responsible for:</p>
+                        <h1 id="infrastructure">Infrastructure</h1>
+<p>The Enso runtime runs on the GraalVM which is a version of the JVM. It currently
+uses JDK 8, but there are plans to migrate to JDK 11. This folder contains all
+documentation pertaining to Enso’s infrastructure, which is broken up as
+follows:</p>
 
 <ul>
-  <li><strong>Introspection Services:</strong> Giving clients the ability to observe information
-about their running code including values, types, profiling information, and
-debugging.</li>
-  <li><strong>Code Execution:</strong> The ability for clients to execute arbitrary Enso code in
-arbitrary scopes. This can be used in conjunction with the above to provide
-a REPL with an integrated debugger.</li>
-  <li><strong>Code Completion:</strong> Sophisticated completion functionality that refines
-suggestions intelligently based on context.</li>
-  <li><strong>Node Management:</strong> Tracking and providing the language server’s internal
-node representation of the Enso program.</li>
-  <li><strong>Code Analysis:</strong> Analysis functionality for Enso code (e.g. find usages,
-jump-to-definition, and so on).</li>
-  <li><strong>Refactoring:</strong> Refactoring functionality for Enso code (e.g. rename, move,
-extract, and so on).</li>
-  <li><strong>Type Interactions:</strong> Features for type-driven-development that allow users
-to interact with the types of their programs.</li>
-</ul>
-
-<p>This folder contains all documentation pertaining to the Language Server, which
-is broken up as follows:</p>
-
-<ul>
-  <li><a href="/docs/language-server/protocol-architecture.html"><strong>The Enso Protocol Architecture:</strong></a> The
-architecture of the Enso protocol.</li>
-</ul>
-
-<p>The protocol messages are broken up into documents as follows:</p>
-
-<ul>
-  <li><a href="/docs/language-server/protocol-common.html"><strong>Common Message Specification:</strong></a> The common messages
-and types</li>
-  <li><a href="/docs/language-server/protocol-project-manager.html"><strong>Project Manager Message Specification:</strong></a>
-The messages and types pertaining to the project manager component.</li>
-  <li><a href="/docs/language-server/protocol-language-server.html"><strong>Language Server Message Specification:</strong></a>
-The messages and types pertaining to the language server component.</li>
+  <li><a href="/docs/infrastructure/sbt.html"><strong>sbt:</strong></a> The build tools that are used for building the project.</li>
+  <li><a href="/docs/infrastructure/java-11.html"><strong>Java 11:</strong></a> Current status of migration to Java 11.</li>
 </ul>
 
                         
                         
-                        <a href="https://github.com/luna/enso/blob/master/docs/language-server/README.md">Open this doc on GitHub</a>
+                        <a href="https://github.com/luna/enso/blob/master/docs/infrastructure/README.md">Open this doc on GitHub</a>
                         
                     </section>
                 </div>
@@ -767,13 +715,13 @@ search.start();
     </div>
 </div>
 
-                    <a href="/docslanguage-serverREADME.md" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation docslanguage-serverREADME.md">
+                    <a href="/docsinfrastructureREADME.md" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation docsinfrastructureREADME.md">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="/docs/language-server/protocol-architecture.html" class="navigation navigation-next navigation-unique" aria-label="Next page: The Enso Protocol">
+                    <a href="/docs/infrastructure/sbt.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Build Tools">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -860,7 +808,7 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "docs/language-server/README.md",
+        "path": "docs/infrastructure/README.md",
         "mtime": "",
         "type": "markdown"
     },
