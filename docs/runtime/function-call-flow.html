@@ -630,6 +630,7 @@ framework.</p>
   <li><a href="#currying-and-eta-expansion">Currying and Eta-Expansion</a></li>
   <li><a href="#dynamic-dispatch">Dynamic Dispatch</a></li>
   <li><a href="#defaulted-arguments-and-application">Defaulted Arguments and Application</a></li>
+  <li><a href="#megamorphic-call-sites">Megamorphic Call Sites</a></li>
   <li><a href="#flow-diagram">Flow Diagram</a></li>
 </ul>
 
@@ -746,6 +747,21 @@ arguments) should also be executed.</p>
 <p>To this end, we make sure that the callsite checks if the return value from a
 function is a function, and if it is fully saturated with defaults it will call
 it.</p>
+
+<h2 id="megamorphic-call-sites">Megamorphic Call Sites</h2>
+<p>In certain situations, such as call sites calling a lot of different functions
+without splitting or intensive use of the same instance of the interop library,
+caching intermediate information about the call-site becomes impossible.
+For such cases, we use nodes with names starting with <code class="language-plaintext highlighter-rouge">Indirect</code> to perform
+the required operation. These nodes do not perform any caching and instead use
+the most general version of the logic possible for every call. These nodes also
+support the <code class="language-plaintext highlighter-rouge">uncached</code> mode of operation, which means the node itself may be
+used without adopting them, using a global singleton instance instead.
+As such the indirect nodes are very slow and should only be used after it is
+discovered that the call site cannot afford more specific operations anymore.
+The <code class="language-plaintext highlighter-rouge">uncached</code> version of these nodes is even slower, as no inlining can happen
+on sites using them. This should be used with care, only when large call
+overhead is acceptable (e.g. rarely-used instances of the interop library).</p>
 
 <h2 id="flow-diagram">Flow Diagram</h2>
 <p>The following diagram summarizes all the nodes participating in a function
@@ -987,7 +1003,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-19 09:38:34 +0000"
+        "time": "2020-06-19 13:16:34 +0000"
     },
     "basePath": "",
     "book": {
