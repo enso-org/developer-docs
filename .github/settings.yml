@@ -29,6 +29,9 @@ labels:
   - name: "Category: Functionality"
     color: "#d1f0fd"
     description: The documentation's functionality
+  - name: "Category: External"
+    color: "#d1f0fd"
+    description: External issues
 
   - name: "Change: Breaking"
     color: "#ffdce5"
