@@ -592,7 +592,7 @@ search.start();
                     <section class="normal markdown-section">
                         <h1 id="getting-enso">Getting Enso</h1>
 <p>Enso packages can currently be obtained from the per-commit CI builds.
-See <a href="https://github.com/luna/enso/actions?query=workflow%3A%22Enso+CI%22">the build workflow on GitHub Actions</a>.
+See <a href="https://github.com/enso-org/enso/actions?query=workflow%3A%22Enso+CI%22">the build workflow on GitHub Actions</a>.
 The artifact of interest is <code class="language-plaintext highlighter-rouge">enso-&lt;version&gt;</code> (currently <code class="language-plaintext highlighter-rouge">enso-0.0.1</code>).</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
@@ -612,7 +612,7 @@ GraalVM. You can get the Community Edition pre-built distributions from
 It is important to run Enso with exactly the version specified here. Given that
 Graal is still a relatively young project, even the minor version changes
 introduce breaking API changes. The current version of GraalVM required for
-Enso is <code class="language-plaintext highlighter-rouge">20.1.0</code>.</p>
+Enso is <code class="language-plaintext highlighter-rouge">20.1.0</code>, and it must be the Java 8 build.</p>
 
 <p>Before running the Enso packages, make sure that the <code class="language-plaintext highlighter-rouge">JAVA_HOME</code> environment
 variable points to the correct home location of the Graal distribution.</p>
@@ -622,7 +622,7 @@ variable points to the correct home location of the Graal distribution.</p>
 
 <ol>
   <li>The project manager. This executable is currently used for testing the IDE,
-though in the future it will rarely be run directly and rather will be 
+though in the future it will rarely be run directly and rather will be
 launched automatically by the IDE. To run the project manager, run the
 <code class="language-plaintext highlighter-rouge">bin/project-manager</code> script (Linux and MacOS) or the
 <code class="language-plaintext highlighter-rouge">bin/project-manager.bat</code> script (Windows).</li>
@@ -881,7 +881,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-19 15:45:49 +0000"
+        "time": "2020-06-24 14:03:38 +0000"
     },
     "basePath": "",
     "book": {
