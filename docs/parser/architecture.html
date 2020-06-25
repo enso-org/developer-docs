@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Errors · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Parser Architecture Overview · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -30,11 +30,11 @@
         
 
         
-            <link rel="prev" href="/docs/types/type-directed-programming.html" />
+            <link rel="prev" href="/docs/parser/tech-analysis.html" />
         
 
         
-            <link rel="next" href="/docs/types/inference-and-checking.html" />
+            <link rel="next" href="/docs/parser/flexer.html" />
         
     </head>
     <body>
@@ -177,8 +177,8 @@ search.start();
             
         
             
-            <li class="chapter" data-level="1.1" data-path="/docs/types ">
-                    <a href="/docs/types">
+            <li class="chapter" data-level="1.1" data-path="/docs/parser ">
+                    <a href="/docs/parser">
                         Go back
                     </a>
                 </li>
@@ -193,32 +193,26 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/">
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/parser.html">
                     
-                        <a href="/docs/types/">
+                        <a href="/docs/parser/parser.html">
                             
-                                Enso&#39;s Type System
+                                parser.md
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/">
+                    
+                        <a href="/docs/parser/">
+                            
+                                Enso&#39;s Parser
                             
                         </a>
                     </li>
@@ -287,12 +281,70 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/goals.html">
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/tech-analysis.html">
                     
-                        <a href="/docs/types/goals.html">
+                        <a href="/docs/parser/tech-analysis.html">
                             
-                                Goals for the Enso Type System
+                                Technology Analysis
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/parser/architecture.html">
+                    
+                        <a href="/docs/parser/architecture.html">
+                            
+                                Parser Architecture Overview
                             
                         </a>
                     </li>
@@ -341,100 +393,16 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/hierarchy.html">
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/flexer.html">
                     
-                        <a href="/docs/types/hierarchy.html">
+                        <a href="/docs/parser/flexer.html">
                             
-                                The Enso Type Hierarchy
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/function-types.html">
-                    
-                        <a href="/docs/types/function-types.html">
-                            
-                                Function Types
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/access-modifiers.html">
-                    
-                        <a href="/docs/types/access-modifiers.html">
-                            
-                                Access Modifiers
+                                Flexer
                             
                         </a>
                     </li>
@@ -483,38 +451,16 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/pattern-matching.html">
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/lexer.html">
                     
-                        <a href="/docs/types/pattern-matching.html">
+                        <a href="/docs/parser/lexer.html">
                             
-                                Pattern Matching
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/dynamic-dispatch.html">
-                    
-                        <a href="/docs/types/dynamic-dispatch.html">
-                            
-                                Dynamic Dispatch
+                                Lexer
                             
                         </a>
                     </li>
@@ -539,12 +485,102 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/modules.html">
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/macro-resolution.html">
                     
-                        <a href="/docs/types/modules.html">
+                        <a href="/docs/parser/macro-resolution.html">
                             
-                                Modules
+                                Macro Resolution
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/construct-resolution.html">
+                    
+                        <a href="/docs/parser/construct-resolution.html">
+                            
+                                Construct Resolution
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/parser-driver.html">
+                    
+                        <a href="/docs/parser/parser-driver.html">
+                            
+                                Parser Driver
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/ast.html">
+                    
+                        <a href="/docs/parser/ast.html">
+                            
+                                Parser Driver
                             
                         </a>
                     </li>
@@ -570,11 +606,25 @@ search.start();
             
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/contexts.html">
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/jvm-object-generation.html">
                     
-                        <a href="/docs/types/contexts.html">
+                        <a href="/docs/parser/jvm-object-generation.html">
                             
-                                Monadic Contexts
+                                JVM Object Generation
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/reader.html">
+                    
+                        <a href="/docs/parser/reader.html">
+                            
+                                Reading Source Code
                             
                         </a>
                     </li>
@@ -591,16 +641,6 @@ search.start();
             
             
                 
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/evaluation.html">
-                    
-                        <a href="/docs/types/evaluation.html">
-                            
-                                Evaluation and Typing
-                            
-                        </a>
-                    </li>
-                
             
             
             
@@ -621,48 +661,6 @@ search.start();
             
             
                 
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/parallelism.html">
-                    
-                        <a href="/docs/types/parallelism.html">
-                            
-                                Automated Parallelism Analysis
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/type-directed-programming.html">
-                    
-                        <a href="/docs/types/type-directed-programming.html">
-                            
-                                Type-Directed Programming
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter active" data-level="1.2" data-path="/docs/types/errors.html">
-                    
-                        <a href="/docs/types/errors.html">
-                            
-                                Errors
-                            
-                        </a>
-                    </li>
-                
             
             
             
@@ -674,44 +672,6 @@ search.start();
             
             
             
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/inference-and-checking.html">
-                    
-                        <a href="/docs/types/inference-and-checking.html">
-                            
-                                Inference and Checking
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/dependent-typing.html">
-                    
-                        <a href="/docs/types/dependent-typing.html">
-                            
-                                Dependent Typing
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/types/references.html">
-                    
-                        <a href="/docs/types/references.html">
-                            
-                                References
-                            
-                        </a>
-                    </li>
                 
             
             
@@ -727,7 +687,7 @@ search.start();
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >Errors</a>
+                <a href="." >Parser Architecture Overview</a>
             
         </h1>
     </div>
@@ -736,88 +696,59 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <h1 id="errors">Errors</h1>
-<p>Enso supports two notions of errors. One is the standard asynchronous exceptions
-model, while the other is a theory of ‘broken values’ that propagate through
-computations.</p>
-
-<blockquote>
-  <p>The actionables for this section are:</p>
-
-  <ul>
-    <li>Greatly expand on the reasoning and theory behind the two exception models.</li>
-    <li>Explain why broken values serve the GUI well.</li>
-    <li>Explain how this can all be typed.</li>
-  </ul>
-</blockquote>
+                        <h1 id="parser-architecture-overview">Parser Architecture Overview</h1>
+<p>The Enso parser is designed in a highly modular fashion, with separate crates
+responsible for the component’s various responsibilities. The main components of
+the parser are described below.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
 <ul>
-  <li><a href="#async-exceptions">Async Exceptions</a></li>
-  <li><a href="#broken-values">Broken Values</a></li>
+  <li><a href="#overall-architecture">Overall Architecture</a></li>
+  <li><a href="#reader">Reader</a></li>
+  <li><a href="#flexer">Flexer</a></li>
+  <li><a href="#lexer">Lexer</a></li>
+  <li><a href="#macro-resolution">Macro Resolution</a></li>
+  <li><a href="#operator-resolution">Operator Resolution</a></li>
+  <li><a href="#construct-resolution">Construct Resolution</a></li>
+  <li><a href="#parser-driver">Parser Driver</a>
+    <ul>
+      <li><a href="#ast">AST</a></li>
+    </ul>
+  </li>
+  <li><a href="#jvm-object-generation">JVM Object Generation</a></li>
 </ul>
 
 <!-- /MarkdownTOC -->
 
-<h2 id="async-exceptions">Async Exceptions</h2>
+<h2 id="overall-architecture">Overall Architecture</h2>
+<p>The overall architecture of the parser subsystem can be visualised as follows.</p>
 
-<blockquote>
-  <p>The actionables for this section are:</p>
+<h2 id="reader">Reader</h2>
 
-  <ul>
-    <li>Formalise the model of async exceptions as implemented.</li>
-  </ul>
-</blockquote>
+<h2 id="flexer">Flexer</h2>
 
-<h2 id="broken-values">Broken Values</h2>
-<p>In Enso we have the notion of a ‘broken’ value: one which is in an invalid state
-but not an asynchronous error. While these may initially seem a touch useless,
-they are actually key for the display of errors in the GUI.</p>
+<h2 id="lexer">Lexer</h2>
 
-<p>Broken values can be thought of like checked monadic exceptions in Haskell, but
-with an automatic propagation mechanism:</p>
+<h2 id="macro-resolution">Macro Resolution</h2>
+
+<h2 id="operator-resolution">Operator Resolution</h2>
+
+<h2 id="construct-resolution">Construct Resolution</h2>
+
+<h2 id="parser-driver">Parser Driver</h2>
+
+<h3 id="ast">AST</h3>
+
+<h2 id="jvm-object-generation">JVM Object Generation</h2>
 
 <ul>
-  <li>
-    <p>Broken values that aren’t handled explicitly are automatically promoted
-through the parent scope. This is trivial inference as no evidence discharge
-will have occurred on the value.</p>
-
-    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">open</span> <span class="p">:</span> <span class="no">String</span> <span class="o">-&gt;</span> <span class="no">String</span> <span class="k">in</span> <span class="no">IO</span> <span class="o">!</span> <span class="no">IO</span><span class="o">.</span><span class="no">Exception</span>
-<span class="nb">open</span> <span class="o">=</span> <span class="o">...</span>
-
-<span class="nb">test</span> <span class="o">=</span>
-  <span class="nb">print</span> <span class="s1">'Opening the gates!'</span>
-  <span class="n">txt</span> <span class="o">=</span> <span class="nb">open</span> <span class="s1">'gates.txt'</span>
-  <span class="nb">print</span> <span class="s1">'Gates were opened!'</span>
-  <span class="mi">7</span>
-</code></pre></div>    </div>
-
-    <p>In the above example, the type of test is inferred to
-<code class="language-plaintext highlighter-rouge">test : Int in IO ! IO.Exception</code>, because no evidence discharge has taken
-place as the potential broken value hasn’t been handled.</p>
-  </li>
-  <li>
-    <p>This allows for very natural error handling in the GUI.</p>
-  </li>
+  <li>Should wrap the parser as a whole into a new module, built for the engine</li>
 </ul>
 
-<blockquote>
-  <p>The actionables for this section are:</p>
-
-  <ul>
-    <li>Determine what kinds of APIs we want to use async exceptions for, and which
-broken values are more suited for.</li>
-    <li>Ensure that we are okay with initially designing everything around async
-exceptions as broken values are very hard to support without a type checker.</li>
-    <li>Initially not supported for APIs.</li>
-  </ul>
-</blockquote>
-
                         
                         
-                        <a href="https://github.com/luna/enso/blob/master/docs/types/errors.md">Open this doc on GitHub</a>
+                        <a href="https://github.com/luna/enso/blob/master/docs/parser/architecture.md">Open this doc on GitHub</a>
                         
                     </section>
                 </div>
@@ -949,13 +880,13 @@ search.start();
     </div>
 </div>
 
-                <a href="/docs/types/type-directed-programming.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Type-Directed Programming">
+                <a href="/docs/parser/tech-analysis.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Technology Analysis">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
 
                 
-                    <a href="/docs/types/inference-and-checking.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Inference and Checking">
+                    <a href="/docs/parser/flexer.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Flexer">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -1042,7 +973,7 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "docs/types/errors.md",
+        "path": "docs/parser/architecture.md",
         "mtime": "",
         "type": "markdown"
     },

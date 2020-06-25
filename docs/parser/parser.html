@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso&#39;s Parser · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -30,7 +30,7 @@
         
 
         
-            <link rel="prev" href="/docs" />
+            <link rel="prev" href="/docs/parser" />
         
 
         
@@ -177,8 +177,8 @@ search.start();
             
         
             
-            <li class="chapter" data-level="1.1" data-path="/docs ">
-                    <a href="/docs">
+            <li class="chapter" data-level="1.1" data-path="/docs/parser ">
+                    <a href="/docs/parser">
                         Go back
                     </a>
                 </li>
@@ -194,7 +194,7 @@ search.start();
             
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/parser/parser.html">
+                    <li class="chapter active" data-level="1.2" data-path="/docs/parser/parser.html">
                     
                         <a href="/docs/parser/parser.html">
                             
@@ -208,7 +208,7 @@ search.start();
             
                 
                     
-                    <li class="chapter active" data-level="1.2" data-path="/docs/parser/">
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/">
                     
                         <a href="/docs/parser/">
                             
@@ -677,14 +677,6 @@ search.start();
             
 
             
-                
-
-                
-                
-                
-                
-                
-            
         
         </ul>
     </nav>
@@ -695,7 +687,7 @@ search.start();
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >Enso&#39;s Parser</a>
+                <a href="." >Enso Developer Documentation</a>
             
         </h1>
     </div>
@@ -704,46 +696,158 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <h1 id="ensos-parser">Enso’s Parser</h1>
-<p>The parser is one of the most crucial components of the Enso runtime in that
-<em>all</em> code that a user writes must be parsed. This means that a good parser is
-fast, responsive, and lightweight; it shouldn’t baulk at having thousands of
-lines of code thrown at it.</p>
+                        <h1 id="parser-design">Parser Design</h1>
 
-<p>Enso’s parser, however, is very special. In order to support interactive use it
-has to narrow down the scope of a syntax error as much as possible, while still
-providing useful output for the compiler around the rest of the parse errors.
-This feature makes it more complex than many common parsers, so making this work
-while still preserving performance is of paramount importance.</p>
-
-<p>The various components of the parser’s design and architecture are described
-below:</p>
+<h2 id="1-lexer-code---token-stream">1. Lexer (Code -&gt; Token Stream)</h2>
 
 <ul>
-  <li><a href="/docs/parser/tech-analysis.html"><strong>Tech Analysis:</strong></a> A brief overview of the reasons for
-the implementation technologies for the parser.</li>
-  <li><a href="/docs/parser/architecture.html"><strong>Parser Architecture:</strong></a> An overview of the architecture
-of the parser as a whole.</li>
-  <li><a href="/docs/parser/flexer.html"><strong>Flexer:</strong></a> An overview of the design and architecture of the
-flexer, a generic, DFA-based lexing engine.</li>
-  <li><a href="/docs/parser/lexer.html"><strong>Lexer:</strong></a> The Enso lexer, responsible for tokenising the input
-stream of source code.</li>
-  <li><a href="/docs/parser/macro-resolution.html"><strong>Macro Resolution:</strong></a> The system for defining and
-resolving macros on the token stream.</li>
-  <li><a href="/docs/parser/construct-resolution.html"><strong>Construct Resolution:</strong></a> The system for
-resolving higher-level language constructs in the AST to produce a useful
-output.</li>
-  <li><a href="/docs/parser/parser-driver.html"><strong>Parser Driver:</strong></a></li>
-  <li><a href="/docs/parser/ast.html"><strong>AST:</strong></a> The parser AST.</li>
-  <li><a href="/docs/parser/jvm-object-generation.html"><strong>JVM Object Generation:</strong></a> The process for
-generating the ast representation on the JVM via reflection.</li>
-  <li><a href="/docs/parser/reader.html"><strong>Reading Source Code:</strong></a> The flexible architecture for reading
-source code into the lexer.</li>
+  <li>Lexer needs to be generic over the input stream encoding to support utf-16
+coming from the JVM.</li>
+  <li>Is there any use case that requires the lexer to read an actual file?</li>
+  <li>The prelude needs to be released to crates.io otherwise we’re going to rapidly
+get out of sync.</li>
+  <li>I don’t think it makes sense to have separate <code class="language-plaintext highlighter-rouge">Var</code> and <code class="language-plaintext highlighter-rouge">Cons</code> identifiers. We
+should instead have <code class="language-plaintext highlighter-rouge">Name</code>, with functions <code class="language-plaintext highlighter-rouge">is_referrent</code> and <code class="language-plaintext highlighter-rouge">is_variable</code>.
+This better mirrors how the language actually treats names.</li>
+  <li>What actually is the flexer?</li>
+  <li>What should the AST look like?</li>
 </ul>
+
+<p>Lexer reads source file (lazily, line by line) or uses in-memory <code class="language-plaintext highlighter-rouge">&amp;str</code> and produces token stream of <code class="language-plaintext highlighter-rouge">Var</code>, <code class="language-plaintext highlighter-rouge">Cons</code>, <code class="language-plaintext highlighter-rouge">Opr</code>, <code class="language-plaintext highlighter-rouge">Number</code>, <code class="language-plaintext highlighter-rouge">Text</code>, <code class="language-plaintext highlighter-rouge">Invalid</code>, and <code class="language-plaintext highlighter-rouge">Block</code>. Please note that <code class="language-plaintext highlighter-rouge">Block</code> is part of the token stream on purpose. It is important that the source code is easy to parse visually, so if you see a block, it should be a block. Discovering blocks in lexer allows us to prevent all other parts of parser, like macros, from breaking this assumption. Moreover, it makes the design of the following stages a lot simpler.  Enso lexer should always succeed, on any input stream (token stream could contain <code class="language-plaintext highlighter-rouge">Invalid</code> tokens).</p>
+
+<p>Lexer is defined using Rust procedural macro system. We are using procedural macros, because the lexer definition produces a Rust code (pastes it “in-place” of the macro usage). Let’s consider a very simple lexer definition:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">use</span> <span class="nn">crate</span><span class="p">::</span><span class="nn">prelude</span><span class="p">::</span><span class="o">*</span><span class="p">;</span> <span class="c">// Needs to be a released crate</span>
+
+<span class="k">use</span> <span class="n">flexer</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">flexer</span><span class="p">::</span><span class="n">Flexer</span><span class="p">;</span>
+
+
+
+<span class="c">// =============</span>
+<span class="c">// === Token ===</span>
+<span class="c">// =============</span>
+
+<span class="k">pub</span> <span class="k">struct</span> <span class="n">Token</span> <span class="p">{</span>
+    <span class="n">location</span> <span class="p">:</span> <span class="nn">flexer</span><span class="p">::</span><span class="n">Location</span><span class="p">,</span>
+    <span class="n">ast</span>      <span class="p">:</span> <span class="n">TokenAst</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">enum</span> <span class="n">TokenAst</span> <span class="p">{</span>
+    <span class="nf">Var</span><span class="p">(</span><span class="n">ImString</span><span class="p">),</span>
+    <span class="nf">Cons</span><span class="p">(</span><span class="n">ImString</span><span class="p">),</span>
+    <span class="n">Blank</span><span class="p">,</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+
+<span class="k">impl</span> <span class="n">Token</span> <span class="p">{</span>
+    <span class="k">pub</span> <span class="k">fn</span> <span class="nf">new</span><span class="p">(</span><span class="n">location</span><span class="p">:</span><span class="n">Location</span><span class="p">,</span> <span class="n">ast</span><span class="p">:</span><span class="n">TokenAst</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Self</span> <span class="p">{</span>
+        <span class="n">Self</span> <span class="p">{</span><span class="n">location</span><span class="p">,</span><span class="n">ast</span><span class="p">}</span>  
+    <span class="p">}</span>
+  
+    <span class="k">pub</span> <span class="k">fn</span> <span class="nf">var</span><span class="p">(</span><span class="n">location</span><span class="p">:</span><span class="n">Location</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="k">impl</span> <span class="n">Into</span><span class="o">&lt;</span><span class="n">ImString</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Self</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="n">ast</span> <span class="o">=</span> <span class="nn">TokenAst</span><span class="p">::</span><span class="nf">Var</span><span class="p">(</span><span class="n">name</span><span class="nf">.into</span><span class="p">());</span>
+        <span class="nn">Self</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="n">location</span><span class="p">,</span><span class="n">ast</span><span class="p">)</span>      
+    <span class="p">}</span>
+  
+    <span class="o">...</span>
+<span class="p">}</span>
+
+
+
+<span class="c">// =============</span>
+<span class="c">// === Lexer ===</span>
+<span class="c">// =============</span>
+
+<span class="nd">#[derive(Debug,Default)]</span>
+<span class="k">struct</span> <span class="n">Lexer</span> <span class="p">{</span>
+    <span class="n">current</span> <span class="p">:</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="n">Token</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">tokens</span>  <span class="p">:</span> <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Token</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">state</span>   <span class="p">:</span> <span class="nn">Flexer</span><span class="p">::</span><span class="n">State</span>
+<span class="p">}</span>
+
+<span class="k">impl</span> <span class="n">Lexer</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="nf">on_ident</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">tok</span><span class="p">:</span><span class="n">Token</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="py">.current</span> <span class="o">=</span> <span class="nf">Some</span><span class="p">(</span><span class="n">tok</span><span class="p">);</span>
+        <span class="k">self</span><span class="py">.state</span><span class="nf">.push</span><span class="p">(</span><span class="k">self</span><span class="py">.ident_sfx_check</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">fn</span> <span class="nf">on_ident_err_sfx</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"OH NO!"</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">fn</span> <span class="nf">on_no_ident_err_sfx</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="n">current</span> <span class="o">=</span> <span class="nn">std</span><span class="p">::</span><span class="nn">mem</span><span class="p">::</span><span class="nf">take</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="py">.current</span><span class="p">)</span><span class="nf">.unwrap</span><span class="p">();</span>
+        <span class="k">self</span><span class="py">.tokens</span><span class="nf">.push_back</span><span class="p">(</span><span class="n">current</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">impl</span> <span class="nn">Flexer</span><span class="p">::</span><span class="n">Definition</span> <span class="n">Lexer</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="nf">state</span>     <span class="p">(</span><span class="o">&amp;</span>    <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="o">&amp;</span>    <span class="nn">flexer</span><span class="p">::</span><span class="n">State</span> <span class="p">{</span> <span class="o">&amp;</span>    <span class="k">self</span><span class="py">.state</span> <span class="p">}</span>
+    <span class="k">fn</span> <span class="nf">state_mut</span> <span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="nn">flexer</span><span class="p">::</span><span class="n">State</span> <span class="p">{</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="py">.state</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">pub</span> <span class="k">fn</span> <span class="nf">lexer_source_code</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="nb">String</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">lexer</span> <span class="o">=</span> <span class="nn">Flexer</span><span class="p">::</span><span class="o">&lt;</span><span class="n">Lexer</span><span class="o">&gt;</span><span class="p">::</span><span class="nf">new</span><span class="p">();</span>
+  
+    <span class="k">let</span> <span class="n">chr</span>     <span class="o">=</span> <span class="n">alphaNum</span> <span class="p">|</span> <span class="sc">'_'</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">blank</span>   <span class="o">=</span> <span class="nn">Pattern</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="sc">'_'</span><span class="p">);</span>
+    <span class="k">let</span> <span class="n">body</span>    <span class="o">=</span> <span class="n">chr</span><span class="py">.many</span> <span class="o">&gt;&gt;</span> <span class="sc">'\''</span><span class="nf">.many</span><span class="p">();</span>
+    <span class="k">let</span> <span class="n">var</span>     <span class="o">=</span> <span class="n">lowerLetter</span> <span class="o">&gt;&gt;</span> <span class="n">body</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">cons</span>    <span class="o">=</span> <span class="n">upperLetter</span> <span class="o">&gt;&gt;</span> <span class="n">body</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">breaker</span> <span class="o">=</span> <span class="s">"^`!@#$%^&amp;*()-=+[]{}|;:&lt;&gt;,./ </span><span class="se">\t\r\n\\</span><span class="s">"</span><span class="p">;</span>
+  
+    <span class="k">let</span> <span class="n">sfx_check</span> <span class="o">=</span> <span class="n">lexer</span><span class="nf">.add</span><span class="p">(</span><span class="nf">State</span><span class="p">(</span><span class="s">"Identifier Suffix Check"</span><span class="p">));</span>
+  
+    <span class="n">lexer</span><span class="nf">.rule</span><span class="p">(</span><span class="n">lexer</span><span class="py">.root</span><span class="p">,</span><span class="n">var</span><span class="p">,</span><span class="s">"self.on_ident(Token::var(self.start_location,self.current_match()))"</span><span class="p">);</span>
+    <span class="n">lexer</span><span class="nf">.rule</span><span class="p">(</span><span class="n">lexer</span><span class="py">.root</span><span class="p">,</span><span class="n">cons</span><span class="p">,</span><span class="s">"self.on_ident(token::cons(self.start_location,self.current_match()))"</span><span class="p">);</span>
+    <span class="n">lexer</span><span class="nf">.rule</span><span class="p">(</span><span class="n">lexer</span><span class="py">.root</span><span class="p">,</span><span class="n">blank</span><span class="p">,</span><span class="s">"self.on_ident(token::blank(self.start_location))"</span><span class="p">);</span>
+    <span class="n">lexer</span><span class="nf">.rule</span><span class="p">(</span><span class="n">sfx_check</span><span class="p">,</span><span class="n">err_sfx</span><span class="p">,</span><span class="s">"self.on_ident_err_sfx()"</span><span class="p">);</span>
+    <span class="n">lexer</span><span class="nf">.rule</span><span class="p">(</span><span class="n">sfx_check</span><span class="p">,</span><span class="nn">Flexer</span><span class="p">::</span><span class="n">always</span><span class="p">,</span><span class="s">"self.on_no_ident_err_sfx()"</span><span class="p">);</span>
+    <span class="o">...</span>
+    <span class="n">lexer</span><span class="nf">.generate_specialized_code</span><span class="p">()</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>The idea here is that we are describing regexp-like patterns and tell what should happen when the pattern is matched. For example, after matching the <code class="language-plaintext highlighter-rouge">var</code> pattern, the code <code class="language-plaintext highlighter-rouge">self.on_ident(ast::Var)</code> should be evaluated. The code is passed as string, because it will be part of the generated, highly specialized, very fast lexer.</p>
+
+<p>Technically, the patterns are first translated to a state machine, and then to a bunch of if-then-else statements in such a way, that parsing is always <code class="language-plaintext highlighter-rouge">O(n)</code> where <code class="language-plaintext highlighter-rouge">n</code> is the input size. Logically, the regular expressions are matched top-bottom  and the first fully-matched expression is chosen (unlike in the popular lexer generator flex, which uses longest match instead). After the expression is chosen, the associated function is executed and the process starts over again till the end of the input stream. Only the rules from the currently active state are considered. State is just a named (for debug purposes only) set of rules. Lexer always starts with the <code class="language-plaintext highlighter-rouge">lexer.root</code> state. You can make other state active by running (from within Flexer instance) <code class="language-plaintext highlighter-rouge">state.push(new_state)</code>, and pop it using <code class="language-plaintext highlighter-rouge">state.pop()</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">lexer.generate_specialized_code</code> first works in a few steps:</p>
+
+<ol>
+  <li>It takes all rules and states and generates an NFA state machine.</li>
+  <li>It generates DFA state machine using some custom optimizations to make sure that the regexps are matched in order and the associated code chunks are not lost.</li>
+  <li>It generates a highly tailored lexer <code class="language-plaintext highlighter-rouge">Engine</code> struct. One of the fields of the engine is the <code class="language-plaintext highlighter-rouge">Lexer</code> struct we defined above. The engine contains a main “loop” which consumes char by char, evaluates a big if-then-else machinery generated from the NFA, and evaluates functions from the <code class="language-plaintext highlighter-rouge">Lexer</code>. Please note that the functions start with <code class="language-plaintext highlighter-rouge">self</code>, that’s because <code class="language-plaintext highlighter-rouge">Engine</code> implements <code class="language-plaintext highlighter-rouge">Deref</code> and <code class="language-plaintext highlighter-rouge">DerefMut</code> to <code class="language-plaintext highlighter-rouge">Lexer</code>.</li>
+</ol>
+
+<p>The generation of the if-then-else code block is not defined in this document, but can be observed by:</p>
+
+<ol>
+  <li>Inspecting the current code in Scala.</li>
+  <li>Printing the Java code generated by current Scala Flexer implementation.</li>
+  <li>Talking with @wdanilo about it.</li>
+</ol>
+
+<h2 id="2-macro-resolution-token-stream---chunked-ast-stream-incl-spaec-unaware-ast">2. Macro Resolution (Token Stream -&gt; Chunked AST Stream incl spaec-unaware AST)</h2>
+
+<p>To be described in detail taking into consideration all current use cases. For the current documentation of macro resolution, take a look here: https://github.com/luna/enso/blob/main/lib/syntax/specialization/shared/src/main/scala/org/enso/syntax/text/Parser.scala</p>
+
+<p>Before implementing this step, we need to talk about handling of space-unaware AST (the AST produced by user-macros).</p>
+
+<h2 id="3-operator-resolution-chunked-ast-stream---chunked-ast-stream-with-opr-apps">3. Operator Resolution (Chunked AST Stream -&gt; Chunked AST Stream with Opr Apps)</h2>
+
+<p>Using modified <a href="https://en.wikipedia.org/wiki/Shunting-yard_algorithm">Shunting-yard algorithm</a>. The algorithm is modified to support sections. The Scala implementation is here: https://github.com/luna/enso/blob/main/lib/syntax/definition/src/main/scala/org/enso/syntax/text/prec/Operator.scala . Unfortunatelly, we cannot use recursion in Rust, so it needs to be re-worked.</p>
+
+<h2 id="4-finalization-and-special-rules-discovery-chunked-ast-stream-with-opr-apps---ast">4. Finalization and Special Rules Discovery (Chunked AST Stream with Opr Apps -&gt; AST)</h2>
+
+<p>To be described in detail taking into consideration all current use cases.</p>
+
 
                         
                         
-                        <a href="https://github.com/luna/enso/blob/master/docs/parser/README.md">Open this doc on GitHub</a>
+                        <a href="https://github.com/luna/enso/blob/master/docs/parser/parser.md">Open this doc on GitHub</a>
                         
                     </section>
                 </div>
@@ -875,7 +979,7 @@ search.start();
     </div>
 </div>
 
-                    <a href="/docsparserREADME.md" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation docsparserREADME.md">
+                    <a href="/docsparserparser.md" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation docsparserparser.md">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -968,7 +1072,7 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "docs/parser/README.md",
+        "path": "docs/parser/parser.md",
         "mtime": "",
         "type": "markdown"
     },
