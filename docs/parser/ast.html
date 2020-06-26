@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Parser Driver · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>AST · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -34,7 +34,7 @@
         
 
         
-            <link rel="next" href="/docs/parser/reader.html" />
+            <link rel="next" href="/docs/parser/jvm-object-generation.html" />
         
     </head>
     <body>
@@ -189,20 +189,6 @@ search.start();
             
             
             
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/parser/parser.html">
-                    
-                        <a href="/docs/parser/parser.html">
-                            
-                                parser.md
-                            
-                        </a>
-                    </li>
-                
             
             
             
@@ -515,6 +501,40 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/operator-resolution.html">
+                    
+                        <a href="/docs/parser/operator-resolution.html">
+                            
+                                Operator Resolution
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/construct-resolution.html">
                     
@@ -524,10 +544,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -571,23 +587,15 @@ search.start();
             
             
                 
-            
-            
-            
-                
                     
                     <li class="chapter active" data-level="1.2" data-path="/docs/parser/ast.html">
                     
                         <a href="/docs/parser/ast.html">
                             
-                                Parser Driver
+                                AST
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -614,6 +622,14 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -659,22 +675,6 @@ search.start();
                 
             
             
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
 
             
         
@@ -687,7 +687,7 @@ search.start();
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >Parser Driver</a>
+                <a href="." >AST</a>
             
         </h1>
     </div>
@@ -696,11 +696,48 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <h1 id="parser-driver">Parser Driver</h1>
+                        <h1 id="ast">AST</h1>
+<p>The parser AST describes the high-level syntactic structure of Enso, as well as
+containing robust and descriptive parser errors directly in the AST.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
+<ul>
+  <li><a href="#functionality">Functionality</a></li>
+</ul>
+
 <!-- /MarkdownTOC -->
+
+<h2 id="functionality">Functionality</h2>
+<p>The parser AST needs to account for the following:</p>
+
+<ul>
+  <li>A single <code class="language-plaintext highlighter-rouge">Name</code> type, removing the distinction between different names found
+in the <a href="/docs/parser/lexer.html">lexer</a>. This should provide functions <code class="language-plaintext highlighter-rouge">is_var</code>, <code class="language-plaintext highlighter-rouge">is_opr</code>,
+and <code class="language-plaintext highlighter-rouge">is_ref</code>.</li>
+  <li>It should contain all of the language constructs that may appear in Enso’s
+source.</li>
+  <li>It should contain <code class="language-plaintext highlighter-rouge">Invalid</code> nodes, but these should be given a descriptive
+error as to <em>why</em> the construct is invalid.</li>
+  <li>It should also contain <code class="language-plaintext highlighter-rouge">Ambiguous</code> nodes, where a macro cannot be resolved in
+an unambiguous fashion.</li>
+</ul>
+
+<p>Each node should contain:</p>
+
+<ul>
+  <li>An identifier, attributed to it from the ID map.</li>
+  <li>The start source position of the node, and the length (span) of the node.</li>
+</ul>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Flesh out the design for the AST based on the requirements of the various
+parser phases.</li>
+  </ul>
+</blockquote>
 
                         
                         
@@ -842,7 +879,7 @@ search.start();
                 
 
                 
-                    <a href="/docs/parser/reader.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Reading Source Code">
+                    <a href="/docs/parser/jvm-object-generation.html" class="navigation navigation-next navigation-unique" aria-label="Next page: JVM Object Generation">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -935,7 +972,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-25 12:07:20 +0000"
+        "time": "2020-06-26 13:55:20 +0000"
     },
     "basePath": "",
     "book": {

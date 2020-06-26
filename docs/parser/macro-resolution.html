@@ -34,7 +34,7 @@
         
 
         
-            <link rel="next" href="/docs/parser/construct-resolution.html" />
+            <link rel="next" href="/docs/parser/operator-resolution.html" />
         
     </head>
     <body>
@@ -189,20 +189,6 @@ search.start();
             
             
             
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/parser/parser.html">
-                    
-                        <a href="/docs/parser/parser.html">
-                            
-                                parser.md
-                            
-                        </a>
-                    </li>
-                
             
             
             
@@ -515,6 +501,40 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/operator-resolution.html">
+                    
+                        <a href="/docs/parser/operator-resolution.html">
+                            
+                                Operator Resolution
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/construct-resolution.html">
                     
@@ -524,10 +544,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -571,23 +587,15 @@ search.start();
             
             
                 
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/ast.html">
                     
                         <a href="/docs/parser/ast.html">
                             
-                                Parser Driver
+                                AST
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -619,6 +627,14 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/reader.html">
                     
@@ -628,22 +644,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
                 
             
             
@@ -697,10 +697,54 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="macro-resolution">Macro Resolution</h1>
+<p>Macro resolution is the process of taking the structured token stream from the
+<a href="/docs/parser/lexer.html">lexer</a>, and resolving it into the <a href="/docs/parser/ast.html">ast</a> through the
+process of resolving macros. This process produces a chunked AST stream,
+including spacing-unaware elements.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
+<ul>
+  <li><a href="#functionality">Functionality</a></li>
+  <li><a href="#errors-during-macro-resolution">Errors During Macro Resolution</a></li>
+</ul>
+
 <!-- /MarkdownTOC -->
+
+<h2 id="functionality">Functionality</h2>
+<p>The current functionality of the macro resolver is as follows:</p>
+
+<ul>
+  <li>TBC</li>
+</ul>
+
+<p>The current overview of the macro resolution process can be found in the scala
+<a href="../../lib/syntax/specialization/shared/src/main/scala/org/enso/syntax/text/Parser.scala">implementation</a>.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Discuss how the space-unaware AST should be handled as it is produced by
+macros.</li>
+    <li>Handle precedence for operators properly within macro resolution (e.g.
+<code class="language-plaintext highlighter-rouge">x : a -&gt; b : a -&gt; c</code> should parse with the correct precedence).</li>
+    <li>Create a detailed design for how macro resolution should work.</li>
+  </ul>
+</blockquote>
+
+<h2 id="errors-during-macro-resolution">Errors During Macro Resolution</h2>
+<p>It is very important that, during macro resolution, the resolver produces
+descriptive errors for error conditions in the macro resolver.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Determine how best to provide detailed and specific errors from within the
+macro resolution engine.</li>
+  </ul>
+</blockquote>
 
                         
                         
@@ -842,7 +886,7 @@ search.start();
                 
 
                 
-                    <a href="/docs/parser/construct-resolution.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Construct Resolution">
+                    <a href="/docs/parser/operator-resolution.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Operator Resolution">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -935,7 +979,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-25 12:07:20 +0000"
+        "time": "2020-06-26 13:55:20 +0000"
     },
     "basePath": "",
     "book": {

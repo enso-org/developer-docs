@@ -194,20 +194,6 @@ search.start();
             
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/parser/parser.html">
-                    
-                        <a href="/docs/parser/parser.html">
-                            
-                                parser.md
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-                    
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/">
                     
                         <a href="/docs/parser/">
@@ -515,6 +501,40 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/operator-resolution.html">
+                    
+                        <a href="/docs/parser/operator-resolution.html">
+                            
+                                Operator Resolution
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/construct-resolution.html">
                     
@@ -524,10 +544,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -571,23 +587,15 @@ search.start();
             
             
                 
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/ast.html">
                     
                         <a href="/docs/parser/ast.html">
                             
-                                Parser Driver
+                                AST
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -619,6 +627,14 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/reader.html">
                     
@@ -628,22 +644,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
                 
             
             
@@ -697,10 +697,31 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="parser-driver">Parser Driver</h1>
+<p>The parser driver component is responsible for orchestrating the entire action
+of the parser. It handles the following duties:</p>
+
+<ol>
+  <li>Consuming input text using a provided <a href="/docs/parser/reader.html">reader</a> in a lazy
+fashion.</li>
+  <li>Lexing and then parsing the input text.</li>
+  <li>Writing the output AST to the client of the parser.</li>
+</ol>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
+<ul>
+  <li><a href="#driver-clients">Driver Clients</a></li>
+</ul>
+
 <!-- /MarkdownTOC -->
+
+<h2 id="driver-clients">Driver Clients</h2>
+<p>The parser is going to be employed in two contexts, both running in-process:</p>
+
+<ol>
+  <li>In the IDE codebase as a rust dependency.</li>
+  <li>In the engine as a native code dependency used via JNI.</li>
+</ol>
 
                         
                         
@@ -842,7 +863,7 @@ search.start();
                 
 
                 
-                    <a href="/docs/parser/ast.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Parser Driver">
+                    <a href="/docs/parser/ast.html" class="navigation navigation-next navigation-unique" aria-label="Next page: AST">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -935,7 +956,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-25 12:07:20 +0000"
+        "time": "2020-06-26 13:55:20 +0000"
     },
     "basePath": "",
     "book": {

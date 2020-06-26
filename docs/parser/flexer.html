@@ -194,20 +194,6 @@ search.start();
             
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/parser/parser.html">
-                    
-                        <a href="/docs/parser/parser.html">
-                            
-                                parser.md
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-                    
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/">
                     
                         <a href="/docs/parser/">
@@ -515,6 +501,40 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/operator-resolution.html">
+                    
+                        <a href="/docs/parser/operator-resolution.html">
+                            
+                                Operator Resolution
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/construct-resolution.html">
                     
@@ -524,10 +544,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -571,23 +587,15 @@ search.start();
             
             
                 
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/ast.html">
                     
                         <a href="/docs/parser/ast.html">
                             
-                                Parser Driver
+                                AST
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -619,6 +627,14 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/reader.html">
                     
@@ -628,22 +644,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
                 
             
             
@@ -697,10 +697,212 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="flexer">Flexer</h1>
+<p>The flexer is a finite-automata-based engine for generating lexers. Akin to
+<code class="language-plaintext highlighter-rouge">flex</code> and other lexer generators, it is given a definition as a series of rules
+from which it then generates code for a highly-optimised lexer.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
+<ul>
+  <li><a href="#pattern-description">Pattern Description</a></li>
+  <li><a href="#state-management">State Management</a></li>
+  <li><a href="#code-generation">Code Generation</a>
+    <ul>
+      <li><a href="#notes-on-code-generation">Notes on Code Generation</a></li>
+    </ul>
+  </li>
+  <li><a href="#an-example">An Example</a></li>
+</ul>
+
 <!-- /MarkdownTOC -->
+
+<h2 id="pattern-description">Pattern Description</h2>
+<p>The definition of a lexer using the flexer library consists of a set of rules
+for how to behave when matching portions of syntax. These rules behave as
+follows:</p>
+
+<ul>
+  <li>A rule describes a regex-like pattern.</li>
+  <li>It also describes the code to be executed when the pattern is matched.</li>
+</ul>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pub</span> <span class="k">fn</span> <span class="nf">lexer_definition</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="nb">String</span> <span class="p">{</span>
+    <span class="o">...</span>
+
+    <span class="k">let</span> <span class="n">chr</span> <span class="o">=</span> <span class="n">alphaNum</span> <span class="p">|</span> <span class="sc">'_'</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">blank</span> <span class="o">=</span> <span class="nn">Pattern</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="sc">'_'</span><span class="p">)</span>
+
+    <span class="n">lexer</span><span class="nf">.rule</span><span class="p">(</span><span class="n">lexer</span><span class="py">.root</span><span class="p">,</span><span class="n">blank</span><span class="p">,</span><span class="s">"self.on_ident(token::blank(self.start_location))"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>A pattern, such as <code class="language-plaintext highlighter-rouge">chr</code>, or <code class="language-plaintext highlighter-rouge">blank</code> is a description of the characters that
+should be matched for that pattern to match. The flexer library provides a set
+of basic matchers for doing this.</p>
+
+<p>A <code class="language-plaintext highlighter-rouge">lexer.rule(...)</code> definition consists of the following parts:</p>
+
+<ul>
+  <li>A state, used for grouping rules and named for debugging (see the section on
+<a href="#state-management">state management</a> below).</li>
+  <li>A pattern, as described above.</li>
+  <li>The code that is executed when the pattern matches.</li>
+</ul>
+
+<h2 id="state-management">State Management</h2>
+<p>States in the flexer engine provide a mechanism for grouping sets of rules
+together known as <code class="language-plaintext highlighter-rouge">State</code>. At any given time, only rules from the <em>active</em> state
+are considered by the lexer.</p>
+
+<ul>
+  <li>States are named for purposes of debugging.</li>
+  <li>You can activate another state from within the flexer instance by using
+<code class="language-plaintext highlighter-rouge">state.push(new_state)</code>.</li>
+  <li>You can deactivate the topmost state by using <code class="language-plaintext highlighter-rouge">state.pop()</code>.</li>
+</ul>
+
+<h2 id="code-generation">Code Generation</h2>
+<p>The patterns in a lexer definition are used to generate a highly-efficient and
+specialised lexer. This translation process works as follows:</p>
+
+<ol>
+  <li>All rules are taken and used to generate an NFA.</li>
+  <li>A DFA is generated from the NFA using the standard
+<a href="https://en.wikipedia.org/wiki/Powerset_construction">subset construction</a>
+algorithm, but with some additional optimisations that ensure the following
+properties hold:
+    <ul>
+      <li>Patterns are matched in the order that they are defined.</li>
+      <li>The associated code chunks are maintained properly.</li>
+      <li>Lexing is <code class="language-plaintext highlighter-rouge">O(n)</code>, where <code class="language-plaintext highlighter-rouge">n</code> is the size of the input.</li>
+    </ul>
+  </li>
+  <li>The DFA is used to generate the code for a lexer <code class="language-plaintext highlighter-rouge">Engine</code> struct, containing
+the <code class="language-plaintext highlighter-rouge">Lexer</code> definition.</li>
+</ol>
+
+<p>The <code class="language-plaintext highlighter-rouge">Engine</code> generated through this process contains a main loop that consumes
+the input stream character-by-character, evaluating a big switch generated from
+the DFA using functions from the <code class="language-plaintext highlighter-rouge">Lexer</code>.</p>
+
+<p>Lexing proceeds from top-to-bottom of the rules, and the first expression that
+<em>matches fully</em> is chosen. This differs from other common lexer generators, as
+they mostly choose the <em>longest</em> match instead. Once the pattern is matched, the
+associated code is executed and the process starts over again until the input
+stream has been consumed.</p>
+
+<h3 id="notes-on-code-generation">Notes on Code Generation</h3>
+<p>The following properties are likely to hold for the code generation machinery.</p>
+
+<ul>
+  <li>The vast majority of the code generated by the flexer is going to be the same
+for all lexers.</li>
+  <li>The primary generation is in <code class="language-plaintext highlighter-rouge">consume_next_character</code>, which takes a <code class="language-plaintext highlighter-rouge">Lexer</code>
+as an argument.</li>
+</ul>
+
+<h2 id="an-example">An Example</h2>
+<p>The following code provides a sketchy example of the intended API for the
+flexer code generation using the definition of a simple lexer.</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">use</span> <span class="nn">crate</span><span class="p">::</span><span class="nn">prelude</span><span class="p">::</span><span class="o">*</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="n">flexer</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">flexer</span><span class="p">::</span><span class="n">Flexer</span><span class="p">;</span>
+
+
+
+<span class="c">// =============</span>
+<span class="c">// === Token ===</span>
+<span class="c">// =============</span>
+
+<span class="k">pub</span> <span class="k">struct</span> <span class="n">Token</span> <span class="p">{</span>
+    <span class="n">location</span> <span class="p">:</span> <span class="nn">flexer</span><span class="p">::</span><span class="n">Location</span><span class="p">,</span>
+    <span class="n">ast</span>      <span class="p">:</span> <span class="n">TokenAst</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">enum</span> <span class="n">TokenAst</span> <span class="p">{</span>
+    <span class="nf">Var</span><span class="p">(</span><span class="n">ImString</span><span class="p">),</span>
+    <span class="nf">Cons</span><span class="p">(</span><span class="n">ImString</span><span class="p">),</span>
+    <span class="n">Blank</span><span class="p">,</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+
+<span class="k">impl</span> <span class="n">Token</span> <span class="p">{</span>
+    <span class="k">pub</span> <span class="k">fn</span> <span class="nf">new</span><span class="p">(</span><span class="n">location</span><span class="p">:</span><span class="n">Location</span><span class="p">,</span> <span class="n">ast</span><span class="p">:</span><span class="n">TokenAst</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Self</span> <span class="p">{</span>
+        <span class="n">Self</span> <span class="p">{</span><span class="n">location</span><span class="p">,</span><span class="n">ast</span><span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">pub</span> <span class="k">fn</span> <span class="nf">var</span><span class="p">(</span><span class="n">location</span><span class="p">:</span><span class="n">Location</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="k">impl</span> <span class="n">Into</span><span class="o">&lt;</span><span class="n">ImString</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Self</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="n">ast</span> <span class="o">=</span> <span class="nn">TokenAst</span><span class="p">::</span><span class="nf">Var</span><span class="p">(</span><span class="n">name</span><span class="nf">.into</span><span class="p">());</span>
+        <span class="nn">Self</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="n">location</span><span class="p">,</span><span class="n">ast</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="o">...</span>
+<span class="p">}</span>
+
+
+
+<span class="c">// =============</span>
+<span class="c">// === Lexer ===</span>
+<span class="c">// =============</span>
+
+<span class="nd">#[derive(Debug,Default)]</span>
+<span class="k">struct</span> <span class="n">Lexer</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span><span class="nn">Flexer</span><span class="p">::</span><span class="n">State</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="n">current</span> <span class="p">:</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="n">Token</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">tokens</span>  <span class="p">:</span> <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Token</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">state</span>   <span class="p">:</span> <span class="n">T</span>
+<span class="p">}</span>
+
+<span class="k">impl</span> <span class="n">Lexer</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="nf">on_ident</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">tok</span><span class="p">:</span><span class="n">Token</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="py">.current</span> <span class="o">=</span> <span class="nf">Some</span><span class="p">(</span><span class="n">tok</span><span class="p">);</span>
+        <span class="k">self</span><span class="py">.state</span><span class="nf">.push</span><span class="p">(</span><span class="k">self</span><span class="py">.ident_sfx_check</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">fn</span> <span class="nf">on_ident_err_sfx</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"OH NO!"</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">fn</span> <span class="nf">on_no_ident_err_sfx</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="n">current</span> <span class="o">=</span> <span class="nn">std</span><span class="p">::</span><span class="nn">mem</span><span class="p">::</span><span class="nf">take</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="py">.current</span><span class="p">)</span><span class="nf">.unwrap</span><span class="p">();</span>
+        <span class="k">self</span><span class="py">.tokens</span><span class="nf">.push_back</span><span class="p">(</span><span class="n">current</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">impl</span> <span class="nn">Flexer</span><span class="p">::</span><span class="n">Definition</span> <span class="n">Lexer</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="nf">state</span>     <span class="p">(</span><span class="o">&amp;</span>    <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="o">&amp;</span>    <span class="nn">flexer</span><span class="p">::</span><span class="n">State</span> <span class="p">{</span> <span class="o">&amp;</span>    <span class="k">self</span><span class="py">.state</span> <span class="p">}</span>
+    <span class="k">fn</span> <span class="nf">state_mut</span> <span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="nn">flexer</span><span class="p">::</span><span class="n">State</span> <span class="p">{</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="py">.state</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">pub</span> <span class="k">fn</span> <span class="nf">lexer_source_code</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="nb">String</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">lexer</span> <span class="o">=</span> <span class="nn">Flexer</span><span class="p">::</span><span class="o">&lt;</span><span class="n">Lexer</span><span class="o">&lt;</span><span class="mi">_</span><span class="o">&gt;&gt;</span><span class="p">::</span><span class="nf">new</span><span class="p">();</span>
+
+    <span class="k">let</span> <span class="n">chr</span>     <span class="o">=</span> <span class="n">alphaNum</span> <span class="p">|</span> <span class="sc">'_'</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">blank</span>   <span class="o">=</span> <span class="nn">Pattern</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="sc">'_'</span><span class="p">);</span>
+    <span class="k">let</span> <span class="n">body</span>    <span class="o">=</span> <span class="n">chr</span><span class="py">.many</span> <span class="o">&gt;&gt;</span> <span class="sc">'\''</span><span class="nf">.many</span><span class="p">();</span>
+    <span class="k">let</span> <span class="n">var</span>     <span class="o">=</span> <span class="n">lowerLetter</span> <span class="o">&gt;&gt;</span> <span class="n">body</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">cons</span>    <span class="o">=</span> <span class="n">upperLetter</span> <span class="o">&gt;&gt;</span> <span class="n">body</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">breaker</span> <span class="o">=</span> <span class="s">"^`!@#$%^&amp;*()-=+[]{}|;:&lt;&gt;,./ </span><span class="se">\t\r\n\\</span><span class="s">"</span><span class="p">;</span>
+
+    <span class="k">let</span> <span class="n">sfx_check</span> <span class="o">=</span> <span class="n">lexer</span><span class="nf">.add</span><span class="p">(</span><span class="nf">State</span><span class="p">(</span><span class="s">"Identifier Suffix Check"</span><span class="p">));</span>
+
+    <span class="n">lexer</span><span class="nf">.rule</span><span class="p">(</span><span class="n">lexer</span><span class="py">.root</span><span class="p">,</span><span class="n">var</span><span class="p">,</span><span class="s">"self.on_ident(Token::var(self.start_location,self.current_match()))"</span><span class="p">);</span>
+    <span class="n">lexer</span><span class="nf">.rule</span><span class="p">(</span><span class="n">lexer</span><span class="py">.root</span><span class="p">,</span><span class="n">cons</span><span class="p">,</span><span class="s">"self.on_ident(token::cons(self.start_location,self.current_match()))"</span><span class="p">);</span>
+    <span class="n">lexer</span><span class="nf">.rule</span><span class="p">(</span><span class="n">lexer</span><span class="py">.root</span><span class="p">,</span><span class="n">blank</span><span class="p">,</span><span class="s">"self.on_ident(token::blank(self.start_location))"</span><span class="p">);</span>
+    <span class="n">lexer</span><span class="nf">.rule</span><span class="p">(</span><span class="n">sfx_check</span><span class="p">,</span><span class="n">err_sfx</span><span class="p">,</span><span class="s">"self.on_ident_err_sfx()"</span><span class="p">);</span>
+    <span class="n">lexer</span><span class="nf">.rule</span><span class="p">(</span><span class="n">sfx_check</span><span class="p">,</span><span class="nn">Flexer</span><span class="p">::</span><span class="n">always</span><span class="p">,</span><span class="s">"self.on_no_ident_err_sfx()"</span><span class="p">);</span>
+    <span class="o">...</span>
+    <span class="n">lexer</span><span class="nf">.generate_specialized_code</span><span class="p">()</span> <span class="c">// This code needs to become a source file, probably via build.rs</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Some things to note:</p>
+
+<ul>
+  <li>The function definitions in <code class="language-plaintext highlighter-rouge">Lexer</code> take <code class="language-plaintext highlighter-rouge">self</code> as their first argument
+because <code class="language-plaintext highlighter-rouge">Engine</code> implements <code class="language-plaintext highlighter-rouge">Deref</code> and <code class="language-plaintext highlighter-rouge">DerefMut</code> to <code class="language-plaintext highlighter-rouge">Lexer</code>.</li>
+</ul>
 
                         
                         
@@ -935,7 +1137,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-25 12:07:20 +0000"
+        "time": "2020-06-26 13:55:20 +0000"
     },
     "basePath": "",
     "book": {

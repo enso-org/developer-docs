@@ -30,7 +30,7 @@
         
 
         
-            <link rel="prev" href="/docs/parser/macro-resolution.html" />
+            <link rel="prev" href="/docs/parser/operator-resolution.html" />
         
 
         
@@ -189,20 +189,6 @@ search.start();
             
             
             
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/parser/parser.html">
-                    
-                        <a href="/docs/parser/parser.html">
-                            
-                                parser.md
-                            
-                        </a>
-                    </li>
-                
             
             
             
@@ -515,6 +501,40 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/operator-resolution.html">
+                    
+                        <a href="/docs/parser/operator-resolution.html">
+                            
+                                Operator Resolution
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter active" data-level="1.2" data-path="/docs/parser/construct-resolution.html">
                     
@@ -524,10 +544,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -571,23 +587,15 @@ search.start();
             
             
                 
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/ast.html">
                     
                         <a href="/docs/parser/ast.html">
                             
-                                Parser Driver
+                                AST
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -619,6 +627,14 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/reader.html">
                     
@@ -628,22 +644,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
                 
             
             
@@ -697,10 +697,48 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="construct-resolution">Construct Resolution</h1>
+<p>Construct resolution is the process of turning the low-level AST format into the
+full high-level AST format that represents both all of Enso’s language
+constructs and contains rich error nodes.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
+<ul>
+  <li><a href="#syntax-errors">Syntax Errors</a></li>
+</ul>
+
 <!-- /MarkdownTOC -->
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Produce a detailed design for this resolution functionality, accounting for
+all known current use cases.</li>
+  </ul>
+</blockquote>
+
+<h2 id="syntax-errors">Syntax Errors</h2>
+<p>It is very important that Enso is able to provide descriptive and useful syntax
+errors to its users. Doing so requires that it has a full understanding of the
+language’s syntax, but also that it is designed in such a fashion that it will
+always succeed, regardless of any errors. Errors must be:</p>
+
+<ul>
+  <li>Highly descriptive, so that it is easy for the runtime to explain to the user
+what went wrong.</li>
+  <li>Highly localised, so that the scope of the error has as minimal an impact on
+parsing as possible.</li>
+</ul>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Determine how to design this parsing phase to obtain very accurate syntax
+errors.</li>
+  </ul>
+</blockquote>
 
                         
                         
@@ -836,7 +874,7 @@ search.start();
     </div>
 </div>
 
-                <a href="/docs/parser/macro-resolution.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Macro Resolution">
+                <a href="/docs/parser/operator-resolution.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Operator Resolution">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -935,7 +973,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-25 12:07:20 +0000"
+        "time": "2020-06-26 13:55:20 +0000"
     },
     "basePath": "",
     "book": {

@@ -194,20 +194,6 @@ search.start();
             
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/parser/parser.html">
-                    
-                        <a href="/docs/parser/parser.html">
-                            
-                                parser.md
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-                    
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/">
                     
                         <a href="/docs/parser/">
@@ -515,6 +501,40 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/operator-resolution.html">
+                    
+                        <a href="/docs/parser/operator-resolution.html">
+                            
+                                Operator Resolution
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/construct-resolution.html">
                     
@@ -524,10 +544,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -571,23 +587,15 @@ search.start();
             
             
                 
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/ast.html">
                     
                         <a href="/docs/parser/ast.html">
                             
-                                Parser Driver
+                                AST
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -619,6 +627,14 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/reader.html">
                     
@@ -628,22 +644,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
                 
             
             
@@ -698,25 +698,13 @@ search.start();
                     <section class="normal markdown-section">
                         <h1 id="parser-architecture-overview">Parser Architecture Overview</h1>
 <p>The Enso parser is designed in a highly modular fashion, with separate crates
-responsible for the component’s various responsibilities. The main components of
-the parser are described below.</p>
+responsible for the component’s various responsibilities. The overall
+architecture for the parser is described in this document.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
 <ul>
   <li><a href="#overall-architecture">Overall Architecture</a></li>
-  <li><a href="#reader">Reader</a></li>
-  <li><a href="#flexer">Flexer</a></li>
-  <li><a href="#lexer">Lexer</a></li>
-  <li><a href="#macro-resolution">Macro Resolution</a></li>
-  <li><a href="#operator-resolution">Operator Resolution</a></li>
-  <li><a href="#construct-resolution">Construct Resolution</a></li>
-  <li><a href="#parser-driver">Parser Driver</a>
-    <ul>
-      <li><a href="#ast">AST</a></li>
-    </ul>
-  </li>
-  <li><a href="#jvm-object-generation">JVM Object Generation</a></li>
 </ul>
 
 <!-- /MarkdownTOC -->
@@ -724,27 +712,62 @@ the parser are described below.</p>
 <h2 id="overall-architecture">Overall Architecture</h2>
 <p>The overall architecture of the parser subsystem can be visualised as follows.</p>
 
-<h2 id="reader">Reader</h2>
-
-<h2 id="flexer">Flexer</h2>
-
-<h2 id="lexer">Lexer</h2>
-
-<h2 id="macro-resolution">Macro Resolution</h2>
-
-<h2 id="operator-resolution">Operator Resolution</h2>
-
-<h2 id="construct-resolution">Construct Resolution</h2>
-
-<h2 id="parser-driver">Parser Driver</h2>
-
-<h3 id="ast">AST</h3>
-
-<h2 id="jvm-object-generation">JVM Object Generation</h2>
-
-<ul>
-  <li>Should wrap the parser as a whole into a new module, built for the engine</li>
-</ul>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                               ┌───────────────┐
+                               │  Source Code  │
+                               └───────────────┘
+                                       │
+                                       │
+                                       ▽
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ ┌──────────────┐                Parser                                  │
+  │ │ UTF-X Reader │                                                        │
+  │ └──────────────┘                                                        │
+  │         │                                                               │
+  │         │  Character                                                    │
+  │         │   Stream                                                      │
+  │         ▽                                                               │
+  │    ┌────────┐                                                           │
+  │    │ Lexer  │                                                           │
+  │    │┌──────┐│                                                           │
+  │    ││Flexer││                                                           │
+  │    │└──────┘│                                                           │
+  │    └────────┘                                                           │
+  │         │                                                               │
+  │         │  Structured                                                   │
+  │         │ Token Stream                                                  │
+  │         ▽                                                               │
+  │  ┌────────────┐              ┌────────────┐              ┌────────────┐ │
+  │  │            │              │            │              │            │ │
+  │  │   Macro    │   Rust AST   │  Operator  │   Rust AST   │ Construct  │ │
+  │  │ Resolution │─────────────▷│ Resolution │─────────────▷│ Resolution │ │
+  │  │            │              │            │              │            │ │
+  │  └────────────┘              └────────────┘              └────────────┘ │
+  │                                                                 │       │
+  │                                                        Rust AST │       │
+  │                                                                 ▽       │
+  │                                                          ┌────────────┐ │
+  │                                                          │ AST Output │ │
+  │                                                          └────────────┘ │
+  └─────────────────────────────────────────────────────────────────────────┘
+                                       │
+                       ┌───────────────┤ Rust AST
+                       ▽               │
+                ┌────────────┐         │
+                │            │         │
+                │ JVM Object │         └─────────────────┐
+                │ Generator  │                           │
+                │            │                           │
+                └────────────┘                           │
+                       │                                 │
+               JVM AST │                                 │
+                       ▽                                 ▽
+                ┌────────────┐                    ┌────────────┐
+                │            │                    │            │
+                │ Use in JVM │                    │ Direct Use │
+                │    Code    │                    │in Rust Code│
+                │            │                    │            │
+                └────────────┘                    └────────────┘
+</code></pre></div></div>
 
                         
                         
@@ -979,7 +1002,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-25 12:07:20 +0000"
+        "time": "2020-06-26 13:55:20 +0000"
     },
     "basePath": "",
     "book": {

@@ -30,7 +30,7 @@
         
 
         
-            <link rel="prev" href="/docs/parser/ast.html" />
+            <link rel="prev" href="/docs/parser/jvm-object-generation.html" />
         
 
         
@@ -187,20 +187,6 @@ search.start();
             
             
             
-            
-            
-            
-                
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/parser/parser.html">
-                    
-                        <a href="/docs/parser/parser.html">
-                            
-                                parser.md
-                            
-                        </a>
-                    </li>
-                
             
             
             
@@ -513,6 +499,40 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/parser/operator-resolution.html">
+                    
+                        <a href="/docs/parser/operator-resolution.html">
+                            
+                                Operator Resolution
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/construct-resolution.html">
                     
@@ -522,10 +542,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -569,23 +585,15 @@ search.start();
             
             
                 
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/parser/ast.html">
                     
                         <a href="/docs/parser/ast.html">
                             
-                                Parser Driver
+                                AST
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -617,6 +625,14 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter active" data-level="1.2" data-path="/docs/parser/reader.html">
                     
@@ -626,22 +642,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
                 
             
             
@@ -695,10 +695,47 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="reading-source-code">Reading Source Code</h1>
+<p>The reader is responsible for abstracting the interface to reading a character
+from a stream. This handles abstracting away the various encodings that the
+project is going to use, as well as backing formats for the stream.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
+<ul>
+  <li><a href="#reader-functionality">Reader Functionality</a></li>
+  <li><a href="#provided-readers">Provided Readers</a>
+    <ul>
+      <li><a href="#utf-8-reader">UTF-8 Reader</a></li>
+      <li><a href="#utf-16-reader">UTF-16 Reader</a></li>
+    </ul>
+  </li>
+</ul>
+
 <!-- /MarkdownTOC -->
+
+<h2 id="reader-functionality">Reader Functionality</h2>
+<p>The reader trait needs to have the following functionality:</p>
+
+<ul>
+  <li>It must read its input <em>lazily</em>, not requiring the entire input to be in
+memory.</li>
+  <li>It should provide the interface to <code class="language-plaintext highlighter-rouge">next_character</code>, returning rust-native
+UTF-8, and hence abstract away the various underlying encodings.</li>
+</ul>
+
+<h2 id="provided-readers">Provided Readers</h2>
+<p>The parser implementation currently provides the following reader utilities to
+clients.</p>
+
+<h3 id="utf-8-reader">UTF-8 Reader</h3>
+<p>Rust natively uses UTF-8 encoding for its strings. In order for the IDE to make
+use of the parser, it must provide a simple rust-native reader.</p>
+
+<h3 id="utf-16-reader">UTF-16 Reader</h3>
+<p>As the JVM as a platform makes use of UTF-16 for encoding its strings, we need
+to provide a reader that will let JVM clients of the parser provide the source
+code in a streaming fashion without needing to re-encode it prior to passing it
+to the parser.</p>
 
                         
                         
@@ -834,7 +871,7 @@ search.start();
     </div>
 </div>
 
-                <a href="/docs/parser/ast.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Parser Driver">
+                <a href="/docs/parser/jvm-object-generation.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: JVM Object Generation">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -929,7 +966,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-25 12:07:20 +0000"
+        "time": "2020-06-26 13:55:20 +0000"
     },
     "basePath": "",
     "book": {
