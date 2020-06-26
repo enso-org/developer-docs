@@ -684,7 +684,7 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#filereceivestreeupdates"><code class="language-plaintext highlighter-rouge">file/receivesTreeUpdates</code></a></li>
       <li><a href="#executioncontextcanmodify"><code class="language-plaintext highlighter-rouge">executionContext/canModify</code></a></li>
       <li><a href="#executioncontextreceivesupdates"><code class="language-plaintext highlighter-rouge">executionContext/receivesUpdates</code></a></li>
-      <li><a href="#receivessuggestionsdatabaseupdates"><code class="language-plaintext highlighter-rouge">search/receivesSuggestionsDatabaseUpdates</code></a></li>
+      <li><a href="#searchreceivessuggestionsdatabaseupdates"><code class="language-plaintext highlighter-rouge">search/receivesSuggestionsDatabaseUpdates</code></a></li>
     </ul>
   </li>
   <li><a href="#file-management-operations">File Management Operations</a>
@@ -816,6 +816,9 @@ protocol messages. These are specified here.</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">ContextId</span> <span class="o">=</span> <span class="nx">UUID</span><span class="p">;</span>
 </code></pre></div></div>
 
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">SuggestionEntryId</span> <span class="o">=</span> <span class="nx">number</span><span class="p">;</span>
+</code></pre></div></div>
+
 <h3 id="stackitem"><code class="language-plaintext highlighter-rouge">StackItem</code></h3>
 <p>A representation of an executable position in code, used by the execution APIs.</p>
 
@@ -886,139 +889,130 @@ substituted for the unambiguous singleton instance.</p>
 
 <h4 id="format">Format</h4>
 
-<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
-
-// The argument of an atom, method or function suggestion
-table SuggestionEntryArgument {
-  // The argument name
-  name: string (required);
-  // The arguement type. String 'Any' is used to specify genric types
-  type: string (required);
-  // Indicates whether the argument is lazy
-  isSuspended: bool (required);
-  // Indicates whether the argument has default value
-  hasDefault: bool (required);
-  // Optional default value
-  defaultValue: string;
-}
-</code></pre>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// The argument of an atom, method or function suggestion</span>
+<span class="kr">interface</span> <span class="nx">SuggestionEntryArgument</span> <span class="p">{</span>
+  <span class="c1">// The argument name</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="c1">// The arguement type. String 'Any' is used to specify genric types</span>
+  <span class="nl">type</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="c1">// Indicates whether the argument is lazy</span>
+  <span class="nl">isSuspended</span><span class="p">:</span> <span class="nx">bool</span><span class="p">;</span>
+  <span class="c1">// Indicates whether the argument has default value</span>
+  <span class="nl">hasDefault</span><span class="p">:</span> <span class="nx">bool</span><span class="p">;</span>
+  <span class="c1">// Optional default value</span>
+  <span class="nl">defaultValue</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <h3 id="suggestionentry"><code class="language-plaintext highlighter-rouge">SuggestionEntry</code></h3>
 <p>The language construct that can be returned as a suggestion.</p>
 
 <h4 id="format-1">Format</h4>
 
-<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// The definition scope</span>
+<span class="kr">interface</span> <span class="nx">SuggestionEntryScope</span> <span class="p">{</span>
 
-// A type of suggestion entries.
-union SuggestionEntry {
-  // A value constructor
-  SuggestionEntryAtom,
-  // A method defined on a type
-  SuggestionEntryMethod,
-  // A function
-  SuggestionEntryFunction,
-  // A local value
-  SuggestionEntryLocal
-}
+  <span class="c1">// The start of the definition scope</span>
+  <span class="nl">start</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="c1">// The end of the definition scope</span>
+  <span class="nl">end</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
 
-table SuggestionEntryAtom {
-  name: string (required);
-  arguments: [SuggestionEntryArgument] (required);
-  returnType: string (required);
-  documentation: string;
-}
+<span class="c1">// A type of suggestion entries.</span>
+<span class="nx">type</span> <span class="nx">SuggestionEntry</span>
+  <span class="c1">// A value constructor</span>
+  <span class="o">=</span> <span class="nx">SuggestionEntryAtom</span>
+  <span class="c1">// A method defined on a type</span>
+  <span class="o">|</span> <span class="nx">SuggestionEntryMethod</span>
+  <span class="c1">// A function</span>
+  <span class="o">|</span> <span class="nx">SuggestionEntryFunction</span>
+  <span class="c1">// A local value</span>
+  <span class="o">|</span> <span class="nx">SuggestionEntryLocal</span><span class="p">;</span>
+<span class="p">}</span>
 
-table SuggestionEntryMethod {
-  name: string (required);
-  arguments: [SuggestionEntryArgument] (required);
-  selfType: string (required);
-  returnType: string (required);
-  documentation: string;
-}
+<span class="kr">interface</span> <span class="nx">SuggestionEntryAtom</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">module</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">arguments</span><span class="p">:</span> <span class="p">[</span><span class="nx">SuggestionEntryArgument</span><span class="p">];</span>
+  <span class="nl">returnType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">documentation</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
 
-table SuggestionEntryFunction {
-  name: string (required);
-  arguments: [SuggestionEntryArgument] (required);
-  returnType: string (required);
-  documentation: string;
-}
+<span class="kr">interface</span> <span class="nx">SuggestionEntryMethod</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">module</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">arguments</span><span class="p">:</span> <span class="p">[</span><span class="nx">SuggestionEntryArgument</span><span class="p">];</span>
+  <span class="nl">selfType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">returnType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">documentation</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
 
-table SuggestionEntryLocal {
-  name: string (required);
-  returnType: string (required);
-}
-</code></pre>
+<span class="kr">interface</span> <span class="nx">SuggestionEntryFunction</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">module</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">arguments</span><span class="p">:</span> <span class="p">[</span><span class="nx">SuggestionEntryArgument</span><span class="p">];</span>
+  <span class="nl">returnType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">scope</span><span class="p">:</span> <span class="nx">SuggestionEntryScope</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">SuggestionEntryLocal</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">module</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">returnType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">scope</span><span class="p">:</span> <span class="nx">SuggestionEntryScope</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <h3 id="suggestionentrytype"><code class="language-plaintext highlighter-rouge">SuggestionEntryType</code></h3>
 <p>The suggestion entry type that is used as a filter in search requests.</p>
 
 <h4 id="format-2">Format</h4>
 
-<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
-
-// The kind of a suggestion.
-enum SuggestionEntryType : byte {
-  Atom,
-  Method,
-  Function,
-  Local
-}
-</code></pre>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// The kind of a suggestion.</span>
+<span class="nx">type</span> <span class="nx">SuggestionEntryType</span>
+  <span class="o">=</span> <span class="nx">Atom</span>
+  <span class="o">|</span> <span class="nx">Method</span>
+  <span class="o">|</span> <span class="nb">Function</span>
+  <span class="o">|</span> <span class="nx">Local</span><span class="p">;</span>
+</code></pre></div></div>
 
 <h3 id="suggestionsdatabaseentry"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseEntry</code></h3>
 <p>The entry in the suggestions database.</p>
 
 <h4 id="format-3">Format</h4>
 
-<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
-
-// The suggestions database entry.
-table SuggestionsDatabaseEntry {
-  // suggestion entry id;
-  id: int64 (required);
-  suggestion: Suggestion (required);
-}
-</code></pre>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// The suggestions database entry.</span>
+<span class="kr">interface</span> <span class="nx">SuggestionsDatabaseEntry</span> <span class="p">{</span>
+  <span class="c1">// suggestion entry id;</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">suggestion</span><span class="p">:</span> <span class="nx">Suggestion</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <h3 id="suggestionsdatabaseupdate"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseUpdate</code></h3>
 <p>The update of the suggestions database.</p>
 
 <h4 id="format-4">Format</h4>
 
-<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// The kind of the suggestions database update.</span>
+<span class="nx">type</span> <span class="nx">SuggestionsDatabaseUpdateKind</span>
+  <span class="o">=</span> <span class="nx">Add</span>
+  <span class="o">|</span> <span class="nx">Update</span>
+  <span class="o">|</span> <span class="nx">Delete</span>
 
-// The kind of the suggestions database update.
-union SuggestionsDatabaseUpdate {
-  // Create or replace the database entry
-  SuggestionsDatabaseUpdateInsert,
-  // Update the entry fields
-  SuggestionsDatabaseUpdateModify,
-  // Remove the database Entry
-  SuggestionsDatabaseUpdateRemove
-}
-
-table SuggestionsDatabaseUpdateInsert {
-  // suggestion entry id
-  id: int64 (required);
-  suggestion: SuggestionEntry (required);
-}
-
-table SuggestionsDatabaseUpdateModify {
-  // suggestion entry id
-  id: int64 (required);
-  name: string;
-  arguments: [SuggestionEntryArgument];
-  selfType: string;
-  returnType: string;
-  documentation: string;
-}
-
-table SuggestionsDatabaseUpdateRemove {
-  // suggestion entry id
-  id: int64 (required);
-}
-</code></pre>
+<span class="kr">interface</span> <span class="nx">SuggestionsDatabaseUpdate</span> <span class="p">{</span>
+  <span class="c1">// suggestion entry id</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">kind</span><span class="p">:</span> <span class="nx">SuggestionsDatabaseUpdateKind</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">module</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">arguments</span><span class="p">?:</span> <span class="p">[</span><span class="nx">SuggestionEntryArgument</span><span class="p">];</span>
+  <span class="nl">selfType</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">returnType</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">documentation</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">scope</span><span class="p">?:</span> <span class="nx">SuggestionEntryScope</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <h3 id="file"><code class="language-plaintext highlighter-rouge">File</code></h3>
 <p>A representation of a file on disk.</p>
@@ -1554,7 +1548,7 @@ a given execution context.</p>
 
 <ul>
   <li><strong>method:</strong> <code class="language-plaintext highlighter-rouge">search/receivesSuggestionsDatabaseUpdates</code></li>
-  <li><strong>registerOptions:</strong> <code class="language-plaintext highlighter-rouge">{ contextId: ContextId; }</code></li>
+  <li><strong>registerOptions:</strong> <code class="language-plaintext highlighter-rouge">{}</code></li>
 </ul>
 
 <h3 id="enables-4">Enables</h3>
@@ -3139,23 +3133,17 @@ a key-value storage with <a href="#suggestionentry"><code class="language-plaint
 </ul>
 
 <h4 id="parameters-43">Parameters</h4>
-<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
-
-table GetSuggestionsDatabaseCommand {
-  contextId: EnsoUUID (required);
-}
-</code></pre>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
 
 <h4 id="result-33">Result</h4>
-<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
-
-table GetSuggestionsDatabaseReply {
-  // The list of suggestions database entries
-  entries: [SuggestionsDatabaseEntry] (required);
-  // The version of received suggestions database
-  currentVersion: int64 (required);
-}
-</code></pre>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="c1">// The list of suggestions database entries</span>
+  <span class="nl">entries</span><span class="p">:</span> <span class="p">[</span><span class="nx">SuggestionsDatabaseEntry</span><span class="p">];</span>
+  <span class="c1">// The version of received suggestions database</span>
+  <span class="nl">currentVersion</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <h4 id="errors-44">Errors</h4>
 <p>TBC</p>
@@ -3172,21 +3160,15 @@ database.</p>
 </ul>
 
 <h4 id="parameters-44">Parameters</h4>
-<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
-
-table GetSuggestionsDatabaseVersionCommand {
-  contextId: EnsoUUID (required);
-}
-</code></pre>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+</code></pre></div></div>
 
 <h4 id="result-34">Result</h4>
-<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
-
-table GetSuggestionsDatabaseVersionReply {
-  // The version of the suggestions database
-  currentVersion: int64 (required);
-}
-</code></pre>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="c1">// The version of the suggestions database</span>
+  <span class="nl">currentVersion</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <h4 id="errors-45">Errors</h4>
 <p>TBC</p>
@@ -3204,17 +3186,11 @@ database.</p>
 
 <h4 id="parameters-45">Parameters</h4>
 
-<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
-
-table SuggestionsDatabaseUpdate {
-  // The context id
-  contextId: EnsoUUID (required);
-  // The list of database updates to apply
-  updates: [SuggestionsDatabaseUpdate] (required);
-  // The version of suggestions database after applying the updates
-  currentVersion: int64 (required);
-}
-</code></pre>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">updates</span><span class="p">:</span> <span class="p">[</span><span class="nx">SuggestionsDatabaseUpdate</span><span class="p">];</span>
+  <span class="nl">currentVersion</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <h4 id="errors-46">Errors</h4>
 <p>TBC</p>
@@ -3231,32 +3207,26 @@ table SuggestionsDatabaseUpdate {
 
 <h4 id="parameters-46">Parameters</h4>
 
-<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
-
-table SearchCompletionCommand {
-  // The context id
-  contextId: EnsoUUID (required);
-  // The edited file
-  file: Path (required);
-  // The cursor position
-  position: Position (required);
-  // Filter by methods with the provided self type
-  selfType: string;
-  // Filter by the return type
-  returnType: string;
-  // Filter by the suggestion types
-  tags: [SuggestionEntryType];
-}
-</code></pre>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="c1">// The edited file</span>
+  <span class="nl">file</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+  <span class="c1">// The cursor position</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nx">Position</span><span class="p">;</span>
+  <span class="c1">// Filter by methods with the provided self type</span>
+  <span class="nl">selfType</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="c1">// Filter by the return type</span>
+  <span class="nl">returnType</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="c1">// Filter by the suggestion types</span>
+  <span class="nl">tags</span><span class="p">?:</span> <span class="p">[</span><span class="nx">SuggestionEntryType</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <h4 id="result-35">Result</h4>
-<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
-
-table SearchCompletionReply {
-  results: [SuggestionEntryId] (required);
-  currentVersion: int64 (required);
-}
-</code></pre>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">results</span><span class="p">:</span> <span class="p">[</span><span class="nx">SuggestionEntryId</span><span class="p">];</span>
+  <span class="nl">currentVersion</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <h4 id="errors-47">Errors</h4>
 <p>TBC</p>
@@ -3869,7 +3839,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-26 13:55:20 +0000"
+        "time": "2020-06-26 16:53:34 +0000"
     },
     "basePath": "",
     "book": {
