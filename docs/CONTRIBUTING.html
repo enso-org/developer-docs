@@ -642,14 +642,23 @@ through community involvement can Enso be the best it can be! There are a whole
 host of ways to contribute, and every single one is appreciated. The major
 sections of this document are linked below:</p>
 
-<!-- MarkdownTOC levels="2" autolink="true" -->
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
 
 <ul>
   <li><a href="#the-contributor-license-agreement">The Contributor License Agreement</a></li>
   <li><a href="#issues">Issues</a></li>
   <li><a href="#feature-enhancements">Feature Enhancements</a></li>
   <li><a href="#bug-reports">Bug Reports</a></li>
-  <li><a href="#hacking-on-enso">Hacking on Enso</a></li>
+  <li><a href="#hacking-on-enso">Hacking on Enso</a>
+    <ul>
+      <li><a href="#design-documentation">Design Documentation</a></li>
+      <li><a href="#system-requirements">System Requirements</a></li>
+      <li><a href="#getting-the-sources">Getting the Sources</a></li>
+      <li><a href="#getting-set-up-rust">Getting Set Up (Rust)</a></li>
+      <li><a href="#building-enso">Building Enso</a></li>
+      <li><a href="#running-enso">Running Enso</a></li>
+    </ul>
+  </li>
   <li><a href="#pull-requests">Pull Requests</a></li>
   <li><a href="#documentation">Documentation</a></li>
   <li><a href="#issue-triage">Issue Triage</a></li>
@@ -751,6 +760,9 @@ the <a href="../build.sbt"><code class="language-plaintext highlighter-rouge">bu
 JVM.</li>
   <li><a href="https://google.github.io/flatbuffers">Flatbuffers Compiler</a> with version
 1.12.0.</li>
+  <li><a href="https://doc.rust-lang.org/cargo/getting-started/installation.html">Cargo</a>,
+the rust build tool.</li>
+  <li><a href="https://rustup.rs">Rustup</a>, the rust toolchain management utility.</li>
 </ul>
 
 <p>Managing multiple JVM installations can be a pain, so some of the team use
@@ -787,6 +799,19 @@ SSH Keys with GitHub).</li>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone git@github.com:enso-org/enso.git
 </code></pre></div></div>
+
+<h3 id="getting-set-up-rust">Getting Set Up (Rust)</h3>
+<p>This project currently requires a specific nightly rust toolchain, as well as a
+special set-up step in SBT. To get this project set up, you can run the
+following commands:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rustup toolchain <span class="nb">install </span>nightly-2019-11-04
+rustup override <span class="nb">set </span>nightly-2019-11-04
+rustup component add clippy
+</code></pre></div></div>
+
+<p>Please note that once the parser is integrated into the SBT build, the
+rust-related commands will be automatically performed for you.</p>
 
 <h3 id="building-enso">Building Enso</h3>
 <p>There are multiple projects in this repository, but all can be built, run and
@@ -1358,7 +1383,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-26 16:53:34 +0000"
+        "time": "2020-06-29 17:25:32 +0000"
     },
     "basePath": "",
     "book": {
