@@ -656,7 +656,7 @@ GraalVM. You can get the Community Edition pre-built distributions from
 It is important to run Enso with exactly the version specified here. Given that
 Graal is still a relatively young project, even the minor version changes
 introduce breaking API changes. The current version of GraalVM required for
-Enso is <code class="language-plaintext highlighter-rouge">20.1.0</code>, and it must be the Java 8 build.</p>
+Enso is <code class="language-plaintext highlighter-rouge">20.1.0</code>, and it must be the Java 11 build.</p>
 
 <p>Before running the Enso packages, make sure that the <code class="language-plaintext highlighter-rouge">JAVA_HOME</code> environment
 variable points to the correct home location of the Graal distribution.</p>
@@ -687,8 +687,8 @@ the Graal distribution. Make sure you’re running Enso with the correct
 version of GraalVM. You can verify the version of JDK used by running
 <code class="language-plaintext highlighter-rouge">bin/enso --version</code>. Take note of the version displayed in the <code class="language-plaintext highlighter-rouge">Running on</code>
 section. It should be similar to:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Running on: OpenJDK 64-Bit Server VM GraalVM CE 20.1.0, JDK 1.8.0_252-b09
-            Mac OS X 10.15.3 (x86_64)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Running on: OpenJDK 64-Bit Server VM, GraalVM Community, JDK 11.0.7+10-jvmci-20.1-b02
+            Linux 4.15.0-106-generic (amd64)
 </code></pre></div>    </div>
     <p>It could also be caused by not using the launcher scripts and trying to run
 the component <code class="language-plaintext highlighter-rouge">.jar</code> files via <code class="language-plaintext highlighter-rouge">java -jar</code> without setting the necessary
@@ -925,7 +925,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-06-29 17:25:32 +0000"
+        "time": "2020-07-01 11:22:08 +0000"
     },
     "basePath": "",
     "book": {
