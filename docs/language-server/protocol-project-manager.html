@@ -649,6 +649,7 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#projectclose"><code class="language-plaintext highlighter-rouge">project/close</code></a></li>
       <li><a href="#projectlist"><code class="language-plaintext highlighter-rouge">project/list</code></a></li>
       <li><a href="#projectcreate"><code class="language-plaintext highlighter-rouge">project/create</code></a></li>
+      <li><a href="#projectrename"><code class="language-plaintext highlighter-rouge">project/rename</code></a></li>
       <li><a href="#projectdelete"><code class="language-plaintext highlighter-rouge">project/delete</code></a></li>
       <li><a href="#projectlistsample"><code class="language-plaintext highlighter-rouge">project/listSample</code></a></li>
     </ul>
@@ -830,8 +831,8 @@ underlying data store.</li>
 already exists.</li>
 </ul>
 
-<h3 id="projectdelete"><code class="language-plaintext highlighter-rouge">project/delete</code></h3>
-<p>This message requests the deletion of a project.</p>
+<h3 id="projectrename"><code class="language-plaintext highlighter-rouge">project/rename</code></h3>
+<p>This message requests the renaming of a project.</p>
 
 <ul>
   <li><strong>Type:</strong> Request</li>
@@ -842,17 +843,54 @@ already exists.</li>
 
 <h4 id="parameters-4">Parameters</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectDeleteRequest</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectRenameRequest</span> <span class="p">{</span>
   <span class="nl">projectId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
 <h4 id="result-4">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{}</span>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>null
 </code></pre></div></div>
 
 <h4 id="errors-4">Errors</h4>
+<ul>
+  <li><a href="#projectnamevalidationerror"><code class="language-plaintext highlighter-rouge">ProjectNameValidationError</code></a> to signal
+validation failures.</li>
+  <li><a href="#projectdatastoreerror"><code class="language-plaintext highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
+underlying data store.</li>
+  <li><a href="#projectexistserror"><code class="language-plaintext highlighter-rouge">ProjectExistsError</code></a> to signal that the project with
+the provided name already exists.</li>
+  <li><a href="#serviceerror"><code class="language-plaintext highlighter-rouge">ServiceError</code></a> to signal that the 
+the operation timed out.</li>
+  <li><a href="#languageservererror"><code class="language-plaintext highlighter-rouge">LanguageServerError</code></a> to signal generic language
+server failures.</li>
+</ul>
+
+<h3 id="projectdelete"><code class="language-plaintext highlighter-rouge">project/delete</code></h3>
+<p>This message requests the deletion of a project.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-5">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectDeleteRequest</span> <span class="p">{</span>
+  <span class="nl">projectId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-5">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{}</span>
+</code></pre></div></div>
+
+<h4 id="errors-5">Errors</h4>
 <ul>
   <li><a href="#projectdatastoreerror"><code class="language-plaintext highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
 underlying data store.</li>
@@ -872,21 +910,21 @@ the project cannot be removed, because is open by at least one user.</li>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-5">Parameters</h4>
+<h4 id="parameters-6">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectListSampleRequest</span> <span class="p">{</span>
   <span class="nl">numProjects</span><span class="p">:</span> <span class="nx">Int</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-5">Result</h4>
+<h4 id="result-6">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectListSampleResponse</span> <span class="p">{</span>
   <span class="nl">projects</span><span class="p">:</span> <span class="p">[</span><span class="nx">ProjectMetadata</span><span class="p">];</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-5">Errors</h4>
+<h4 id="errors-6">Errors</h4>
 <p>TBC</p>
 
 <h2 id="language-server-management">Language Server Management</h2>
@@ -903,7 +941,7 @@ relationship is going to work.</li>
   </ul>
 </blockquote>
 
-<h2 id="errors-6">Errors</h2>
+<h2 id="errors-7">Errors</h2>
 <p>The project manager component has its own set of errors. This section is not a
 complete specification and will be updated as new errors are added.</p>
 
@@ -952,15 +990,6 @@ complete specification and will be updated as new errors are added.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h3 id="projectcloseerror"><code class="language-plaintext highlighter-rouge">ProjectCloseError</code></h3>
-<p>Signals failures during shutdown of a server.</p>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
-  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4009</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">A shutdown failure.</span><span class="dl">"</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
 <h3 id="projectnotopenerror"><code class="language-plaintext highlighter-rouge">ProjectNotOpenError</code></h3>
 <p>Signals that cannot close project that is not open.</p>
 
@@ -985,6 +1014,24 @@ complete specification and will be updated as new errors are added.</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
   <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4008</span><span class="p">,</span>
   <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Cannot remove open project</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="projectcloseerror"><code class="language-plaintext highlighter-rouge">ProjectCloseError</code></h3>
+<p>Signals failures during shutdown of a server.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4009</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">A shutdown failure.</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="languageservererror"><code class="language-plaintext highlighter-rouge">LanguageServerError</code></h3>
+<p>Signals generic language server errors.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4010</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">The language server is unresponsive</span><span class="dl">"</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -1221,7 +1268,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-01 11:22:08 +0000"
+        "time": "2020-07-01 13:56:49 +0000"
     },
     "basePath": "",
     "book": {
