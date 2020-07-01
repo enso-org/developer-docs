@@ -651,6 +651,11 @@ that help with this process.</p>
 <h3 id="testing">Testing</h3>
 <p>All tests are passing.</p>
 
+<p>To make sure <code class="language-plaintext highlighter-rouge">runtime</code> tests can be run both with <code class="language-plaintext highlighter-rouge">test</code> and <code class="language-plaintext highlighter-rouge">testOnly</code>,
+<code class="language-plaintext highlighter-rouge">--upgrade-module-path=&lt;path-to-truffle-api.jar&gt;</code> has to be added to
+<code class="language-plaintext highlighter-rouge">javaOptions</code>. It is important to note that the tests may be ran in a working
+directory different than the project root, so an absolute path should be used.</p>
+
 <h3 id="benchmarks">Benchmarks</h3>
 <p>Initially there were some regressions found in the benchmarks, but further
 investigation revealed this was caused by some issues in the methodology of how
@@ -939,7 +944,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-01 14:27:48 +0000"
+        "time": "2020-07-01 15:48:56 +0000"
     },
     "basePath": "",
     "book": {
