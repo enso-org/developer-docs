@@ -30,7 +30,7 @@
         
 
         
-            <link rel="prev" href="/docs/ide" />
+            <link rel="prev" href="/docs/ide/contributing" />
         
 
         
@@ -175,8 +175,8 @@ search.start();
             
         
             
-            <li class="chapter" data-level="1.1" data-path="/docs/ide ">
-                    <a href="/docs/ide">
+            <li class="chapter" data-level="1.1" data-path="/docs/ide/contributing ">
+                    <a href="/docs/ide/contributing">
                         Go back
                     </a>
                 </li>
@@ -191,16 +191,12 @@ search.start();
             
             
                 
-            
-            
-            
-                
                     
-                    <li class="chapter active" data-level="1.2" data-path="/docs/ide/shortcuts.html">
+                    <li class="chapter active" data-level="1.2" data-path="/docs/ide/contributing/process.html">
                     
-                        <a href="/docs/ide/shortcuts.html">
+                        <a href="/docs/ide/contributing/process.html">
                             
-                                shortcuts.md
+                                process.md
                             
                         </a>
                     </li>
@@ -210,9 +206,9 @@ search.start();
             
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/ide/style-guide.html">
+                    <li class="chapter" data-level="1.1" data-path="/docs/ide/contributing/style-guide.html">
                     
-                        <a href="/docs/ide/style-guide.html">
+                        <a href="/docs/ide/contributing/style-guide.html">
                             
                                 style-guide.md
                             
@@ -223,15 +219,31 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/ide/visualizations.html">
+                    <li class="chapter" data-level="1.1" data-path="/docs/ide/contributing/">
                     
-                        <a href="/docs/ide/visualizations.html">
+                        <a href="/docs/ide/contributing/">
                             
-                                visualizations.md
+                                README.md
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -628,110 +640,27 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <h3 id="graph-editor">Graph Editor</h3>
+                        <h1 id="enso-ide-team-process">Enso IDE Team Process</h1>
 
-<h4 id="navigation">Navigation</h4>
+<p>This document specify our core team workflow, described as a lifecycle of a task:</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Shortcut</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><kbd>Ctrl+Enter</kbd></td>
-      <td>Enter the last selected node.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h4 id="node-selection">Node Selection</h4>
-
-<table>
-  <thead>
-    <tr>
-      <th>Shortcut</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><kbd>LMB</kbd> click node name</td>
-      <td>Deselect all nodes. Select the target node.</td>
-    </tr>
-    <tr>
-      <td><kbd>LMB</kbd> click background</td>
-      <td>Deselect all nodes.</td>
-    </tr>
-    <tr>
-      <td><kbd>LMB</kbd> drag background</td>
-      <td>Deselect all nodes. Select nodes using selection-box.</td>
-    </tr>
-    <tr>
-      <td><kbd>cmd</kbd> / <kbd>ctrl</kbd> + <kbd>LMB</kbd> click node name</td>
-      <td>Add or remove node from the selection group.</td>
-    </tr>
-    <tr>
-      <td><kbd>cmd</kbd> / <kbd>ctrl</kbd> + <kbd>LMB</kbd> click node name</td>
-      <td>Add or remove node from the selection group.</td>
-    </tr>
-    <tr>
-      <td><kbd>cmd</kbd> / <kbd>ctrl</kbd> + <kbd>LMB</kbd> drag background</td>
-      <td>Add nodes to the selection group.</td>
-    </tr>
-    <tr>
-      <td><kbd>shift</kbd> + <kbd>LMB</kbd> click node name</td>
-      <td>Add node to the selection group.</td>
-    </tr>
-    <tr>
-      <td><kbd>shift</kbd> + <kbd>LMB</kbd> drag background</td>
-      <td>Add nodes to the selection group.</td>
-    </tr>
-    <tr>
-      <td><kbd>option</kbd> + <kbd>LMB</kbd> click node name</td>
-      <td>Remove node from the selection group.</td>
-    </tr>
-    <tr>
-      <td><kbd>option</kbd> + <kbd>LMB</kbd> drag background</td>
-      <td>Remove nodes from the selection group.</td>
-    </tr>
-    <tr>
-      <td><kbd>option</kbd> + <kbd>shift</kbd> + <kbd>LMB</kbd> click node name</td>
-      <td>Inverse node selection.</td>
-    </tr>
-    <tr>
-      <td><kbd>option</kbd> + <kbd>shift</kbd> + <kbd>LMB</kbd> drag background</td>
-      <td>Inverse nodes selection.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="node-dragging">Node dragging</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>Shortcut</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>LMB drag non-selected node name</td>
-      <td>Move the node to new position.</td>
-    </tr>
-    <tr>
-      <td>LMB drag selected node name</td>
-      <td>Move all selected nodes the node to new positions.</td>
-    </tr>
-  </tbody>
-</table>
+<ul>
+  <li>A newly created task should be appropriately described, but not estimated yet - it will be during
+ Backlog Refinement meeting. The task is put in “New Tasks” column.</li>
+  <li>At the beginning of the sprint team leads put to the “To Refine” column all tasks which will be 
+ refined during the next Backlog refinement.</li>
+  <li>Each team member should read the descriptions of tasks in “To Refine” column and ask questions
+ and raise all concerns. All the conversation should be recorded in the issue’s comments.</li>
+  <li>During Backlog Refinement we confirm that the task description is clear and estimate it. The
+ estimate is expressed in work days of one person, and should include the review process. The task 
+ is then moved to the “Backlog” column. If it turns out that there is no agreement about the task’s
+ scope and estimation, it may be postponed to the next Backlog Refinement.</li>
+  <li>During Planning meeting the team decides which tasks are took into next sprint and assign them.</li>
+</ul>
 
                         
                         
-                        <a href="https://github.com/luna/enso/blob/master/docs/ide/shortcuts.md">Open this doc on GitHub</a>
+                        <a href="https://github.com/luna/enso/blob/master/docs/ide/contributing/process.md">Open this doc on GitHub</a>
                         
                     </section>
                 </div>
@@ -863,7 +792,7 @@ search.start();
     </div>
 </div>
 
-                    <a href="/docsideshortcuts.md" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation docsideshortcuts.md">
+                    <a href="/docsidecontributingprocess.md" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation docsidecontributingprocess.md">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -952,13 +881,13 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "docs/ide/shortcuts.md",
+        "path": "docs/ide/contributing/process.md",
         "mtime": "",
         "type": "markdown"
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-02 11:37:13 +0000"
+        "time": "2020-07-02 11:40:51 +0000"
     },
     "basePath": "",
     "book": {

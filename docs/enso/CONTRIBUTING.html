@@ -257,6 +257,18 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/">
                     
@@ -900,9 +912,6 @@ a vanilla GraalVM distribution. To run it, use:</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">JAVA_HOME</span><span class="o">=</span>&lt;PATH_TO_GRAAL_HOME&gt; ./enso.jar &lt;CLI_ARGS&gt;
 </code></pre></div></div>
 
-<p>If you decide not to use the default launcher script, make sure to pass
-the <code class="language-plaintext highlighter-rouge">-XX:-UseJVMCIClassLoader</code> option to the <code class="language-plaintext highlighter-rouge">java</code> command.</p>
-
 <h4 id="installing-the-jupyter-kernel">Installing the Jupyter kernel</h4>
 <p>Enso has a highly experimental and not-actively-maintained Jupyer Kernel.
 To run it:</p>
@@ -1085,7 +1094,7 @@ is 8080.</li>
 
 <p>To run the Language Server on 127.0.0.1:8080 type:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-jar</span> enso.jar <span class="se">\</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./enso.jar <span class="se">\</span>
   <span class="nt">--server</span> <span class="se">\</span>
   <span class="nt">--root-id</span> 3256d10d-45be-45b1-9ea4-7912ef4226b1 <span class="se">\</span>
   <span class="nt">--path</span> /tmp/content-root
@@ -1424,7 +1433,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-02 11:37:13 +0000"
+        "time": "2020-07-02 11:40:51 +0000"
     },
     "basePath": "",
     "book": {
