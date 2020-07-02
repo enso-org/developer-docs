@@ -1,8 +1,8 @@
 [submodule "_submodules/enso"]
 	path = _submodules/enso
-	url = https://github.com/luna/enso
+	url = https://github.com/enso-org/enso
 	branch = main
 [submodule "_submodules/ide"]
 	path = _submodules/ide
-	url = git@github.com:enso-org/ide.git
+	url = https://github.com/enso-org/ide
 	branch = main
