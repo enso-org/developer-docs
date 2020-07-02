@@ -1,0 +1,1651 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>The Enso Protocol · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/gitbook/style.css">
+<link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
+<!-- <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css"> -->
+
+<link rel="stylesheet" href="/gitbook/rouge-highlight-colorful.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
+        
+
+        
+        
+
+
+        
+        
+        
+
+        
+        
+        
+
+        
+            <link rel="prev" href="/docs/enso/language-server/" />
+        
+
+        
+            <link rel="next" href="/docs/enso/language-server/protocol-common.html" />
+        
+    </head>
+    <body>
+        
+        <div class="book"><div class="book-summary">
+    <div id="search-searchbar">
+    </div>
+    <div class="post-list" id="search-hits">
+        
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+var search = instantsearch({
+  appId: '3PBI3MMCBE',
+  apiKey: '55d673c313b717b7386df8c9418588d4',
+  indexName: 'jekyll',
+  searchFunction(helper) {
+    var container = document.querySelector('#search-hits');
+    container.style.display = helper.state.query === '' ? 'none' : '';
+
+    helper.search();
+  }
+});
+
+var hitTemplate = function(hit) {
+  let date = '';
+  if (hit.date) {
+    date = moment.unix(hit.date).format('MMM D, YYYY');
+  }
+
+  let url = `${hit.url}#${hit.anchor}`;
+
+  var title = hit._highlightResult.title.value;
+
+  var content = hit._highlightResult.html.value;
+
+  return `
+    <li class="post-item chapter">
+      <a href="${url}" class="post-link">${title}</a>
+      <div class="post-snippet">${content}</div>
+    </li>
+  `;
+}
+
+
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-searchbar',
+    placeholder: 'Search the docs',
+    poweredBy: true // This is required if you're on the free Community plan
+  })
+);
+
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '#search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+search.start();
+</script>
+
+<style>
+.ais-search-box {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.post-item {
+  margin-bottom: 30px;
+}
+.post-link .ais-Highlight {
+  color: #111;
+  font-style: normal;
+  text-decoration: underline;
+}
+.post-breadcrumbs {
+  color: #424242;
+  display: block;
+}
+.post-breadcrumb {
+  font-size: 18px;
+  color: #424242;
+}
+.post-breadcrumb .ais-Highlight {
+  font-weight: bold;
+  font-style: normal;
+}
+.post-snippet .ais-Highlight {
+  color: #2a7ae2;
+  font-style: normal;
+  font-weight: bold;
+}
+.post-snippet img {
+  display: none;
+}
+
+.post-list {
+    list-style:none;
+    margin:0;
+    padding: 10px 15px;
+    -webkit-transition:top .5s ease;
+    -moz-transition:top .5s ease;
+    -o-transition:top .5s ease;
+    transition:top .5s ease
+}
+
+#search-hits::after {
+    content: '';
+    display: block;
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: rgba(0,0,0,.07);
+}
+</style>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="/">
+            
+                <a href="/">
+                    Home
+                </a>
+            </li>
+
+            <li class="divider"></li>
+
+            
+            
+            
+
+            
+            
+        
+            
+            <li class="chapter" data-level="1.1" data-path="/docs/enso/language-server ">
+                    <a href="/docs/enso/language-server">
+                        Go back
+                    </a>
+                </li>
+                <li class="divider"></li>
+            
+                
+            
+            
+            
+            
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/language-server/">
+                    
+                        <a href="/docs/enso/language-server/">
+                            
+                                Language Server
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/enso/language-server/protocol-architecture.html">
+                    
+                        <a href="/docs/enso/language-server/protocol-architecture.html">
+                            
+                                The Enso Protocol
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/language-server/protocol-common.html">
+                    
+                        <a href="/docs/enso/language-server/protocol-common.html">
+                            
+                                Enso Protocol Common Message Specification
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/language-server/protocol-project-manager.html">
+                    
+                        <a href="/docs/enso/language-server/protocol-project-manager.html">
+                            
+                                Enso Protocol Project Manager Message Specification
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/language-server/protocol-language-server.html">
+                    
+                        <a href="/docs/enso/language-server/protocol-language-server.html">
+                            
+                                Enso Protocol Language Server Message Specification
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+
+            
+        
+        </ul>
+    </nav>
+</div>
+<div class="book-body"><div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            
+                <a href="." >The Enso Protocol</a>
+            
+        </h1>
+    </div>
+    <div class="page-wrapper" tabindex="-1" role="main">
+        <div class="page-inner">
+            <div id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+                        <h1 id="the-enso-protocol">The Enso Protocol</h1>
+<p>Enso is a sophisticated language, but in order to provide a great user
+experience to our users we also need the ability to provide great tooling. This
+tooling means a language server, but it also means a set of extra peripheral
+components that ensure we can run Enso in a way that the product requires.</p>
+
+<p>These services are responsible for providing the whole-host of language- and
+project-level tooling to the IDE components, whether they’re hosted in the cloud
+or locally on a user’s machine.</p>
+
+<p>This document contains the architectural and functional specification of the
+Enso protocol.</p>
+
+<p>For a detailed specification of all of the messages that make up the protocol,
+please see <a href="/docs/enso/language-server/">the protocol message specifications</a>.</p>
+
+<!-- MarkdownTOC levels="2,3,4" autolink="true" -->
+
+<ul>
+  <li><a href="#architecture">Architecture</a>
+    <ul>
+      <li><a href="#the-project-manager">The Project Manager</a></li>
+      <li><a href="#language-server">Language Server</a></li>
+    </ul>
+  </li>
+  <li><a href="#textual-protocol">Textual Protocol</a>
+    <ul>
+      <li><a href="#textual-protocol-communication-patterns">Textual Protocol Communication Patterns</a></li>
+      <li><a href="#textual-protocol-transport">Textual Protocol Transport</a></li>
+      <li><a href="#the-protocol-format">The Protocol Format</a></li>
+    </ul>
+  </li>
+  <li><a href="#textual-protocol-functionality">Textual Protocol Functionality</a>
+    <ul>
+      <li><a href="#textual-diff-management">Textual Diff Management</a></li>
+      <li><a href="#handling-multiple-clients">Handling Multiple Clients</a></li>
+      <li><a href="#project-state-management">Project State Management</a></li>
+      <li><a href="#file-management-and-storage">File Management and Storage</a></li>
+      <li><a href="#execution-management">Execution Management</a>
+        <ul>
+          <li><a href="#caching">Caching</a></li>
+          <li><a href="#progress-reporting">Progress Reporting</a></li>
+        </ul>
+      </li>
+      <li><a href="#completion">Completion</a></li>
+      <li><a href="#analysis-operations">Analysis Operations</a></li>
+      <li><a href="#functionality-post-20">Functionality Post 2.0</a></li>
+    </ul>
+  </li>
+  <li><a href="#binary-protocol">Binary Protocol</a>
+    <ul>
+      <li><a href="#binary-protocol-communication-patterns">Binary Protocol Communication Patterns</a></li>
+      <li><a href="#binary-protocol-transport">Binary Protocol Transport</a></li>
+    </ul>
+  </li>
+  <li><a href="#binary-protocol-functionality">Binary Protocol Functionality</a>
+    <ul>
+      <li><a href="#displaying-visualisations">Displaying Visualisations</a></li>
+    </ul>
+  </li>
+  <li><a href="#service-connection-setup">Service Connection Setup</a></li>
+  <li><a href="#service-connection-teardown">Service Connection Teardown</a></li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="architecture">Architecture</h2>
+<p>The divisions of responsibility between the backend engine services are dictated
+purely by necessity. As multi-client editing necessitates careful
+synchronisation and conflict resolution, between the actions of multiple
+clients. This section deals with the intended architecture for the Engine
+Services.</p>
+
+<p>The engine services are divided into two main components:</p>
+
+<ol>
+  <li><strong>The Project Manager:</strong> This component is responsible for listing and
+managing user projects, as well as spawning the language server for a given
+project when it is opened.</li>
+  <li><strong>The Language Server:</strong> This component is responsible for dealing with
+incoming connections and resolving conflicts between multiple clients. It is
+also responsible for servicing all of the requests from the clients.</li>
+</ol>
+
+<p>Both components will be implemented as akka actors such that we can defer the
+decision as to run them in different processes until the requirements become
+more clear.</p>
+
+<h3 id="the-project-manager">The Project Manager</h3>
+<p>The project manager service is responsible for both allowing users to work with
+their projects but also the setup and teardown of the language server itself.
+Its responsibilities can be summarised as follows:</p>
+
+<ul>
+  <li>Allowing users to manage their projects.</li>
+  <li>Starting up the language server for a given project upon user selection.</li>
+  <li>Notifying the language server of a pending shutdown on project exit to allow
+it to persist any state that it needs to disk.</li>
+</ul>
+
+<h3 id="language-server">Language Server</h3>
+<p>The language server is responsible for managing incoming connections and
+communicating with the clients, as well as resolving any potential conflicts
+between the clients. It is responsible for the following:</p>
+
+<ul>
+  <li>Negotiating and accepting connections from multiple clients.</li>
+  <li>Resolving conflicts between messages from multiple clients.</li>
+  <li>Optimising incoming requests wherever possible.</li>
+</ul>
+
+<p>It is also responsible for actually servicing all of the incoming requests,
+which includes but isn’t limited to:</p>
+
+<ul>
+  <li><strong>Completion Information:</strong> It should be able to provide a set of candidate
+completions for a given location in the code.</li>
+  <li><strong>Introspection Information:</strong> It should be able to provide introspection
+information from the running interpreter, which consists primarily of types
+and values.</li>
+  <li><strong>Textual Diff Management:</strong> It needs to be able to accept and publish diffs
+of the program source code. As part of this, it needs to keep the node
+metadata up to date.</li>
+  <li><strong>Analysis Operations:</strong> It should be able to service various IDE-style
+analysis requests (e.g. jump-to-definition or find usages)</li>
+  <li><strong>Arbitrary Code Execution:</strong> It should be able to execute arbitrary Enso code
+on values in scope.</li>
+  <li><strong>Refactoring:</strong> Common refactoring operations for Enso programs, including
+renaming, code formatting, and so on.</li>
+  <li><strong>IO Management:</strong> Though this is arguably a feature of the runtime rather
+than the language server itself, this refers to the ability to watch files and
+monitor IO in order to recompute minimal subsets of the program.</li>
+</ul>
+
+<p>It should be noted that the language server <em>explicitly does not</em> talk using
+LSP. The component is solely responsible for <em>servicing</em> requests, instead of
+dealing with the minutiae of connection negotiation and request handling.</p>
+
+<p>Additionally, it is <em>very important</em> to note that the language server <em>must not</em>
+depend directly on the runtime (as a compile-time dependency). This would
+introduce significant coupling between the runtime implementation and the
+language server. Instead, the LS should only depend on <code class="language-plaintext highlighter-rouge">org.graalvm.polyglot</code> to
+interface with the runtime.</p>
+
+<h2 id="textual-protocol">Textual Protocol</h2>
+<p>The protocol refers to the communication format that all of the above services
+speak between each other and to the GUI. This protocol is not specialised only
+to language server operations, as instead it needs to work for all of the
+various services in this set.</p>
+
+<p>The protocol we are using intends to be fully compatible with the Microsoft LSP
+<a href="https://microsoft.github.io/language-server-protocol/specifications/specification-3-145">specification</a>
+(version 3.15). In essence, we will operate as follows:</p>
+
+<ul>
+  <li>Where our use case matches with a function provided by LSP, we will use the
+specified LSP message (e.g. completions).</li>
+  <li>Where our use-case does not match a message provided by LSP, we will use the
+following process:
+    <ol>
+      <li>If we can implement this on top of one of LSP’s extensible mechanisms (e.g.
+commands) we will do so.</li>
+      <li>If this is not possible, we will specify an <em>extension</em> to the protocol.
+This extension will be well-specified within this document, and should be
+in the spirit of the existing protocol. If relevant, we may propose it as
+a future extension to the specification.</li>
+    </ol>
+  </li>
+</ul>
+
+<p>Aside from the language server protocol-based operations, we will definitely
+need a protocol extension to support Enso’s custom language functionality.</p>
+
+<h3 id="textual-protocol-communication-patterns">Textual Protocol Communication Patterns</h3>
+<p>Whatever protocol we decide on will need to have support for a couple of main
+communication patterns:</p>
+
+<ul>
+  <li><strong>Pub/Sub:</strong> A standard publisher/subscriber model, the server will need to be
+able to support this kind of connection to deal with events that do not occur
+strictly in response to client actions (e.g. updates to observed values).</li>
+  <li><strong>Req/Res:</strong> A standard request/response model, the server will need to be
+able to support this kind of connection to deal with one-off requests from
+the client, and potentially to make requests to the client (e.g. list modules
+in the current project, please refresh your file state).</li>
+</ul>
+
+<p>There are also certain messages that follow the request/response model but where
+the responses are trivial acknowledgements. For simplicity’s sake these are
+currently subsumed by the generic request-response model.</p>
+
+<p>As we have decided to remain compatible with LSP, we can use any communication
+pattern that we desire, either by employing existing LSP messages, or writing
+our own protocol extensions. Both of the above-listed patterns are supported by
+LSP.</p>
+
+<p>We can support additional patterns through LSP’s mechanisms:</p>
+
+<ul>
+  <li>Asynchronous responses can be sent as notifications.</li>
+  <li>Protocol-level acknowledgements is supported directly in LSP.</li>
+</ul>
+
+<h3 id="textual-protocol-transport">Textual Protocol Transport</h3>
+<p>The transport of the protocol refers to the underlying layer over which its
+messages (discussed in <a href="#the-protocol-format">the protocol format</a> below) are
+sent. As we are maintaining compatibility with LSP, the protocol transport
+format is already defined for us.</p>
+
+<ul>
+  <li>Textual messages are sent using
+<a href="https://en.wikipedia.org/wiki/JSON-RPC">JSON-RPC</a> over a WebSocket connection
+(as defined in the LSP spec).</li>
+  <li>As a protocol extension we also negotiate a secondary binary WebSocket
+connection for sending visualisation data. This transport is independent of
+the LSP spec, and hence is defined entirely by us.</li>
+</ul>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Determine the details for the binary WebSocket, including how we want to
+encode messages and pointers into the stream, as well as how we set it up
+and tear it down.</li>
+  </ul>
+</blockquote>
+
+<h3 id="the-protocol-format">The Protocol Format</h3>
+<p>Protocol messages are defined by LSP. Any extensions to the messages defined in
+the standard should use similar patterns such that they are not incongruous with
+LSP messages. The following notes apply:</p>
+
+<ul>
+  <li>Textual messages should be sent as LSP messages or extensions to them.</li>
+  <li>We have a hybrid extension to the protocol to allow us to send binary data
+(for visualisations) over a second WebSocket connection.</li>
+</ul>
+
+<p>This means that we have two pipes: one is the textual WebSocket defined by LSP,
+and the other is a binary WebSocket.</p>
+
+<h2 id="textual-protocol-functionality">Textual Protocol Functionality</h2>
+<p>This entire section deals with the <em>functional</em> requirements placed upon the
+protocol used by the engine services. These requirements are overwhelmingly
+imposed by the IDE, but also include additional functionality for the future
+evolution of the language.</p>
+
+<p>All of the following pieces of functionality that are explained in detail are
+those <em>expected</em> for the 2.0 release. Any additional functionality beyond this
+milestone is described in a <a href="#functionality-post-20">dedicated section</a>.</p>
+
+<h3 id="textual-diff-management">Textual Diff Management</h3>
+<p>The engine services need to support robust handling of textual diffs. This is
+simply because it is the primary form of communication for synchronising source
+code between the IDE and the engine. It will need to support the following
+operations:</p>
+
+<ul>
+  <li>Synchronisation requests to ensure that the engine and IDE have the same view
+of the files in the project.</li>
+  <li>Diff update requests, that send a textual diff between client and server (or
+vice versa).</li>
+</ul>
+
+<p>Both of these are supported natively within the LSP, and we will be using those
+messages to implement this.</p>
+
+<p>It should be noted that we <em>explicitly</em> do not intend to handle updates to node
+metadata within the language server.</p>
+
+<ul>
+  <li>These updates should be sent as part of each diff the client provides (as a
+separate segment in the <code class="language-plaintext highlighter-rouge">didChange</code> message).</li>
+  <li>We may support this <em>in the future</em>, but we do not for now.</li>
+</ul>
+
+<p>We place the following requirements upon the implementation of this:</p>
+
+<ul>
+  <li>We must be able to handle diffs of <em>any size</em>, even though we prefer that the
+client sends us minimal diffs. We do not know what <em>all</em> clients will do, and
+hence to remain compatible we must handle all diffs.</li>
+  <li>Diffs may require some AST-based or semantic minimisation in order to assist
+in the compiler’s incremental pipeline.</li>
+  <li>The gateway must handle diffs from multiple clients properly.</li>
+</ul>
+
+<p>The implementation is as follows:</p>
+
+<ul>
+  <li>Support for the LSP messages <code class="language-plaintext highlighter-rouge">didOpen</code>, <code class="language-plaintext highlighter-rouge">didChange</code>, <code class="language-plaintext highlighter-rouge">willSaveWaitUntil</code>,
+<code class="language-plaintext highlighter-rouge">didSave</code>, <code class="language-plaintext highlighter-rouge">didClose</code>, and support for informing the runtime on each of these.</li>
+  <li>It must track which files are currently open in the editor.</li>
+  <li>The language server and runtime should watch the project folder in order to
+track updates as necessary.</li>
+</ul>
+
+<h3 id="handling-multiple-clients">Handling Multiple Clients</h3>
+<p>Multiple-client support will be implemented while remaining compatible with the
+LSP specification.</p>
+
+<ul>
+  <li>In the initial implementation, we will work on the principle of ‘write lock’,
+where only one of the multiple connected clients has the ability to write to
+the file.</li>
+  <li>In the future we will work on true conflict resolution of edits, mediated by
+the language server.</li>
+</ul>
+
+<p>It will work as follows:</p>
+
+<ul>
+  <li>We will use as much of the LSP initialisation and connection flow as possible
+to connect additional clients. The extensions should be minimal and should
+<em>not</em> break compatibility with LSP.</li>
+  <li>We will extend the protocol (or use extension mechanisms) to implement
+write-lock negotiation. The first client to connect is granted write-lock, but
+this may be changed later via negotiation.</li>
+  <li>If any client sends a <code class="language-plaintext highlighter-rouge">didChange</code> message without holding the write lock, it
+should receive an <code class="language-plaintext highlighter-rouge">applyEdit</code> message that reverts the change, as well as a
+notification of the error.</li>
+  <li>The language server / gateway is responsible for synchronising state with new
+clients as they connect. As part of initialisation it should receive client
+state, and then <code class="language-plaintext highlighter-rouge">applyEdit</code> to synchronise views of the code.</li>
+</ul>
+
+<h3 id="project-state-management">Project State Management</h3>
+<p>One of the most important functionalities for this service set is the ability to
+manage the state of a project in general. The project state refers to the whole
+set of the project files and metadata and needs to support the following
+functionalities:</p>
+
+<ul>
+  <li>Get project metadata (name, maintainer, version, dependencies, and so on)</li>
+  <li>Change requests for the above</li>
+</ul>
+
+<p>All file-based operations in the project can be handled by the editor directly,
+or the language server (when doing refactoring operations), and as such need no
+support in this section of the protocol.</p>
+
+<p>At the current time, the language server has a 1:1 correspondence with a
+project. In the future, however, we may want to add LSP support for multiple
+projects in a single engine, as this would allow users to work with multiple
+related projects in a single instance of the IDE.</p>
+
+<h3 id="file-management-and-storage">File Management and Storage</h3>
+<p>The nature of LSP means that file management and storage is <em>not</em> handled by the
+language server, and is instead handled by the editor. The protocol makes a
+distinction between:</p>
+
+<ul>
+  <li><strong>Open Files:</strong> These are the ones currently open in the editor, and are
+‘owned’ by the editor. The language server has to work with an in-memory
+representation for these files.</li>
+  <li><strong>Closed Files:</strong> These are the ones not open in the editor, and can be
+accessed and modified <em>directly</em> by the language server.</li>
+</ul>
+
+<p>The language server must have <em>direct</em> access to the project directory on the
+machine where it is running (either the local machine or in the Enso cloud), and
+file operations between the IDE and that machine are handled <em>indepdendently</em> of
+the language server.</p>
+
+<h3 id="execution-management">Execution Management</h3>
+<p>The language server process will need to be able to respond to requests for
+various kinds of execution of Enso code. Furthermore, it needs to be able to
+respond to requests to ‘listen’ to the execution of various portions of code.
+This implies that the following functionalities are needed:</p>
+
+<ul>
+  <li>Execution of a function with provided arguments.</li>
+  <li>Execution of a function from a given call site (stack position and code
+position).</li>
+  <li>Attach an execution listener to an arbitrary code span.</li>
+  <li>Detach an execution listener by ID.</li>
+  <li>Implement heartbeat messages for execution listeners. If a heartbeat response
+isn’t received before some time-out, the language server should detach the
+listener.</li>
+  <li>Force cache invalidation for arbitrary code spans.</li>
+  <li>Attach an automatic execution request.</li>
+  <li>Detach an automatic execution request.</li>
+  <li>Redirect <code class="language-plaintext highlighter-rouge">stdout</code>/<code class="language-plaintext highlighter-rouge">stdin</code>/<code class="language-plaintext highlighter-rouge">stderr</code> to and from the IDE.</li>
+</ul>
+
+<p>All of these functionalities will need to take the form of custom extensions to
+the LSP, as they do not fit well into any of the available extension points. To
+that end, these extensions should fit well with the LSP.</p>
+
+<p>A subscription (execution listener) is applied to an arbitrary span of code at a
+given position in the call stack.</p>
+
+<ul>
+  <li>A subscription may encompass multiple nodes or a single node. Information is
+received for <em>all</em> nodes covered by the provided span.</li>
+  <li>A subscription will ensure that the client receives information on changes in:
+    <ul>
+      <li>Execution state (whether the node is being computed or is cached)</li>
+      <li>Profiling information</li>
+      <li>Values</li>
+      <li>Types</li>
+      <li>Where we are in the call stack (useful for recursive execution)</li>
+    </ul>
+  </li>
+  <li>Such subscriptions <em>must</em> be accompanied by heartbeat messages in order to
+allow the language server to cull unused subscriptions.</li>
+  <li>Additionally, it will be important for each subscription to be able to
+configure a <em>rate limit</em>, such that the update messages do not overwhelm the
+client. If unspecified this should be set to a sensible default.</li>
+</ul>
+
+<h4 id="caching">Caching</h4>
+<p>One of the most important elements of execution management for the language
+server is the ability to control and interact with the execution cache state in
+the runtime.</p>
+
+<ul>
+  <li>This cache stores intermediate values, and every value can be in one of three
+states: invalid, valid but evicted, and valid but present.</li>
+  <li>The cache works based on dependencies between data, such that if <code class="language-plaintext highlighter-rouge">foo</code> is used
+by <code class="language-plaintext highlighter-rouge">bar</code>, then changing <code class="language-plaintext highlighter-rouge">foo</code> must recompute <code class="language-plaintext highlighter-rouge">bar</code>.</li>
+</ul>
+
+<p>The cache eviction strategy is one that will need to evolve. This comes down to
+the simple fact that we do not yet have the tools to implement sophisticated
+strategies, but we need to be correct.</p>
+
+<ul>
+  <li>In the initial version we will invalidate <em>all</em> call sites for a given method
+name when a name is changed. Internally this is implemented as the
+invalidation of all occurrences of a dynamic symbol by name, while ignoring
+the type it was defined on.</li>
+  <li>We also need to account for dependencies between data such that if there is a
+dependency <code class="language-plaintext highlighter-rouge">b =&gt; a</code>, then a change to <code class="language-plaintext highlighter-rouge">a</code> must invalidate the cache result of
+<code class="language-plaintext highlighter-rouge">b</code>.</li>
+  <li>In future, the typechecker will be able to help constrain the set of evicted
+methods by exploiting dependencies between values and types with more
+information.</li>
+  <li>There may also be non-obvious data dependencies that can be exploited to make
+better cache-eviction decisions.</li>
+</ul>
+
+<h4 id="progress-reporting">Progress Reporting</h4>
+<p>In the future it will be desirable for long running computations to provide
+real-time progress information (e.g. for training a neural network it would be
+great to know which epoch is running).</p>
+
+<ul>
+  <li>This could be achieved by a special kind of Monadic context (similar to
+writer, but mutable buffer based).</li>
+  <li>This would allow the function to log values without needing to return.</li>
+  <li>These would be sent as visualisations for use in the IDE.</li>
+</ul>
+
+<p>LSP provides an inbuilt mechanism for reporting progress, but that will not work
+with visualisations. As a result that should be reserved for reporting progress
+of long-running operations within the <em>language server</em> rather than in user
+code.</p>
+
+<h3 id="completion">Completion</h3>
+<p>The IDE needs the ability to request completions for some target point (cursor
+position) in the source code. In essence, this boils down to <em>some</em> kind of
+smart completion. The completion should provide the following:</p>
+
+<ul>
+  <li>Sensible suggestions at the cursor position, ranked by relevance.</li>
+  <li>Local variables, where relevant.</li>
+  <li>Suggestions for symbols that would make sense (e.g. by type) but are not
+imported. To support this, selection of such a symbol will trigger the
+automatic addition of the relevant import on the language server.</li>
+  <li>Searching in tags and documentation. This metadata-based search functionality
+should be used to refine suggestions and help suggest functionality relevant
+to user tasks.</li>
+  <li>Browsing the symbol hierarchy. The user should be able to click through
+modules to browse the various symbols contained within.</li>
+  <li>Import Completion for when a user has typed <code class="language-plaintext highlighter-rouge">import</code> and hits <code class="language-plaintext highlighter-rouge">&lt;tab&gt;</code>. This
+feature should suggest libraries that are available, along with provide their
+top-level documentation to give users an idea of what they can be used for.</li>
+</ul>
+
+<p>Hints should be gathered by the runtime in an un-ranked fashion based upon the
+above criteria. This will involve combining knowledge from both the compiler and
+the interpreter to deliver a sensible set of hints.</p>
+
+<ul>
+  <li>Hints should be scored on a type match. For example, if we have a type <code class="language-plaintext highlighter-rouge">5</code>,
+<code class="language-plaintext highlighter-rouge">foo : 5 -&gt; String</code> scores higher than <code class="language-plaintext highlighter-rouge">bar : Nat -&gt; Dynamic</code>, scores higher
+than <code class="language-plaintext highlighter-rouge">baz : Any -&gt; Any</code>. This should be done by heuristics initially, and
+later by querying the typechecker for subsumption relationships (the notion of
+specificity discussed in the types design document).</li>
+  <li>Information contained in the <code class="language-plaintext highlighter-rouge">tags</code> section of the documentation should also
+be used to rank candidates.</li>
+  <li>Please note that this ranking algorithm will be required to get more complex
+in the future, so please design it for extensibility <em>and</em> high performance.</li>
+  <li>Local variables should rank higher than global symbols.</li>
+</ul>
+
+<p>From an implementation perspective, the following notes apply:</p>
+
+<ul>
+  <li>This will be implemented on top of the <code class="language-plaintext highlighter-rouge">completion</code> and <code class="language-plaintext highlighter-rouge">completionResolve</code>
+messages provided by the LSP spec.</li>
+  <li>We will extend these messages with an <em>optional</em> field that specifies the type
+being queried upon. This is a stop-gap solution until inference can determine
+the type.</li>
+  <li>The request does <em>not</em> contain the query string, as text matching is handled
+by the IDE. The language server only handles candidate completions.</li>
+  <li>We should determine if there are any sensible ways in which this process can
+be optimised, as we have the potential to return very large completion sets.
+It is probably worth waiting to see if this is necessary before implementing
+any optimisations here.</li>
+</ul>
+
+<h3 id="analysis-operations">Analysis Operations</h3>
+<p>We also want to be able to support a useful set of semantic analysis operations
+to help users navigate their code. As these rely on knowledge of the language
+semantics, they must be explicitly supported by the language server:</p>
+
+<ul>
+  <li><strong>List Symbols in Scope:</strong> The scope should be specified by a code span.</li>
+  <li><strong>Insert Import for Symbol:</strong> This should use an <code class="language-plaintext highlighter-rouge">applyEdit</code> message to ask
+the IDE to insert an import for the symbol specified in the request. If the
+file is closed, then the edit should be made directly, as the LSP specifies.</li>
+</ul>
+
+<h3 id="functionality-post-20">Functionality Post 2.0</h3>
+<p>In addition to the functionality discussed in detail above, there are further
+augmentations that could sensibly be made to the Engine services to support a
+much better editing and user-experience for Enso. These are listed briefly below
+and will be expanded upon as necessary in the future.</p>
+
+<ul>
+  <li><strong>Refactoring Operations:</strong> As all of these operations rely on a semantic
+analysis of the source program, they must be performed by the language server.
+These should include (but may not be limited to) the renaming, moving,
+extraction and inlining of entities. In future this could be expanded to
+include refactoring hints a la IntelliJ.</li>
+  <li><strong>Arbitrary Visualisation Code:</strong> Visualisations should be able to be defined
+using Enso code and will require additional support.</li>
+  <li><strong>IO Manager:</strong> The ability to do sophisticated IO monitoring, such as
+watching for file changes, in order to support minimal re-execution of
+analysis pipelines.</li>
+  <li><strong>Enhanced Type-Manipulation:</strong> Get fits for holes, case splitting, insert
+type, refine type, solve type, and so on. Inspiration for these operations can
+be taken from programs that provide for interactive type-driven development.</li>
+  <li><strong>REPL:</strong> Protocol messages to support a REPL-style of interactive
+development. This should include, at a minimum, the ability to execute
+arbitrary code statements in a REPL, but could be enhanced by the ability to
+execute code from the editor in the REPL, and send changes back from the REPL
+to the file.</li>
+  <li><strong>Debugging:</strong>: The user should be able to place break-points, and easily
+inspect values during execution of a program. This debugging functionality
+should allow for hot-reloading of code, changing of values within a live
+program, and various other debugger functionality (step over, step in, step
+out, continue, etc). Future debugger functionality should be based on the
+standard <a href="https://microsoft.github.io/debug-adapter-protocol/specification">debug adapter protocol</a>.</li>
+  <li><strong>Profiling Information:</strong> Profiling information for the executing code, able
+to be displayed visually in Enso Studio.</li>
+  <li><strong>Code Formatting:</strong> Automatic formatting of Enso code using the One True
+Style ™.</li>
+  <li><strong>Server-Side Metadata Management:</strong> The lack of node metadata management in
+the language server currently means that any language client other than Enso
+Studio is guaranteed to corrupt the node metadata when editing Enso code. This
+will reset the node layout and can be quite annoying.</li>
+  <li><strong>True Multi-Client Support:</strong> The initial release will only support multiple
+connected clients through the use of a write lock. This is not a great user
+experience, and in future we should instead use proper conflict resolution for
+true collaborative editing. This will use a combination of <code class="language-plaintext highlighter-rouge">didChange</code> and
+<code class="language-plaintext highlighter-rouge">applyEdit</code> messages to reconcile all clients’ views of the files. This is
+also why <code class="language-plaintext highlighter-rouge">willSaveWaitUntil</code> is important, as it can ensure that no client
+editor saves until it has the authority to do so (all changes are reconciled).</li>
+  <li><strong>Enhanced Semantic Analysis:</strong> Enhanced semantic analysis operations that
+rely on compiler analysis and typechecking. This includes things like “find
+usages”, “jump to definition” and “find symbol”, as these can greatly enhance
+a user’s development experience.</li>
+  <li><strong>LSP Spec Completeness:</strong> We should also support all LSP messages that are
+relevant to our language. Currently we only support a small subset thereof.</li>
+</ul>
+
+<h2 id="binary-protocol">Binary Protocol</h2>
+<p>The binary protocol refers to the auxiliary protocol used to transport raw
+binary data between the engine and the client. This functionality is <em>entirely</em>
+extraneous to the operation of the <a href="#textual-protocol">textual protocol</a>, and is
+used for transferring large amounts of data between Enso components.</p>
+
+<p>As the protocol is a binary transport, it is <em>mediated and controlled</em> by
+messages that exist as part of the textual protocol.</p>
+
+<p>In order to deserialize a family of messages and correlate responses with
+requests, each request/response/notification is wrapped in an envelope
+structure. There is a separate envelope for incoming and outgoing messages:</p>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+//A mapping between payload enum and inbound payload types.
+union InboundPayload {
+  INIT_SESSION_CMD: InitSessionCommand,
+  WRITE_FILE_CMD: WriteFileCommand,
+  READ_FILE_CMD: ReadFileCommand
+}
+
+//An envelope for inbound requests and commands.
+table InboundMessage {
+
+  //A unique id of the message sent to the server.
+  messageId: EnsoUUID (required);
+
+  //An optional correlation id used to correlate a response with a request.
+  correlationId: EnsoUUID;
+
+  //A message payload that carries requests sent by a client.
+  payload: InboundPayload (required);
+
+}
+</code></pre>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+//A mapping between payload enum and outbound payload types.
+union OutboundPayload {
+  ERROR: Error,
+  SUCCESS: Success,
+  VISUALISATION_UPDATE: VisualisationUpdate,
+  FILE_CONTENTS_REPLY: FileContentsReply
+}
+
+//An envelope for outbound responses.
+table OutboundMessage {
+
+  //A unique id of the message sent from the server.
+  messageId: EnsoUUID (required);
+
+  //An optional correlation id used to correlate a response with a request.
+  correlationId: EnsoUUID;
+
+  //A message payload that carries responses and notifications sent by a server
+  payload: OutboundPayload (required);
+
+}
+</code></pre>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+//This message type is used to indicate failure of some operation performed.
+table Error {
+
+  //A unique error code identifying error type.
+  code: int;
+
+  //An error message.
+  message: string;
+
+}
+
+//Indicates an operation has succeeded.
+table Success {}
+</code></pre>
+
+<h3 id="binary-protocol-communication-patterns">Binary Protocol Communication Patterns</h3>
+<p>The binary protocol currently only supports a single type of communication
+pattern:</p>
+
+<ul>
+  <li><strong>Push:</strong> Messages containing data are pushed in response to operations
+performed using the textual protocol.</li>
+</ul>
+
+<h3 id="binary-protocol-transport">Binary Protocol Transport</h3>
+<p>The binary protocol uses <a href="https://github.com/google/flatbuffers">flatbuffers</a>
+for the protocol transport format. This choice has been made for a few reasons:</p>
+
+<ul>
+  <li>Robust multi-language support, including Rust and Java on the JVM.</li>
+  <li>High performance, including support for zero-copy data handling and streaming
+data.</li>
+  <li>Robust, schema-based messages.</li>
+</ul>
+
+<h2 id="binary-protocol-functionality">Binary Protocol Functionality</h2>
+<p>The binary protocol exists in order to serve the high-bandwidth data transfer
+requirements of the engine and the GUI.</p>
+
+<h3 id="displaying-visualisations">Displaying Visualisations</h3>
+<p>A major part of Enso Studio’s functionality is the rich embedded visualisations
+that it supports. This means that the following functionality is necessary:</p>
+
+<ul>
+  <li>Execution of an arbitrary Enso expression on a cached value designated by
+a source location.</li>
+  <li>The ability to create and destroy visualisation subscriptions with an
+arbitrary piece of Enso code as the preprocessing function.</li>
+  <li>The ability to update <em>existing</em> subscriptions with a new preprocessing
+function.</li>
+</ul>
+
+<p>Visualisations in Enso are able to output arbitrary data for display in the GUI,
+which requires a mechanism for transferring arbitrary data between the engine
+and the GUI. These visualisations can output data in common formats, which will
+be serialised by the transport (e.g. text), but they can also write arbitrary
+binary data that can then be interpreted by the visualisation component itself
+in any language that can be used from within the IDE.</p>
+
+<p>From the implementation perspective:</p>
+
+<ul>
+  <li>This will need to be an entirely separate set of protocol messages that should
+be specified in detail in this document.</li>
+  <li>Visualisations should work on a pub/sub model, where an update is sent every
+time the underlying data is recomputed.</li>
+  <li>Protocol responses must contain a pointer into the binary pipe carrying the
+visualisation data to identify an update.</li>
+</ul>
+
+<h2 id="service-connection-setup">Service Connection Setup</h2>
+<p>As these services need to support multiple clients in future, there is some
+rigmarole around setting up the various connections needed by each client. The
+process for spawning and connecting to an engine instance is as follows:</p>
+
+<ol>
+  <li><strong>Spawn the Server:</strong> The project manager spawns the language server,
+passing the socket information as part of the initialisation flow.</li>
+  <li><strong>Client ID Generation:</strong> The client generates and stores a UUID that will
+be used to identify the client while it is connected.</li>
+  <li><strong>Protocol Connection Initialisation:</strong> The client performs the init for the
+textual protocol connection, passing its client identifier as it does so.
+See <a href="/docs/enso/language-server/protocol-language-server.html#sessioninitprotocolconnection"><code class="language-plaintext highlighter-rouge">session/initProtocolConnection</code></a>
+for more information.</li>
+  <li><strong>Data Connection Initialisation:</strong> The client performs the init for the
+data connection, passing its client identifier as it does so. See
+<a href="/docs/enso/language-server/protocol-language-server.html#sessioninitdataconnection"><code class="language-plaintext highlighter-rouge">session/initDataConnection</code></a> below more
+information.</li>
+</ol>
+
+<h2 id="service-connection-teardown">Service Connection Teardown</h2>
+<p>As the engine performs sophisticated caching and persisting of data where
+possible, it is very important that the client informs the engine of the end of
+its session. In contrast to the initialisation flow above, this is not an
+involved process.</p>
+
+<ol>
+  <li><strong>Notify the Engine:</strong> <em>Prior</em> to disconnecting from the sockets, the client
+must send <code class="language-plaintext highlighter-rouge">session/end</code> to the server.</li>
+  <li><strong>Disconnect:</strong> Once that message has been sent, the client may disconnect
+at any time.</li>
+</ol>
+
+                        
+                        
+                        <a href="https://github.com/luna/enso/blob/master/docs/enso/language-server/protocol-architecture.md">Open this doc on GitHub</a>
+                        
+                    </section>
+                </div>
+
+                 <!--<div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+var search = instantsearch({
+  appId: '3PBI3MMCBE',
+  apiKey: '55d673c313b717b7386df8c9418588d4',
+  indexName: 'jekyll',
+  searchFunction(helper) {
+    var container = document.querySelector('#search-hits');
+    container.style.display = helper.state.query === '' ? 'none' : '';
+
+    helper.search();
+  }
+});
+
+var hitTemplate = function(hit) {
+  let date = '';
+  if (hit.date) {
+    date = moment.unix(hit.date).format('MMM D, YYYY');
+  }
+
+  let url = `${hit.url}#${hit.anchor}`;
+
+  var title = hit._highlightResult.title.value;
+
+  var content = hit._highlightResult.html.value;
+
+  return `
+    <li class="post-item chapter">
+      <a href="${url}" class="post-link">${title}</a>
+      <div class="post-snippet">${content}</div>
+    </li>
+  `;
+}
+
+
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-searchbar',
+    placeholder: 'Search the docs',
+    poweredBy: true // This is required if you're on the free Community plan
+  })
+);
+
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '#search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+search.start();
+</script>
+
+<style>
+.ais-search-box {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.post-item {
+  margin-bottom: 30px;
+}
+.post-link .ais-Highlight {
+  color: #111;
+  font-style: normal;
+  text-decoration: underline;
+}
+.post-breadcrumbs {
+  color: #424242;
+  display: block;
+}
+.post-breadcrumb {
+  font-size: 18px;
+  color: #424242;
+}
+.post-breadcrumb .ais-Highlight {
+  font-weight: bold;
+  font-style: normal;
+}
+.post-snippet .ais-Highlight {
+  color: #2a7ae2;
+  font-style: normal;
+  font-weight: bold;
+}
+.post-snippet img {
+  display: none;
+}
+
+.post-list {
+    list-style:none;
+    margin:0;
+    padding: 10px 15px;
+    -webkit-transition:top .5s ease;
+    -moz-transition:top .5s ease;
+    -o-transition:top .5s ease;
+    transition:top .5s ease
+}
+
+#search-hits::after {
+    content: '';
+    display: block;
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: rgba(0,0,0,.07);
+}
+</style>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+                <a href="/docs/enso/language-server/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Language Server">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+
+                
+                    <a href="/docs/enso/language-server/protocol-common.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Enso Protocol Common Message Specification">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},
+            "sharing": {
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+                "facebook": true,
+                "google": false,
+                "instapaper": false,
+                "twitter": true,
+                "vk": false,
+                "weibo": false
+            },
+            "theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            }
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "Enso Developer Documentation",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "docs/enso/language-server/protocol-architecture.md",
+        "mtime": "",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.3",
+        "time": "2020-07-02 11:33:07 +0000"
+    },
+    "basePath": "",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/gitbook/gitbook.js"></script>
+<script src="/gitbook/theme.js"></script>
+
+<script src="/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+
+<!-- <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script> --></body>
+</html>

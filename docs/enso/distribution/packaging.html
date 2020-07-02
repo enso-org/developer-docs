@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso Libraries Packaging · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -30,9 +30,11 @@
         
 
         
-            <link rel="prev" href="/" />
+            <link rel="prev" href="/docs/enso/distribution/distribution.html" />
         
 
+        
+            <link rel="next" href="/docs/enso/distribution/release-policy.html" />
         
     </head>
     <body>
@@ -175,51 +177,18 @@ search.start();
             
         
             
-                
-            
-            
-            
-            
-            
-            
-            
-                
-            
-            
+            <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution ">
+                    <a href="/docs/enso/distribution">
+                        Go back
+                    </a>
+                </li>
+                <li class="divider"></li>
             
                 
             
             
             
-                
             
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
             
             
             
@@ -257,11 +226,77 @@ search.start();
             
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/">
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/">
                     
-                        <a href="/">
+                        <a href="/docs/enso/distribution/">
                             
-                                README
+                                Enso Distribution
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/distribution.html">
+                    
+                        <a href="/docs/enso/distribution/distribution.html">
+                            
+                                The Enso Distribution
                             
                         </a>
                     </li>
@@ -338,9 +373,15 @@ search.start();
             
             
                 
-            
-            
-            
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/enso/distribution/packaging.html">
+                    
+                        <a href="/docs/enso/distribution/packaging.html">
+                            
+                                Enso Libraries Packaging
+                            
+                        </a>
+                    </li>
                 
             
             
@@ -386,17 +427,15 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/release-policy.html">
+                    
+                        <a href="/docs/enso/distribution/release-policy.html">
+                            
+                                Release Policy
+                            
+                        </a>
+                    </li>
                 
             
             
@@ -592,7 +631,7 @@ search.start();
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >Enso Developer Documentation</a>
+                <a href="." >Enso Libraries Packaging</a>
             
         </h1>
     </div>
@@ -601,28 +640,173 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
+                        <h1 id="enso-libraries-packaging">Enso Libraries Packaging</h1>
+<p>Given the nature of Enso as an open-source programming language and platform,
+it is crucial that we provide users with an extensible package management
+system. This document describes the current state of our packaging efforts, as
+well as future directions and enhancements to it.</p>
 
-<div class="container">
-  <h1>404</h1>
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
 
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-</div>
+<ul>
+  <li><a href="#enso-package-structure">Enso Package Structure</a>
+    <ul>
+      <li><a href="#the-src-directory">The <code class="language-plaintext highlighter-rouge">src</code> Directory</a></li>
+      <li><a href="#the-polyglot-directory">The <code class="language-plaintext highlighter-rouge">polyglot</code> Directory</a></li>
+      <li><a href="#the-packageyaml-file">The <code class="language-plaintext highlighter-rouge">package.yaml</code> File</a></li>
+    </ul>
+  </li>
+  <li><a href="#build-reproducibility">Build Reproducibility</a></li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="enso-package-structure">Enso Package Structure</h2>
+<p>The general directory structure of an Enso package is as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My_Package
+├── package.yaml
+├── polyglot
+│   ├── java
+│   │   └── jar.jar
+│   └── js
+│       └── library.js
+└── src
+    ├── Main.enso
+    └── Sub_Module
+        ├── Helper.enso
+        └── Util.enso
+</code></pre></div></div>
+
+<h3 id="the-src-directory">The <code class="language-plaintext highlighter-rouge">src</code> Directory</h3>
+<p>The <code class="language-plaintext highlighter-rouge">src</code> directory contains all Enso sources, organized in a hierarchical
+structure. The structure of this directory dictates how particular modules
+are imported in all of Enso code.</p>
+
+<p>Note that all files and directories in this subtree must be named according
+to the Enso style for referent names (i.e. <code class="language-plaintext highlighter-rouge">Upper_Snake_Case</code>, see
+<a href="/docs/enso/syntax/naming.html#naming-constructs">the syntax specification</a>).</p>
+
+<p>A file located at the path <code class="language-plaintext highlighter-rouge">My_Package/src/Sub_Module/Helper.enso</code> will be
+imported like so:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">import</span> <span class="no">My_Package</span><span class="o">.</span><span class="no">Sub_Module</span><span class="o">.</span><span class="no">Helper</span>
+</code></pre></div></div>
+
+<p>Please note the following:</p>
+
+<ul>
+  <li>The name of the package appears as the first segment of the name.</li>
+  <li>The package name is not specified by the containing directory’s name,
+but rather it is described in the <code class="language-plaintext highlighter-rouge">package.yaml</code> file.</li>
+</ul>
+
+<p>The exact transformation is as follows:</p>
+
+<ol>
+  <li>The name of the package becomes the first segment of the qualified module
+name.</li>
+  <li>Any subdirectories on the path from the <code class="language-plaintext highlighter-rouge">src</code> directory to the source file
+are appended as consecutive segments.</li>
+  <li>The name of the source file, with the <code class="language-plaintext highlighter-rouge">.enso</code> extension stripped, becomes
+the last segment.</li>
+</ol>
+
+<h3 id="the-polyglot-directory">The <code class="language-plaintext highlighter-rouge">polyglot</code> Directory</h3>
+<p>The <code class="language-plaintext highlighter-rouge">polyglot</code> directory contains per-language subdirectories containing files
+used by the supported polyglot languages. The contents of each subdirectory is
+specified on a per-language basis, in the
+<a href="/docs/enso/polyglot/">polyglot documentation</a>.</p>
+
+<h3 id="the-packageyaml-file">The <code class="language-plaintext highlighter-rouge">package.yaml</code> File</h3>
+<p><code class="language-plaintext highlighter-rouge">package.yaml</code> describes certain package metadata, such as its name, authors
+and version. It also includes the list of dependencies of the package.
+The following is an example of this manifest file.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">license</span><span class="pi">:</span> <span class="s">MIT</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">My_Package</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s">1.0.1</span>
+<span class="na">author</span><span class="pi">:</span> <span class="s2">"</span><span class="s">John</span><span class="nv"> </span><span class="s">Doe</span><span class="nv"> </span><span class="s">&lt;john.doe@example.com&gt;"</span>
+<span class="na">maintainer</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Jane</span><span class="nv"> </span><span class="s">Doe</span><span class="nv"> </span><span class="s">&lt;jane.doe@example.com&gt;"</span>
+<span class="na">resolver</span><span class="pi">:</span> <span class="s">lts-1.2.0</span>
+<span class="na">extra-dependencies</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Base</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.2.0"</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Http</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">4.5.3"</span>
+</code></pre></div></div>
+
+<p>The following is the specification of the manifest fields.</p>
+
+<h4 id="license">license</h4>
+<p><strong>Optional</strong> <em>String</em>: The short license name of this package. Defaults to
+<code class="language-plaintext highlighter-rouge">None</code>, meaning the package is not safe for use by third parties.</p>
+
+<h4 id="version">version</h4>
+<p><strong>Required</strong> <em>String</em>: The <a href="https://semver.org/">semantic versioning</a> string,
+in the <code class="language-plaintext highlighter-rouge">major.minor.patch</code> format.</p>
+
+<h4 id="author">author</h4>
+<p><strong>Optional</strong> <em>String</em> or <em>List of Strings</em>: The name(s) and contact info(s) of
+the author(s) of this library, in the <code class="language-plaintext highlighter-rouge">Name &lt;contact&gt;</code> or <code class="language-plaintext highlighter-rouge">Name</code> format.</p>
+
+<h4 id="maintainer">maintainer</h4>
+<p><strong>Optional</strong> <em>String</em> or <em>List of Strings</em>: The name(s) and contact info(s)
+of the current maintainer(s) of this library, in the <code class="language-plaintext highlighter-rouge">Name &lt;contact&gt;</code> or <code class="language-plaintext highlighter-rouge">Name</code>
+format.</p>
+
+<h4 id="resolver">resolver</h4>
+<p><strong>Note</strong> This field is not currently implemented.
+<strong>Required</strong> <em>String</em>: The resolver name, used to choose compiler version and
+basic libraries set.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Extend the compiler version to handle version bounds.</li>
+  </ul>
+</blockquote>
+
+<h4 id="extra-dependencies">extra-dependencies</h4>
+<p><strong>Note</strong> This field is not currently implemented.
+<strong>Optional</strong> <em>List of Library objects</em>: The list of libraries this package
+requires to function properly and that are not included in the resolver.
+Defaults to an empty list.</p>
+
+<p>A library object is of the form:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">&lt;name of the library&gt;</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s">&lt;semver string of the required library version&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Extend the library version field to handle version bounds.</li>
+  </ul>
+</blockquote>
+
+<h2 id="build-reproducibility">Build Reproducibility</h2>
+<p>It is crucial for any good development environment to provide reproducible
+builds, such that it is impossible for it to go wrong by mismatching library
+versions.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Decide on the strategies of ensuring consistent library resolution. This
+may include hashing the downloaded versions of libraries and publishing
+stack-style resolvers for sets of libraries that are proven to work well
+together.</li>
+  </ul>
+</blockquote>
 
                         
+                        
+                        <a href="https://github.com/luna/enso/blob/master/docs/enso/distribution/packaging.md">Open this doc on GitHub</a>
                         
                     </section>
                 </div>
@@ -754,11 +938,15 @@ search.start();
     </div>
 </div>
 
-                    <a href="/404.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation 404.html">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
+                <a href="/docs/enso/distribution/distribution.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: The Enso Distribution">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
 
+                
+                    <a href="/docs/enso/distribution/release-policy.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Release Policy">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 
             
             </div>
@@ -843,7 +1031,7 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "404.html",
+        "path": "docs/enso/distribution/packaging.md",
         "mtime": "",
         "type": "markdown"
     },

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Getting Enso · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -30,7 +30,7 @@
         
 
         
-            <link rel="prev" href="/" />
+            <link rel="prev" href="/docs/enso/SECURITY.html" />
         
 
         
@@ -175,15 +175,18 @@ search.start();
             
         
             
+            <li class="chapter" data-level="1.1" data-path="/docs/enso ">
+                    <a href="/docs/enso">
+                        Go back
+                    </a>
+                </li>
+                <li class="divider"></li>
+            
                 
             
             
             
             
-            
-            
-            
-                
             
             
             
@@ -257,11 +260,91 @@ search.start();
             
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/">
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/">
                     
-                        <a href="/">
+                        <a href="/docs/enso/">
                             
-                                README
+                                Enso Developer Documentation
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/enso-philosophy.html">
+                    
+                        <a href="/docs/enso/enso-philosophy.html">
+                            
+                                Enso&#39;s Philosophy
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/CONTRIBUTING.html">
+                    
+                        <a href="/docs/enso/CONTRIBUTING.html">
+                            
+                                Contributing to Enso
                             
                         </a>
                     </li>
@@ -310,9 +393,15 @@ search.start();
             
             
                 
-            
-            
-            
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/CODE_OF_CONDUCT.html">
+                    
+                        <a href="/docs/enso/CODE_OF_CONDUCT.html">
+                            
+                                The Enso Code of Conduct
+                            
+                        </a>
+                    </li>
                 
             
             
@@ -354,9 +443,15 @@ search.start();
             
             
                 
-            
-            
-            
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/SECURITY.html">
+                    
+                        <a href="/docs/enso/SECURITY.html">
+                            
+                                Security Policy
+                            
+                        </a>
+                    </li>
                 
             
             
@@ -394,53 +489,15 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/enso/getting-enso.html">
+                    
+                        <a href="/docs/enso/getting-enso.html">
+                            
+                                Getting Enso
+                            
+                        </a>
+                    </li>
                 
             
             
@@ -592,7 +649,7 @@ search.start();
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >Enso Developer Documentation</a>
+                <a href="." >Getting Enso</a>
             
         </h1>
     </div>
@@ -601,28 +658,71 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
+                        <h1 id="getting-enso">Getting Enso</h1>
+<p>Enso packages can currently be obtained from the per-commit CI builds.
+See <a href="https://github.com/enso-org/enso/actions?query=workflow%3A%22Enso+CI%22">the build workflow on GitHub Actions</a>.
+The artifact of interest is <code class="language-plaintext highlighter-rouge">enso-&lt;version&gt;</code> (currently <code class="language-plaintext highlighter-rouge">enso-0.0.1</code>).</p>
 
-<div class="container">
-  <h1>404</h1>
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
 
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-</div>
+<ul>
+  <li><a href="#dependencies">Dependencies</a></li>
+  <li><a href="#running-enso">Running Enso</a></li>
+  <li><a href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="dependencies">Dependencies</h2>
+<p>The Enso distribution requires to be run with the appropriate version of
+GraalVM. You can get the Community Edition pre-built distributions from
+<a href="https://github.com/graalvm/graalvm-ce-builds/releases">the GitHub releases site</a>.
+It is important to run Enso with exactly the version specified here. Given that
+Graal is still a relatively young project, even the minor version changes
+introduce breaking API changes. The current version of GraalVM required for
+Enso is <code class="language-plaintext highlighter-rouge">20.1.0</code>, and it must be the Java 11 build.</p>
+
+<p>Before running the Enso packages, make sure that the <code class="language-plaintext highlighter-rouge">JAVA_HOME</code> environment
+variable points to the correct home location of the Graal distribution.</p>
+
+<h2 id="running-enso">Running Enso</h2>
+<p>The distribution contains two main executables of interest:</p>
+
+<ol>
+  <li>The project manager. This executable is currently used for testing the IDE,
+though in the future it will rarely be run directly and rather will be
+launched automatically by the IDE. To run the project manager, run the
+<code class="language-plaintext highlighter-rouge">bin/project-manager</code> script (Linux and MacOS) or the
+<code class="language-plaintext highlighter-rouge">bin/project-manager.bat</code> script (Windows).</li>
+  <li>The Enso CLI. This allows to create and run Enso projects from the command
+line. To launch the Enso CLI, run the <code class="language-plaintext highlighter-rouge">bin/enso</code> script (Linux and MacOS) or
+the <code class="language-plaintext highlighter-rouge">bin/enso.bat</code> script (Windows).</li>
+</ol>
+
+<p>Again, it is necessary for you to set the <code class="language-plaintext highlighter-rouge">JAVA_HOME</code> variable correctly.</p>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>This section lists the most common failures and their probable causes.</p>
+
+<ol>
+  <li>The exception <code class="language-plaintext highlighter-rouge">java.lang.IllegalArgumentException: Could not find option with name enso-runtime-server.enable.</code>
+It can contain a different option name. This exception signals problems with
+the Graal distribution. Make sure you’re running Enso with the correct
+version of GraalVM. You can verify the version of JDK used by running
+<code class="language-plaintext highlighter-rouge">bin/enso --version</code>. Take note of the version displayed in the <code class="language-plaintext highlighter-rouge">Running on</code>
+section. It should be similar to:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Running on: OpenJDK 64-Bit Server VM, GraalVM Community, JDK 11.0.7+10-jvmci-20.1-b02
+            Linux 4.15.0-106-generic (amd64)
+</code></pre></div>    </div>
+    <p>It could also be caused by not using the launcher scripts and trying to run
+the component <code class="language-plaintext highlighter-rouge">.jar</code> files via <code class="language-plaintext highlighter-rouge">java -jar</code> without setting the necessary
+options. Use the launcher scripts.</p>
+  </li>
+</ol>
 
                         
+                        
+                        <a href="https://github.com/luna/enso/blob/master/docs/enso/getting-enso.md">Open this doc on GitHub</a>
                         
                     </section>
                 </div>
@@ -754,9 +854,9 @@ search.start();
     </div>
 </div>
 
-                    <a href="/404.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation 404.html">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
+                <a href="/docs/enso/SECURITY.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Security Policy">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
 
                 
@@ -843,7 +943,7 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "404.html",
+        "path": "docs/enso/getting-enso.md",
         "mtime": "",
         "type": "markdown"
     },

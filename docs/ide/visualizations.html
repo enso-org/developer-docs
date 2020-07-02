@@ -30,7 +30,7 @@
         
 
         
-            <link rel="prev" href="/" />
+            <link rel="prev" href="/docs/ide" />
         
 
         
@@ -175,79 +175,18 @@ search.start();
             
         
             
-                
-            
-            
-            
-            
-            
-            
-            
-                
-            
-            
+            <li class="chapter" data-level="1.1" data-path="/docs/ide ">
+                    <a href="/docs/ide">
+                        Go back
+                    </a>
+                </li>
+                <li class="divider"></li>
             
                 
             
             
             
-                
             
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
             
             
             
@@ -257,14 +196,102 @@ search.start();
             
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/">
+                    <li class="chapter" data-level="1.1" data-path="/docs/ide/shortcuts.html">
                     
-                        <a href="/">
+                        <a href="/docs/ide/shortcuts.html">
                             
-                                README
+                                shortcuts.md
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/ide/style-guide.html">
+                    
+                        <a href="/docs/ide/style-guide.html">
+                            
+                                style-guide.md
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/ide/visualizations.html">
+                    
+                        <a href="/docs/ide/visualizations.html">
+                            
+                                visualizations.md
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -601,28 +628,162 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
+                        <h1 id="visualization-workflow">Visualization workflow</h1>
 
-<div class="container">
-  <h1>404</h1>
+<h2 id="purpose-of-visualizations">Purpose of visualizations</h2>
+<p>Visualizations have two main purposes:</p>
 
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-</div>
+<ul>
+  <li>
+    <p><strong>Display results of nodes</strong><br />
+Each node can be assigned with one or more visualization. After a node
+computes its new value, the visualization shows it in an understandable way to
+the user. Please note that a single node can be assigned with multiple
+visualizations at the same time. For example, a node might want to display a
+map of locations and their list at the same time next to each other.</p>
+  </li>
+  <li>
+    <p><strong>Provide interactive way to generate new data</strong><br />
+In a widget mode (described in detail later), visualizations provide users
+with an interactive GUI to define data. For example, a map visualization can
+both display locations, as wekk as allow the user to pick locations by cliking
+with a mouse. Similarly, the histogram can both display a list of numbers, and
+can be manually draw with the mouse producing such a list. Several numbers can
+be visualized as a table of sliders, which can also be used to interactively
+generate a table of numbers. Image visualizations can behave like an image
+editor, etc.</p>
+  </li>
+</ul>
+
+<h2 id="visualization-display-forms">Visualization Display Forms</h2>
+<p>Visualizations can be displayed in the following ways:</p>
+
+<ul>
+  <li>
+    <p><strong>Attached to nodes</strong><br />
+In this mode, visualizations display the most recent result of the node. They
+behave like an integrated part of the node. Whenever you move the node, the
+visualization moves as well. This mode can be toggled by tapping the spacebar.</p>
+  </li>
+  <li>
+    <p><strong>Fullscreen</strong><br />
+Visualization attached to node can grow (animate) to ocupy full IDE visual
+space. This mode can be triggered on the recently selected node (in case many
+nodes are selected, the last selected node will be used) by either pressing
+keeping the spacebar pressed for longer than approx 0.5s, or by tapping it
+twice. In the former case, the visualization shrinks to each original form
+whenever we release space, in the later, whenever we press space again.</p>
+  </li>
+  <li>
+    <p><strong>Detached</strong><br />
+Visualizations attached to nodes can be detached, scaled, and placed freely
+across the visual canvas (we might introduce a special place where you can put
+such visualizations). This is useful when defining dashboards or reports. We
+also plan to provide a notebook-like experience where you can write text mixed
+with visualizations (including widgets for an interactive experience).</p>
+  </li>
+  <li>
+    <p><strong>Widgets</strong><br />
+In this mode visualizations behave like nodes but do not display expressions.
+They have one input and one output port. If the input port is connected, the
+visualization displays its value and passes its to the output port. In case it
+is not connected, the visualization becomes an interactive widget allowing the
+user to specify data. For example, a map visualization will allow the user to
+manually pick locations. After each change, the new locations will be sent to
+the output port. Under the hood, widgets are represented as nodes and their
+code lines are assigned with a dedicated “visualization” metadata. 
+Visualizations generate expressions always in the form of <code class="language-plaintext highlighter-rouge">name = data</code>, where
+data is a hardcoded data produced from the visualization. For example, when
+user clicks the map to define locations, the data could be a string literal
+containing locations encoded in JSON.</p>
+  </li>
+</ul>
+
+<h3 id="choosing-a-visualization-type">Choosing a Visualization Type.</h3>
+<p>When a new data is provided to a visualization, the visualization registry
+searches for all visualizations that match it (see visualization registry to
+learn more). For example, when a data of type <code class="language-plaintext highlighter-rouge">[Int]</code> (list of ints) is
+produced, all visualizations which matches <code class="language-plaintext highlighter-rouge">[Int]</code>, like <code class="language-plaintext highlighter-rouge">[Int]</code>, <code class="language-plaintext highlighter-rouge">[a]</code>, or <code class="language-plaintext highlighter-rouge">a</code>
+will be found. Each type can be associated with a default visualization. For
+example, <code class="language-plaintext highlighter-rouge">[Int]</code> might define that its default visualization is a plot. If no
+default visualization is defined, a JSON visualization is used. Each
+visualization has a drop-down menu allowinh the user switching to another
+visualization type.</p>
+
+<h3 id="active-visualizations">Active Visualizations</h3>
+<p>When visualizations are displayed on the stage, they are not active by default,
+which means, they do not capture keyboard shortcuts. Visualization becomes
+active when user clicks it. Visualizations are deactivated by clicking in the
+background of the node editor. When a visualization is active, all other
+elements should be slightly dimmed, or the visualization should get a selection
+border (to be defined). Active visualizations capture all keyboard shortcuts,
+but the space bar presses. Fullscreen visualizations are considered active by
+default.</p>
+
+<h2 id="html-and-native-visualizations">HTML and Native Visualizations</h2>
+<p>There are two main types of visualizations - Html and Native. The later uses the
+BaseGL shape API to draw on the screen. We prefer the later as it integrates
+tightly with our framework and allows for much better performance. However,
+there is already many visualizations in HTML/JS and we need to provide support
+for them as well. HTML visualizations are required to be displayed in dedicated
+div elements. This has several consequences. Firstly, the browser needs to
+layout them, taking into account the current camera view, etc. It is costly.
+Refreshing CSS3D styles of 100 visualizations can absolutely kill the
+interactive performance. On the other hand, refreshing the position of 10k
+Native visualizations is almost free. Secondly, they need to be handled by our
+engine in such way that we can interact with them. For that purpose, the current
+Scene implementation defines three layers - top HTML layer, middle WebGL layer,
+and bottom HTML layer. The HTML visualizations are created and displayed on the
+bottom layer by default. Whenever an HTML visualization gets active, it should
+be moved to the top layer.</p>
+
+<h2 id="visualization-registry">Visualization Registry</h2>
+<p>Visualizations are user-defined. Enso ships with a set of predefined
+visualizations, but they are in no way different than user-defined, they are
+just defined for you. Visualizations can be defined either as HTML or native
+visualization and can be defined in JS or WASM (or any language that compiles to
+one of these). Visualizations are stored on disk on the server-side and are
+provided to the GUI by the server. Users can upload their custom visualizations
+as well. Each visualization is registered in the visualization map. The map maps
+an Enso type to a set of visualizations defined for that type. The type might be
+very generic, like <code class="language-plaintext highlighter-rouge">[a]</code> (which in Enso terms means list of any elements).</p>
+
+<h3 id="defining-a-visualization">Defining a Visualization</h3>
+<p>This needs to be described in detail. For now, we can just assume that the user
+is allowed to create visualization and register it in Enso.</p>
+
+<h3 id="sending-data-to-visualizations">Sending Data to Visualizations</h3>
+
+<h4 id="lazy-visualizations">Lazy Visualizations</h4>
+<p>Very important information is how visualization architecture works to make them
+interactive and fast. Whenever new data is computed by the compiler and
+visualization is attached to it, it is sent to GUI to be displayed. However,
+sending really big chunks of data will kill the performance. When defining a
+visualization user is capable of defining a chunk of Luna code (as a string).
+This code is part of the visualization definition and is stored server-side.
+Visualizations are allowed to change the code at runtime. This code defines an
+Enso function, which will be run by the compiler on data the visualization is
+attached to. Only the results of this code will be sent to the GUI. For example,
+imagine you want to display a heatmap of 10 million points on a map. And these
+points change rapidly. Sending such amount of information via WebSocket could be
+too much, and you (as the visualization author) might decide that the
+visualization image should be generated on the server, and your visualization is
+meant only to display the resulting image. In such a scenario, you can define in
+your visualization an Enso function which will compute the image on the server!</p>
+
+<h4 id="binary-and-text-json-formats">Binary and Text (JSON) Formats</h4>
+<p>Each visualization can choose whether it supports either binary or JSON input.
+The input format defaults to JSON. The data from the server is always sent to
+GUI in a binary channel, however, when JSON format is selected, it is first
+converted to JSON representation on the server side. We can assume that all Enso
+data types have defined conversion to JSON by default. If the visualization
+input is defined as JSON input, the binary stream will be converted to JSON by
+the GUI engine before passing to visualization. It is up to the visualization
+author to handle the textual or binary form.</p>
 
                         
+                        
+                        <a href="https://github.com/luna/enso/blob/master/docs/ide/visualizations.md">Open this doc on GitHub</a>
                         
                     </section>
                 </div>
@@ -754,7 +915,7 @@ search.start();
     </div>
 </div>
 
-                    <a href="/404.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation 404.html">
+                    <a href="/docsidevisualizations.md" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation docsidevisualizations.md">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
@@ -843,7 +1004,7 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "404.html",
+        "path": "docs/ide/visualizations.md",
         "mtime": "",
         "type": "markdown"
     },

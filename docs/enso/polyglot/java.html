@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Polyglot Java · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -30,7 +30,7 @@
         
 
         
-            <link rel="prev" href="/" />
+            <link rel="prev" href="/docs/enso/polyglot/typing-polyglot-bindings.html" />
         
 
         
@@ -175,27 +175,18 @@ search.start();
             
         
             
-                
-            
-            
-            
-            
-            
-            
-            
-                
-            
-            
+            <li class="chapter" data-level="1.1" data-path="/docs/enso/polyglot ">
+                    <a href="/docs/enso/polyglot">
+                        Go back
+                    </a>
+                </li>
+                <li class="divider"></li>
             
                 
             
             
             
-                
             
-            
-            
-                
             
             
             
@@ -257,11 +248,69 @@ search.start();
             
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/">
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/polyglot/">
                     
-                        <a href="/">
+                        <a href="/docs/enso/polyglot/">
                             
-                                README
+                                Enso Polyglot Support
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/polyglot/polyglot-bindings.html">
+                    
+                        <a href="/docs/enso/polyglot/polyglot-bindings.html">
+                            
+                                Polyglot Bindings
                             
                         </a>
                     </li>
@@ -330,9 +379,15 @@ search.start();
             
             
                 
-            
-            
-            
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/polyglot/typing-polyglot-bindings.html">
+                    
+                        <a href="/docs/enso/polyglot/typing-polyglot-bindings.html">
+                            
+                                Typing the Polyglot Bindings
+                            
+                        </a>
+                    </li>
                 
             
             
@@ -358,33 +413,15 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/enso/polyglot/java.html">
+                    
+                        <a href="/docs/enso/polyglot/java.html">
+                            
+                                Polyglot Java
+                            
+                        </a>
+                    </li>
                 
             
             
@@ -592,7 +629,7 @@ search.start();
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >Enso Developer Documentation</a>
+                <a href="." >Polyglot Java</a>
             
         </h1>
     </div>
@@ -601,28 +638,111 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
+                        <h1 id="polyglot-java">Polyglot Java</h1>
+<p>This document deals with the implementation of polyglot interoperation with
+Java in the runtime. Please familiarise yourself with the general operation of
+<a href="/docs/enso/polyglot/polyglot-bindings.html">polyglot bindings</a>.</p>
 
-<div class="container">
-  <h1>404</h1>
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
 
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-</div>
+<ul>
+  <li><a href="#class-lookup">Class Lookup</a></li>
+  <li><a href="#polyglot-library-system">Polyglot Library System</a></li>
+  <li><a href="#polyglot-syntax-system">Polyglot Syntax System</a></li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="class-lookup">Class Lookup</h2>
+<p>In order for the Enso runtime to effectively find Java objects for working with
+in a polyglot fashion, it will look in the <code class="language-plaintext highlighter-rouge">polyglot/java</code> subdirectory of an
+Enso project. This directory has the following requirements placed on it.</p>
+
+<ul>
+  <li>The top level of the <code class="language-plaintext highlighter-rouge">java</code> directory should contain only <code class="language-plaintext highlighter-rouge">.jar</code> files and
+directories.</li>
+  <li>Each directory must provide a valid class-path structure, with <code class="language-plaintext highlighter-rouge">.class</code> files
+at the appropriate points.</li>
+  <li>Both <code class="language-plaintext highlighter-rouge">.jar</code> files and directories are added to the runtime class-path for
+Enso, and hence be made available to Enso programs.</li>
+</ul>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>In future, we want to expand this to support <code class="language-plaintext highlighter-rouge">.class</code> files directly, and
+maybe even compiling Java code.</li>
+  </ul>
+</blockquote>
+
+<h2 id="polyglot-library-system">Polyglot Library System</h2>
+<p>The dynamic polyglot system is a dynamic runtime lookup for Java objects,
+allowing Enso code to work with them through a runtime reflection-style
+mechanism. It is comprised of the following components:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Java.lookup_class : Class.Path -&gt; Maybe Class</code>: A function that lets
+users look up a class by a given name on the runtime classpath.</li>
+  <li><code class="language-plaintext highlighter-rouge">Polyglot.instantiate : Class -&gt; Object</code>: A function that lets users
+instantiate a class into an object.</li>
+  <li>A whole host of functions on the polyglot type that let you dynamically work
+with object bindings.</li>
+</ul>
+
+<p>An example can be found below:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">main</span> <span class="o">=</span>
+    <span class="k">class</span> <span class="o">=</span> <span class="no">Java</span><span class="p">.</span><span class="nf">lookup_class</span> <span class="s2">"org.enso.example.TestClass"</span>
+    <span class="n">instance</span> <span class="o">=</span> <span class="no">Polyglot</span><span class="p">.</span><span class="nf">instantiate1</span> <span class="k">class</span> <span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="nb">method</span> <span class="o">=</span> <span class="no">Polyglot</span><span class="p">.</span><span class="nf">get_member</span> <span class="n">instance</span> <span class="s2">"callFunctionAndIncrement"</span>
+    <span class="no">Polyglot</span><span class="p">.</span><span class="nf">execute1</span> <span class="nb">method</span> <span class="mi">10</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Expand on the detail when there is time.</li>
+  </ul>
+</blockquote>
+
+<h2 id="polyglot-syntax-system">Polyglot Syntax System</h2>
+<p>The static system, however, lets us do much better in terms of user experience.
+Instead of having to dynamically look things up at runtime, we can instead do
+the following:</p>
+
+<ul>
+  <li>Statically resolve imports of polyglot bindings within the project to make
+sure that they are available.</li>
+  <li>Create java-compatible object entities that dynamically look up and dispatch
+both static methods on classes (by name), and methods on objects (by name).
+This includes the constructor.</li>
+  <li>This invocation syntax is integrated into Enso as variadic methods, allowing
+us to deal with the inter-language impedance mismatch.</li>
+</ul>
+
+<p>An example can be found below:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">polyglot</span> <span class="n">java</span> <span class="n">import</span> <span class="n">com</span><span class="p">.</span><span class="nf">example</span><span class="o">.</span><span class="no">MyClass</span> <span class="n">as</span> <span class="no">MyClassJava</span>
+
+<span class="n">main</span> <span class="o">=</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="no">MyClassJava</span><span class="p">.</span><span class="nf">foo</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+    <span class="n">inst</span> <span class="o">=</span> <span class="no">MyClassJava</span><span class="p">.</span><span class="nf">new</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span>
+    <span class="n">bar</span> <span class="o">=</span> <span class="n">inst</span><span class="p">.</span><span class="nf">methodName</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Expand on the detail as the implementation becomes clear.</li>
+  </ul>
+</blockquote>
 
                         
+                        
+                        <a href="https://github.com/luna/enso/blob/master/docs/enso/polyglot/java.md">Open this doc on GitHub</a>
                         
                     </section>
                 </div>
@@ -754,9 +874,9 @@ search.start();
     </div>
 </div>
 
-                    <a href="/404.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation 404.html">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
+                <a href="/docs/enso/polyglot/typing-polyglot-bindings.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Typing the Polyglot Bindings">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
 
                 
@@ -843,7 +963,7 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "404.html",
+        "path": "docs/enso/polyglot/java.md",
         "mtime": "",
         "type": "markdown"
     },

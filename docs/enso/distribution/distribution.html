@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>The Enso Distribution · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -30,9 +30,11 @@
         
 
         
-            <link rel="prev" href="/" />
+            <link rel="prev" href="/docs/enso/distribution/" />
         
 
+        
+            <link rel="next" href="/docs/enso/distribution/packaging.html" />
         
     </head>
     <body>
@@ -175,51 +177,18 @@ search.start();
             
         
             
-                
-            
-            
-            
-            
-            
-            
-            
-                
-            
-            
+            <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution ">
+                    <a href="/docs/enso/distribution">
+                        Go back
+                    </a>
+                </li>
+                <li class="divider"></li>
             
                 
             
             
             
-                
             
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
             
             
             
@@ -257,11 +226,77 @@ search.start();
             
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/">
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/">
                     
-                        <a href="/">
+                        <a href="/docs/enso/distribution/">
                             
-                                README
+                                Enso Distribution
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/enso/distribution/distribution.html">
+                    
+                        <a href="/docs/enso/distribution/distribution.html">
+                            
+                                The Enso Distribution
                             
                         </a>
                     </li>
@@ -338,9 +373,15 @@ search.start();
             
             
                 
-            
-            
-            
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/packaging.html">
+                    
+                        <a href="/docs/enso/distribution/packaging.html">
+                            
+                                Enso Libraries Packaging
+                            
+                        </a>
+                    </li>
                 
             
             
@@ -386,17 +427,15 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/release-policy.html">
+                    
+                        <a href="/docs/enso/distribution/release-policy.html">
+                            
+                                Release Policy
+                            
+                        </a>
+                    </li>
                 
             
             
@@ -592,7 +631,7 @@ search.start();
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >Enso Developer Documentation</a>
+                <a href="." >The Enso Distribution</a>
             
         </h1>
     </div>
@@ -601,28 +640,149 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
+                        <h1 id="the-enso-distribution">The Enso Distribution</h1>
+<p>This document provides a specification of how the Enso distribution should
+be structured and how it should behave.</p>
 
-<div class="container">
-  <h1>404</h1>
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
 
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-</div>
+<ul>
+  <li><a href="#enso-home-layout">Enso Home Layout</a></li>
+  <li><a href="#universal-launcher-script">Universal Launcher Script</a></li>
+  <li><a href="#layout-of-an-enso-version-package">Layout of an Enso Version Package</a>
+    <ul>
+      <li><a href="#package-sets">Package Sets</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="enso-home-layout">Enso Home Layout</h2>
+<p>All of Enso’s binaries, packages, etc. are installed into a directory in
+the user’s home directory. For macOS and linux distributions that’s <code class="language-plaintext highlighter-rouge">~/.enso</code>,
+by default. The distribution is fully portable, so it never makes any
+assumptions about actually being placed in any particular directory.</p>
+
+<p>The directory structure is as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/.enso
+├── bin
+│   └── enso                  # The universal launcher script, responsible for choosing the appropriate compiler version.
+├── dist                      # Per-compiler-version distribution directories.
+│   ├── default -&gt; enso-1.2.0 # A symlink to the version that should be used when no version is explicitely specified.
+│   ├── enso-1.0.0            # A full distribution of given Enso version, described below.
+│   │   └── &lt;truncated&gt;
+│   └── enso-1.2.0            # A full distribution of given Enso version, described below.
+│       └── &lt;truncated&gt;
+├── jvm                       # A directory storing (optional) distributions of the JVM used by the Enso distributions.
+│   └── graalvm-ce-27.1.1
+└── cache                     # A directory storing downloaded libraries and resolvers. Can be removed safely.
+    ├── libraries             # Contains downloaded libraries.
+    │   └── Dataframe         # Each library may be stored in multiple version.
+    │       └── 1.7.0         # Each version contains a standard Enso package.
+    │           ├── package.yaml
+    │           └── src
+    │               ├── List.enso
+    │               ├── Number.enso
+    │               └── Text.enso
+    └── resolvers           # Contains resolver specifications, described below.
+        ├── lts-1.56.7.yaml
+        └── lts-2.0.8.yaml
+</code></pre></div></div>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Determine the appropriate method for per-user installation on windows.</li>
+  </ul>
+</blockquote>
+
+<h2 id="universal-launcher-script">Universal Launcher Script</h2>
+<p>The universal launcher script should be able to launch the proper version of
+Enso executable based on the version specified in the project being run,
+or use the default version if none specified.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Determine the proper technology to implement the script (i.e. Java/Bash).</li>
+    <li>Determine the features needed in the launcher script.</li>
+  </ul>
+</blockquote>
+
+<h2 id="layout-of-an-enso-version-package">Layout of an Enso Version Package</h2>
+<p>This section describes the structure of a single version distribution. This
+system is intended to be implemented first and used e.g. for the Enso nightly
+builds / releases.</p>
+
+<p>Such a distribution can be used as a standalone version, assuming the required
+version of the JVM is installed and used.</p>
+
+<p>The layout of such a distribution is as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>enso-1.0.0
+├── component     # Contains all the executable tools and their dependencies.
+│   └── enso.jar  # The main executable of the distribution. CLI entry point.
+└── std-lib       # Contains all the pre-installed libraries compiler version.
+    ├── Http      # Every version sub-directory is just an Enso package containing the library.
+    │     ├── package.yaml
+    │     ├── polyglot
+    │     └── src
+    │         ├── Http.enso
+    │         └── Socket.enso
+    └── Base
+          ├── package.yaml
+          └── src
+              ├── List.enso
+              ├── Number.enso
+              └── Text.enso
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Implementation Note:</strong>
+This structure makes use of deep nesting, which may give some with knowledge
+of Windows’ path-name limits pause (windows paths are historically limited to
+256 characters). However, there is no special action required to handle this
+limit as long as we are building on top of the JVM. The JVM automatically
+inserts the <code class="language-plaintext highlighter-rouge">\\?\</code> prefix required to bypass the windows path length limit.</p>
+</blockquote>
+
+<h3 id="standard-library">Standard Library</h3>
+<p>The standard library is a set of libraries shipped with the compiler.
+Whether a given package belongs to standard library can be a bit of an
+arbitrary choice, but the following are some guidelines:</p>
+<ol>
+  <li>Fundamental packages – basic collections and utilities should be a part
+of standard library.</li>
+  <li>Packages relying on the compiler internals (e.g. the internal object
+representation). An example of such a package would be <code class="language-plaintext highlighter-rouge">Generic</code>, exposing
+reflective access to Enso objects.</li>
+  <li>Packages that the compiler relies on, e.g. compile error definitions, stack
+traces etc.</li>
+</ol>
+
+<h3 id="resolvers">Resolvers</h3>
+<p><strong>Note</strong> This system is not implemented yet.</p>
+
+<p>A resolver is a manifest containing library versions that are automatically
+available for import in any project using the resolver.</p>
+
+<p>Example contents of a resolver file are as follows:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">enso-version</span><span class="pi">:</span> <span class="s">1.0.7</span>
+<span class="na">libraries</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Base</span>
+    <span class="na">version</span><span class="pi">:</span> <span class="s">1.0.0</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Http</span>
+    <span class="na">version</span><span class="pi">:</span> <span class="s">5.3.5</span>
+</code></pre></div></div>
 
                         
+                        
+                        <a href="https://github.com/luna/enso/blob/master/docs/enso/distribution/distribution.md">Open this doc on GitHub</a>
                         
                     </section>
                 </div>
@@ -754,11 +914,15 @@ search.start();
     </div>
 </div>
 
-                    <a href="/404.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation 404.html">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
+                <a href="/docs/enso/distribution/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Distribution">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
 
+                
+                    <a href="/docs/enso/distribution/packaging.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Enso Libraries Packaging">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 
             
             </div>
@@ -843,7 +1007,7 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "404.html",
+        "path": "docs/enso/distribution/distribution.md",
         "mtime": "",
         "type": "markdown"
     },
