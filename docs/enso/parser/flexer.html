@@ -767,12 +767,14 @@ follows:</p>
 </ul>
 
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pub</span> <span class="k">fn</span> <span class="nf">lexer_definition</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="nb">String</span> <span class="p">{</span>
-    <span class="o">...</span>
+    <span class="c">// ...</span>
 
     <span class="k">let</span> <span class="n">chr</span> <span class="o">=</span> <span class="n">alphaNum</span> <span class="p">|</span> <span class="sc">'_'</span><span class="p">;</span>
     <span class="k">let</span> <span class="n">blank</span> <span class="o">=</span> <span class="nn">Pattern</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="sc">'_'</span><span class="p">)</span>
 
     <span class="n">lexer</span><span class="nf">.rule</span><span class="p">(</span><span class="n">lexer</span><span class="py">.root</span><span class="p">,</span><span class="n">blank</span><span class="p">,</span><span class="s">"self.on_ident(token::blank(self.start_location))"</span><span class="p">);</span>
+
+    <span class="c">// ...</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -1177,7 +1179,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-03 10:09:12 +0000"
+        "time": "2020-07-03 13:43:41 +0000"
     },
     "basePath": "",
     "book": {

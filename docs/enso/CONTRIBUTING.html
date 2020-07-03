@@ -852,6 +852,11 @@ rustup override <span class="nb">set </span>nightly-2019-11-04
 rustup component add clippy
 </code></pre></div></div>
 
+<p>You will also need <code class="language-plaintext highlighter-rouge">node</code> in order to run the <code class="language-plaintext highlighter-rouge">wasm</code> tests. We only support the
+latest LTS version of <a href="https://nodejs.org/en/download">NodeJS</a> and NPM. We
+recommend using <a href="https://github.com/nvm-sh/nvm"><code class="language-plaintext highlighter-rouge">nvm</code></a> to manage node versions.
+The current LTS is <code class="language-plaintext highlighter-rouge">v12.18.0</code>.</p>
+
 <p>Please note that once the parser is integrated into the SBT build, the
 rust-related commands will be automatically performed for you.</p>
 
@@ -915,6 +920,11 @@ a vanilla GraalVM distribution. To run it, use:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">JAVA_HOME</span><span class="o">=</span>&lt;PATH_TO_GRAAL_HOME&gt; ./enso.jar &lt;CLI_ARGS&gt;
 </code></pre></div></div>
+
+<h4 id="testing-enso">Testing Enso</h4>
+<p>Running the tests for the JVM enso components is as simple as running
+<code class="language-plaintext highlighter-rouge">sbt / test</code>. To test the Rust components you can run <code class="language-plaintext highlighter-rouge">cargo test</code>. Finally, you
+can run the WASM tests for the rust components by using <code class="language-plaintext highlighter-rouge">./run --test-wasm</code>.</p>
 
 <h4 id="installing-the-jupyter-kernel">Installing the Jupyter kernel</h4>
 <p>Enso has a highly experimental and not-actively-maintained Jupyer Kernel.
@@ -1437,7 +1447,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-03 10:09:12 +0000"
+        "time": "2020-07-03 13:43:41 +0000"
     },
     "basePath": "",
     "book": {
