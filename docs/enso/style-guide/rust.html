@@ -229,6 +229,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/style-guide/">
                     
@@ -743,7 +747,7 @@ described below, but even so, many portions of this guide will need to be
 handled manually.</p>
 
 <h3 id="line-width">Line Width</h3>
-<p>Each line in the source file should be of a maximum of 80 characters of text.
+<p>Each line in the source file should be of a maximum of 100 characters of text.
 This includes comments.</p>
 
 <h3 id="imports">Imports</h3>
@@ -1059,13 +1063,26 @@ line break.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
+<p>We also have a specific <em>ordering</em> for <code class="language-plaintext highlighter-rouge">impl</code> definitions. It is as follows:</p>
+
+<ol>
+  <li>The “main” <code class="language-plaintext highlighter-rouge">impl</code> for a type, containing its associated behaviour.</li>
+  <li>Getter implementations, if present.</li>
+  <li>Setter implementations, if present.</li>
+  <li>Trait implementations for the type, if present.</li>
+  <li>The “internal” <code class="language-plaintext highlighter-rouge">impl</code> block for that type, if present.</li>
+</ol>
+
+<p>Each of these should be accompanied by a sub-heading.</p>
+
 <h3 id="getters-and-setters">Getters and Setters</h3>
 <p>We have the following rules for getters and setters in our codebase.</p>
 
 <ul>
   <li>Getters do not have the <code class="language-plaintext highlighter-rouge">get_</code> prefix, while setters do have the <code class="language-plaintext highlighter-rouge">set_</code>
 prefix.</li>
-  <li>If a setter is provided, a <code class="language-plaintext highlighter-rouge">mut</code> accessor should be provided as well.</li>
+  <li>If a setter is provided, a <code class="language-plaintext highlighter-rouge">mut</code> accessor should be provided as well as part
+of the setters <code class="language-plaintext highlighter-rouge">impl</code> block.</li>
 </ul>
 
 <p>Correct examples for the definition of getters and setters can be found below:</p>
@@ -1082,6 +1099,9 @@ prefix.</li>
     <span class="o">*</span><span class="k">self</span><span class="py">.field_mut</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
+
+<p>Getters and setters should be implemented in separate <code class="language-plaintext highlighter-rouge">impl</code>, blocks, each with
+their own subheading.</p>
 
 <h3 id="trait-exports">Trait Exports</h3>
 <p>All names should be designed to be used in a qualified fashion. This does,
@@ -1655,7 +1675,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-03 16:18:30 +0000"
+        "time": "2020-07-06 10:12:04 +0000"
     },
     "basePath": "",
     "book": {

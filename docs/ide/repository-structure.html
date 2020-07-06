@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Release Policy · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -30,7 +30,7 @@
         
 
         
-            <link rel="prev" href="/docs/enso/distribution/packaging.html" />
+            <link rel="prev" href="/docs/ide" />
         
 
         
@@ -175,8 +175,8 @@ search.start();
             
         
             
-            <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution ">
-                    <a href="/docs/enso/distribution">
+            <li class="chapter" data-level="1.1" data-path="/docs/ide ">
+                    <a href="/docs/ide">
                         Go back
                     </a>
                 </li>
@@ -191,60 +191,34 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/">
+                    <li class="chapter" data-level="1.1" data-path="/docs/ide/CONTRIBUTING.html">
                     
-                        <a href="/docs/enso/distribution/">
+                        <a href="/docs/ide/CONTRIBUTING.html">
                             
-                                Enso Distribution
+                                Development &amp; Contributing Guide
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/ide/">
+                    
+                        <a href="/docs/ide/">
+                            
+                                Enso IDE documentation
                             
                         </a>
                     </li>
@@ -269,52 +243,12 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/distribution.html">
+                    <li class="chapter active" data-level="1.2" data-path="/docs/ide/repository-structure.html">
                     
-                        <a href="/docs/enso/distribution/distribution.html">
+                        <a href="/docs/ide/repository-structure.html">
                             
-                                The Enso Distribution
+                                repository-structure.md
                             
                         </a>
                     </li>
@@ -391,15 +325,53 @@ search.start();
             
             
                 
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/packaging.html">
-                    
-                        <a href="/docs/enso/distribution/packaging.html">
-                            
-                                Enso Libraries Packaging
-                            
-                        </a>
-                    </li>
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -445,15 +417,33 @@ search.start();
             
             
                 
-                    
-                    <li class="chapter active" data-level="1.2" data-path="/docs/enso/distribution/release-policy.html">
-                    
-                        <a href="/docs/enso/distribution/release-policy.html">
-                            
-                                Release Policy
-                            
-                        </a>
-                    </li>
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -649,7 +639,7 @@ search.start();
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >Release Policy</a>
+                <a href="." >Enso Developer Documentation</a>
             
         </h1>
     </div>
@@ -658,200 +648,52 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <h1 id="release-policy">Release Policy</h1>
-<p>As an open-source project and programming language, it is incredibly important
-that we have a well-defined release policy. This document defines said policy.</p>
-
-<!-- MarkdownTOC levels="2,3" autolink="true" -->
+                        <h1 id="repository-structure-overview">Repository Structure Overview</h1>
 
 <ul>
-  <li><a href="#versioning">Versioning</a></li>
-  <li><a href="#release-branches">Release Branches</a></li>
-  <li><a href="#release-workflow">Release Workflow</a>
-    <ul>
-      <li><a href="#tag-naming">Tag Naming</a></li>
-      <li><a href="#github-releases">GitHub Releases</a></li>
-      <li><a href="#release-notes">Release Notes</a></li>
-    </ul>
-  </li>
-  <li><a href="#version-support">Version Support</a></li>
-  <li><a href="#working-on-the-current-release">Working on the Current Release</a></li>
-  <li><a href="#backporting-fixes">Backporting Fixes</a></li>
+  <li><code class="language-plaintext highlighter-rouge">build</code> - Helper JS scripts used by <code class="language-plaintext highlighter-rouge">run</code> script in the main directory.</li>
+  <li><code class="language-plaintext highlighter-rouge">docs</code> - Documentation.</li>
+  <li><code class="language-plaintext highlighter-rouge">src/js</code> - the JS part of IDE application.</li>
+  <li><code class="language-plaintext highlighter-rouge">src/rust</code> - All Rust crates.</li>
 </ul>
 
-<!-- /MarkdownTOC -->
+<h2 id="crates">Crates</h2>
 
-<h2 id="versioning">Versioning</h2>
-<p>Releases of Enso are versioned using <a href="https://semver.org">semantic versioning</a>.
-Where <code class="language-plaintext highlighter-rouge">a.b.c-tag</code> is the version string, <code class="language-plaintext highlighter-rouge">a</code> is the major version, <code class="language-plaintext highlighter-rouge">b</code>, is the
-minor version, <code class="language-plaintext highlighter-rouge">c</code> is the patch version, and <code class="language-plaintext highlighter-rouge">tag</code> is additional metadata, the
-following hold:</p>
+<p>The crates structure is currently in process of refactoring, and there are still places where
+code does not fit the crate it is placed. The work is tracked in #448 epic.</p>
 
+<p>The detailed description of each crate is placed in its documentation at top of its <code class="language-plaintext highlighter-rouge">lib.rs</code> file.</p>
+
+<p>There are two main parts of our codebase: <strong>EnsoGL library</strong> and the <strong>Enso IDE application</strong>. The
+crates used in common by those parts are put in <code class="language-plaintext highlighter-rouge">src/rust/lib</code>, and should be documented at the
+top of their <code class="language-plaintext highlighter-rouge">lib.rs</code> file.</p>
+
+<p>Other crates usually contains code shared by those two. The one noteworthy is the <strong>prelude</strong> crate
+(<code class="language-plaintext highlighter-rouge">src/rust/prelude</code>) which gathers the commonly used imports across all crates in our repository.</p>
+
+<h3 id="ensogl-srcrustensogl">EnsoGL (<code class="language-plaintext highlighter-rouge">src/rust/ensogl</code>)</h3>
+
+<p>EnsoGL is a library providing fast 2D vector rendering engine with a rich set of
+primitives and high-level GUI components. Its structure will be described after the planned
+ refactoring in #598.</p>
+
+<h3 id="enso-ide-srcrustide">Enso IDE (<code class="language-plaintext highlighter-rouge">src/rust/ide</code>)</h3>
+
+<p>The Enso IDE crate contains entry point function of application, and integrates two main parts
+of it:</p>
 <ul>
-  <li>Breaking changes to language behaviour or the public API will result in a
-major version increase.</li>
-  <li>Addition of functionality in a backwards-compatible manner will result in a
-minor version increase.</li>
-  <li>Backwards-compatible bug fixes will result in a patch version increase.</li>
-  <li>The tag will indicate pre-release or beta versions, and will increase when any
-pre-release change is made. These are not intended to be stable.</li>
+  <li>IDE View (<code class="language-plaintext highlighter-rouge">src/rust/ide/lib/view</code>) - The visual part of IDE. It contains no logic and
+connections to backend - instead it delivers FRP endpoints to be integrated with controllers. That
+design allow us to measure of vis-part only performance.</li>
+  <li>IDE Controllers (<code class="language-plaintext highlighter-rouge">src/rust/ide/lib/controller</code>) - The logic part of IDE, that is 
+synchronizing graph a text and communication with Engine. It should not
+know anything about visual part. In the future we may consider creating some sort of CLI for
+automatic integration tests.</li>
 </ul>
-
-<h2 id="release-branches">Release Branches</h2>
-<p>A release branch in the Enso repository is a branch prefixed with <code class="language-plaintext highlighter-rouge">release/</code>.
-Release branches obey the following rules:</p>
-
-<ul>
-  <li>One release branch exists per major version, and is named <code class="language-plaintext highlighter-rouge">release/n.x</code>, where
-<code class="language-plaintext highlighter-rouge">n</code> is the major version, and the rest is literal.</li>
-  <li>A release branch must contain <em>tags</em> corresponding to released versions of
-Enso. Once a release has been made, no further changes may be made to that
-release.</li>
-  <li>A tagged release must contain a <code class="language-plaintext highlighter-rouge">CHANGELOG</code> file that describes the changes
-contained in that release.</li>
-</ul>
-
-<p>It should be noted that general development still takes place on the <code class="language-plaintext highlighter-rouge">main</code>
-branch of the repository.</p>
-
-<h2 id="release-workflow">Release Workflow</h2>
-<p>Cutting a release for Enso proceeds as follows:</p>
-
-<ol>
-  <li>If no release branch exists for the current major version, one should be
-created.</li>
-  <li>Release notes should be made up to date.</li>
-  <li>A commit representing the release should be tagged, and the tag pushed to
-GitHub.</li>
-  <li>CI will create a draft release for this tag, as well as build and upload the
-appropriate artefacts.</li>
-  <li>The release notes for the version being released should be copied into the
-release body on GitHub.</li>
-  <li>The release must be verified by two members of the engine team, and the QA
-team.</li>
-  <li>Once approval has been gained from these members, the release may be made
-official.</li>
-</ol>
-
-<h3 id="tag-naming">Tag Naming</h3>
-<p>Tags for releases are named as follows <code class="language-plaintext highlighter-rouge">enso-version</code>, where <code class="language-plaintext highlighter-rouge">version</code> is the
-semver string (see <a href="#versioning">versioning</a>) representing the version being
-released.</p>
-
-<h3 id="github-releases">GitHub Releases</h3>
-<p>A release is considered <em>official</em> once it has been made into a release on
-<a href="https://github.com/enso-org/enso/releases">GitHub</a>. Once official, a release
-may not be changed in any way, except to mark it as broken.</p>
-
-<h4 id="marking-a-release-as-broken">Marking a Release as Broken</h4>
-<p>We intend to <em>never</em> delete a release from GitHub, as users may have projects
-that depend on specific versions of Enso. Instead, we provide a mechanism for
-marking releases as broken that works as follows:</p>
-
-<ul>
-  <li>An empty file named <code class="language-plaintext highlighter-rouge">broken</code> is uploaded to the release.</li>
-  <li>The release description is edited to visibly mark the release as broken.</li>
-</ul>
-
-<p>A broken release is one that <em>must not</em> be downloaded by the launcher unless
-a project specifies <em>an exact version match</em>, and it <em>must not</em> be used in new
-projects by the launcher unless <em>explicitly</em> specified by the user as an exact
-version match.</p>
-
-<h3 id="release-notes">Release Notes</h3>
-<p>Release notes should contain a summary of the changes made between the last
-release and the current release. They should follow the template given below:</p>
-
-<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Enso x.y.z (YYYY-MM-DD)</span>
-
-<span class="gu">## Language</span>
-<span class="p">
--</span> A list of language-level changes.
-
-<span class="gu">## Type System</span>
-<span class="p">
--</span> A list of type-system changes.
-
-<span class="gu">## Interpreter</span>
-<span class="p">
--</span> A list of changes to the Enso interpreter.
-
-<span class="gu">## Runtime</span>
-<span class="p">
--</span> A list of changes to the Enso runtime.
-
-<span class="gu">## Tooling</span>
-<span class="p">
--</span> A list of changes to the Enso language tooling.
-
-<span class="gu">## Libraries</span>
-<span class="p">
--</span> A list of changes to the Enso core libraries.
-
-<span class="gu">## Stabilised Features</span>
-<span class="p">
--</span> A list of stabilised APIs and/or features.
-
-<span class="gu">## Misc</span>
-<span class="p">
--</span> A list of miscellaneous changes.
-
-<span class="gu">## Internal Only</span>
-<span class="p">
--</span> A list of changes that do not have user-facing impact, but represent
-  significant improvements to the internals of Enso and related tools.
-
-</code></pre></div></div>
-
-<p>If there are no changes for a section, the section should contain a bullet point
-that reads “Nothing”.</p>
-
-<p>The changelog file is an ongoing record of changes, and may diverge between
-<code class="language-plaintext highlighter-rouge">main</code> and the various release branches.</p>
-
-<h2 id="version-support">Version Support</h2>
-<p>We aim to support a given major version for some period of time after the
-release of the next major version. For a detailed breakdown of the major
-versions that are currently supported, please see the <a href="./security.md">security</a>
-document.</p>
-
-<h2 id="working-on-the-current-release">Working on the Current Release</h2>
-<p>When working on the current release, development should take place against the
-<code class="language-plaintext highlighter-rouge">main</code> branch. When it is time to cut a release, the new commits on the main
-branch are cherry-picked onto the current release branch. From there, the
-release proceeds as described in <a href="#release-workflow">release workflow</a> above.</p>
-
-<h2 id="backporting-fixes">Backporting Fixes</h2>
-<p>Supporting a major version for some time after the release of the next major
-version will sometimes require backporting a fix to the previous major version
-from the current version or from <code class="language-plaintext highlighter-rouge">main</code>.</p>
-
-<p>Backporting should only be used for applying <em>fixes</em>, not the addition of new
-features.</p>
-
-<p>The process for performing such a backport is as follows:</p>
-
-<ol>
-  <li>Create a new branch called <code class="language-plaintext highlighter-rouge">backport/version/fix-name</code>, where <code class="language-plaintext highlighter-rouge">version</code>
-matches the version string of the corresponding release branch. This branch
-should branch off the corresponding release branch.</li>
-  <li>Back-port the fix to the newly created <code class="language-plaintext highlighter-rouge">backport</code> branch. This can be done
-by:
-    <ul>
-      <li>Cherry-picking the commit and performing fixups (preferred).</li>
-      <li>Re-implementing the fix manually (if cherry-picking will not work due to
-progression of the codebase).</li>
-    </ul>
-  </li>
-  <li>Submit your <code class="language-plaintext highlighter-rouge">backport/version/fix-name</code> branch for review as a pull-request
-into the <code class="language-plaintext highlighter-rouge">release/version</code> branch.</li>
-  <li>Once the PR has passed CI and been approved by the appropriate reviewers, it
-can be merged into the release branch.</li>
-</ol>
 
                         
                         
-                        <a href="https://github.com/luna/enso/blob/master/docs/enso/distribution/release-policy.md">Open this doc on GitHub</a>
+                        <a href="https://github.com/luna/enso/blob/master/docs/ide/repository-structure.md">Open this doc on GitHub</a>
                         
                     </section>
                 </div>
@@ -983,9 +825,9 @@ search.start();
     </div>
 </div>
 
-                <a href="/docs/enso/distribution/packaging.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Libraries Packaging">
-                    <i class="fa fa-angle-left"></i>
-                </a>
+                    <a href="/docsiderepository-structure.md" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation docsiderepository-structure.md">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
                 
 
                 
@@ -1072,7 +914,7 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "docs/enso/distribution/release-policy.md",
+        "path": "docs/ide/repository-structure.md",
         "mtime": "",
         "type": "markdown"
     },
