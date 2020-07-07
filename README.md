@@ -7,7 +7,7 @@ order: 0
 
 # Enso Documentation
 
-This site hosts the internal documentation for developers working on Enso and Enso projects. Most of the documentation is currently drawn from the [Enso engine](https://github.com/luna/enso/tree/master/docs).
+This site hosts the internal documentation for developers working on Enso and Enso projects. Most of the documentation is currently drawn from the [Enso engine](https://github.com/luna/enso/tree/main/docs).
 
 If you want to add documentation for another project, see the instructions below.
 
@@ -27,8 +27,8 @@ To add new documentation:
 
 - Add a new submodule under `_submodules`.
 - Create a symlink to the desired repository at the root.
-- To the target repository, add a [GitHub Action](https://github.com/luna/enso/blob/master/.github/workflows/docs.yml) to automatically checkout the submodule when changes are made.
-- If you want fine-grained control over presentation and order of the documents, you can [add a yaml frontmatter block](https://jekyllrb.com/docs/front-matter/) to your files. See the [engine docs](https://github.com/luna/enso/blob/master/docs/enso-philosophy.md) for an example.
+- To the target repository, add a [GitHub Action](https://github.com/luna/enso/blob/main/.github/workflows/docs.yml) to automatically checkout the submodule when changes are made.
+- If you want fine-grained control over presentation and order of the documents, you can [add a yaml frontmatter block](https://jekyllrb.com/docs/front-matter/) to your files. See the [engine docs](https://github.com/luna/enso/blob/main/docs/enso-philosophy.md) for an example.
 
 ## Attribution & License
 
