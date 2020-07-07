@@ -31,20 +31,21 @@
             </li>
 
             <li class="divider"></li>
-
-            {% assign dirpath = page.path | split: "/" %}
-            {% assign dirlength = dirpath | size %}
-            {% assign dirlevel = page.dir | split:"/" | size %}
+            
+            {% assign pagePathArray = page.path | split: "/" %}
+            {% assign pagePathArrayLength = pagePathArray | size %}
+            {% assign pageDirArray = page.dir | split:"/" %}
+            {% assign pageDirArrayLength = pageDirArray | size %}
 
             {% if page.path contains 'README' %}
-                {% assign dirpath = dirpath | pop %}
-                {% assign dirpath = dirpath | pop %}
+                {% assign pagePathArrayTemp = pagePathArray | pop %}
+                {% assign pagePathArrayTemp = pagePathArrayTemp | pop %}
             {% else %}
-                {% assign dirpath = dirpath | pop %}
+                {% assign pagePathArrayTemp = pagePathArray | pop %}
             {% endif %}
-            {% assign dirpath = dirpath | join:"/" %}
+            {% assign pagePathJoined = pagePathArrayTemp | join:"/" %}
         
-            {% if dirlevel > 0 %}
+            {% if pageDirArrayLength > 0 %}
             <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}/{{dirpath}} ">
                     <a href="{{site.baseurl}}/{{dirpath}}">
                         Go back
@@ -77,24 +78,36 @@
             {% endfor %}
 
             {% if page.path contains 'README' %}
-                {% assign dirindexes = "" | split: "" %}
+                {% assign matchedPosts = "" | split: "" %}
 
-                {% if dirlevel == 0 %}
-                    {% assign nextlevel = dirlevel | plus: 2 %}
+                {% if pagePathArrayLength == 0 %}
+                    {% assign nextDirIndex = pagePathArrayLength | plus: 2 %}
                 {% else %}
-                    {% assign nextlevel = dirlevel | plus: 1 %}
+                    {% assign nextDirIndex = pagePathArrayLength| plus: 1 %}
                 {% endif %}
                 
+                {% assign postDirIndex = pagePathArrayLength | minus: 1 %}
+                    
                 {% for post in sorted_pages %}
-                    {% assign postlevel = post.dir | split:"/" | size %}
-                    {% if post.path contains 'README' and postlevel == nextlevel and post.url != page.url %}
-                        {% assign dirindexes = dirindexes | push: post %}
+                    {% assign postPathArray = post.dir | split:"/" %}
+                    {% assign postPathArrayLength = postPathArray | size %}
+                    
+                    {% assign postDir = postPathArray[0] %}
+                    {% if pageDirArrayLength == 0 %}
+                        {% if post.path contains 'README' and postPathArrayLength == nextDirIndex and post.url != page.url %}
+                            {% assign matchedPosts = matchedPosts | push: post %} 
+                        {% endif %}
+                    {% else %}
+                        {% if post.path contains 'README' and postPathArrayLength == nextDirIndex and post.url != page.url and postPathArray[postDirIndex] == pageDirArray[postDirIndex] %}
+                            {% assign matchedPosts = matchedPosts | push: post %} 
+                        {% endif %}
                     {% endif %}
+                    
                 {% endfor %}
-                {% assign dirsize = dirindexes | size %}
-                {% if dirsize > 0 %}
+                {% assign numberOfMatchedPosts = matchedPosts | size %}
+                {% if numberOfMatchedPosts > 0 %}
                 <li class="divider"></li>
-                {% for post in dirindexes %}
+                {% for post in matchedPosts %}
                     {% if page.url == post.url %}
                         <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{post.url}}">
                         {% else %}
