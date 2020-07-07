@@ -718,10 +718,16 @@ Linux the easiest way to set up the proper version is by installing the
 Engine Services binary protocol description. Otherwise, relying on the generated files that are
 being stored in this repository is fine.</p>
 
-    <p><code class="language-plaintext highlighter-rouge">flatc</code> must be in version <em>newer than 1.12</em> due to <a href="">this bug</a>. As of writing this text there
+    <p><code class="language-plaintext highlighter-rouge">flatc</code> must be in version <em>newer than 1.12</em> due to 
+<a href="https://github.com/google/flatbuffers/issues/5055">this bug</a>. As of writing this text there
 are no official releases with this issue fixed, however current binaries can be obtained from the
-project’s CI <a href="https://github.com/google/flatbuffers/actions?query=branch%3Amaster">build
-artifacts</a>.</p>
+project’s CI 
+<a href="https://github.com/google/flatbuffers/actions?query=branch%3Amaster">build artifacts</a>. <code class="language-plaintext highlighter-rouge">flatc</code>
+builds from 8 May 2020 onwards have been confirmed to work.</p>
+
+    <p>After placing <code class="language-plaintext highlighter-rouge">flatc</code> in <code class="language-plaintext highlighter-rouge">PATH</code> you need to define the <code class="language-plaintext highlighter-rouge">ENSO_IDE_ENABLE_FLATC</code> environment
+variable to explicitly enable regeneration of the interface files. The <code class="language-plaintext highlighter-rouge">flatc</code> is run as part of
+<code class="language-plaintext highlighter-rouge">build.rs</code> script of the `enso-protocol package.</p>
   </li>
 </ul>
 
@@ -1052,7 +1058,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-06 13:56:21 +0000"
+        "time": "2020-07-07 11:24:29 +0000"
     },
     "basePath": "",
     "book": {
