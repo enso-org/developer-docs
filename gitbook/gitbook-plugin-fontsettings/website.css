@@ -21,20 +21,20 @@
  * Theme 2
  */
 .color-theme-2 .dropdown-menu {
-  background-color: #2d3143;
-  border-color: #272a3a;
+  background-color: #141617;
+  border-color: #43484d;
 }
 .color-theme-2 .dropdown-menu .dropdown-caret .caret-inner {
-  border-bottom: 9px solid #2d3143;
+  border-bottom: 9px solid #98a3ad;
 }
 .color-theme-2 .dropdown-menu .buttons {
-  border-color: #272a3a;
+  border-color: #43484d;
 }
 .color-theme-2 .dropdown-menu .button {
-  color: #62677f;
+  color: #43484d;
 }
 .color-theme-2 .dropdown-menu .button:hover {
-  color: #f4f4f5;
+  color: #b3c0cc;
 }
 .book .book-header .font-settings .font-enlarge {
   line-height: 30px;
@@ -52,11 +52,11 @@
   background: #f3eacb;
 }
 .book.color-theme-2 .book-body {
-  color: #bdcadb;
-  background: #1c1f2b;
+  color: #98a3ad;
+  background: hsl(200, 7%, 8%);
 }
 .book.color-theme-2 .book-body .page-wrapper .page-inner section {
-  background: #1c1f2b;
+  background: hsl(200, 7%, 8%);
 }
 .book.font-size-0 .book-body .page-inner section {
   font-size: 1.2rem;
@@ -108,12 +108,12 @@
 }
 .book.color-theme-1 .book-body .page-wrapper .page-inner section.normal pre,
 .book.color-theme-1 .book-body .page-wrapper .page-inner section.normal code {
-  background: #fdf6e3;
-  color: #657b83;
-  border-color: #f8df9c;
+  background: #282a39;
+  color: #9dbed8;
+  border-color: #282a39;
 }
 .book.color-theme-1 .book-body .page-wrapper .page-inner section.normal .highlight {
-  background-color: inherit;
+  background-color: #282a39;
 }
 .book.color-theme-1 .book-body .page-wrapper .page-inner section.normal table th,
 .book.color-theme-1 .book-body .page-wrapper .page-inner section.normal table td {
@@ -131,7 +131,7 @@
   color: #bdcadb;
 }
 .book.color-theme-2 .book-body .page-wrapper .page-inner section.normal a {
-  color: #3eb1d0;
+  color: #2b79a2;
 }
 .book.color-theme-2 .book-body .page-wrapper .page-inner section.normal h1,
 .book.color-theme-2 .book-body .page-wrapper .page-inner section.normal h2,
@@ -139,7 +139,7 @@
 .book.color-theme-2 .book-body .page-wrapper .page-inner section.normal h4,
 .book.color-theme-2 .book-body .page-wrapper .page-inner section.normal h5,
 .book.color-theme-2 .book-body .page-wrapper .page-inner section.normal h6 {
-  color: #fffffa;
+  color: #98a3ad;
 }
 .book.color-theme-2 .book-body .page-wrapper .page-inner section.normal h1,
 .book.color-theme-2 .book-body .page-wrapper .page-inner section.normal h2 {
@@ -157,8 +157,8 @@
 .book.color-theme-2 .book-body .page-wrapper .page-inner section.normal pre,
 .book.color-theme-2 .book-body .page-wrapper .page-inner section.normal code {
   color: #9dbed8;
-  background: #2d3143;
-  border-color: #2d3143;
+  background: #282a39;
+  border-color: #282a39;
 }
 .book.color-theme-2 .book-body .page-wrapper .page-inner section.normal .highlight {
   background-color: #282a39;
@@ -201,7 +201,7 @@
   background: none;
 }
 .book.color-theme-2 .book-header h1 {
-  color: #bdcadb;
+  color: #98a3ad;
 }
 .book.color-theme-1 .book-body .navigation {
   color: #afa790;
