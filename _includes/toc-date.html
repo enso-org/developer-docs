@@ -54,9 +54,9 @@
                 <li class="divider"></li>
             {% endif %}
                 
-            
-            {% assign sorted_pages = site.pages | sort: "order" %}
-            {% for post in sorted_pages %}
+             
+            {% assign sortedPages = site.pages | sort:"order" %}
+            {% for post in sortedPages %}
             {% if post.path contains '404' %}
             {% else %}
                 {% if post.dir == page.dir %}
@@ -87,8 +87,9 @@
                 {% endif %}
                 
                 {% assign postDirIndex = pagePathArrayLength | minus: 1 %}
-                    
-                {% for post in sorted_pages %}
+                
+                {% assign alphabetizedPages = sortedPages | sort:"title" %}
+                {% for post in alphabetizedPages %}
                     {% assign postPathArray = post.dir | split:"/" %}
                     {% assign postPathArrayLength = postPathArray | size %}
                     
