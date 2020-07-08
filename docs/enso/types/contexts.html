@@ -822,6 +822,12 @@ interpreter-based effects systems? These may aid with parallelism analysis.</li>
   <li><a href="#monadic-bind">Monadic Bind</a></li>
   <li><a href="#context-definitions">Context Definitions</a></li>
   <li><a href="#context-lifting">Context Lifting</a></li>
+  <li><a href="#inbuilt-contexts">Inbuilt Contexts</a>
+    <ul>
+      <li><a href="#io">IO</a></li>
+      <li><a href="#state">State</a></li>
+    </ul>
+  </li>
 </ul>
 
 <!-- /MarkdownTOC -->
@@ -861,6 +867,42 @@ to work.</p>
 
   <ul>
     <li>Specify and explain how automated lifting of monadic contexts works.</li>
+    <li>It depends on the order of <code class="language-plaintext highlighter-rouge">runCtx</code></li>
+  </ul>
+</blockquote>
+
+<h2 id="inbuilt-contexts">Inbuilt Contexts</h2>
+<p>Enso includes a set of commonly-used monadic contexts as part of <code class="language-plaintext highlighter-rouge">Base</code>, its
+standard library. These are listed below.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Determine the full set of contexts that Enso should provide by default.</li>
+  </ul>
+</blockquote>
+
+<h3 id="io">IO</h3>
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Determine the granularity of IO (it’s not one context, but a lot).</li>
+    <li>Explain how there is no <code class="language-plaintext highlighter-rouge">runIO</code>, and IO is just run at the program boundary,
+as well as the impacts of this.</li>
+  </ul>
+</blockquote>
+
+<h3 id="state">State</h3>
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Determine exactly how state works (the fact that the ‘keys’ are preset by
+the <code class="language-plaintext highlighter-rouge">runState</code>)</li>
+    <li>Describe how dependently-typed maps allow us to provide more flexible
+interfaces in future.</li>
   </ul>
 </blockquote>
 
@@ -1097,7 +1139,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-08 13:55:38 +0000"
+        "time": "2020-07-08 15:11:18 +0000"
     },
     "basePath": "",
     "book": {

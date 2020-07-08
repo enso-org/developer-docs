@@ -700,7 +700,8 @@ be structured and how it should behave.</p>
   <li><a href="#universal-launcher-script">Universal Launcher Script</a></li>
   <li><a href="#layout-of-an-enso-version-package">Layout of an Enso Version Package</a>
     <ul>
-      <li><a href="#package-sets">Package Sets</a></li>
+      <li><a href="#standard-library">Standard Library</a></li>
+      <li><a href="#resolvers">Resolvers</a></li>
     </ul>
   </li>
 </ul>
@@ -715,11 +716,11 @@ assumptions about actually being placed in any particular directory.</p>
 
 <p>The directory structure is as follows:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/.enso
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>install-location
 ├── bin
 │   └── enso                  # The universal launcher script, responsible for choosing the appropriate compiler version.
 ├── dist                      # Per-compiler-version distribution directories.
-│   ├── default -&gt; enso-1.2.0 # A symlink to the version that should be used when no version is explicitely specified.
+│   ├── default -&gt; enso-1.2.0 # A symlink to the version that should be used when no version is explicitly specified.
 │   ├── enso-1.0.0            # A full distribution of given Enso version, described below.
 │   │   └── &lt;truncated&gt;
 │   └── enso-1.2.0            # A full distribution of given Enso version, described below.
@@ -740,27 +741,10 @@ assumptions about actually being placed in any particular directory.</p>
         └── lts-2.0.8.yaml
 </code></pre></div></div>
 
-<blockquote>
-  <p>The actionables for this section are:</p>
-
-  <ul>
-    <li>Determine the appropriate method for per-user installation on windows.</li>
-  </ul>
-</blockquote>
-
 <h2 id="universal-launcher-script">Universal Launcher Script</h2>
 <p>The universal launcher script should be able to launch the proper version of
 Enso executable based on the version specified in the project being run,
 or use the default version if none specified.</p>
-
-<blockquote>
-  <p>The actionables for this section are:</p>
-
-  <ul>
-    <li>Determine the proper technology to implement the script (i.e. Java/Bash).</li>
-    <li>Determine the features needed in the launcher script.</li>
-  </ul>
-</blockquote>
 
 <h2 id="layout-of-an-enso-version-package">Layout of an Enso Version Package</h2>
 <p>This section describes the structure of a single version distribution. This
@@ -1062,7 +1046,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-08 13:55:38 +0000"
+        "time": "2020-07-08 15:11:18 +0000"
     },
     "basePath": "",
     "book": {
