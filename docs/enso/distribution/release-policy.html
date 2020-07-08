@@ -34,6 +34,8 @@
         
 
         
+            <link rel="next" href="/docs/enso/distribution/launcher.html" />
+        
     </head>
     <body>
         
@@ -484,6 +486,24 @@ search.start();
             
             
                 
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/launcher.html">
+                    
+                        <a href="/docs/enso/distribution/launcher.html">
+                            
+                                Enso Launcher
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
             
             
             
@@ -499,6 +519,16 @@ search.start();
             
             
             
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/launcher-cli.html">
+                    
+                        <a href="/docs/enso/distribution/launcher-cli.html">
+                            
+                                Enso Launcher CLI
+                            
+                        </a>
+                    </li>
                 
             
             
@@ -666,7 +696,11 @@ that we have a well-defined release policy. This document defines said policy.</
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
 <ul>
-  <li><a href="#versioning">Versioning</a></li>
+  <li><a href="#versioning">Versioning</a>
+    <ul>
+      <li><a href="#launcher-versioning">Launcher Versioning</a></li>
+    </ul>
+  </li>
   <li><a href="#release-branches">Release Branches</a></li>
   <li><a href="#release-workflow">Release Workflow</a>
     <ul>
@@ -697,6 +731,10 @@ minor version increase.</li>
   <li>The tag will indicate pre-release or beta versions, and will increase when any
 pre-release change is made. These are not intended to be stable.</li>
 </ul>
+
+<h3 id="launcher-versioning">Launcher Versioning</h3>
+<p>The launcher is released alongside Enso releases, so the launcher version is
+tied to the Enso version that it is released with.</p>
 
 <h2 id="release-branches">Release Branches</h2>
 <p>A release branch in the Enso repository is a branch prefixed with <code class="language-plaintext highlighter-rouge">release/</code>.
@@ -743,6 +781,42 @@ released.</p>
 <p>A release is considered <em>official</em> once it has been made into a release on
 <a href="https://github.com/enso-org/enso/releases">GitHub</a>. Once official, a release
 may not be changed in any way, except to mark it as broken.</p>
+
+<h4 id="manifest-file">Manifest File</h4>
+<p>Each GitHub release contains an asset named <code class="language-plaintext highlighter-rouge">manifest.yml</code> which is a YAML file
+containing metadata regarding the release. It has at least the following fields:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">minimum-launcher-version</code> - specifies the minimum version of the launcher
+that should be used with this release of Enso,</li>
+  <li><code class="language-plaintext highlighter-rouge">graal-vm-version</code> - specifies the exact version of GraalVM that should be
+used with this release of Enso,</li>
+  <li><code class="language-plaintext highlighter-rouge">graal-java-version</code> - as GraalVM versions may have different variants for
+different Java versions, this specifies which variant to use.</li>
+</ul>
+
+<p>For example:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">minimum-launcher-version</span><span class="pi">:</span> <span class="m">2.0</span>
+<span class="na">graal-vm-version</span><span class="pi">:</span> <span class="s">20.1.0</span>
+<span class="na">graal-java-version</span><span class="pi">:</span> <span class="s">java11</span>
+</code></pre></div></div>
+
+<h4 id="release-assets-structure">Release Assets Structure</h4>
+<p>Each release contains a build of the Enso engine and native launcher binaries
+for each supported platform. Moreover, for convenience, it should include
+bundles containing native launcher binaries and the latest engine build for each
+platform. So each release should contain the following assets:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">enso-bundle-&lt;version&gt;-linux-amd64.zip</code></li>
+  <li><code class="language-plaintext highlighter-rouge">enso-bundle-&lt;version&gt;-macos-amd64.zip</code></li>
+  <li><code class="language-plaintext highlighter-rouge">enso-bundle-&lt;version&gt;-windows-amd64.zip</code></li>
+  <li><code class="language-plaintext highlighter-rouge">enso-engine-&lt;version&gt;.zip</code></li>
+  <li><code class="language-plaintext highlighter-rouge">enso-launcher-&lt;version&gt;-linux-amd64.zip</code></li>
+  <li><code class="language-plaintext highlighter-rouge">enso-launcher-&lt;version&gt;-macos-amd64.zip</code></li>
+  <li><code class="language-plaintext highlighter-rouge">enso-launcher-&lt;version&gt;-windows-amd64.zip</code></li>
+  <li><code class="language-plaintext highlighter-rouge">manifest.yml</code></li>
+</ul>
 
 <h4 id="marking-a-release-as-broken">Marking a Release as Broken</h4>
 <p>We intend to <em>never</em> delete a release from GitHub, as users may have projects
@@ -990,6 +1064,10 @@ search.start();
                 
 
                 
+                    <a href="/docs/enso/distribution/launcher.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Enso Launcher">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
             
             </div>
 
@@ -1079,7 +1157,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-07 11:59:49 +0000"
+        "time": "2020-07-08 13:55:38 +0000"
     },
     "basePath": "",
     "book": {
