@@ -638,6 +638,10 @@ search.start();
                 
             
             
+            
+                
+            
+            
 
             
         
@@ -830,6 +834,21 @@ that allows to run a task with additional JVM-level flags.</p>
 be attached to the <code class="language-plaintext highlighter-rouge">compile</code> task in configurations of the <code class="language-plaintext highlighter-rouge">syntax</code> project.
 This task ensures that the <code class="language-plaintext highlighter-rouge">syntax</code> project is recompiled whenever
 <code class="language-plaintext highlighter-rouge">syntax-definition</code> changes.</p>
+
+<h2 id="native-image">Native Image</h2>
+<p><a href="../../project/NativeImage.scala"><code class="language-plaintext highlighter-rouge">NativeImage</code></a> defines a task that can compile
+a project into a native binary using Graal’s Native Image. It compiles the
+project and runs the Native Image tool which builds the image. To be able to use
+it, the Native Image component has to be installed within the used GraalVM
+distribution. It can be installed by running <code class="language-plaintext highlighter-rouge">gu install native-image</code>.</p>
+
+<p>The task is parametrized with <code class="language-plaintext highlighter-rouge">staticOnLinux</code> parameter which if set to <code class="language-plaintext highlighter-rouge">true</code>,
+will statically link the built binary, to ensure portability between Linux
+distributions. For Windows and MacOS, the binaries should generally be portable,
+as described in <a href="/docs/enso/distribution/launcher.html#portability">Launcher Portability</a>.</p>
+
+<p>As Native Image does not support cross-compilation, the native binaries can only
+be built for the platform and architecture that the build is running on.</p>
 
                         
                         
@@ -1064,7 +1083,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-08 15:11:18 +0000"
+        "time": "2020-07-10 10:58:50 +0000"
     },
     "basePath": "",
     "book": {

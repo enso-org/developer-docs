@@ -566,6 +566,20 @@ search.start();
             
             
                 
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/licences.html">
+                    
+                        <a href="/docs/enso/distribution/licences.html">
+                            
+                                Licenses
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
             
             
             
@@ -796,10 +810,16 @@ different Java versions, this specifies which variant to use.</li>
 </ul>
 
 <p>For example:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">minimum-launcher-version</span><span class="pi">:</span> <span class="m">2.0</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">minimum-launcher-version</span><span class="pi">:</span> <span class="s">0.0.1</span>
 <span class="na">graal-vm-version</span><span class="pi">:</span> <span class="s">20.1.0</span>
 <span class="na">graal-java-version</span><span class="pi">:</span> <span class="s">java11</span>
 </code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">minimum-launcher-version</code> should be updated whenever a new version of Enso
+introduces changes that require a more recent launcher version. This value is
+stored in
+<a href="../../distribution/manifest.template.yml"><code class="language-plaintext highlighter-rouge">distribution/manifest.template.yml</code></a>
+and other values are added to this template at build time.</p>
 
 <h4 id="release-assets-structure">Release Assets Structure</h4>
 <p>Each release contains a build of the Enso engine and native launcher binaries
@@ -1157,7 +1177,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-08 15:11:18 +0000"
+        "time": "2020-07-10 10:58:50 +0000"
     },
     "basePath": "",
     "book": {
