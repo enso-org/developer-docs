@@ -673,18 +673,18 @@ Each node can be assigned with one or more visualization. After a node
 computes its new value, the visualization shows it in an understandable way to
 the user. Please note that a single node can be assigned with multiple
 visualizations at the same time. For example, a node might want to display a
-map of locations and their list at the same time next to each other.</p>
+map of locations, and their list at the same time next to each other.</p>
   </li>
   <li>
     <p><strong>Provide interactive way to generate new data</strong><br />
 In a widget mode (described in detail later), visualizations provide users
 with an interactive GUI to define data. For example, a map visualization can
-both display locations, as wekk as allow the user to pick locations by cliking
-with a mouse. Similarly, the histogram can both display a list of numbers, and
-can be manually draw with the mouse producing such a list. Several numbers can
-be visualized as a table of sliders, which can also be used to interactively
-generate a table of numbers. Image visualizations can behave like an image
-editor, etc.</p>
+both display locations, as well as allowing the user to pick locations by
+clicking with a mouse. Similarly, the histogram can both display a list of
+numbers, and can be manually draw with the mouse producing such a list.
+Several numbers can be visualized as a table of sliders, which can also be
+used to interactively generate a table of numbers. Image visualizations can
+behave like an image editor, etc.</p>
   </li>
 </ul>
 
@@ -693,7 +693,7 @@ editor, etc.</p>
 
 <ul>
   <li>
-    <p><strong>Attached to nodes</strong><br />
+    <p><strong>Attached to nodes</strong> 
 In this mode, visualizations display the most recent result of the node. They
 behave like an integrated part of the node. Whenever you move the node, the
 visualization moves as well. This mode can be toggled by tapping the spacebar.</p>
@@ -711,9 +711,9 @@ whenever we release space, in the later, whenever we press space again.</p>
     <p><strong>Detached</strong><br />
 Visualizations attached to nodes can be detached, scaled, and placed freely
 across the visual canvas (we might introduce a special place where you can put
-such visualizations). This is useful when defining dashboards or reports. We
-also plan to provide a notebook-like experience where you can write text mixed
-with visualizations (including widgets for an interactive experience).</p>
+such visualizations). This is useful when defining dashboards or reports.
+We also plan to provide a notebook-like experience where you can write text
+mixed with visualizations (including widgets for an interactive experience).</p>
   </li>
   <li>
     <p><strong>Widgets</strong><br />
@@ -724,7 +724,7 @@ is not connected, the visualization becomes an interactive widget allowing the
 user to specify data. For example, a map visualization will allow the user to
 manually pick locations. After each change, the new locations will be sent to
 the output port. Under the hood, widgets are represented as nodes and their
-code lines are assigned with a dedicated “visualization” metadata. 
+code lines are assigned with a dedicated “visualization” metadata.
 Visualizations generate expressions always in the form of <code class="language-plaintext highlighter-rouge">name = data</code>, where
 data is a hardcoded data produced from the visualization. For example, when
 user clicks the map to define locations, the data could be a string literal
@@ -774,16 +774,151 @@ be moved to the top layer.</p>
 <p>Visualizations are user-defined. Enso ships with a set of predefined
 visualizations, but they are in no way different than user-defined, they are
 just defined for you. Visualizations can be defined either as HTML or native
-visualization and can be defined in JS or WASM (or any language that compiles to
-one of these). Visualizations are stored on disk on the server-side and are
+visualization and can be defined in JS or WASM (or any language that compiles
+to one of these). Visualizations are stored on disk on the server-side and are
 provided to the GUI by the server. Users can upload their custom visualizations
 as well. Each visualization is registered in the visualization map. The map maps
 an Enso type to a set of visualizations defined for that type. The type might be
 very generic, like <code class="language-plaintext highlighter-rouge">[a]</code> (which in Enso terms means list of any elements).</p>
 
 <h3 id="defining-a-visualization">Defining a Visualization</h3>
-<p>This needs to be described in detail. For now, we can just assume that the user
-is allowed to create visualization and register it in Enso.</p>
+<p>Visualizations is planned to be defined both with Enso and JavaScript but, for
+now, only JavaScript visualizations are supported.</p>
+
+<p>Because IDE lacks support for editing any other file besides <code class="language-plaintext highlighter-rouge">Main.enso</code>, the
+user has to create it outside of IDE in the <code class="language-plaintext highlighter-rouge">visualization</code> folder of the Enso
+project, as demonstrated bellow.</p>
+
+<h4 id="custom-visualization-example">Custom Visualization Example</h4>
+
+<p>Every visualization must reside in the <code class="language-plaintext highlighter-rouge">visualization</code> folder of the user’s
+project. For instance:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─ ProjectName
+   ├─ src
+   │  └─ Main.enso
+   └─ visualization
+      └─ bubble.js
+</code></pre></div></div>
+
+<p>Visualizations can be defined as a JavaScript function which returns a class of
+a shape specified below. Consider the following definition:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hi, this definition is being registered now!</span><span class="dl">"</span><span class="p">)</span>
+
+<span class="k">return</span> <span class="kd">class</span> <span class="nx">BubbleVisualization</span> <span class="kd">extends</span> <span class="nx">Visualization</span> <span class="p">{</span>
+    <span class="kd">static</span> <span class="nx">inputType</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Any</span><span class="dl">"</span>
+
+    <span class="nx">onDataReceived</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">xmlns</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">http://www.w3.org/2000/svg</span><span class="dl">"</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">lastChild</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="kd">const</span> <span class="nx">width</span>   <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">getAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">width</span><span class="dl">"</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">height</span>  <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">getAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">height</span><span class="dl">"</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">svgElem</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElementNS</span><span class="p">(</span><span class="nx">xmlns</span><span class="p">,</span> <span class="dl">"</span><span class="s2">svg</span><span class="dl">"</span><span class="p">);</span>
+        <span class="nx">svgElem</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span>     <span class="p">,</span> <span class="dl">"</span><span class="s2">vis-svg</span><span class="dl">"</span><span class="p">);</span>
+        <span class="nx">svgElem</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">viewBox</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">0 0 </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">width</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">height</span><span class="p">);</span>
+        <span class="nx">svgElem</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">width</span><span class="dl">"</span>  <span class="p">,</span> <span class="dl">"</span><span class="s2">100%</span><span class="dl">"</span><span class="p">);</span>
+        <span class="nx">svgElem</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">height</span><span class="dl">"</span> <span class="p">,</span> <span class="dl">"</span><span class="s2">100%</span><span class="dl">"</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">svgElem</span><span class="p">);</span>
+        <span class="nx">data</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">data</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="kd">const</span> <span class="nx">bubble</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElementNS</span><span class="p">(</span><span class="nx">xmlns</span><span class="p">,</span><span class="dl">"</span><span class="s2">circle</span><span class="dl">"</span><span class="p">);</span>
+            <span class="nx">bubble</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="dl">"</span><span class="s2">stroke</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">black</span><span class="dl">"</span><span class="p">);</span>
+            <span class="nx">bubble</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="dl">"</span><span class="s2">fill</span><span class="dl">"</span>  <span class="p">,</span> <span class="dl">"</span><span class="s2">red</span><span class="dl">"</span><span class="p">);</span>
+            <span class="nx">bubble</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="dl">"</span><span class="s2">r</span><span class="dl">"</span>     <span class="p">,</span> <span class="nx">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+            <span class="nx">bubble</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="dl">"</span><span class="s2">cx</span><span class="dl">"</span>    <span class="p">,</span> <span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+            <span class="nx">bubble</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="dl">"</span><span class="s2">cy</span><span class="dl">"</span>    <span class="p">,</span> <span class="nx">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+            <span class="nx">svgElem</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">bubble</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="nx">setSize</span><span class="p">(</span><span class="nx">size</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">width</span><span class="dl">"</span><span class="p">,</span> <span class="nx">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">height</span><span class="dl">"</span><span class="p">,</span> <span class="nx">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In particular:</p>
+
+<ul>
+  <li>
+    <p>[Required] <strong>Source code</strong></p>
+
+    <p>Visualization definition has to be a valid body of JavaScript function which
+returns a class definition. Instances of that class will be considered
+separate visualizations. You are allowed to use global variables / global
+state across visualizations of the same type, but you are highly advised not
+to do so.</p>
+  </li>
+  <li>
+    <p>[Required] <strong><code class="language-plaintext highlighter-rouge">Visualization</code> superclass</strong></p>
+
+    <p>The class returned by the definition function should extend the predefined
+<code class="language-plaintext highlighter-rouge">Visualization</code> class. Classes which do not extend it, will not be registered
+as visualizations. The superclass defines a default constructor and a set of
+utils:</p>
+    <ul>
+      <li>The <code class="language-plaintext highlighter-rouge">setPreprocessor(code)</code> method allowing setting an Enso code which will
+be evaluated on server-side before sending data to visualization.</li>
+      <li>The <code class="language-plaintext highlighter-rouge">dom</code> field, which will be initialized in the constructor to the DOM
+symbol used to host the visualization content. You are free to modify the
+DOM element, including adding other elements as its children.</li>
+    </ul>
+  </li>
+  <li>
+    <p>[Optional] <strong>Field <code class="language-plaintext highlighter-rouge">label</code></strong></p>
+
+    <p>The static field <code class="language-plaintext highlighter-rouge">label</code> is an user-facing name used to identify the
+visualization. You are not allowed to define several visualizations of the
+same name in the same Enso library. In case the field is missing, the name
+will be inferred from the class name by splitting the camel-case name into
+chunks and converting them to lowercase string.</p>
+  </li>
+  <li>
+    <p>[Optional] <strong>Field <code class="language-plaintext highlighter-rouge">inputType</code></strong></p>
+
+    <p>The static field <code class="language-plaintext highlighter-rouge">inputType</code> is used to determine which Enso data types this
+visualization can be used for. Its value should be a valid Enso type, like
+“String | Int”. In case the field is an empty string or it is missing, it will
+default to “Any”, which is a type containing all other types. It is a rare
+case when you want to define a visualization which is able to work with just
+any data type, so you are highly advised to provide the type definition.</p>
+  </li>
+  <li>
+    <p>[Optional] <strong>Field <code class="language-plaintext highlighter-rouge">inputFormat</code></strong></p>
+
+    <p>The static field <code class="language-plaintext highlighter-rouge">inputFormat</code> is used to determine what format the data
+should be provided to the <code class="language-plaintext highlighter-rouge">onDataReceived</code> function. Currently, the only valid
+option is “json”, but it will be possible to set it to “binary” in the future.
+In the later case, it is up to the visualization author to manage the binary
+stream received from the server.</p>
+  </li>
+  <li>
+    <p>[Optional] <strong>Constructor</strong></p>
+
+    <p>The visualization will be instantiated by providing the constructor with a
+configuration object. The shape of the configuration object is not part of the
+public API and can change between releases of this library. You have to pass
+it unchanged to the superclass constructor.</p>
+  </li>
+  <li>
+    <p>[Optional] <strong>Function <code class="language-plaintext highlighter-rouge">onDataReceived</code></strong></p>
+
+    <p>The <code class="language-plaintext highlighter-rouge">onDataReceived(data)</code> method is called on every new data chunk received
+from the server. Note that the visualization will receive the “full data” if
+you are not using the <code class="language-plaintext highlighter-rouge">setPreprocessor</code> method.</p>
+  </li>
+  <li>
+    <p>[Optional] <strong>Function <code class="language-plaintext highlighter-rouge">setSize</code></strong></p>
+
+    <p>The <code class="language-plaintext highlighter-rouge">setSize(size)</code> method is called on every size change of the
+visualization. You should not draw outside of the provided area, however, if
+you do so, it will be clipped to the provided area automatically. The <code class="language-plaintext highlighter-rouge">size</code>
+parameter contains two fields <code class="language-plaintext highlighter-rouge">width</code> and <code class="language-plaintext highlighter-rouge">height</code> expressed in pixels.</p>
+  </li>
+</ul>
 
 <h3 id="sending-data-to-visualizations">Sending Data to Visualizations</h3>
 
@@ -800,16 +935,17 @@ attached to. Only the results of this code will be sent to the GUI. For example,
 imagine you want to display a heatmap of 10 million points on a map. And these
 points change rapidly. Sending such amount of information via WebSocket could be
 too much, and you (as the visualization author) might decide that the
-visualization image should be generated on the server, and your visualization is
-meant only to display the resulting image. In such a scenario, you can define in
-your visualization an Enso function which will compute the image on the server!</p>
+visualization image should be generated on the server, and your visualization
+is meant only to display the resulting image. In such a scenario, you can define
+in your visualization an Enso function which will compute the image on the
+server!</p>
 
 <h4 id="binary-and-text-json-formats">Binary and Text (JSON) Formats</h4>
 <p>Each visualization can choose whether it supports either binary or JSON input.
 The input format defaults to JSON. The data from the server is always sent to
 GUI in a binary channel, however, when JSON format is selected, it is first
-converted to JSON representation on the server side. We can assume that all Enso
-data types have defined conversion to JSON by default. If the visualization
+converted to JSON representation on the server side. We can assume that all
+Enso data types have defined conversion to JSON by default. If the visualization
 input is defined as JSON input, the binary stream will be converted to JSON by
 the GUI engine before passing to visualization. It is up to the visualization
 author to handle the textual or binary form.</p>
@@ -1043,7 +1179,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-10 10:58:50 +0000"
+        "time": "2020-07-11 01:01:35 +0000"
     },
     "basePath": "",
     "book": {
