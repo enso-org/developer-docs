@@ -765,6 +765,7 @@ from which it then generates code for a highly-optimised lexer.</p>
   <li><a href="#state-management">State Management</a></li>
   <li><a href="#code-generation">Code Generation</a>
     <ul>
+      <li><a href="#automated-code-generation">Automated Code Generation</a></li>
       <li><a href="#notes-on-code-generation">Notes on Code Generation</a></li>
     </ul>
   </li>
@@ -849,6 +850,39 @@ the DFA using functions from the <code class="language-plaintext highlighter-rou
 they mostly choose the <em>longest</em> match instead. Once the pattern is matched, the
 associated code is executed and the process starts over again until the input
 stream has been consumed.</p>
+
+<h3 id="automated-code-generation">Automated Code Generation</h3>
+<p>In order to avoid the lexer definition getting out of sync with its 
+implementation (the generated engine), it is necessary to create a separate 
+crate for the generated engine that has the lexer definition as one of its 
+dependencies.</p>
+
+<p>This separation enables a call to <code class="language-plaintext highlighter-rouge">flexer.generate_specialized_code()</code> in 
+<code class="language-plaintext highlighter-rouge">build.rs</code> (or a macro) during compilation. The output can be stored in a new 
+file i.e. <code class="language-plaintext highlighter-rouge">lexer-engine.rs</code> and exported from the library with 
+<code class="language-plaintext highlighter-rouge">include!("lexer-engine.rs")</code>. The project structure therefore appears as 
+follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- lib/rust/lexer/
+  - definition/
+    - src/
+      - lexer.rs
+    - cargo.toml
+
+  - generation/
+    - src/
+      - lexer.rs &lt;-- include!("lexer-engine.rs")
+    - build.rs   &lt;-- calls `lexer_definition::lexer_source_code()`
+                  -- and saves its output to `src/lexer-engine.rs`
+    - cargo.toml &lt;-- lexer-definition is in dependencies and build-dependencies
+</code></pre></div></div>
+
+<p>With this design, <code class="language-plaintext highlighter-rouge">flexer.generate_specialized_code()</code> is going to be executed 
+on each rebuild of <code class="language-plaintext highlighter-rouge">lexer/generation</code>. Therefore, <code class="language-plaintext highlighter-rouge">generation</code> should contain
+only the minimum amount of logic (i.e. tests should be in separate crate) and
+its dependencies should optimally involve only such code which directly 
+influences the content of generated code (in order to minimize the
+unnecessary calls to expensive flexer specialization).</p>
 
 <h3 id="notes-on-code-generation">Notes on Code Generation</h3>
 <p>The following properties are likely to hold for the code generation machinery.</p>
@@ -1196,7 +1230,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-11 01:01:35 +0000"
+        "time": "2020-07-15 09:30:26 +0000"
     },
     "basePath": "",
     "book": {
