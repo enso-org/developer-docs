@@ -244,6 +244,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/ide/repository-structure.html">
                     
@@ -662,48 +666,57 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="development--contributing-guide">Development &amp; Contributing Guide</h1>
-<p>Thank you for your interest in contributing to the Enso IDE! We believe that only through community
-involvement can Enso be the best it can be! There are a whole host of ways to contribute, and every
-single one is appreciated.</p>
+<p>Thank you for your interest in contributing to the Enso IDE! We believe that
+only through community involvement can Enso be the best it can be! There are
+a whole host of ways to contribute, and every single one is appreciated.</p>
 
 <p><br /></p>
 
 <h2 id="reporting-issues">Reporting Issues</h2>
 
-<p><strong>If you are concerned that your bug publicly presents a security risk to the users of Enso, please
-contact <a href="mailto:security@enso.org">security@enso.org</a>.</strong></p>
+<p><strong>If you are concerned that your bug publicly presents a security risk to
+the users of Enso, please contact 
+<a href="mailto:security@enso.org">security@enso.org</a>.</strong></p>
 
-<p>While it’s never great to find a bug, they are a reality of software and software development! We
-can’t fix or improve on the things that we don’t know about, so report as many bugs as you can! If
-you’re not sure whether something is a bug, file it anyway!</p>
+<p>While it’s never great to find a bug, they are a reality of software and
+software development! We can’t fix or improve on the things that we don’t
+know about, so report as many bugs as you can! If you’re not sure whether
+something is a bug, file it anyway!</p>
 
-<p>Even though GitHub search can be a bit hard to use sometimes, we’d appreciate if you could
-<a href="https://github.com/luna/enso/search?q=&amp;type=Issues&amp;utf8=%E2%9C%93">search</a> for your issue before
-filing a bug as it’s possible that someone else has already reported the issue. We know the search
-isn’t the best, and it can be hard to know what to search for, so we really don’t mind if you <em>do</em>
-submit a duplicate!</p>
+<p>Even though GitHub search can be a bit hard to use sometimes, we’d
+appreciate if you could
+<a href="https://github.com/luna/enso/search?q=&amp;type=Issues&amp;utf8=%E2%9C%93">search</a>
+for your issue before filing a bug as it’s possible that someone else has
+already reported the issue. We know the search isn’t the best, and it can be
+hard to know what to search for, so we really don’t mind if you <em>do</em> submit 
+a duplicate!</p>
 
-<p>Opening an issue is as easy as following <a href="https://github.com/luna/ide/issues/new?template=bug-report.md">this link</a>
-and filling out the fields. The template is intended to collect all the information we need to best
-diagnose the issue, so please take the time to fill it out accurately.</p>
+<p>Opening an issue is as easy as following 
+<a href="https://github.com/luna/ide/issues/new?template=bug-report.md">this link</a>
+and filling out the fields. The template is intended to collect all the
+information we need to best diagnose the issue, so please take the time to
+fill it out accurately.</p>
 
-<p>The reproduction steps are particularly important, as the more easily we can reproduce it, the
-faster we can fix the bug! It’s also helpful to have the version of the IDE, as that will let us
-know if the bug is Operating System or Architecture specific.</p>
+<p>The reproduction steps are particularly important, as the more easily we can
+reproduce it, the faster we can fix the bug! It’s also helpful to have the
+version of the IDE, as that will let us know if the bug is Operating System
+or Architecture specific.</p>
 
 <p><br /></p>
 
 <h2 id="development-environment">Development Environment</h2>
-<p>The project builds on MacOS, Windows, and Linux. Cross-platform targets work well on all of these
-platforms, however, MacOS package will miss the right application icon if built on Linux or Windows
-due to non-trival icon generation on these platforms. In order to develop the source code you will
+<p>The project builds on MacOS, Windows, and Linux. Cross-platform targets work
+well on all of these platforms, however, MacOS package will miss the right
+application icon if built on Linux or Windows due to non-trival icon
+generation on these platforms. In order to develop the source code you will
 need the following setup:</p>
 
 <ul>
   <li>
     <p><strong>The Rust Toolchain (nightly-2019-11-04)</strong></p>
 
-    <p>This project uses several features available only in the nightly Rust toolchain.  Please use the
+    <p>This project uses several features available only in the nightly Rust
+toolchain.  Please use the
 <a href="https://rustup.rs">the Rust toolchain installer</a> to install it:</p>
 
     <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rustup toolchain <span class="nb">install </span>nightly-2019-11-04 <span class="c"># Install the nightly channel.</span>
@@ -717,9 +730,10 @@ cargo <span class="nb">install </span>cargo-watch                   <span class=
     <p><strong>Node and Node Package Manager LTS</strong></p>
 
     <p>In order to build the web and desktop applications you will need
-<a href="https://nodejs.org/en/download">the latest LTS version of node and npm</a>. Even minor release
-changes are known to cause serious issues, thus <strong>we provide support for the latest LTS version
-only. Please do not report build issues if you use other versions.</strong> In case you run run MacOS or
+<a href="https://nodejs.org/en/download">the latest LTS version of node and npm</a>. Even
+minor release changes are known to cause serious issues, thus <strong>we provide
+support for the latest LTS version only. Please do not report build issues
+if you use other versions.</strong> In case you run run MacOS or
 Linux the easiest way to set up the proper version is by installing the
 <a href="https://github.com/nvm-sh/nvm">Node Version Manager</a> and running
 <code class="language-plaintext highlighter-rouge">nvm install --lts &amp;&amp; nvm use --lts</code>.</p>
@@ -727,19 +741,21 @@ Linux the easiest way to set up the proper version is by installing the
   <li>
     <p><strong>(Optional) FlatBuffer compiler <code class="language-plaintext highlighter-rouge">flatc</code></strong></p>
 
-    <p>This dependency is needed only if you need to update files generated by the FlatBuffer from the
-Engine Services binary protocol description. Otherwise, relying on the generated files that are
-being stored in this repository is fine.</p>
+    <p>This dependency is needed only if you need to update files generated by
+the FlatBuffer from the Engine Services binary protocol description.
+Otherwise, relying on the generated files that are being stored in this
+repository is fine.</p>
 
     <p><code class="language-plaintext highlighter-rouge">flatc</code> must be in version <em>newer than 1.12</em> due to 
-<a href="https://github.com/google/flatbuffers/issues/5055">this bug</a>. As of writing this text there
-are no official releases with this issue fixed, however current binaries can be obtained from the
-project’s CI 
-<a href="https://github.com/google/flatbuffers/actions?query=branch%3Amaster">build artifacts</a>. <code class="language-plaintext highlighter-rouge">flatc</code>
-builds from 8 May 2020 onwards have been confirmed to work.</p>
+<a href="https://github.com/google/flatbuffers/issues/5055">this bug</a>. As of
+writing this text there are no official releases with this issue fixed,
+however current binaries can be obtained from the project’s CI 
+<a href="https://github.com/google/flatbuffers/actions?query=branch%3Amaster">build artifacts</a>. 
+<code class="language-plaintext highlighter-rouge">flatc</code> builds from 8 May 2020 onwards have been confirmed to work.</p>
 
-    <p>After placing <code class="language-plaintext highlighter-rouge">flatc</code> in <code class="language-plaintext highlighter-rouge">PATH</code> you need to define the <code class="language-plaintext highlighter-rouge">ENSO_IDE_ENABLE_FLATC</code> environment
-variable to explicitly enable regeneration of the interface files. The <code class="language-plaintext highlighter-rouge">flatc</code> is run as part of
+    <p>After placing <code class="language-plaintext highlighter-rouge">flatc</code> in <code class="language-plaintext highlighter-rouge">PATH</code> you need to define the
+<code class="language-plaintext highlighter-rouge">ENSO_IDE_ENABLE_FLATC</code> environment variable to explicitly enable
+ regeneration of the interface files. The <code class="language-plaintext highlighter-rouge">flatc</code> is run as part of
 <code class="language-plaintext highlighter-rouge">build.rs</code> script of the `enso-protocol package.</p>
   </li>
 </ul>
@@ -747,25 +763,29 @@ variable to explicitly enable regeneration of the interface files. The <code cla
 <p><br /></p>
 
 <h2 id="working-with-sources">Working with sources</h2>
-<p>Please note that you should not use a code auto-formatter in this codebase. Please read the
-following documents to learn more about reasons behind this decision and the recommended code style
-guide. Be sure to carefully read the
+<p>Please note that you should not use a code auto-formatter in this codebase.
+Please read the following documents to learn more about reasons behind this
+decision and the recommended code style guide. Be sure to carefully read the
 <a href="/docs/ide/contributing/style-guide.html">Rust style guide 1</a>
 and the <a href="https://dev.enso.org/docs/style-guide/rust.html">Rust style guide 2</a>
 before contributing to the codebase.</p>
 
 <h3 id="setting-up-engine-services">Setting up Engine Services</h3>
-<p>IDE requires a service named Project Picker to be running in the background on the local machine.
-The service, being part of the Enso Engine, currently must be built from the sources on the <a href="https://github.com/luna/enso">enso
-repository</a>. If the service is not running, the IDE will not start.</p>
+<p>IDE requires a service named Project Picker to be running in the background
+on the local machine. The service, being part of the Enso Engine, currently
+must be built from the sources on the 
+<a href="https://github.com/luna/enso">enso repository</a>. If the service is not running,
+the IDE will not start.</p>
 
-<p>However, it is possible to hack on many components of the IDE without the service. The debug scenes
-and tests will work even without the Project Picker.</p>
+<p>However, it is possible to hack on many components of the IDE without the
+service. The debug scenes and tests will work even without the Project Picker.</p>
 
-<p>To run Project Picker, it must be first built — please follow the Enso Engine <a href="https://github.com/luna/enso/blob/main/docs/CONTRIBUTING.md">contributing
-guidelines</a> to obtain sources and
-necessary tools. When they are in place, the service can be built and started by issuing the
-following command in the <a href="https://github.com/luna/enso">enso repository</a> root:</p>
+<p>To run Project Picker, it must be first built — please follow the Enso
+Engine 
+<a href="https://github.com/luna/enso/blob/main/docs/CONTRIBUTING.md">contributing guidelines</a>
+to obtain sources and necessary tools. When they are in place, the service
+can be built and started by issuing the following command in the <a href="https://github.com/luna/enso">enso
+ repository</a> root:</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt -java-home $JAVA_HOME -J-Xss10M project-manager/run
 </code></pre></div></div>
 
@@ -778,47 +798,54 @@ following command in the <a href="https://github.com/luna/enso">enso repository<
 </ul>
 
 <h3 id="development">Development</h3>
-<p>As this is a multi-part project with many complex dependencies, it is equipped with a build script
-which both validates your working environment as well as takes care of providing the most suitable
-compilation flags for a particular development stage. In order to run the build script simply run
-<code class="language-plaintext highlighter-rouge">node ./run</code> in the root of the codebase. On MacOS and Linux you can use a simpler form of <code class="language-plaintext highlighter-rouge">./run</code>,
-however, this doc will use the former form in order to stay cross-platform compatible. Run
-<code class="language-plaintext highlighter-rouge">node ./run help</code> to learn about available commands and options. All arguments provided after the
-<code class="language-plaintext highlighter-rouge">--</code> symbol will be passed to sub-commands. For example <code class="language-plaintext highlighter-rouge">node ./run build -- --dev</code> will pass the
-<code class="language-plaintext highlighter-rouge">--dev</code> flag to <code class="language-plaintext highlighter-rouge">cargo</code> (Rust build tool). The most common options are presented below:</p>
+<p>As this is a multi-part project with many complex dependencies, it is
+equipped with a build script which both validates your working environment as
+well as takes care of providing the most suitable compilation flags for a
+particular development stage. In order to run the build script simply run
+<code class="language-plaintext highlighter-rouge">node ./run</code> in the root of the codebase. On MacOS and Linux you can use a
+simpler form of <code class="language-plaintext highlighter-rouge">./run</code>, however, this doc will use the former form in order
+to stay cross-platform compatible. Run <code class="language-plaintext highlighter-rouge">node ./run help</code> to learn about
+available commands and options. All arguments provided after the <code class="language-plaintext highlighter-rouge">--</code> symbol
+will be passed to sub-commands. For example <code class="language-plaintext highlighter-rouge">node ./run build -- --dev</code> will 
+pass the <code class="language-plaintext highlighter-rouge">--dev</code> flag to <code class="language-plaintext highlighter-rouge">cargo</code> (Rust build tool). The most common options
+are presented below:</p>
 
 <ul>
   <li>
     <p><strong>Interactive mode</strong>
-Run <code class="language-plaintext highlighter-rouge">node ./run watch</code> to start a local web-server and a source-file watch utility which will
-build the project on every change. Open <code class="language-plaintext highlighter-rouge">http://localhost:8080</code> (the port may vary and will be
-reported in the terminal if <code class="language-plaintext highlighter-rouge">8080</code> was already in use) to run the application, or
-<code class="language-plaintext highlighter-rouge">http://localhost:8080/debug</code> to open example demo scenes. Please remember to disable the cache in
-your browser during the development! By default, the script disables heavyweight optimizations to
-provide interactive development experience. The scripts are thin wrappers for
+Run <code class="language-plaintext highlighter-rouge">node ./run watch</code> to start a local web-server and a source-file watch
+utility which will build the project on every change. Open 
+<code class="language-plaintext highlighter-rouge">http://localhost:8080</code> (the port may vary and will be reported in the
+terminal if <code class="language-plaintext highlighter-rouge">8080</code> was already in use) to run the application, or
+<code class="language-plaintext highlighter-rouge">http://localhost:8080/debug</code> to open example demo scenes. Please remember
+to disable the cache in your browser during the development! By default,
+the script disables heavyweight optimizations to provide interactive
+development experience. The scripts are thin wrappers for
 <a href="https://github.com/rustwasm/wasm-pack">wasm-pack</a> and accept the same
 <a href="https://rustwasm.github.io/wasm-pack/book/commands/build.html">command line arguments</a>.</p>
   </li>
   <li>
     <p><strong>Production mode</strong>
-In order to compile in a production mode (enable all optimizations, strip WASM debug symbols,
-minimize the output binaries, etc.), run <code class="language-plaintext highlighter-rouge">node ./run build</code>. To create platform-specific packages
-and installers use <code class="language-plaintext highlighter-rouge">node ./run dist</code> instead. The final packages will be located at
+In order to compile in a production mode (enable all optimizations, strip
+WASM debug symbols, minimize the output binaries, etc.), run 
+<code class="language-plaintext highlighter-rouge">node ./run build</code>. To create platform-specific packages and installers use
+<code class="language-plaintext highlighter-rouge">node ./run dist</code> instead. The final packages will be located at
 <code class="language-plaintext highlighter-rouge">app/dist/native</code>.</p>
   </li>
 </ul>
 
 <h3 id="testing-linting-and-validation">Testing, Linting, and Validation</h3>
-<p>After changing the code it’s always a good idea to lint and test the code. We have prepared several
-scripts which maximally automate the process:</p>
+<p>After changing the code it’s always a good idea to lint and test the code. We 
+have prepared several scripts which maximally automate the process:</p>
 
 <ul>
   <li>
     <p><strong>Size Validation</strong>
-Use <code class="language-plaintext highlighter-rouge">node ./run check-size</code> to check if the size of the final binary did not grew too much in
-comparison to the previous release. Watching the resulting binary size is one of the most
-important responsibility of each contributor in order to keep the project small and suitable for
-web-based usage.</p>
+Use <code class="language-plaintext highlighter-rouge">node ./run check-size</code> to check if the size of the final binary did
+not grew too much in comparison to the previous release. Watching the
+resulting binary size is one of the most important responsibility of each
+contributor in order to keep the project small and suitable for web-based
+usage.</p>
   </li>
   <li>
     <p><strong>Testing</strong>
@@ -827,17 +854,18 @@ Use <code class="language-plaintext highlighter-rouge">node ./run test</code> ru
 
     <ul>
       <li><em>Note for Windows users</em>:
-there is a <a href="https://github.com/rustwasm/wasm-pack/issues/611">known issue with wasm-pack</a> using the
-wrong version of the chrome driver. There is
-<a href="https://github.com/rustwasm/wasm-pack/issues/611#issuecomment-522093207">a workaround</a> described in
-the issue: download compatible ChromeDriver from the
-<a href="https://chromedriver.chromium.org/downloads">official source</a> and ensure it is in your <code class="language-plaintext highlighter-rouge">PATH</code>.</li>
+there is a <a href="https://github.com/rustwasm/wasm-pack/issues/611">known issue with wasm-pack</a> 
+using the wrong version of the chrome driver. There is
+<a href="https://github.com/rustwasm/wasm-pack/issues/611#issuecomment-522093207">a workaround</a> 
+described in the issue: download compatible ChromeDriver from the
+<a href="https://chromedriver.chromium.org/downloads">official source</a> and ensure it 
+is in your <code class="language-plaintext highlighter-rouge">PATH</code>.</li>
     </ul>
   </li>
   <li>
     <p><strong>Linting</strong>
-Please be sure to fix all errors reported by <code class="language-plaintext highlighter-rouge">node ./run lint</code> before creating a pull request to
-this repository.</p>
+Please be sure to fix all errors reported by <code class="language-plaintext highlighter-rouge">node ./run lint</code> before
+creating a pull request to this repository.</p>
   </li>
 </ul>
 
@@ -1071,7 +1099,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-15 09:30:26 +0000"
+        "time": "2020-07-16 07:51:43 +0000"
     },
     "basePath": "",
     "book": {

@@ -244,6 +244,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter active" data-level="1.2" data-path="/docs/ide/repository-structure.html">
                     
@@ -672,36 +676,40 @@ search.start();
 
 <h2 id="crates">Crates</h2>
 
-<p>The crates structure is currently in process of refactoring, and there are still places where
-code does not fit the crate it is placed. The work is tracked in #448 epic.</p>
+<p>The crates structure is currently in process of refactoring, and there are still
+places where code does not fit the crate it is placed. The work is tracked in
+#448 epic.</p>
 
-<p>The detailed description of each crate is placed in its documentation at top of its <code class="language-plaintext highlighter-rouge">lib.rs</code> file.</p>
+<p>The detailed description of each crate is placed in its documentation at top
+of its <code class="language-plaintext highlighter-rouge">lib.rs</code> file.</p>
 
-<p>There are two main parts of our codebase: <strong>EnsoGL library</strong> and the <strong>Enso IDE application</strong>. The
-crates used in common by those parts are put in <code class="language-plaintext highlighter-rouge">src/rust/lib</code>, and should be documented at the
-top of their <code class="language-plaintext highlighter-rouge">lib.rs</code> file.</p>
+<p>There are two main parts of our codebase: <strong>EnsoGL library</strong> and the <strong>Enso
+IDE application</strong>. The crates used in common by those parts are put in <code class="language-plaintext highlighter-rouge">src
+/rust/lib</code>, and should be documented at the top of their <code class="language-plaintext highlighter-rouge">lib.rs</code> file.</p>
 
-<p>Other crates usually contains code shared by those two. The one noteworthy is the <strong>prelude</strong> crate
-(<code class="language-plaintext highlighter-rouge">src/rust/prelude</code>) which gathers the commonly used imports across all crates in our repository.</p>
+<p>Other crates usually contains code shared by those two. The one noteworthy
+is the <strong>prelude</strong> crate (<code class="language-plaintext highlighter-rouge">src/rust/prelude</code>) which gathers the commonly used
+imports across all crates in our repository.</p>
 
 <h3 id="ensogl-srcrustensogl">EnsoGL (<code class="language-plaintext highlighter-rouge">src/rust/ensogl</code>)</h3>
 
 <p>EnsoGL is a library providing fast 2D vector rendering engine with a rich set of
-primitives and high-level GUI components. Its structure will be described after the planned
- refactoring in #598.</p>
+primitives and high-level GUI components. Its structure will be described after
+the planned refactoring in #598.</p>
 
 <h3 id="enso-ide-srcrustide">Enso IDE (<code class="language-plaintext highlighter-rouge">src/rust/ide</code>)</h3>
 
-<p>The Enso IDE crate contains entry point function of application, and integrates two main parts
-of it:</p>
+<p>The Enso IDE crate contains entry point function of application, and
+integrates two main parts of it:</p>
 <ul>
-  <li>IDE View (<code class="language-plaintext highlighter-rouge">src/rust/ide/lib/view</code>) - The visual part of IDE. It contains no logic and
-connections to backend - instead it delivers FRP endpoints to be integrated with controllers. That
-design allow us to measure of vis-part only performance.</li>
-  <li>IDE Controllers (<code class="language-plaintext highlighter-rouge">src/rust/ide/lib/controller</code>) - The logic part of IDE, that is 
-synchronizing graph a text and communication with Engine. It should not
-know anything about visual part. In the future we may consider creating some sort of CLI for
-automatic integration tests.</li>
+  <li>IDE View (<code class="language-plaintext highlighter-rouge">src/rust/ide/lib/view</code>) - The visual part of IDE. It contains
+no logic and connections to backend - instead it delivers FRP endpoints to
+be integrated with controllers. That design allow us to measure of vis-part
+only performance.</li>
+  <li>IDE Controllers (<code class="language-plaintext highlighter-rouge">src/rust/ide/lib/controller</code>) - The logic part of IDE,
+that is synchronizing graph a text and communication with Engine. It
+should not know anything about visual part. In the future we may consider
+creating some sort of CLI for automatic integration tests.</li>
 </ul>
 
                         
@@ -933,7 +941,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-15 09:30:26 +0000"
+        "time": "2020-07-16 07:51:43 +0000"
     },
     "basePath": "",
     "book": {
