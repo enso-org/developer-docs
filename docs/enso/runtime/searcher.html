@@ -767,35 +767,177 @@ Server Message Specification</a>
 document.</p>
 
 <h3 id="database-structure">Database Structure</h3>
-
 <p>Implementation utilizes the SQLite database.</p>
 
 <p>Database is created per project and the database file stored in the project
 directory. That way the index can be preserved between the IDE restarts.</p>
 
 <h4 id="suggestions-table">Suggestions Table</h4>
+<p>Suggestions table stores suggestion entries.</p>
 
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">id</code> <code class="language-plaintext highlighter-rouge">INTEGER</code> - unique identifier</li>
-  <li><code class="language-plaintext highlighter-rouge">kind</code> <code class="language-plaintext highlighter-rouge">INTEGER</code> - type of suggestion entry, i.e. Atom, Method, Function, or
-Local</li>
-  <li><code class="language-plaintext highlighter-rouge">name</code> <code class="language-plaintext highlighter-rouge">TEXT</code> - entry name</li>
-  <li><code class="language-plaintext highlighter-rouge">self_type</code> <code class="language-plaintext highlighter-rouge">TEXT</code> - self type of the Method</li>
-  <li><code class="language-plaintext highlighter-rouge">return_type</code> <code class="language-plaintext highlighter-rouge">TEXT</code> - return type of the entry</li>
-  <li><code class="language-plaintext highlighter-rouge">documentation</code> <code class="language-plaintext highlighter-rouge">TEXT</code> - documentation string</li>
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th>Column</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">INTEGER</code></td>
+      <td>the unique identifier</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">externalId</code></td>
+      <td><code class="language-plaintext highlighter-rouge">UUID</code></td>
+      <td>the external id from the IR</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">kind</code></td>
+      <td><code class="language-plaintext highlighter-rouge">INTEGER</code></td>
+      <td>the type of suggestion entry, i.e. Atom, Method, Function, or Local</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">module</code></td>
+      <td><code class="language-plaintext highlighter-rouge">TEXT</code></td>
+      <td>the module name</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td><code class="language-plaintext highlighter-rouge">TEXT</code></td>
+      <td>the suggestion name</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">self_type</code></td>
+      <td><code class="language-plaintext highlighter-rouge">TEXT</code></td>
+      <td>the self type of the Method</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">return_type</code></td>
+      <td><code class="language-plaintext highlighter-rouge">TEXT</code></td>
+      <td>the return type of the entry</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">scope_start</code></td>
+      <td><code class="language-plaintext highlighter-rouge">INTEGER</code></td>
+      <td>the start position of the definition scope</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">scope_end</code></td>
+      <td><code class="language-plaintext highlighter-rouge">INTEGER</code></td>
+      <td>the end position of the definition scope</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">documentation</code></td>
+      <td><code class="language-plaintext highlighter-rouge">TEXT</code></td>
+      <td>the documentation string</td>
+    </tr>
+  </tbody>
+</table>
 
 <h4 id="arguments-table">Arguments Table</h4>
+<p>Arguments table stores all suggestion arguments with <code class="language-plaintext highlighter-rouge">suggestion_id</code> foreign
+key.</p>
 
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">id</code> <code class="language-plaintext highlighter-rouge">INTEGER</code> - unique identifier</li>
-  <li><code class="language-plaintext highlighter-rouge">suggestion_id</code> <code class="language-plaintext highlighter-rouge">INTEGER</code> - suggestion key this argument relates to</li>
-  <li><code class="language-plaintext highlighter-rouge">name</code> <code class="language-plaintext highlighter-rouge">TEXT</code> - argument name</li>
-  <li><code class="language-plaintext highlighter-rouge">type</code> <code class="language-plaintext highlighter-rouge">TEXT</code> - argument type; const ‘Any’ is used to specify generic types</li>
-  <li><code class="language-plaintext highlighter-rouge">is_suspended</code> <code class="language-plaintext highlighter-rouge">INTEGER</code> - indicates whether the argument is lazy</li>
-  <li><code class="language-plaintext highlighter-rouge">has_defult</code> <code class="language-plaintext highlighter-rouge">INTEGER</code> - indicates whether the argument has default value</li>
-  <li><code class="language-plaintext highlighter-rouge">default_value</code> <code class="language-plaintext highlighter-rouge">TEXT</code> - optional default value</li>
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th>Column</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">INTEGER</code></td>
+      <td>the unique identifier</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">suggestion_id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">INTEGER</code></td>
+      <td>the suggestion key this argument relates to</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">index</code></td>
+      <td><code class="language-plaintext highlighter-rouge">INTEGER</code></td>
+      <td>the argument position in the arguments list</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td><code class="language-plaintext highlighter-rouge">TEXT</code></td>
+      <td>the argument name</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">type</code></td>
+      <td><code class="language-plaintext highlighter-rouge">TEXT</code></td>
+      <td>the argument type; const ‘Any’ is used to specify generic types</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">is_suspended</code></td>
+      <td><code class="language-plaintext highlighter-rouge">INTEGER</code></td>
+      <td>indicates whether the argument is lazy</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">has_defult</code></td>
+      <td><code class="language-plaintext highlighter-rouge">INTEGER</code></td>
+      <td>indicates whether the argument has default value</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">default_value</code></td>
+      <td><code class="language-plaintext highlighter-rouge">TEXT</code></td>
+      <td>the optional default value</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="suggestions-version-table">Suggestions Version Table</h4>
+<p>Versions table has a single row with the current database version. The version
+is updated on every change in the suggestions table.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Column</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">INTEGER</code></td>
+      <td>the unique identifier representing the currend database version</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="file-versions-table">File Versions Table</h4>
+<p>Keeps track of SHA versions of the opened files.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Column</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">path</code></td>
+      <td><code class="language-plaintext highlighter-rouge">TEXT</code></td>
+      <td>the unique identifier of the file</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">digest</code></td>
+      <td><code class="language-plaintext highlighter-rouge">BLOB</code></td>
+      <td>the SHA hash of the file contents</td>
+    </tr>
+  </tbody>
+</table>
 
 <h3 id="static-analysis">Static Analysis</h3>
 <p>The database is filled by analyzing the Intermediate Representation (<code class="language-plaintext highlighter-rouge">IR</code>)
@@ -856,9 +998,100 @@ the scope becomes wider, the rank decreases.</p>
 function, the search results will have the order of: <code class="language-plaintext highlighter-rouge">x2</code> &gt; <code class="language-plaintext highlighter-rouge">x1</code> &gt; <code class="language-plaintext highlighter-rouge">const_x</code>.</p>
 
 <h3 id="type">Type</h3>
-
 <p>Suggestions based on the type are selected by matching with the string runtime
 type representation.</p>
+
+<h2 id="implementation">Implementation</h2>
+<p>The searcher primarily consists of:</p>
+
+<ul>
+  <li>Suggestions database that stores suggestion entries and SHA hashes of the
+opened file contents.</li>
+  <li>Search requests handler that serves search and capability requests, and
+listens to the notifications from the runtime.</li>
+  <li>Suggestion builder (aka <em>indexer</em>) that extracts suggestion entries from <code class="language-plaintext highlighter-rouge">IR</code>
+in compile time.</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+                                  +--------------------------------+
+                                  |         SuggestionsDB          |
+                                  +-----------------+--------------+
+                                  | SuggestionsRepo | VersionsRepo |
+                                  +----+------------+---------+----+
+                                       ^                      ^
+                                       |                      |
+            Capability,Search          v                      v
+ +--------+      Request     +---------+----------+        +--+------------------+
+ | Client +&lt;----------------&gt;+ SuggestionsHandler |        | CollaborativeBuffer |
+ +--------+ Database Update  +---------+----------+        +-------------------+-+
+            Notifications              ^                  OpenFileNotification |
+                                       |                  (isIndexed)          |
+                                       |                                       v
+                             +---------+---------------------------------------+-------+
+                             |                   RuntimeConnector                      |
+                             +----+----------+---------------------------------+-------+
+                                  ^          ^                                 |
+        ExpressionValuesComputed  |          |  SuggestionsDBUpdate            |
+                                  |          |                                 |
+               +------------------+--+    +--+----------------+                |
+               | ExecutionInstrument |    | EnsureCompiledJob |           +----+------+
+               +---------------------+    +-------------------+           |  Module   |
+                                          |                   | (re)index +-----------+
+                                          | SuggestionBuilder +-----------+ isIndexed |
+                                          |                   |           +-----------+
+                                          +-------------------+
+
+</code></pre></div></div>
+
+<h3 id="indexing">Indexing</h3>
+<p>Indexing is a process of extracting suggestions information from the <code class="language-plaintext highlighter-rouge">IR</code>. To
+keep the index in the consistent state, the language server tracks SHA versions
+of all opened files in the suggestions database.</p>
+
+<ul>
+  <li>When the user opens a file, we compare its SHA hash with the saved digest. If
+they don’t match, we mark the file for re-index by setting the corresponding
+flag in the OpenFile notification sent to the runtime. On receive, the runtime
+marks the module as not indexed.</li>
+  <li>When the file is compiled, we check the indexed flag on the module. If the
+module has not been indexed yet, we send all suggestions extracted from the IR
+as a ReIndexed update to the language server. If the module has been indexed,
+we only send suggestions that have been affected by the recent edits as a
+Database update.</li>
+  <li>When the language server receives ReIndexed update, it removes all suggestions
+related to this module, applies newly received updates, and sends a combined
+update of removed and added entries to the subscribed users. When the language
+server receives a regular Database update, it applies the update on the
+database and sends the appropriate updates to the subscribers.</li>
+  <li>When the user deletes a file, we remove all entries with the corresponding
+module from the database and update the users.</li>
+</ul>
+
+<h3 id="suggestion-builder">Suggestion Builder</h3>
+<p>The suggestion builder takes part in the indexing process. It extracts
+suggestions from the compiled <code class="language-plaintext highlighter-rouge">IR</code>. It also converts <code class="language-plaintext highlighter-rouge">IR</code> locations represented
+as an absolute char indexes (from the beginning of the file) to a position
+relative to a line used in the rest of the project.</p>
+
+<h3 id="runtime-instrumentation">Runtime Instrumentation</h3>
+<p>Apart from the type ascriptions, we can only get the return types of expressions
+in runtime. On the module execution, the language server listens to the
+<code class="language-plaintext highlighter-rouge">ExpressionValuesComputed</code> notifications sent from the runtime, which contain
+the external id and the actual return type. Then the language server uses
+external id as a key to update return types in the database.</p>
+
+<h3 id="search-requests">Search Requests</h3>
+<p>The search request handler has direct access to the database. The completion
+request is more complicated then others. To query the database, it needs to
+convert the requested file path to the module name. To do this, on startup, the
+language server loads the package definition from the root directory and obtains
+the project name. Then, having the project name and the root directory path, it
+can recover the module name from the requested file path.</p>
+
+<p>The project name can be changed with the refactoring <code class="language-plaintext highlighter-rouge">renameProject</code> command. To
+cover this case, the request handler listens to the <code class="language-plaintext highlighter-rouge">ProjectNameChanged</code> event
+and updates the project name accordingly.</p>
 
                         
                         
@@ -1089,7 +1322,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-17 12:33:21 +0000"
+        "time": "2020-07-20 08:01:49 +0000"
     },
     "basePath": "",
     "book": {
