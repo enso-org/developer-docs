@@ -847,13 +847,28 @@ WASM debug symbols, minimize the output binaries, etc.), run
 have prepared several scripts which maximally automate the process:</p>
 
 <ul>
-  <li>
-    <p><strong>Size Validation</strong>
+  <li><strong>Size Validation</strong>
 Use <code class="language-plaintext highlighter-rouge">node ./run check-size</code> to check if the size of the final binary did
 not grew too much in comparison to the previous release. Watching the
 resulting binary size is one of the most important responsibility of each
 contributor in order to keep the project small and suitable for web-based
-usage.</p>
+usage. In case the size will exceed the limits:
+    <ul>
+      <li>If the PR does not include any new libraries, you are allowed to increase 
+the limit by 10KB. In case the limit will be exceeded by more than 10KB,
+check which part of the code contributet to it, and talk about it with the 
+code owner.</li>
+      <li>If the PR does include new libraries, you are allowed to increase the
+limit by 10KB, but you should also consider if it is possible to get the
+same results without using a new library (even by implementing few lines 
+of code from the library in sources of the project).</li>
+      <li>If the PR does include new libraries, and the limit is exceeded by more
+than 10KB, check which part of the code contributed to it, and talk about 
+it with the code owner.</li>
+      <li>If the PR does include new libraries, and the limit is exceeded by more 
+than 50KB, it would probably not be merged. Research possible alternatives
+before talking with code owner about this case.</li>
+    </ul>
   </li>
   <li>
     <p><strong>Testing</strong>
@@ -870,13 +885,10 @@ described in the issue: download compatible ChromeDriver from the
 is in your <code class="language-plaintext highlighter-rouge">PATH</code>.</li>
     </ul>
   </li>
-  <li>
-    <p><strong>Linting</strong>
+  <li><strong>Linting</strong>
 Please be sure to fix all errors reported by <code class="language-plaintext highlighter-rouge">node ./run lint</code> before
-creating a pull request to this repository.</p>
-  </li>
+creating a pull request to this repository.</li>
 </ul>
-
 
                         
                         
@@ -1107,7 +1119,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 15:26:02 +0000"
+        "time": "2020-07-21 20:29:25 +0000"
     },
     "basePath": "",
     "book": {
