@@ -801,8 +801,9 @@ released.</p>
 may not be changed in any way, except to mark it as broken.</p>
 
 <h4 id="manifest-file">Manifest File</h4>
-<p>Each GitHub release contains an asset named <code class="language-plaintext highlighter-rouge">manifest.yml</code> which is a YAML file
-containing metadata regarding the release. It has at least the following fields:</p>
+<p>Each GitHub release contains an asset named <code class="language-plaintext highlighter-rouge">manifest.yaml</code> which is a YAML file
+containing metadata regarding the release. The manifest is also included in the
+root of an Enso version package. It has at least the following fields:</p>
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">minimum-launcher-version</code> - specifies the minimum version of the launcher
@@ -822,7 +823,7 @@ different Java versions, this specifies which variant to use.</li>
 <p>The <code class="language-plaintext highlighter-rouge">minimum-launcher-version</code> should be updated whenever a new version of Enso
 introduces changes that require a more recent launcher version. This value is
 stored in
-<a href="../../distribution/manifest.template.yml"><code class="language-plaintext highlighter-rouge">distribution/manifest.template.yml</code></a>
+<a href="../../distribution/manifest.template.yaml"><code class="language-plaintext highlighter-rouge">distribution/manifest.template.yaml</code></a>
 and other values are added to this template at build time.</p>
 
 <h4 id="release-assets-structure">Release Assets Structure</h4>
@@ -839,7 +840,7 @@ platform. So each release should contain the following assets:</p>
   <li><code class="language-plaintext highlighter-rouge">enso-launcher-&lt;version&gt;-linux-amd64.zip</code></li>
   <li><code class="language-plaintext highlighter-rouge">enso-launcher-&lt;version&gt;-macos-amd64.zip</code></li>
   <li><code class="language-plaintext highlighter-rouge">enso-launcher-&lt;version&gt;-windows-amd64.zip</code></li>
-  <li><code class="language-plaintext highlighter-rouge">manifest.yml</code></li>
+  <li><code class="language-plaintext highlighter-rouge">manifest.yaml</code></li>
 </ul>
 
 <h4 id="marking-a-release-as-broken">Marking a Release as Broken</h4>
@@ -1181,7 +1182,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-20 15:05:43 +0000"
+        "time": "2020-07-21 08:15:26 +0000"
     },
     "basePath": "",
     "book": {

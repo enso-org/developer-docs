@@ -787,7 +787,8 @@ specified on a per-language basis, in the
 
 <h3 id="the-packageyaml-file">The <code class="language-plaintext highlighter-rouge">package.yaml</code> File</h3>
 <p><code class="language-plaintext highlighter-rouge">package.yaml</code> describes certain package metadata, such as its name, authors
-and version. It also includes the list of dependencies of the package.
+and version. It also includes the list of extra dependencies of the package
+(dependencies that are not present in the resolver or need a version override).
 The following is an example of this manifest file.</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">license</span><span class="pi">:</span> <span class="s">MIT</span>
@@ -803,15 +804,22 @@ The following is an example of this manifest file.</p>
   <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">4.5.3"</span>
 </code></pre></div></div>
 
-<p>The following is the specification of the manifest fields.</p>
+<p>The following is the specification of the manifest fields.
+Fields marked as <strong>Optional (required for publishing)</strong> are completely optional
+during development - if not specified, their default values will be used.
+However, they must be specified before publishing the package. A package missing
+any of these fields cannot be published.</p>
 
 <h4 id="license">license</h4>
-<p><strong>Optional</strong> <em>String</em>: The short license name of this package. Defaults to
-<code class="language-plaintext highlighter-rouge">None</code>, meaning the package is not safe for use by third parties.</p>
+<p><strong>Optional (required for publishing)</strong> <em>String</em>: The short license name of this
+package. Defaults to <code class="language-plaintext highlighter-rouge">None</code>, meaning the package is not safe for use by third
+parties.</p>
 
 <h4 id="version">version</h4>
-<p><strong>Required</strong> <em>String</em>: The <a href="https://semver.org/">semantic versioning</a> string,
-in the <code class="language-plaintext highlighter-rouge">major.minor.patch</code> format.</p>
+<p><strong>Optional (required for publishing)</strong> <em>String</em>: The
+<a href="https://semver.org/">semantic versioning</a> string, in the <code class="language-plaintext highlighter-rouge">major.minor.patch</code>
+format. If not set, it defaults to <code class="language-plaintext highlighter-rouge">dev</code> (which can be used for development, but
+is not a valid version for publishing).</p>
 
 <h4 id="author">author</h4>
 <p><strong>Optional</strong> <em>String</em> or <em>List of Strings</em>: The name(s) and contact info(s) of
@@ -824,8 +832,9 @@ format.</p>
 
 <h4 id="resolver">resolver</h4>
 <p><strong>Note</strong> This field is not currently implemented.
-<strong>Required</strong> <em>String</em>: The resolver name, used to choose compiler version and
-basic libraries set.</p>
+<strong>Optional (required for publishing)</strong> <em>String</em>: The resolver name, used to
+choose compiler version and basic libraries set. If not set, the system-default
+resolver will be used.</p>
 
 <blockquote>
   <p>The actionables for this section are:</p>
@@ -1104,7 +1113,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-20 15:05:43 +0000"
+        "time": "2020-07-21 08:15:26 +0000"
     },
     "basePath": "",
     "book": {

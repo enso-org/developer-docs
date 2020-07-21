@@ -715,7 +715,12 @@ command-line interface is described in the <a href="/docs/enso/distribution/laun
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
 <ul>
-  <li><a href="#launcher-distribution">Launcher Distribution</a></li>
+  <li><a href="#launcher-distribution">Launcher Distribution</a>
+    <ul>
+      <li><a href="#using-multiple-launcher-versions-side-by-side">Using Multiple Launcher Versions Side-By-Side</a></li>
+      <li><a href="#detecting-portable-distribution">Detecting Portable Distribution</a></li>
+    </ul>
+  </li>
   <li><a href="#launcher-build">Launcher Build</a>
     <ul>
       <li><a href="#portability">Portability</a></li>
@@ -735,7 +740,11 @@ command-line interface is described in the <a href="/docs/enso/distribution/laun
       <li><a href="#downloading-graalvm-releases">Downloading GraalVM Releases</a></li>
     </ul>
   </li>
-  <li><a href="#running-enso-components">Running Enso Components</a></li>
+  <li><a href="#running-enso-components">Running Enso Components</a>
+    <ul>
+      <li><a href="#running-plugins">Running Plugins</a></li>
+    </ul>
+  </li>
   <li><a href="#global-user-configuration">Global User Configuration</a></li>
   <li><a href="#updating-the-launcher">Updating the Launcher</a>
     <ul>
@@ -749,17 +758,27 @@ command-line interface is described in the <a href="/docs/enso/distribution/laun
 
 <h2 id="launcher-distribution">Launcher Distribution</h2>
 <p>The launcher is distributed as a native binary for each platform (Windows,
-Linux, Mac). It is distributed in a ZIP archive as described in
-<a href="/docs/enso/distribution/distribution.html#enso-home-layout">Enso Home Layout</a>, except that the
-component directories are empty (they will be populated when Enso versions are
-downloaded by the launcher on-demand). The only non-empty directory is <code class="language-plaintext highlighter-rouge">bin</code>
-which is where the launcher binary is placed. The ZIP file should also contain a
-<a href="../../distribution/launcher/README.md">README</a> describing the distribution and
-basic usage.</p>
+Linux, macOS). It is distributed in a ZIP archive as described in
+<a href="/docs/enso/distribution/distribution.html#enso-distribution-layout">Enso Distribution Layout</a> in two
+flavors - as packages containing just the launcher binary that can then
+download and install desired versions of the engine and as bundles that already
+contain the latest version of Enso engine and Graal runtime corresponding to it.</p>
 
-<p>The distribution structure is portable - this directory structure can be placed
-anywhere in the system. The launcher places all components in this directory
-structure by accessing them as relative to the location of its binary.</p>
+<h3 id="using-multiple-launcher-versions-side-by-side">Using Multiple Launcher Versions Side-By-Side</h3>
+<p>Multiple portable distributions of the launcher can be used side-by-side. To use
+multiple installed distributions, some tricks are necessary - before launching a
+different version, the environment variables <code class="language-plaintext highlighter-rouge">ENSO_DATA_DIRECTORY</code>,
+<code class="language-plaintext highlighter-rouge">ENSO_CONFIG_DIRECTORY</code> and <code class="language-plaintext highlighter-rouge">ENSO_BIN_DIRECTORY</code> have to be set to directories
+corresponding to that version.</p>
+
+<h3 id="detecting-portable-distribution">Detecting Portable Distribution</h3>
+<p>As described in
+<a href="/docs/enso/distribution/distribution.html#enso-distribution-layout">Enso Distribution Layout</a>, the
+launcher can either be run in a portable distribution or installed locally. The
+launcher must detect if its run as the portable or installed distribution. When
+run, the launcher checks if it is placed in a directory called <code class="language-plaintext highlighter-rouge">bin</code> and checks
+the parent directory for a file called <code class="language-plaintext highlighter-rouge">.enso.portable</code>. If such file is found,
+the launcher runs in portable mode. Otherwise, it runs in installed mode.</p>
 
 <h2 id="launcher-build">Launcher Build</h2>
 <p>The launcher is built using
@@ -771,7 +790,7 @@ small and fast launching executable.</p>
 <p>On Linux, it is possible to statically link all libraries required by the Native
 Image, thus ensuring portability between Linux distributions.</p>
 
-<p>On Windows and Mac, it is not possible to statically link against system
+<p>On Windows and macOS, it is not possible to statically link against system
 libraries, but this should not hinder portability as the system libraries are
 generally compatible between distribution versions on these platforms.
 Non-system dependencies are included in the binary on these platforms as well.</p>
@@ -872,7 +891,22 @@ used.</li>
 </ul>
 
 <p>Additional arguments passed to the launcher are forwarded to the launched
-component.</p>
+component. Moreover, options for the JVM that is used to run the components
+can also be provided, as described in
+<a href="/docs/enso/distribution/launcher-cli.html#jvm-options">JVM Options</a>.</p>
+
+<h3 id="running-plugins">Running Plugins</h3>
+<p>If the launcher gets an unknown command <code class="language-plaintext highlighter-rouge">foo</code>, it tries to run <code class="language-plaintext highlighter-rouge">enso-foo</code> and
+pass all the arguments that follow. If <code class="language-plaintext highlighter-rouge">enso-foo</code> is not found, it fails as
+normal. This can be used to implement plugins that are launched through the
+universal launcher. For example, the Enso IDE can provide an <code class="language-plaintext highlighter-rouge">enso-ide</code>
+executable, allowing users to launch the IDE by typing <code class="language-plaintext highlighter-rouge">enso ide</code>.</p>
+
+<p>For a plugin to be recognized by the launcher, it needs to support a
+<code class="language-plaintext highlighter-rouge">--synopsis</code> option - running <code class="language-plaintext highlighter-rouge">enso-foo --synopsis</code> should print a short
+description and return with exit code 0, for the plugin to be considered
+supported. That description will be included in the command listing printed by
+<code class="language-plaintext highlighter-rouge">enso help</code>.</p>
 
 <h2 id="global-user-configuration">Global User Configuration</h2>
 <p>The launcher allows to edit global user configuration, saved in the <code class="language-plaintext highlighter-rouge">config</code>
@@ -1163,7 +1197,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-20 15:05:43 +0000"
+        "time": "2020-07-21 08:15:26 +0000"
     },
     "basePath": "",
     "book": {

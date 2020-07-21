@@ -726,8 +726,10 @@ developed.</li>
   <li><a href="#commands">Commands</a>
     <ul>
       <li><a href="#new"><code class="language-plaintext highlighter-rouge">new</code></a></li>
-      <li><a href="#install"><code class="language-plaintext highlighter-rouge">install</code></a></li>
-      <li><a href="#uninstall"><code class="language-plaintext highlighter-rouge">uninstall</code></a></li>
+      <li><a href="#install-engine"><code class="language-plaintext highlighter-rouge">install engine</code></a></li>
+      <li><a href="#uninstall-engine"><code class="language-plaintext highlighter-rouge">uninstall engine</code></a></li>
+      <li><a href="#install-distribution"><code class="language-plaintext highlighter-rouge">install distribution</code></a></li>
+      <li><a href="#uninstall-distribution"><code class="language-plaintext highlighter-rouge">uninstall distribution</code></a></li>
       <li><a href="#list"><code class="language-plaintext highlighter-rouge">list</code></a></li>
       <li><a href="#default"><code class="language-plaintext highlighter-rouge">default</code></a></li>
       <li><a href="#config"><code class="language-plaintext highlighter-rouge">config</code></a></li>
@@ -745,6 +747,7 @@ developed.</li>
       <li><a href="#--use-system-jvm"><code class="language-plaintext highlighter-rouge">--use-system-jvm</code></a></li>
     </ul>
   </li>
+  <li><a href="#jvm-options">JVM Options</a></li>
 </ul>
 
 <!-- /MarkdownTOC -->
@@ -764,18 +767,48 @@ By default uses the <code class="language-plaintext highlighter-rouge">default</
     <span class="c"># creates the project in the current directory, using the 2.0.1 version</span>
 </code></pre></div></div>
 
-<h3 id="install"><code class="language-plaintext highlighter-rouge">install</code></h3>
-<p>Installs a specific version of Enso.</p>
+<h3 id="install-engine"><code class="language-plaintext highlighter-rouge">install engine</code></h3>
+<p>Installs a specific version of the Enso engine.</p>
 
 <p>Examples:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso <span class="nb">install </span>2.0.1
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso <span class="nb">install </span>engine 2.0.1
 </code></pre></div></div>
 
-<h3 id="uninstall"><code class="language-plaintext highlighter-rouge">uninstall</code></h3>
-<p>Uninstalls a specific version of Enso.</p>
+<h3 id="uninstall-engine"><code class="language-plaintext highlighter-rouge">uninstall engine</code></h3>
+<p>Uninstalls a specific version of the Enso engine.</p>
 
 <p>Examples:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso uninstall 2.0.1
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso uninstall engine 2.0.1
+</code></pre></div></div>
+
+<h3 id="install-distribution"><code class="language-plaintext highlighter-rouge">install distribution</code></h3>
+<p>Installs a portable Enso distribution into system-defined directories, as
+explained in
+<a href="/docs/enso/distribution/distribution.html#installed-enso-distribution-layout">Installed Enso Distribution Layout</a>.
+By default, it asks the user for confirmation, but this can be skipped by
+adding a <code class="language-plaintext highlighter-rouge">--yes</code> flag.</p>
+
+<p>Examples:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; extraction-location/bin/enso install distribution
+This will install Enso to ~/.local/share/enso/.
+Configuration will be placed in ~/.config/enso/.
+The universal `enso` launcher will be placed in ~/.local/bin/.
+Do you want to continue? [Y/n]
+</code></pre></div></div>
+
+<h3 id="uninstall-distribution"><code class="language-plaintext highlighter-rouge">uninstall distribution</code></h3>
+<p>Uninstalls an installed Enso distribution from the installation location
+described in
+<a href="/docs/enso/distribution/distribution.html#installed-enso-distribution-layout">Installed Enso Distribution Layout</a>.
+It removes the universal launcher and all components. By default, it asks the
+user for confirmation, but this can be skipped by adding a <code class="language-plaintext highlighter-rouge">--yes</code> flag.</p>
+
+<p>Examples:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; enso uninstall distribution
+This will completely uninstall Enso from ~/.local/share/enso/,
+remove configuration from ~/.config/enso/
+and the launcher script from ~/.local/bin/.
+Do you want to continue? [y/N]
 </code></pre></div></div>
 
 <h3 id="list"><code class="language-plaintext highlighter-rouge">list</code></h3>
@@ -898,6 +931,15 @@ command.</p>
 <h3 id="--use-system-jvm"><code class="language-plaintext highlighter-rouge">--use-system-jvm</code></h3>
 <p>Tells the launcher to use the default JVM (based on <code class="language-plaintext highlighter-rouge">JAVA_HOME</code>) instead of the
 managed one. Will not work if the set-up JVM version is not GraalVM.</p>
+
+<h2 id="jvm-options">JVM Options</h2>
+<p>For commands that launch an Enso component inside a JVM (<code class="language-plaintext highlighter-rouge">repl</code>, <code class="language-plaintext highlighter-rouge">run</code> and
+<code class="language-plaintext highlighter-rouge">language-server</code>), additional parameters are passed to the launcher components.
+Moreover, it is possible to pass parameters to the JVM that is used to launch
+these components, which may be helpful with debugging.</p>
+
+<p>A parameter of the form <code class="language-plaintext highlighter-rouge">--jvm.argumentName=argumentValue</code> will be passed to the
+JVM as <code class="language-plaintext highlighter-rouge">-DargumentName=argumentValue</code>.</p>
 
                         
                         
@@ -1132,7 +1174,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-20 15:05:43 +0000"
+        "time": "2020-07-21 08:15:26 +0000"
     },
     "basePath": "",
     "book": {
