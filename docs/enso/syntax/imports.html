@@ -554,6 +554,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/syntax/assignment.html">
                     
@@ -563,6 +567,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -778,8 +786,9 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="imports-and-exports">Imports and Exports</h1>
-<p>In order to properly modularise and work with Enso code, the language provides
-a robust mechanism for importing code from modules, and also re-exporting that
+
+<p>In order to properly modularise and work with Enso code, the language provides a
+robust mechanism for importing code from modules, and also re-exporting that
 code from modules.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
@@ -800,6 +809,7 @@ code from modules.</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="import-syntax">Import Syntax</h2>
+
 <p>Importing a module is a way to bring its contents into scope in the current
 module. Imports in Enso appear as follows:</p>
 
@@ -819,8 +829,8 @@ current scope with symbols qualified under a name <em>different</em> from the
 module name. It consists of the <code class="language-plaintext highlighter-rouge">import</code> keyword followed by a module path
 followed by the <code class="language-plaintext highlighter-rouge">as</code> keyword, followed by a referent name.</li>
   <li><strong>Restricted Imports:</strong> These import only the specific symbols from the
-module into the current scope. They consist of the <code class="language-plaintext highlighter-rouge">import</code> keyword, followed
-by a module path, followed by the <code class="language-plaintext highlighter-rouge">only</code> keyword, followed by a
+module into the current scope. They consist of the <code class="language-plaintext highlighter-rouge">import</code> keyword,
+followed by a module path, followed by the <code class="language-plaintext highlighter-rouge">only</code> keyword, followed by a
 space-separated list of symbols.</li>
   <li><strong>Hiding Imports:</strong> These are the inverse of restricted imports, and import
 <em>all</em> symbols other than the named ones into the current scope. They consist
@@ -840,16 +850,19 @@ import syntaxes.</p>
 <span class="n">import</span> <span class="no">E</span> <span class="n">as</span> <span class="no">U</span> <span class="n">only</span> <span class="n">symbol_3</span>       <span class="c1"># qualified + restricted</span>
 <span class="n">import</span> <span class="no">F</span> <span class="n">as</span> <span class="no">V</span> <span class="n">hiding</span> <span class="n">symbol_4</span>     <span class="c1"># qualified + hiding</span>
 </code></pre></div></div>
+
 <p>Imports in Enso <em>may</em> introduce ambiguous symbols, but this is not an error
 until one of the ambiguous symbols is <em>used</em> in Enso code.</p>
 
 <h3 id="visibility-of-imported-bindings">Visibility of Imported Bindings</h3>
+
 <p>When importing a module <code class="language-plaintext highlighter-rouge">X</code> into the current module <code class="language-plaintext highlighter-rouge">Y</code>, the bindings from <code class="language-plaintext highlighter-rouge">X</code>
 made available by the import (see above) become available in <code class="language-plaintext highlighter-rouge">Y</code>. However, Enso
 does not re-export imported bindings from a module by default, so the imported
 bindings from <code class="language-plaintext highlighter-rouge">X</code> are not visible in a module <em>importing</em> <code class="language-plaintext highlighter-rouge">Y</code>.</p>
 
 <h2 id="export-syntax">Export Syntax</h2>
+
 <p>In order to allow for easy composition and aggregation of code, Enso provides
 its users with a mechanism to <em>export</em> imported elements from modules. They
 appear in Enso as follows:</p>
@@ -899,6 +912,7 @@ being exported into the module declaring the export. This means that exports
 that create name clashes need to be resolved at the <em>export</em> site.</p>
 
 <h3 id="visibility-of-export-bindings">Visibility of Export Bindings</h3>
+
 <p>Bindings exported from a module <code class="language-plaintext highlighter-rouge">X</code> are available in an identical fashion to
 bindings that are <em>defined</em> in the module <code class="language-plaintext highlighter-rouge">X</code>.</p>
 
@@ -1135,7 +1149,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

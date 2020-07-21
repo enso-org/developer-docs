@@ -676,6 +676,14 @@ search.start();
                 
             
             
+            
+                
+            
+            
+            
+                
+            
+            
 
             
         
@@ -698,6 +706,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="enso-simplicity-and-correctness">Enso: Simplicity and Correctness</h1>
+
 <p>Enso is an award-winning, general-purpose, purely functional programming
 language with equivalent, first-class visual and textual representations and a
 highly expressive and novel type system.</p>
@@ -714,10 +723,10 @@ development philosophy reflects that.</p>
 in the design and development of programming languages to improve the user
 experience. It provides higher-order functions, strict semantics with opt-in
 laziness, and opt-in algebraic data types, all under the auspices of a novel
-type system that merges dependent typing with a great user experience. Enso
-is the culmination of many years of research into functional programming
-languages, consolidating the work trail-blazed by Haskell, Idris and Agda, but
-also improvements in user-experience and ergonomics.</p>
+type system that merges dependent typing with a great user experience. Enso is
+the culmination of many years of research into functional programming languages,
+consolidating the work trail-blazed by Haskell, Idris and Agda, but also
+improvements in user-experience and ergonomics.</p>
 
 <p>All in all, Enso is a programming language unlike any other before it, a
 seamless blend of code and visual communication that can span organisations.</p>
@@ -755,6 +764,7 @@ working program via a conversation, with information going both ways.”</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="why-a-new-programming-language">Why a New Programming Language?</h2>
+
 <p>Since the 1980s, the way that programmers work and the tools that they use have
 changed remarkably little. However, there is a small but growing chorus that
 worries that the status quo is unsustainable: programmers are having problems
@@ -770,6 +780,7 @@ same way that writing and speaking coexist, there are times where code is more
 convenient than any other approach.</p>
 
 <h2 id="software-correctness-matters">Software Correctness Matters</h2>
+
 <p>“In September 2007, Jean Bookout was driving on the highway with her best friend
 in a Toyota Camry when the accelerator seemed to get stuck. When she took her
 foot off the pedal, the car didn’t slow down. She tried the brakes but they
@@ -817,8 +828,10 @@ correctness and provide as much valuable information to the user as possible in
 as automated and intuitive a fashion as possible.</p>
 
 <h2 id="connections-to-your-data">Connections to your Data</h2>
+
 <p>Software creation is a very creative process. However, while using conventional
 languages, programmers are like chess players trying to play with a blindfold on</p>
+
 <ul>
   <li>so much of their mental energy is spent just trying to picture where the
 pieces are that there’s hardly any left over to think about the game itself.</li>
@@ -841,6 +854,7 @@ environment for the modelling of data flows, with extensive inbuilt capabilities
 for data visualisation and manipulation.</p>
 
 <h2 id="tenets-of-enso">Tenets of Enso</h2>
+
 <p>The design of a tool can have a <em>drastic</em> effect on the
 <a href="https://en.wikipedia.org/wiki/Cognitive_load">cognitive load</a> experienced by
 users. As we design Enso, we rely on a small set of principles to guide the
@@ -879,10 +893,11 @@ possible.</li>
 </ul>
 
 <h3 id="visual-and-textual">Visual and Textual</h3>
+
 <p>While Enso <em>is</em> a programming language, the visual environment with which it
-ships is just as important. This means that when designing the language, and
-any new feature for the language, we need to explicitly account for how it works
-in both the visual and textual syntaxes.</p>
+ships is just as important. This means that when designing the language, and any
+new feature for the language, we need to explicitly account for how it works in
+both the visual and textual syntaxes.</p>
 
 <ul>
   <li><strong>Necessity:</strong> Is this functionality necessary in both environments, or is it
@@ -898,6 +913,7 @@ so any functionality from one syntax that doesn’t fit in the other should be
 rejected.</p>
 
 <h3 id="unified-syntax">Unified Syntax</h3>
+
 <p>With the syntax being the primary mode of interaction between users and Enso,
 whether it be visual or textual, it is important that it is consistent within
 itself. This is quite a nebulous concept, but it boils down to a few main
@@ -920,6 +936,7 @@ to be remembered, so it is incredibly important to find a happy middle ground
 between <em>too many</em> and <em>not enough</em> syntactic constructs.</p>
 
 <h3 id="visual-communication">Visual Communication</h3>
+
 <p>Humans are inherently visual creatures, and Enso is designed to enable a
 <em>visual</em> style of communication. When designing new language features, it is
 overwhelmingly important to consider their impact on Enso’s visualisation
@@ -931,6 +948,7 @@ functionality.</p>
 </ul>
 
 <h3 id="one-right-way">One Right Way</h3>
+
 <p>Choice in a language inherently creates myriad ways to do things. This is
 singularly unhelpful in any programming language, let alone one intended to span
 all experience levels, as it increases the cognitive burden of using the
@@ -947,18 +965,20 @@ weighted, and a decision made based on the balance between complexity and
 ergonomics.</p>
 
 <h3 id="help-the-user">Help the User</h3>
+
 <p>Features with significant usability benefits for users should be weighted very
 highly in Enso’s design. This is true <em>even</em> when adding such a feature may
 bring significant complexity to the implementation of the language or tooling,
 as the user experience is paramount.</p>
 
-<p>That is not to say, however, that <em>any and all</em> complexity should be accepted
-in the aid of user experience. If the maintenance burden is too great, then it
-is likely that introducing such a photo will impact future UX improvements. To
-this end, it is always a careful balancing act, even if we tilt the scales
-heavily in favour of UX over simplicity of the implementation.</p>
+<p>That is not to say, however, that <em>any and all</em> complexity should be accepted in
+the aid of user experience. If the maintenance burden is too great, then it is
+likely that introducing such a photo will impact future UX improvements. To this
+end, it is always a careful balancing act, even if we tilt the scales heavily in
+favour of UX over simplicity of the implementation.</p>
 
 <h3 id="simple-complexity">Simple Complexity</h3>
+
 <p>A big part of Enso’s design is the notion of employing sophisticated and
 cutting-edge techniques in programming language design. However, many languages
 that employ these techniques do so to the <em>detriment</em> of the user experience.</p>
@@ -974,6 +994,7 @@ Enso should provide a good user experience, it should also not stand in the way
 of power users.</p>
 
 <h3 id="powerful-when-necessary">Powerful When Necessary</h3>
+
 <p>While we want to provide a simple tool to our users, this should not induce the
 language to shy away from necessary power.</p>
 
@@ -984,6 +1005,7 @@ should be opt-in, with users not wanting the enhancements to expressiveness not
 having to know or care about it.</p>
 
 <h3 id="performance-and-predictability">Performance and Predictability</h3>
+
 <p>There is little that is more frustrating than the code you write running slowly
 for no explicable reason.</p>
 
@@ -995,6 +1017,7 @@ aim for a sensible mapping from source code to machine execution, and aim to
 ensure that seemingly innocuous changes do not impact Enso’s performance.</p>
 
 <h3 id="explicit-over-implicit">Explicit Over Implicit</h3>
+
 <p>When designing Enso and its libraries, we don’t want to have any behaviour of a
 function that is not recorded in its type, or its defaults. This gives rise to
 two main principles for designing Enso’s APIs:</p>
@@ -1046,6 +1069,7 @@ reading and writing, can call it as follows: <code class="language-plaintext hig
 or just <code class="language-plaintext highlighter-rouge">openHandle path RWA</code>.</p>
 
 <h3 id="guidance-over-on-boarding">Guidance Over On-Boarding</h3>
+
 <p>While it is important to have an on-boarding process to help bring new users up
 to speed, that process cannot be the only guidance that users of Enso get.</p>
 
@@ -1059,6 +1083,7 @@ problems to the user in an intuitive fashion whilst not hiding the details.</p>
 rather than purely the initial user experience.</p>
 
 <h2 id="designing-enso">Designing Enso</h2>
+
 <p>As Enso’s design and functionality evolves, we have to take the utmost care to
 ensure that it doesn’t balloon beyond control. As a result, every new feature
 that we contemplate adding to the language should advance these core tenets, and
@@ -1317,7 +1342,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

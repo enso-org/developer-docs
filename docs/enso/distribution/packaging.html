@@ -570,6 +570,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/licences.html">
                     
@@ -579,6 +583,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -708,10 +716,11 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="enso-libraries-packaging">Enso Libraries Packaging</h1>
-<p>Given the nature of Enso as an open-source programming language and platform,
-it is crucial that we provide users with an extensible package management
-system. This document describes the current state of our packaging efforts, as
-well as future directions and enhancements to it.</p>
+
+<p>Given the nature of Enso as an open-source programming language and platform, it
+is crucial that we provide users with an extensible package management system.
+This document describes the current state of our packaging efforts, as well as
+future directions and enhancements to it.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
@@ -729,6 +738,7 @@ well as future directions and enhancements to it.</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="enso-package-structure">Enso Package Structure</h2>
+
 <p>The general directory structure of an Enso package is as follows:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>My_Package
@@ -746,12 +756,13 @@ well as future directions and enhancements to it.</p>
 </code></pre></div></div>
 
 <h3 id="the-src-directory">The <code class="language-plaintext highlighter-rouge">src</code> Directory</h3>
-<p>The <code class="language-plaintext highlighter-rouge">src</code> directory contains all Enso sources, organized in a hierarchical
-structure. The structure of this directory dictates how particular modules
-are imported in all of Enso code.</p>
 
-<p>Note that all files and directories in this subtree must be named according
-to the Enso style for referent names (i.e. <code class="language-plaintext highlighter-rouge">Upper_Snake_Case</code>, see
+<p>The <code class="language-plaintext highlighter-rouge">src</code> directory contains all Enso sources, organized in a hierarchical
+structure. The structure of this directory dictates how particular modules are
+imported in all of Enso code.</p>
+
+<p>Note that all files and directories in this subtree must be named according to
+the Enso style for referent names (i.e. <code class="language-plaintext highlighter-rouge">Upper_Snake_Case</code>, see
 <a href="/docs/enso/syntax/naming.html#naming-constructs">the syntax specification</a>).</p>
 
 <p>A file located at the path <code class="language-plaintext highlighter-rouge">My_Package/src/Sub_Module/Helper.enso</code> will be
@@ -764,8 +775,8 @@ imported like so:</p>
 
 <ul>
   <li>The name of the package appears as the first segment of the name.</li>
-  <li>The package name is not specified by the containing directory’s name,
-but rather it is described in the <code class="language-plaintext highlighter-rouge">package.yaml</code> file.</li>
+  <li>The package name is not specified by the containing directory’s name, but
+rather it is described in the <code class="language-plaintext highlighter-rouge">package.yaml</code> file.</li>
 </ul>
 
 <p>The exact transformation is as follows:</p>
@@ -775,19 +786,21 @@ but rather it is described in the <code class="language-plaintext highlighter-ro
 name.</li>
   <li>Any subdirectories on the path from the <code class="language-plaintext highlighter-rouge">src</code> directory to the source file
 are appended as consecutive segments.</li>
-  <li>The name of the source file, with the <code class="language-plaintext highlighter-rouge">.enso</code> extension stripped, becomes
-the last segment.</li>
+  <li>The name of the source file, with the <code class="language-plaintext highlighter-rouge">.enso</code> extension stripped, becomes the
+last segment.</li>
 </ol>
 
 <h3 id="the-polyglot-directory">The <code class="language-plaintext highlighter-rouge">polyglot</code> Directory</h3>
+
 <p>The <code class="language-plaintext highlighter-rouge">polyglot</code> directory contains per-language subdirectories containing files
 used by the supported polyglot languages. The contents of each subdirectory is
 specified on a per-language basis, in the
 <a href="/docs/enso/polyglot/">polyglot documentation</a>.</p>
 
 <h3 id="the-packageyaml-file">The <code class="language-plaintext highlighter-rouge">package.yaml</code> File</h3>
-<p><code class="language-plaintext highlighter-rouge">package.yaml</code> describes certain package metadata, such as its name, authors
-and version. It also includes the list of extra dependencies of the package
+
+<p><code class="language-plaintext highlighter-rouge">package.yaml</code> describes certain package metadata, such as its name, authors and
+version. It also includes the list of extra dependencies of the package
 (dependencies that are not present in the resolver or need a version override).
 The following is an example of this manifest file.</p>
 
@@ -798,43 +811,47 @@ The following is an example of this manifest file.</p>
 <span class="na">maintainer</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Jane</span><span class="nv"> </span><span class="s">Doe</span><span class="nv"> </span><span class="s">&lt;jane.doe@example.com&gt;"</span>
 <span class="na">resolver</span><span class="pi">:</span> <span class="s">lts-1.2.0</span>
 <span class="na">extra-dependencies</span><span class="pi">:</span>
-<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Base</span>
-  <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.2.0"</span>
-<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Http</span>
-  <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">4.5.3"</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Base</span>
+    <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.2.0"</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Http</span>
+    <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">4.5.3"</span>
 </code></pre></div></div>
 
-<p>The following is the specification of the manifest fields.
-Fields marked as <strong>Optional (required for publishing)</strong> are completely optional
-during development - if not specified, their default values will be used.
-However, they must be specified before publishing the package. A package missing
-any of these fields cannot be published.</p>
+<p>The following is the specification of the manifest fields. Fields marked as
+<strong>Optional (required for publishing)</strong> are completely optional during
+development - if not specified, their default values will be used. However, they
+must be specified before publishing the package. A package missing any of these
+fields cannot be published.</p>
 
 <h4 id="license">license</h4>
+
 <p><strong>Optional (required for publishing)</strong> <em>String</em>: The short license name of this
 package. Defaults to <code class="language-plaintext highlighter-rouge">None</code>, meaning the package is not safe for use by third
 parties.</p>
 
 <h4 id="version">version</h4>
+
 <p><strong>Optional (required for publishing)</strong> <em>String</em>: The
 <a href="https://semver.org/">semantic versioning</a> string, in the <code class="language-plaintext highlighter-rouge">major.minor.patch</code>
 format. If not set, it defaults to <code class="language-plaintext highlighter-rouge">dev</code> (which can be used for development, but
 is not a valid version for publishing).</p>
 
 <h4 id="author">author</h4>
+
 <p><strong>Optional</strong> <em>String</em> or <em>List of Strings</em>: The name(s) and contact info(s) of
 the author(s) of this library, in the <code class="language-plaintext highlighter-rouge">Name &lt;contact&gt;</code> or <code class="language-plaintext highlighter-rouge">Name</code> format.</p>
 
 <h4 id="maintainer">maintainer</h4>
-<p><strong>Optional</strong> <em>String</em> or <em>List of Strings</em>: The name(s) and contact info(s)
-of the current maintainer(s) of this library, in the <code class="language-plaintext highlighter-rouge">Name &lt;contact&gt;</code> or <code class="language-plaintext highlighter-rouge">Name</code>
+
+<p><strong>Optional</strong> <em>String</em> or <em>List of Strings</em>: The name(s) and contact info(s) of
+the current maintainer(s) of this library, in the <code class="language-plaintext highlighter-rouge">Name &lt;contact&gt;</code> or <code class="language-plaintext highlighter-rouge">Name</code>
 format.</p>
 
 <h4 id="resolver">resolver</h4>
-<p><strong>Note</strong> This field is not currently implemented.
-<strong>Optional (required for publishing)</strong> <em>String</em>: The resolver name, used to
-choose compiler version and basic libraries set. If not set, the system-default
-resolver will be used.</p>
+
+<p><strong>Note</strong> This field is not currently implemented. <strong>Optional (required for
+publishing)</strong> <em>String</em>: The resolver name, used to choose compiler version and
+basic libraries set. If not set, the system-default resolver will be used.</p>
 
 <blockquote>
   <p>The actionables for this section are:</p>
@@ -845,10 +862,10 @@ resolver will be used.</p>
 </blockquote>
 
 <h4 id="extra-dependencies">extra-dependencies</h4>
-<p><strong>Note</strong> This field is not currently implemented.
-<strong>Optional</strong> <em>List of Library objects</em>: The list of libraries this package
-requires to function properly and that are not included in the resolver.
-Defaults to an empty list.</p>
+
+<p><strong>Note</strong> This field is not currently implemented. <strong>Optional</strong> <em>List of Library
+objects</em>: The list of libraries this package requires to function properly and
+that are not included in the resolver. Defaults to an empty list.</p>
 
 <p>A library object is of the form:</p>
 
@@ -865,6 +882,7 @@ Defaults to an empty list.</p>
 </blockquote>
 
 <h2 id="build-reproducibility">Build Reproducibility</h2>
+
 <p>It is crucial for any good development environment to provide reproducible
 builds, such that it is impossible for it to go wrong by mismatching library
 versions.</p>
@@ -873,8 +891,8 @@ versions.</p>
   <p>The actionables for this section are:</p>
 
   <ul>
-    <li>Decide on the strategies of ensuring consistent library resolution. This
-may include hashing the downloaded versions of libraries and publishing
+    <li>Decide on the strategies of ensuring consistent library resolution. This may
+include hashing the downloaded versions of libraries and publishing
 stack-style resolvers for sets of libraries that are proven to work well
 together.</li>
   </ul>
@@ -1113,7 +1131,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

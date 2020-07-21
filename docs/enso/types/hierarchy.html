@@ -536,6 +536,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/types/pattern-matching.html">
                     
@@ -567,6 +571,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -798,6 +806,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="the-enso-type-hierarchy">The Enso Type Hierarchy</h1>
+
 <p>Enso is a statically typed language based upon a theory of set-based typing,
 what we call <code class="language-plaintext highlighter-rouge">typesets</code>. This is a novel approach, and it is key to our intent
 for Enso to <em>feel</em> like a dynamic language while still bringing enhanced safety.</p>
@@ -835,6 +844,7 @@ for Enso to <em>feel</em> like a dynamic language while still bringing enhanced 
 <!-- /MarkdownTOC -->
 
 <h2 id="typeset-theory">Typeset Theory</h2>
+
 <ul>
   <li>All types are denoted by a set of constructors, which represent the atomic
 values of that type. We call these ‘atoms’. For example, the typeset <code class="language-plaintext highlighter-rouge">Nat</code> is
@@ -871,6 +881,7 @@ identifier is assumed to be in scope.</li>
 </ul>
 
 <h2 id="atoms">Atoms</h2>
+
 <p>Atoms are the fundamental building blocks of types in Enso, so named because
 they are small units of ‘type’, but nonetheless may be separated further. In
 Enso’s type hierarchy, atoms are the typesets that are unified <em>nominally</em>,
@@ -897,6 +908,7 @@ anonymous typeset.</li>
 </code></pre></div></div>
 
 <h2 id="typesets">Typesets</h2>
+
 <p>Typesets in Enso are an entity unique to Enso’s type system. They are a
 fundamental recognition of types as ‘sets of values’ in Enso, and while they
 share some similarities with records they are a far more general notion.</p>
@@ -984,9 +996,10 @@ constraints on initialisation (partial type constructors style).</li>
 </blockquote>
 
 <h3 id="typeset-operators">Typeset Operators</h3>
+
 <p>Enso defines a set of operations on typesets that can be used to combine and
-manipulate them. Any use of these operators introduces typing evidence which
-may later be discharged through pattern matching.</p>
+manipulate them. Any use of these operators introduces typing evidence which may
+later be discharged through pattern matching.</p>
 
 <p>They are as follows:</p>
 
@@ -1033,6 +1046,7 @@ generative) types?</li>
 </blockquote>
 
 <h3 id="typeset-subsumption">Typeset Subsumption</h3>
+
 <p>For two typesets <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code>, <code class="language-plaintext highlighter-rouge">a</code> is said to be subsumed by <code class="language-plaintext highlighter-rouge">b</code> (written using
 the notation <code class="language-plaintext highlighter-rouge">a &lt;: b</code>) if the following hold recursively. This can be thought of
 as a ‘can behave as’ relation.</p>
@@ -1059,8 +1073,8 @@ function types, then the relation does not hold.</li>
           <li>If <code class="language-plaintext highlighter-rouge">t</code> contains defaulted arguments, not present in <code class="language-plaintext highlighter-rouge">q</code>, then these
 can be ignored for the purposes of determining whether <code class="language-plaintext highlighter-rouge">t &lt;: q</code>. For
 example, <code class="language-plaintext highlighter-rouge">f : a -&gt; b = x -&gt; c</code> is subsumed by <code class="language-plaintext highlighter-rouge">f : a -&gt; c</code>.</li>
-          <li>For the <em>argument</em> position of both <code class="language-plaintext highlighter-rouge">t</code> and <code class="language-plaintext highlighter-rouge">q</code>, <code class="language-plaintext highlighter-rouge">t.arg &lt;: q.arg</code>
-(the argument position is covariant).</li>
+          <li>For the <em>argument</em> position of both <code class="language-plaintext highlighter-rouge">t</code> and <code class="language-plaintext highlighter-rouge">q</code>, <code class="language-plaintext highlighter-rouge">t.arg &lt;: q.arg</code> (the
+argument position is covariant).</li>
           <li>For the <em>return</em> position of both <code class="language-plaintext highlighter-rouge">t</code> and <code class="language-plaintext highlighter-rouge">q</code>, if it is not a function
 type, then <code class="language-plaintext highlighter-rouge">t.ret &lt;: q.ret</code> (the return position is covariant). If it
 is a function type then recurse.</li>
@@ -1087,8 +1101,8 @@ sense).</li>
   <ul>
     <li>Fix the above. It isn’t 100% correct, but should convey a general gist. Use
 examples including all the operators.</li>
-    <li>Ensure that co- and contra-variance are handled properly. They are a bit
-odd under this theory.</li>
+    <li>Ensure that co- and contra-variance are handled properly. They are a bit odd
+under this theory.</li>
     <li>Do we need explicit variance annotations?</li>
     <li>How do constraints factor in?</li>
     <li>We want users not to have to think about the difference between <code class="language-plaintext highlighter-rouge">~</code>, <code class="language-plaintext highlighter-rouge">:</code> and
@@ -1105,6 +1119,7 @@ theory we may.</li>
 </blockquote>
 
 <h3 id="unsafe-typeset-field-mutation">Unsafe Typeset Field Mutation</h3>
+
 <p>For performance it is sometimes necessary to have the ability to <em>directly</em>
 <em>mutate</em> the field of a typeset. This is most often necessary for atoms
 themselves, but as atoms are typesets this also applies.</p>
@@ -1118,6 +1133,7 @@ marked <code class="language-plaintext highlighter-rouge">unsafe</code> (see <a 
 </ul>
 
 <h2 id="dependent-lists">Dependent Lists</h2>
+
 <p>The most-specific type of an Enso list is the list of the types of the list’s
 elements. By way of example, the following are true:</p>
 
@@ -1128,6 +1144,7 @@ elements. By way of example, the following are true:</p>
 <p>This means that Enso’s lists <em>fully subsume</em> the use cases for standard tuples.</p>
 
 <h2 id="interfaces">Interfaces</h2>
+
 <p>Because typesets can be matched <em>structurally</em>, all typesets implicitly define
 interfaces. A type <code class="language-plaintext highlighter-rouge">t</code> conforming to an interface <code class="language-plaintext highlighter-rouge">i</code> in Enso is as simple as
 the relation <code class="language-plaintext highlighter-rouge">i &lt;: t</code> (as in <a href="#typeset-subsumption">typeset subsumption</a>)
@@ -1135,8 +1152,8 @@ holding.</p>
 
 <p>This means that types need not <em>explicitly</em> implement interfaces, which can be
 thought of as a form of static duck typing. However, when defining a new type,
-users may choose to explicitly state that it defines an interface. This has
-two main benefits:</p>
+users may choose to explicitly state that it defines an interface. This has two
+main benefits:</p>
 
 <ul>
   <li>We can include default implementations from the interface definition.</li>
@@ -1166,10 +1183,12 @@ definition site instead of the use site.</li>
 is easy to express far more general interfaces than Haskell’s typeclasses can.</p>
 
 <h3 id="special-interfaces">Special Interfaces</h3>
+
 <p>In order to aid usability we include a few special interfaces in the standard
 library that have special support in the compiler.</p>
 
 <h4 id="wrapper">Wrapper</h4>
+
 <p>In a language where composition is queen and inheritance doesn’t exist there
 needs to be an easy way for users to compose typesets without having to define
 wrappers for the contained types. This is a big usability bonus for Enso.</p>
@@ -1181,8 +1200,8 @@ wrappers for the contained types. This is a big usability bonus for Enso.</p>
 </code></pre></div></div>
 
 <p><code class="language-plaintext highlighter-rouge">Wrapper</code> is an interface implemented implicitly for all typesets, and boils
-down to delegating to the contained members if a given label is not found on
-the top typeset. This delegation only occurs on the this type.</p>
+down to delegating to the contained members if a given label is not found on the
+top typeset. This delegation only occurs on the this type.</p>
 
 <p>A usage example is as follows:</p>
 
@@ -1202,6 +1221,7 @@ the top typeset. This delegation only occurs on the this type.</p>
 </code></pre></div></div>
 
 <h4 id="convertible">Convertible</h4>
+
 <p>Also useful in a language for data science is the ability to have the compiler
 help you by automatically converting between types that have sensible coercions
 between them. This interface is known as <code class="language-plaintext highlighter-rouge">Convertible</code>, and defines a one-way
@@ -1221,8 +1241,8 @@ correct place. If a conversion is required in the body of a block, the point
 at which the conversion takes place should propagate outwards as far as
 possible. This is very important for proper definition of controls in the GUI.</li>
   <li><code class="language-plaintext highlighter-rouge">Convertible t</code> can also be implemented by a function that accepts arguments
-<em>iff</em> all of the arguments have default values associated with them. In such
-a case, the GUI should display conversion controls with a checkbox that, when
+<em>iff</em> all of the arguments have default values associated with them. In such a
+case, the GUI should display conversion controls with a checkbox that, when
 checked, can be converted to an explicit conversion call.</li>
   <li>We will need some limited mechanism for doing this even without type inference
 as it forms the backbone of good API design for the graphical interface. This
@@ -1262,6 +1282,7 @@ see the additional defaulted parameters and conversion types in the UI.</li>
 </blockquote>
 
 <h4 id="destruct">Destruct</h4>
+
 <p>While it is a common idiom in functional languages to implement the <code class="language-plaintext highlighter-rouge">bracket</code>
 pattern for acquiring and releasing resources, but this isn’t such a good fit
 for a language where many users aren’t going to be used to thinking about
@@ -1286,8 +1307,8 @@ such that it implements more complex behaviour.</li>
 to clean up any resources that it owns.</li>
 </ol>
 
-<p>Initially, going out of scope will be defined as the point at which the
-instance is garbage collected, while later, once we are able to perform more
+<p>Initially, going out of scope will be defined as the point at which the instance
+is garbage collected, while later, once we are able to perform more
 sophisticated analysis, it will instead be defined as the point at which the
 instance’s lexical lifetime ends.</p>
 
@@ -1305,6 +1326,7 @@ and re-open in the same block).</p>
 </blockquote>
 
 <h2 id="type-ascription">Type Ascription</h2>
+
 <p>Like all statically-typed programming languages, Enso provides the means for the
 user to ascribe a type to a value. In Enso, this is done using the <code class="language-plaintext highlighter-rouge">:</code> operator.
 An expression <code class="language-plaintext highlighter-rouge">a : b</code> says that the expression denoted by <code class="language-plaintext highlighter-rouge">a</code> has the type
@@ -1333,6 +1355,7 @@ contain arbitrary Enso expressions. The type-checking of such signatures is
 discussed further in the section on <a href="/docs/enso/types/dependent-typing.html">dependency</a>.</p>
 
 <h3 id="scoping-in-type-ascription">Scoping in Type Ascription</h3>
+
 <p>Enso intends to support some form of mutual scoping between the left and right
 sides of the type ascription operator. This introduces some complexity into the
 typechecker but brings some significant benefits.</p>
@@ -1351,16 +1374,17 @@ bindings in groups, and the desugaring needs to depend on combinations of
 </ul>
 
 <h2 id="projections">Projections</h2>
+
 <p>In order to work efficiently with typesets, we need the ability to seamlessly
 access and modify (immutably) their properties. In the context of our type
 theory, this functionality is known as a <em>projection</em>, in that it projects a
 value from (or into) a typeset.</p>
 
-<p>Coming from Haskell, we are well-versed with the flexibility of lenses, and
-more generally <em>optics</em>. To that end, we base our projection operations on
-standard theories of optics. While we <em>do</em> need to formalise this, for now we
-provide examples of the expected basic usage. This only covers lenses, while in
-the future we will likely want prisms and other more-advanced optics.</p>
+<p>Coming from Haskell, we are well-versed with the flexibility of lenses, and more
+generally <em>optics</em>. To that end, we base our projection operations on standard
+theories of optics. While we <em>do</em> need to formalise this, for now we provide
+examples of the expected basic usage. This only covers lenses, while in the
+future we will likely want prisms and other more-advanced optics.</p>
 
 <p>A projection is generated for each field of a typeset.</p>
 
@@ -1378,6 +1402,7 @@ know how to get as much of it working as possible.</li>
 </blockquote>
 
 <h3 id="special-fields">Special Fields</h3>
+
 <p>We also define special projections from typesets:</p>
 
 <ul>
@@ -1620,7 +1645,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

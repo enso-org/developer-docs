@@ -540,6 +540,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/runtime/unbounded-recursion.html">
                     
@@ -585,6 +589,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -738,6 +746,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="function-calling-flow">Function Calling Flow</h1>
+
 <p>With Enso being a functional language, it is crucial for function calls to be
 efficient and easily inlined. At the same time, the logic of calling functions
 is involved – there’s a plethora of features this system needs to support,
@@ -764,6 +773,7 @@ framework.</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="tail-call-optimization">Tail Call Optimization</h2>
+
 <p>It is very important for Enso to perform TCO well, since there are no intrinsic
 looping constructs in the language.</p>
 
@@ -806,6 +816,7 @@ like a builtin language loop construct.</p>
 <p>This logic is encapsulated in the various subclasses of <code class="language-plaintext highlighter-rouge">CallOptimiserNode</code>.</p>
 
 <h2 id="named-application-arguments">Named Application Arguments</h2>
+
 <p>Enso allows applying function arguments by name, e.g.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pow</span> <span class="n">base</span> <span class="n">exp</span> <span class="o">=</span> <span class="n">x</span> <span class="o">**</span> <span class="n">y</span>
@@ -813,20 +824,19 @@ like a builtin language loop construct.</p>
 </code></pre></div></div>
 
 <p>While certainly useful for the user, it requires some non-trivial facilitation
-in the interpreter. An easy solution, would be to simply pass arguments in
-a dictionary-like structure (e.g. a HashMap), but that has unacceptable
+in the interpreter. An easy solution, would be to simply pass arguments in a
+dictionary-like structure (e.g. a HashMap), but that has unacceptable
 performance characteristics.</p>
 
-<p>Therefore, the approach of choice is to compute and <em>cache</em> a translation
-table – a recipe for reordering arguments for a given function at a given
-call site.</p>
+<p>Therefore, the approach of choice is to compute and <em>cache</em> a translation table
+– a recipe for reordering arguments for a given function at a given call site.</p>
 
-<p>Based on the knowledge of the call-site schema (i.e. a description like
-“3 arguments are provided, the first is named foo, the second is named bar and
-the third is applied positionally”) and the definition-site schema (“the
-function has 3 parameters, named [baz, foo, bar]”), a mapping (“move the first
-argument to the second position, the second becomes third and the third becomes
-the first”) is computed.</p>
+<p>Based on the knowledge of the call-site schema (i.e. a description like “3
+arguments are provided, the first is named foo, the second is named bar and the
+third is applied positionally”) and the definition-site schema (“the function
+has 3 parameters, named [baz, foo, bar]”), a mapping (“move the first argument
+to the second position, the second becomes third and the third becomes the
+first”) is computed.</p>
 
 <p>This mapping is then memoized and used to efficiently reorder arguments on each
 execution, without the need to employ any more involved data structures. A
@@ -837,6 +847,7 @@ paths in the cache, as well as cache misses for highly polymorphic call sites.</
 <p>This logic is encapsulated in the <code class="language-plaintext highlighter-rouge">ArgumentSorterNode</code>.</p>
 
 <h2 id="definition-site-argument-suspension">Definition-Site Argument Suspension</h2>
+
 <p>Enso allows functions to define certain arguments as <code class="language-plaintext highlighter-rouge">Suspended</code>, so that when
 these are passed to a function, the corresponding expressions are not evaluated
 at the call site, but are instead passed to the function as closures for
@@ -848,6 +859,7 @@ evaluated at call-site when the function signature defines them as eager.</p>
 <p>Argument execution is happening inside the <code class="language-plaintext highlighter-rouge">ArgumentSorterNode</code>.</p>
 
 <h2 id="currying-and-eta-expansion">Currying and Eta-Expansion</h2>
+
 <p>Functions can also be applied partially (i.e. with less arguments than required
 by the signature, in which case the result is a function with certain arguments
 fixed) or over-saturated (i.e. if a function returns another function, in which
@@ -857,6 +869,7 @@ expression).</p>
 <p>This logic is handled inside the <code class="language-plaintext highlighter-rouge">CurryNode</code>.</p>
 
 <h2 id="dynamic-dispatch">Dynamic Dispatch</h2>
+
 <p>Functions can be dispatched dynamically, meaning a name can denote different
 functions, based on the (runtime) type of the first argument.</p>
 
@@ -864,6 +877,7 @@ functions, based on the (runtime) type of the first argument.</p>
 and performed (with caching) in the <code class="language-plaintext highlighter-rouge">MethodResolverNode</code>.</p>
 
 <h2 id="defaulted-arguments-and-application">Defaulted Arguments and Application</h2>
+
 <p>As we want to provide a consistent semantics in the language (especially with
 the use of multi-argument lambdas internally), there is one specific situation
 that arises when handling applications with default arguments. As we expect a
@@ -876,24 +890,26 @@ function is a function, and if it is fully saturated with defaults it will call
 it.</p>
 
 <h2 id="megamorphic-call-sites">Megamorphic Call Sites</h2>
+
 <p>In certain situations, such as call sites calling a lot of different functions
 without splitting or intensive use of the same instance of the interop library,
-caching intermediate information about the call-site becomes impossible.
-For such cases, we use nodes with names starting with <code class="language-plaintext highlighter-rouge">Indirect</code> to perform
-the required operation. These nodes do not perform any caching and instead use
-the most general version of the logic possible for every call. These nodes also
+caching intermediate information about the call-site becomes impossible. For
+such cases, we use nodes with names starting with <code class="language-plaintext highlighter-rouge">Indirect</code> to perform the
+required operation. These nodes do not perform any caching and instead use the
+most general version of the logic possible for every call. These nodes also
 support the <code class="language-plaintext highlighter-rouge">uncached</code> mode of operation, which means the node itself may be
-used without adopting them, using a global singleton instance instead.
-As such the indirect nodes are very slow and should only be used after it is
-discovered that the call site cannot afford more specific operations anymore.
-The <code class="language-plaintext highlighter-rouge">uncached</code> version of these nodes is even slower, as no inlining can happen
-on sites using them. This should be used with care, only when large call
-overhead is acceptable (e.g. rarely-used instances of the interop library).</p>
+used without adopting them, using a global singleton instance instead. As such
+the indirect nodes are very slow and should only be used after it is discovered
+that the call site cannot afford more specific operations anymore. The
+<code class="language-plaintext highlighter-rouge">uncached</code> version of these nodes is even slower, as no inlining can happen on
+sites using them. This should be used with care, only when large call overhead
+is acceptable (e.g. rarely-used instances of the interop library).</p>
 
 <h2 id="flow-diagram">Flow Diagram</h2>
-<p>The following diagram summarizes all the nodes participating in a function
-call. The entry points to this system are <code class="language-plaintext highlighter-rouge">ApplicationNode</code> (for in-language
-function calls) and <code class="language-plaintext highlighter-rouge">InteropLibrary&lt;Function&gt;</code> (for polyglot function calls).</p>
+
+<p>The following diagram summarizes all the nodes participating in a function call.
+The entry points to this system are <code class="language-plaintext highlighter-rouge">ApplicationNode</code> (for in-language function
+calls) and <code class="language-plaintext highlighter-rouge">InteropLibrary&lt;Function&gt;</code> (for polyglot function calls).</p>
 
 <p><img src="https://user-images.githubusercontent.com/5780639/84035237-5c2d9800-a993-11ea-826d-72f3ddffcb54.png" alt="Function Call Flow" /></p>
 
@@ -1130,7 +1146,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

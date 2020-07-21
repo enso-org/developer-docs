@@ -536,6 +536,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/types/pattern-matching.html">
                     
@@ -567,6 +571,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -798,6 +806,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="monadic-contexts">Monadic Contexts</h1>
+
 <p>Coming from a Haskell background, we have found that Monads provide a great
 abstraction with which to reason about program behaviour, but they have some
 severe usability issues. The main one of these is the lack of automatic lifting,
@@ -841,6 +850,7 @@ interpreter-based effects systems? These may aid with parallelism analysis.</li>
 <!-- /MarkdownTOC -->
 
 <h2 id="context-syntax">Context Syntax</h2>
+
 <p>There are three main notes about the syntax of contexts:</p>
 
 <ol>
@@ -852,6 +862,7 @@ through repeated uses of <code class="language-plaintext highlighter-rouge">in</
 </ol>
 
 <h2 id="monadic-bind">Monadic Bind</h2>
+
 <p>It is also important to note that Enso has no equivalent to <code class="language-plaintext highlighter-rouge">&lt;-</code> in Haskell.
 Instead, pure computations are implicitly placed in the <code class="language-plaintext highlighter-rouge">Pure</code> monadic context,
 and <code class="language-plaintext highlighter-rouge">=</code> acts to ‘peel off’ the outermost layer of contexts. As such, this means
@@ -859,6 +870,7 @@ that <code class="language-plaintext highlighter-rouge">=</code> <em>always</em>
 to work.</p>
 
 <h2 id="context-definitions">Context Definitions</h2>
+
 <p>Contexts can be defined by users.</p>
 
 <blockquote>
@@ -870,6 +882,7 @@ to work.</p>
 </blockquote>
 
 <h2 id="context-lifting">Context Lifting</h2>
+
 <blockquote>
   <p>The actionables for this section are:</p>
 
@@ -880,6 +893,7 @@ to work.</p>
 </blockquote>
 
 <h2 id="inbuilt-contexts">Inbuilt Contexts</h2>
+
 <p>Enso includes a set of commonly-used monadic contexts as part of <code class="language-plaintext highlighter-rouge">Base</code>, its
 standard library. These are listed below.</p>
 
@@ -892,6 +906,7 @@ standard library. These are listed below.</p>
 </blockquote>
 
 <h3 id="io">IO</h3>
+
 <blockquote>
   <p>The actionables for this section are:</p>
 
@@ -903,6 +918,7 @@ as well as the impacts of this.</li>
 </blockquote>
 
 <h3 id="state">State</h3>
+
 <blockquote>
   <p>The actionables for this section are:</p>
 
@@ -1147,7 +1163,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

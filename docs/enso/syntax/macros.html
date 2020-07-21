@@ -554,6 +554,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/syntax/assignment.html">
                     
@@ -563,6 +567,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -778,6 +786,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="the-enso-macro-syntax">The Enso Macro Syntax</h1>
+
 <p>Enso provides a macro system that allows users to perform AST to AST
 transformations on the provided pieces of code. While many languages’ macros
 provide their users with access to the compilation and type-checking phases
@@ -811,11 +820,12 @@ runtime.</li>
 <!-- /MarkdownTOC -->
 
 <h2 id="annotations">Annotations</h2>
+
 <p>Much like annotations on the JVM, annotations in Enso are tags that perform a
 purely syntactic transformation on the entity to which they are applied. The
-implementation of this requires both parser changes and support for
-user-defined macros, but for now it would be possible to work only with a set
-of hard-coded annotation macros.</p>
+implementation of this requires both parser changes and support for user-defined
+macros, but for now it would be possible to work only with a set of hard-coded
+annotation macros.</p>
 
 <p>Annotations can be arbitrarily nested, so a set of annotation macros become
 implicitly nested inside each other:</p>
@@ -837,11 +847,12 @@ implicitly nested inside each other:</p>
 </code></pre></div></div>
 
 <p>In the presence of annotations and macros, it becomes more and more important
-that we are able to reserve words such as <code class="language-plaintext highlighter-rouge">type</code> to ensure that users can
-always have a good sense of what the most common constructs in the language
-mean, rather than allowing them to be overridden outside of the stdlib.</p>
+that we are able to reserve words such as <code class="language-plaintext highlighter-rouge">type</code> to ensure that users can always
+have a good sense of what the most common constructs in the language mean,
+rather than allowing them to be overridden outside of the stdlib.</p>
 
 <h2 id="automatic-deriving">Automatic Deriving</h2>
+
 <p>In order to make the language easier to debug, we have all types automatically
 derive an interface <code class="language-plaintext highlighter-rouge">DebugShow</code>. This interface provides a function that will
 print all the significant information about the value (e.g. locations, types,
@@ -1080,7 +1091,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

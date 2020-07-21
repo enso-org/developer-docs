@@ -664,6 +664,14 @@ search.start();
                 
             
             
+            
+                
+            
+            
+            
+                
+            
+            
 
             
         
@@ -686,6 +694,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="enso-protocol-language-server-message-specification">Enso Protocol Language Server Message Specification</h1>
+
 <p>This document contains the specification of the Enso protocol messages that
 pertain to the language server component. Please familiarise yourself with the
 <a href="/docs/enso/language-server/protocol-common.html">common</a> features of the protocol before reading this
@@ -862,16 +871,19 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="types">Types</h2>
+
 <p>There are a number of types that are used only within the language server’s
 protocol messages. These are specified here.</p>
 
 <h3 id="expressionid"><code class="language-plaintext highlighter-rouge">ExpressionId</code></h3>
+
 <p>An identifier used for Enso expressions.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">ExpressionId</span> <span class="o">=</span> <span class="nx">UUID</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h3 id="contextid"><code class="language-plaintext highlighter-rouge">ContextId</code></h3>
+
 <p>An identifier used for execution contexts.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">ContextId</span> <span class="o">=</span> <span class="nx">UUID</span><span class="p">;</span>
@@ -881,18 +893,18 @@ protocol messages. These are specified here.</p>
 </code></pre></div></div>
 
 <h3 id="stackitem"><code class="language-plaintext highlighter-rouge">StackItem</code></h3>
+
 <p>A representation of an executable position in code, used by the execution APIs.</p>
 
 <p><code class="language-plaintext highlighter-rouge">ExplicitCall</code> is a call performed at the top of the stack, to initialize the
-context with first execution.
-The <code class="language-plaintext highlighter-rouge">thisArgumentsPosition</code> field can be omitted, in which case the context
-will try to infer the argument on a best-effort basis. E.g. for a module-level
-method, or a method defined on a parameter-less atom type, <code class="language-plaintext highlighter-rouge">this</code> will be
-substituted for the unambiguous singleton instance.</p>
+context with first execution. The <code class="language-plaintext highlighter-rouge">thisArgumentsPosition</code> field can be omitted,
+in which case the context will try to infer the argument on a best-effort basis.
+E.g. for a module-level method, or a method defined on a parameter-less atom
+type, <code class="language-plaintext highlighter-rouge">this</code> will be substituted for the unambiguous singleton instance.</p>
 
 <p><code class="language-plaintext highlighter-rouge">LocalCall</code> is a call corresponding to “entering a function call”.</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">StackItem</span> <span class="o">=</span> <span class="nx">ExplicitCall</span> <span class="o">|</span> <span class="nx">LocalCall</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">StackItem</span> <span class="o">=</span> <span class="nx">ExplicitCall</span> <span class="o">|</span> <span class="nx">LocalCall</span><span class="p">;</span>
 
 <span class="kr">interface</span> <span class="nx">ExplicitCall</span> <span class="p">{</span>
   <span class="nl">methodPointer</span><span class="p">:</span> <span class="nx">MethodPointer</span><span class="p">;</span>
@@ -906,6 +918,7 @@ substituted for the unambiguous singleton instance.</p>
 </code></pre></div></div>
 
 <h3 id="methodpointer"><code class="language-plaintext highlighter-rouge">MethodPointer</code></h3>
+
 <p>Points to a method definition.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">MethodPointer</span> <span class="p">{</span>
@@ -926,6 +939,7 @@ substituted for the unambiguous singleton instance.</p>
 </code></pre></div></div>
 
 <h3 id="visualisationconfiguration"><code class="language-plaintext highlighter-rouge">VisualisationConfiguration</code></h3>
+
 <p>A configuration object for properties of the visualisation.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">VisualisationConfiguration</span> <span class="p">{</span>
@@ -946,6 +960,7 @@ substituted for the unambiguous singleton instance.</p>
 </code></pre></div></div>
 
 <h3 id="suggestionentryargument"><code class="language-plaintext highlighter-rouge">SuggestionEntryArgument</code></h3>
+
 <p>The argument of a <a href="#suggestionentry"><code class="language-plaintext highlighter-rouge">SuggestionEntry</code></a>.</p>
 
 <h4 id="format">Format</h4>
@@ -966,6 +981,7 @@ substituted for the unambiguous singleton instance.</p>
 </code></pre></div></div>
 
 <h3 id="suggestionentry"><code class="language-plaintext highlighter-rouge">SuggestionEntry</code></h3>
+
 <p>The language construct that can be returned as a suggestion.</p>
 
 <h4 id="format-1">Format</h4>
@@ -1025,21 +1041,19 @@ substituted for the unambiguous singleton instance.</p>
 </code></pre></div></div>
 
 <h3 id="suggestionentrytype"><code class="language-plaintext highlighter-rouge">SuggestionEntryType</code></h3>
+
 <p>The suggestion entry type that is used as a filter in search requests.</p>
 
 <h4 id="format-2">Format</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// The kind of a suggestion.</span>
-<span class="nx">type</span> <span class="nx">SuggestionEntryType</span>
-  <span class="o">=</span> <span class="nx">Atom</span>
-  <span class="o">|</span> <span class="nx">Method</span>
-  <span class="o">|</span> <span class="nb">Function</span>
-  <span class="o">|</span> <span class="nx">Local</span><span class="p">;</span>
+<span class="nx">type</span> <span class="nx">SuggestionEntryType</span> <span class="o">=</span> <span class="nx">Atom</span> <span class="o">|</span> <span class="nx">Method</span> <span class="o">|</span> <span class="nb">Function</span> <span class="o">|</span> <span class="nx">Local</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h3 id="suggestionsdatabaseentry"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseEntry</code></h3>
 
 <h4 id="format-3">Format</h4>
+
 <p>The entry in the suggestions database.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">SuggestionsDatabaseEntry</span> <span class="p">{</span>
@@ -1051,15 +1065,13 @@ substituted for the unambiguous singleton instance.</p>
 </code></pre></div></div>
 
 <h3 id="suggestionsdatabaseupdate"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseUpdate</code></h3>
+
 <p>The update of the suggestions database.</p>
 
 <h4 id="format-4">Format</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// The kind of the suggestions database update.</span>
-<span class="nx">type</span> <span class="nx">SuggestionsDatabaseUpdate</span>
-  <span class="o">=</span> <span class="nx">Add</span>
-  <span class="o">|</span> <span class="nx">Remove</span>
-  <span class="o">|</span> <span class="nx">Modify</span>
+<span class="nx">type</span> <span class="nx">SuggestionsDatabaseUpdate</span> <span class="o">=</span> <span class="nx">Add</span> <span class="o">|</span> <span class="nx">Remove</span> <span class="o">|</span> <span class="nx">Modify</span><span class="p">;</span>
 
 <span class="kr">interface</span> <span class="nx">Add</span> <span class="p">{</span>
   <span class="c1">// suggestion entry id</span>
@@ -1082,6 +1094,7 @@ substituted for the unambiguous singleton instance.</p>
 </code></pre></div></div>
 
 <h3 id="file"><code class="language-plaintext highlighter-rouge">File</code></h3>
+
 <p>A representation of a file on disk.</p>
 
 <h4 id="format-5">Format</h4>
@@ -1093,6 +1106,7 @@ substituted for the unambiguous singleton instance.</p>
 </code></pre></div></div>
 
 <h3 id="directorytree"><code class="language-plaintext highlighter-rouge">DirectoryTree</code></h3>
+
 <p>A directory tree is a recursive type used to represent tree structures of files
 and directories. It contains files and symlinks in the <code class="language-plaintext highlighter-rouge">files</code> section and
 directories in the <code class="language-plaintext highlighter-rouge">directories</code> section. When the tree was requested with the
@@ -1111,6 +1125,7 @@ directory, but the contents are unknown because we’ve reached the maximum dept
 </code></pre></div></div>
 
 <h3 id="fileattributes"><code class="language-plaintext highlighter-rouge">FileAttributes</code></h3>
+
 <p>A description of the attributes of a file required by the IDE. These attributes
 may be expanded in future.</p>
 
@@ -1136,6 +1151,7 @@ may be expanded in future.</p>
 </code></pre></div></div>
 
 <h3 id="utcdatetime"><code class="language-plaintext highlighter-rouge">UTCDateTime</code></h3>
+
 <p>Time in UTC time zone represented as ISO-8601 string</p>
 
 <h4 id="format-8">Format</h4>
@@ -1144,6 +1160,7 @@ may be expanded in future.</p>
 </code></pre></div></div>
 
 <h3 id="fileeventkind"><code class="language-plaintext highlighter-rouge">FileEventKind</code></h3>
+
 <p>The kind of event being described for a watched file.</p>
 
 <h4 id="format-9">Format</h4>
@@ -1152,6 +1169,7 @@ may be expanded in future.</p>
 </code></pre></div></div>
 
 <h3 id="position"><code class="language-plaintext highlighter-rouge">Position</code></h3>
+
 <p>A representation of a position in a text file.</p>
 
 <h4 id="format-10">Format</h4>
@@ -1185,6 +1203,7 @@ struct Position {
 </code></pre>
 
 <h3 id="range"><code class="language-plaintext highlighter-rouge">Range</code></h3>
+
 <p>A representation of a range of text in a text file.</p>
 
 <h4 id="format-11">Format</h4>
@@ -1203,6 +1222,7 @@ struct Position {
 </code></pre></div></div>
 
 <h3 id="textedit"><code class="language-plaintext highlighter-rouge">TextEdit</code></h3>
+
 <p>A representation of a change to a text file at a given position.</p>
 
 <h4 id="format-12">Format</h4>
@@ -1214,6 +1234,7 @@ struct Position {
 </code></pre></div></div>
 
 <h3 id="sha3-224"><code class="language-plaintext highlighter-rouge">SHA3-224</code></h3>
+
 <p>The <code class="language-plaintext highlighter-rouge">SHA3-224</code> message digest encoded as a base16 string.</p>
 
 <h4 id="format-13">Format</h4>
@@ -1222,6 +1243,7 @@ struct Position {
 </code></pre></div></div>
 
 <h3 id="fileedit"><code class="language-plaintext highlighter-rouge">FileEdit</code></h3>
+
 <p>A representation of a batch of edits to a file, versioned.</p>
 
 <p><code class="language-plaintext highlighter-rouge">SHA3-224</code> represents hash of the file contents. <code class="language-plaintext highlighter-rouge">oldVersion</code> is the version
@@ -1252,6 +1274,7 @@ of applying previous ones on the original buffer contents. In pseudocode:</p>
 </code></pre></div></div>
 
 <h3 id="filecontents"><code class="language-plaintext highlighter-rouge">FileContents</code></h3>
+
 <p>A representation of the contents of a file.</p>
 
 <h4 id="format-15">Format</h4>
@@ -1264,15 +1287,12 @@ of applying previous ones on the original buffer contents. In pseudocode:</p>
 </code></pre></div></div>
 
 <h3 id="filesystemobject"><code class="language-plaintext highlighter-rouge">FileSystemObject</code></h3>
+
 <p>A representation of what kind of type a filesystem object can be.</p>
 
 <h4 id="format-16">Format</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">FileSystemObject</span>
-  <span class="o">=</span> <span class="nx">Directory</span>
-  <span class="o">|</span> <span class="nx">SymlinkLoop</span>
-  <span class="o">|</span> <span class="nx">File</span>
-  <span class="o">|</span> <span class="nx">Other</span><span class="p">;</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">FileSystemObject</span> <span class="o">=</span> <span class="nx">Directory</span> <span class="o">|</span> <span class="nx">SymlinkLoop</span> <span class="o">|</span> <span class="nx">File</span> <span class="o">|</span> <span class="nx">Other</span><span class="p">;</span>
 
 <span class="cm">/**
  * Represents a directory.
@@ -1321,6 +1341,7 @@ of applying previous ones on the original buffer contents. In pseudocode:</p>
 </code></pre></div></div>
 
 <h3 id="workspaceedit"><code class="language-plaintext highlighter-rouge">WorkspaceEdit</code></h3>
+
 <p>This is a message to be specified once we better understand the intricacies of
 undo/redo.</p>
 
@@ -1334,10 +1355,12 @@ undo/redo.</p>
 </blockquote>
 
 <h2 id="connection-management">Connection Management</h2>
+
 <p>In order to properly set-up and tear-down the language server connection, we
 need a set of messages to control this process.</p>
 
 <h3 id="sessioninitprotocolconnection"><code class="language-plaintext highlighter-rouge">session/initProtocolConnection</code></h3>
+
 <p>This message initialises the connection used to send the textual protocol
 messages. This initialisation is important such that the client identifier can
 be correlated between the textual and data connections.</p>
@@ -1364,12 +1387,14 @@ be correlated between the textual and data connections.</p>
 </code></pre></div></div>
 
 <h4 id="errors">Errors</h4>
+
 <ul>
   <li><a href="#sessionalreadyinitialisederror"><code class="language-plaintext highlighter-rouge">SessionAlreadyInitialisedError</code></a> to signal
 that session is already initialised.</li>
 </ul>
 
 <h3 id="sessioninitbinaryconnection"><code class="language-plaintext highlighter-rouge">session/initBinaryConnection</code></h3>
+
 <p>This message initialises the data connection used for transferring binary data
 between engine and clients. This initialisation is important such that the
 client identifier can be correlated between the data and textual connections.</p>
@@ -1405,14 +1430,17 @@ table Success {}
 </code></pre></div></div>
 
 <h4 id="errors-1">Errors</h4>
+
 <p>N/A</p>
 
 <h2 id="capability-management">Capability Management</h2>
-<p>In order to mediate between multiple clients properly, the language server has
-a robust notion of capability management to grant and remove permissions from
+
+<p>In order to mediate between multiple clients properly, the language server has a
+robust notion of capability management to grant and remove permissions from
 clients.</p>
 
 <h3 id="capabilityacquire"><code class="language-plaintext highlighter-rouge">capability/acquire</code></h3>
+
 <p>This requests that the server grant the specified capability to the requesting
 client.</p>
 
@@ -1436,13 +1464,15 @@ in the section on <a href="#capabilities">capabilities</a> below.</p>
 
 <h4 id="result-2">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-2">Errors</h4>
+
 <p>TBC</p>
 
 <h3 id="capabilityrelease"><code class="language-plaintext highlighter-rouge">capability/release</code></h3>
+
 <p>This requests that the server acknowledge that the client is releasing a given
 capability.</p>
 
@@ -1462,13 +1492,15 @@ capability.</p>
 
 <h4 id="result-3">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-3">Errors</h4>
+
 <p>TBC</p>
 
 <h3 id="capabilitygranted"><code class="language-plaintext highlighter-rouge">capability/granted</code></h3>
+
 <p>This notifies the client that it has been granted a capability without any
 action on its part.</p>
 
@@ -1487,9 +1519,11 @@ action on its part.</p>
 </code></pre></div></div>
 
 <h4 id="errors-4">Errors</h4>
+
 <p>TBC</p>
 
 <h3 id="capabilityforcereleased"><code class="language-plaintext highlighter-rouge">capability/forceReleased</code></h3>
+
 <p>This notifies the client that a capability has been forcibly removed from its
 capability set.</p>
 
@@ -1508,12 +1542,15 @@ capability set.</p>
 </code></pre></div></div>
 
 <h4 id="errors-5">Errors</h4>
+
 <p>TBC</p>
 
 <h2 id="capabilities">Capabilities</h2>
+
 <p>The capability management features work with the following capabilities.</p>
 
 <h3 id="textcanedit"><code class="language-plaintext highlighter-rouge">text/canEdit</code></h3>
+
 <p>This capability states that the capability has the ability to perform both
 <code class="language-plaintext highlighter-rouge">text/applyEdit</code> and <code class="language-plaintext highlighter-rouge">text/save</code> for the specified file.</p>
 
@@ -1523,15 +1560,18 @@ capability set.</p>
 </ul>
 
 <h4 id="enables">Enables</h4>
+
 <ul>
   <li><a href="#textapplyedit"><code class="language-plaintext highlighter-rouge">text/applyEdit</code></a></li>
   <li><a href="#textsave"><code class="language-plaintext highlighter-rouge">text/save</code></a></li>
 </ul>
 
 <h4 id="disables">Disables</h4>
+
 <p>None</p>
 
 <h3 id="filereceivestreeupdates"><code class="language-plaintext highlighter-rouge">file/receivesTreeUpdates</code></h3>
+
 <p>This capability states that the client will receive updates for any watched
 content roots in the current project.</p>
 
@@ -1541,16 +1581,19 @@ content roots in the current project.</p>
 </ul>
 
 <h4 id="enables-1">Enables</h4>
+
 <ul>
   <li><a href="#fileevent"><code class="language-plaintext highlighter-rouge">file/event</code></a></li>
 </ul>
 
 <h4 id="disables-1">Disables</h4>
+
 <p>None</p>
 
 <h4 id="errors-6">Errors</h4>
 
 <p><a href="#capabilityacquire"><code class="language-plaintext highlighter-rouge">capability/acquire</code></a>:</p>
+
 <ul>
   <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
 file-system error.</li>
@@ -1558,22 +1601,25 @@ file-system error.</li>
 </ul>
 
 <p><a href="#capabilityrelease"><code class="language-plaintext highlighter-rouge">capability/release</code></a>:</p>
+
 <ul>
   <li><a href="#capabilitynotacquired"><code class="language-plaintext highlighter-rouge">CapabilityNotAcquired</code></a> informs that requested
 capability is not acquired.</li>
 </ul>
 
 <h3 id="executioncontextcanmodify"><code class="language-plaintext highlighter-rouge">executionContext/canModify</code></h3>
+
 <p>This capability states that the client has the ability to modify an execution
 context, including modifying the execution stack, invalidating caches, or
 destroying the context.</p>
 
 <ul>
   <li><strong>method:</strong> <code class="language-plaintext highlighter-rouge">executionContext/canModify</code></li>
-  <li><strong>registerOptions:</strong> <code class="language-plaintext highlighter-rouge">{  contextId: ContextId; }</code></li>
+  <li><strong>registerOptions:</strong> <code class="language-plaintext highlighter-rouge">{ contextId: ContextId; }</code></li>
 </ul>
 
 <h4 id="enables-2">Enables</h4>
+
 <ul>
   <li><a href="#executioncontextdestroy"><code class="language-plaintext highlighter-rouge">executionContext/destroy</code></a></li>
   <li><a href="#executioncontextrecompute"><code class="language-plaintext highlighter-rouge">executionContext/recompute</code></a></li>
@@ -1586,11 +1632,13 @@ destroying the context.</p>
 </ul>
 
 <h4 id="disables-2">Disables</h4>
+
 <p>None</p>
 
 <h3 id="executioncontextreceivesupdates"><code class="language-plaintext highlighter-rouge">executionContext/receivesUpdates</code></h3>
-<p>This capability states that the client receives expression value updates from
-a given execution context.</p>
+
+<p>This capability states that the client receives expression value updates from a
+given execution context.</p>
 
 <ul>
   <li><strong>method:</strong> <code class="language-plaintext highlighter-rouge">executionContext/receivesUpdates</code></li>
@@ -1598,14 +1646,17 @@ a given execution context.</p>
 </ul>
 
 <h4 id="enables-3">Enables</h4>
+
 <ul>
   <li><a href="#executioncontextexpressionvaluescomputed"><code class="language-plaintext highlighter-rouge">executionContext/expressionValuesComputed</code></a></li>
 </ul>
 
 <h4 id="disables-3">Disables</h4>
+
 <p>None</p>
 
 <h3 id="searchreceivessuggestionsdatabaseupdates"><code class="language-plaintext highlighter-rouge">search/receivesSuggestionsDatabaseUpdates</code></h3>
+
 <p>This capability states that the client receives the search database updates for
 a given execution context.</p>
 
@@ -1615,19 +1666,23 @@ a given execution context.</p>
 </ul>
 
 <h3 id="enables-4">Enables</h3>
+
 <ul>
   <li><a href="#suggestionsdatabaseupdate"><code class="language-plaintext highlighter-rouge">search/suggestionsDatabaseUpdate</code></a></li>
 </ul>
 
 <h3 id="disables-4">Disables</h3>
+
 <p>None</p>
 
 <h2 id="file-management-operations">File Management Operations</h2>
+
 <p>The language server also provides file operations to the IDE.</p>
 
 <h3 id="filewrite"><code class="language-plaintext highlighter-rouge">file/write</code></h3>
-<p>This requests that the file manager component write to a specified file with
-the specified contents.</p>
+
+<p>This requests that the file manager component write to a specified file with the
+specified contents.</p>
 
 <ul>
   <li><strong>Type:</strong> Request</li>
@@ -1636,8 +1691,8 @@ the specified contents.</p>
 
 <p>This request is <em>explicitly</em> allowed to write to files that do not exist, and
 will create them under such circumstances. If a file is recorded as ‘open’ by
-one of the clients, and another client attempts to write to that file, the
-write must fail.</p>
+one of the clients, and another client attempts to write to that file, the write
+must fail.</p>
 
 <h4 id="parameters-6">Parameters</h4>
 
@@ -1649,7 +1704,7 @@ write must fail.</p>
 
 <h4 id="result-4">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-7">Errors</h4>
@@ -1664,6 +1719,7 @@ access to a resource.</li>
 </ul>
 
 <h3 id="fileread"><code class="language-plaintext highlighter-rouge">file/read</code></h3>
+
 <p>This requests that the file manager component reads the contents of a specified
 file.</p>
 
@@ -1687,7 +1743,7 @@ return the contents from the in-memory buffer rather than the file on disk.</p>
 <h4 id="result-5">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
-  <span class="nl">contents</span><span class="p">:</span> <span class="nx">FileContents</span><span class="p">[</span><span class="nx">T</span><span class="p">]</span>
+  <span class="nl">contents</span><span class="p">:</span> <span class="nx">FileContents</span><span class="p">[</span><span class="nx">T</span><span class="p">];</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -1704,8 +1760,9 @@ access to a resource.</li>
 </ul>
 
 <h3 id="filewritebinary"><code class="language-plaintext highlighter-rouge">file/writeBinary</code></h3>
-<p>This requests that the file manager component write to a specified file with
-the binary contents.</p>
+
+<p>This requests that the file manager component write to a specified file with the
+binary contents.</p>
 
 <ul>
   <li><strong>Type:</strong> Request</li>
@@ -1715,8 +1772,8 @@ the binary contents.</p>
 
 <p>This request is <em>explicitly</em> allowed to write to files that do not exist, and
 will create them under such circumstances. If a file is recorded as ‘open’ by
-one of the clients, and another client attempts to write to that file, the
-write must fail.</p>
+one of the clients, and another client attempts to write to that file, the write
+must fail.</p>
 
 <h4 id="parameters-8">Parameters</h4>
 
@@ -1755,6 +1812,7 @@ access to a resource.</li>
 </ul>
 
 <h3 id="filereadbinary"><code class="language-plaintext highlighter-rouge">file/readBinary</code></h3>
+
 <p>This requests that the file manager component reads the binary contents of a
 specified file.</p>
 
@@ -1807,6 +1865,7 @@ access to a resource.</li>
 </ul>
 
 <h3 id="filecreate"><code class="language-plaintext highlighter-rouge">file/create</code></h3>
+
 <p>This request asks the file manager to create the specified file system object.</p>
 
 <ul>
@@ -1827,7 +1886,7 @@ access to a resource.</li>
 
 <h4 id="response">Response</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-11">Errors</h4>
@@ -1842,6 +1901,7 @@ access to a resource.</li>
 </ul>
 
 <h3 id="filedelete"><code class="language-plaintext highlighter-rouge">file/delete</code></h3>
+
 <p>This request asks the file manager to delete the specified file system object.</p>
 
 <ul>
@@ -1864,6 +1924,7 @@ access to a resource.</li>
 </code></pre></div></div>
 
 <h4 id="errors-12">Errors</h4>
+
 <ul>
   <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
 file-system error.</li>
@@ -1874,6 +1935,7 @@ requested content root cannot be found.</li>
 </ul>
 
 <h3 id="filecopy"><code class="language-plaintext highlighter-rouge">file/copy</code></h3>
+
 <p>This request asks the file manager to copy a specified filesystem object to
 another location.</p>
 
@@ -1894,10 +1956,11 @@ another location.</p>
 
 <h4 id="result-9">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-13">Errors</h4>
+
 <ul>
   <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
 file-system error.</li>
@@ -1907,6 +1970,7 @@ requested content root cannot be found.</li>
 </ul>
 
 <h3 id="filemove"><code class="language-plaintext highlighter-rouge">file/move</code></h3>
+
 <p>This request asks the file manager to move a specified filesystem object to
 another location.</p>
 
@@ -1930,10 +1994,11 @@ inform the client that the currently edited file has been moved.</p>
 
 <h4 id="result-10">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-14">Errors</h4>
+
 <ul>
   <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
 file-system error.</li>
@@ -1944,6 +2009,7 @@ requested content root cannot be found.</li>
 </ul>
 
 <h3 id="fileexists"><code class="language-plaintext highlighter-rouge">file/exists</code></h3>
+
 <p>This request asks the file manager to check whether a filesystem object exists
 at the specified path.</p>
 
@@ -1969,12 +2035,14 @@ at the specified path.</p>
 </code></pre></div></div>
 
 <h4 id="errors-15">Errors</h4>
+
 <ul>
   <li><a href="#contentrootnotfounderror"><code class="language-plaintext highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
 requested content root cannot be found.</li>
 </ul>
 
 <h3 id="filetree"><code class="language-plaintext highlighter-rouge">file/tree</code></h3>
+
 <p>This request asks the file manager component to generate and provide the
 directory tree starting at a given path.</p>
 
@@ -2001,6 +2069,7 @@ directory tree starting at a given path.</p>
 </code></pre></div></div>
 
 <h4 id="errors-16">Errors</h4>
+
 <ul>
   <li><a href="#contentrootnotfounderror"><code class="language-plaintext highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
 requested content root cannot be found.</li>
@@ -2011,6 +2080,7 @@ directory.</li>
 </ul>
 
 <h3 id="filelist"><code class="language-plaintext highlighter-rouge">file/list</code></h3>
+
 <p>This request lists the contents of a given filesystem object. For a file it will
 just return the file, while for a directory it will list the contents of the
 directory.</p>
@@ -2037,6 +2107,7 @@ directory.</p>
 </code></pre></div></div>
 
 <h4 id="errors-17">Errors</h4>
+
 <ul>
   <li><a href="#contentrootnotfounderror"><code class="language-plaintext highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
 requested content root cannot be found.</li>
@@ -2046,6 +2117,7 @@ directory.</li>
 </ul>
 
 <h3 id="fileinfo"><code class="language-plaintext highlighter-rouge">file/info</code></h3>
+
 <p>This request gets information about a specified filesystem object.</p>
 
 <ul>
@@ -2072,6 +2144,7 @@ directory.</li>
 </code></pre></div></div>
 
 <h4 id="errors-18">Errors</h4>
+
 <ul>
   <li><a href="#contentrootnotfounderror"><code class="language-plaintext highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
 requested content root cannot be found.</li>
@@ -2079,6 +2152,7 @@ requested content root cannot be found.</li>
 </ul>
 
 <h3 id="fileevent"><code class="language-plaintext highlighter-rouge">file/event</code></h3>
+
 <p>This is a notification that is sent every time something under a watched content
 root changes. It is used to ensure that the client’s filesystem representation
 stays in synchronisation with reality.</p>
@@ -2102,9 +2176,11 @@ of the (possibly multiple) content roots.</p>
 </code></pre></div></div>
 
 <h4 id="errors-19">Errors</h4>
+
 <p>None</p>
 
 <h3 id="fileaddroot"><code class="language-plaintext highlighter-rouge">file/addRoot</code></h3>
+
 <p>This request adds a content root to the active project.</p>
 
 <ul>
@@ -2130,13 +2206,15 @@ structure.</p>
 
 <h4 id="result-15">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-20">Errors</h4>
+
 <p>TBC</p>
 
 <h3 id="fileremoveroot"><code class="language-plaintext highlighter-rouge">file/removeRoot</code></h3>
+
 <p>This request removes a content root from the active project.</p>
 
 <ul>
@@ -2160,13 +2238,15 @@ IDE is responsible for any additional discovery.</p>
 
 <h4 id="result-16">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-21">Errors</h4>
+
 <p>TBC</p>
 
 <h3 id="filerootadded"><code class="language-plaintext highlighter-rouge">file/rootAdded</code></h3>
+
 <p>This is a notification sent to all clients other than the one performing the
 addition of the root in order to inform them of the content root’s ID.</p>
 
@@ -2181,14 +2261,16 @@ addition of the root in order to inform them of the content root’s ID.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span> <span class="c1">// The content root ID</span>
-  <span class="nl">absolutePath</span><span class="p">:</span> <span class="p">[</span><span class="nb">String</span><span class="p">]</span>
+  <span class="nl">absolutePath</span><span class="p">:</span> <span class="p">[</span><span class="nb">String</span><span class="p">];</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
 <h4 id="errors-22">Errors</h4>
+
 <p>TBC</p>
 
 <h3 id="filerootremoved"><code class="language-plaintext highlighter-rouge">file/rootRemoved</code></h3>
+
 <p>This is a notification sent to all clients other than the one performing the
 removal of the content root in order to inform them of the removal of the root.</p>
 
@@ -2207,13 +2289,16 @@ removal of the content root in order to inform them of the removal of the root.<
 </code></pre></div></div>
 
 <h4 id="errors-23">Errors</h4>
+
 <p>TBC</p>
 
 <h2 id="text-editing-operations">Text Editing Operations</h2>
+
 <p>The language server also has a set of text editing operations to ensure that it
 stays in sync with the clients.</p>
 
 <h3 id="textopenfile"><code class="language-plaintext highlighter-rouge">text/openFile</code></h3>
+
 <p>This requests the language server to open the specified file.</p>
 
 <ul>
@@ -2223,8 +2308,8 @@ stays in sync with the clients.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<p>If no client has write lock on the opened file, the capability is granted to
-the client that sent the <code class="language-plaintext highlighter-rouge">text/openFile</code> message.</p>
+<p>If no client has write lock on the opened file, the capability is granted to the
+client that sent the <code class="language-plaintext highlighter-rouge">text/openFile</code> message.</p>
 
 <h4 id="parameters-23">Parameters</h4>
 
@@ -2243,6 +2328,7 @@ the client that sent the <code class="language-plaintext highlighter-rouge">text
 </code></pre></div></div>
 
 <h4 id="errors-24">Errors</h4>
+
 <ul>
   <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
 file-system error.</li>
@@ -2254,6 +2340,7 @@ access to a resource.</li>
 </ul>
 
 <h3 id="textclosefile"><code class="language-plaintext highlighter-rouge">text/closeFile</code></h3>
+
 <p>This requests the language server to close the specified file.</p>
 
 <ul>
@@ -2272,16 +2359,18 @@ access to a resource.</li>
 
 <h4 id="result-18">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-25">Errors</h4>
+
 <ul>
   <li><a href="#filenotopenederror"><code class="language-plaintext highlighter-rouge">FileNotOpenedError</code></a> to signal that a file wasn’t
 opened.</li>
 </ul>
 
 <h3 id="textsave"><code class="language-plaintext highlighter-rouge">text/save</code></h3>
+
 <p>This requests for the language server to save the specified file.</p>
 
 <ul>
@@ -2298,16 +2387,17 @@ that file, or if the client is requesting a save of an outdated version.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
-  <span class="nl">currentVersion</span><span class="p">:</span> <span class="nx">SHA3</span><span class="o">-</span><span class="mi">224</span><span class="p">;</span>
+  <span class="nl">currentVersion</span><span class="p">:</span> <span class="nx">SHA3</span> <span class="o">-</span> <span class="mi">224</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
 <h4 id="result-19">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-26">Errors</h4>
+
 <ul>
   <li><a href="#filenotopenederror"><code class="language-plaintext highlighter-rouge">FileNotOpenedError</code></a> to signal that the file isn’t
 open.</li>
@@ -2324,6 +2414,7 @@ access to a resource.</li>
 </ul>
 
 <h3 id="textapplyedit"><code class="language-plaintext highlighter-rouge">text/applyEdit</code></h3>
+
 <p>This requests that the server apply a series of edits to the project. These
 edits solely concern text files.</p>
 
@@ -2347,10 +2438,11 @@ that some edits are applied and others are not.</p>
 
 <h4 id="result-20">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-27">Errors</h4>
+
 <ul>
   <li><a href="#filenotopenederror"><code class="language-plaintext highlighter-rouge">FileNotOpenedError</code></a> to signal that the file isn’t
 open.</li>
@@ -2363,6 +2455,7 @@ write lock for the buffer.</li>
 </ul>
 
 <h3 id="textdidchange"><code class="language-plaintext highlighter-rouge">text/didChange</code></h3>
+
 <p>This is a notification sent from the server to the clients to inform them of any
 changes made to files that they have open.</p>
 
@@ -2383,14 +2476,17 @@ changes made to files that they have open.</p>
 </code></pre></div></div>
 
 <h4 id="errors-28">Errors</h4>
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h2 id="workspace-operations">Workspace Operations</h2>
+
 <p>The language server also has a set of operations useful for managing the client
 workspace.</p>
 
 <h3 id="workspaceundo"><code class="language-plaintext highlighter-rouge">workspace/undo</code></h3>
+
 <p>This request is sent from the client to the server to request that an operation
 be undone.</p>
 
@@ -2413,13 +2509,15 @@ server undoing that same action for all clients in the workspace.</p>
 
 <h4 id="result-21">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-29">Errors</h4>
+
 <p>TBC</p>
 
 <h3 id="workspaceredo"><code class="language-plaintext highlighter-rouge">workspace/redo</code></h3>
+
 <p>This request is sent from the client to the server to request that an operation
 be redone.</p>
 
@@ -2442,17 +2540,20 @@ server redoing that same action for all clients in the workspace.</p>
 
 <h4 id="result-22">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-30">Errors</h4>
+
 <p>TBC</p>
 
 <h2 id="monitoring">Monitoring</h2>
+
 <p>The language server also has a heartbeat operation to monitor the Language
 server. This API is private and should be used only by the Project Manager.</p>
 
 <h3 id="heartbeatping"><code class="language-plaintext highlighter-rouge">heartbeat/ping</code></h3>
+
 <p>This request is sent from the supervisor process to the server to check the
 health of the Language Server.</p>
 
@@ -2465,22 +2566,25 @@ health of the Language Server.</p>
 
 <h4 id="parameters-30">Parameters</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="result-23">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-31">Errors</h4>
+
 <p>None</p>
 
 <h2 id="refactoring">Refactoring</h2>
+
 <p>The language server also provides refactoring operations to restructure an
 internal body of code.</p>
 
 <h3 id="refactoringrenameproject"><code class="language-plaintext highlighter-rouge">refactoring/renameProject</code></h3>
+
 <p>This request is sent from the project manager to the server to refactor project
 name in an interpreter runtime.</p>
 
@@ -2501,17 +2605,19 @@ name in an interpreter runtime.</p>
 
 <h4 id="result-24">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-32">Errors</h4>
+
 <p>None</p>
 
 <h2 id="execution-management-operations">Execution Management Operations</h2>
+
 <p>The execution management portion of the language server API deals with exposing
-fine-grained control over program and expression execution to the clients of
-the language server. This is incredibly important for enabling the high levels
-of interactivity required by Enso Studio.</p>
+fine-grained control over program and expression execution to the clients of the
+language server. This is incredibly important for enabling the high levels of
+interactivity required by Enso Studio.</p>
 
 <h3 id="execution-management-example">Execution Management Example</h3>
 
@@ -2548,30 +2654,30 @@ for the precalculated metadata indexes.</p>
 <h3 id="create-execution-context">Create Execution Context</h3>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"method"</span><span class="p">:</span><span class="s2">"executionContext/create"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"params"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"executionContext/create"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
 <p>Return capabilities together with a newly created <code class="language-plaintext highlighter-rouge">ContextId</code>.</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"result"</span><span class="p">:{</span><span class="w">
-    </span><span class="nl">"contextId"</span><span class="p">:</span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"canModify"</span><span class="p">:{</span><span class="w">
-      </span><span class="nl">"method"</span><span class="p">:</span><span class="s2">"executionContext/canModify"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"registerOptions"</span><span class="p">:{</span><span class="w">
-        </span><span class="nl">"contextId"</span><span class="p">:</span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"contextId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"canModify"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"executionContext/canModify"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"registerOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"contextId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"receivesUpdates"</span><span class="p">:{</span><span class="w">
-      </span><span class="nl">"method"</span><span class="p">:</span><span class="s2">"executionContext/receivesUpdates"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"registerOptions"</span><span class="p">:{</span><span class="w">
-        </span><span class="nl">"contextId"</span><span class="p">:</span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="w">
+    </span><span class="nl">"receivesUpdates"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"executionContext/receivesUpdates"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"registerOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"contextId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -2579,30 +2685,28 @@ for the precalculated metadata indexes.</p>
 </span></code></pre></div></div>
 
 <h3 id="push-item">Push Item</h3>
+
 <p>Entering the <code class="language-plaintext highlighter-rouge">main</code> method. First item on the stack should always be an
 <code class="language-plaintext highlighter-rouge">ExplicitCall</code>.</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"method"</span><span class="p">:</span><span class="s2">"executionContext/push"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"params"</span><span class="p">:{</span><span class="w">
-    </span><span class="nl">"contextId"</span><span class="p">:</span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"stackItem"</span><span class="p">:{</span><span class="w">
-      </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"ExplicitCall"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"methodPointer"</span><span class="p">:{</span><span class="w">
-        </span><span class="nl">"file"</span><span class="p">:{</span><span class="w">
-          </span><span class="nl">"rootId"</span><span class="p">:</span><span class="s2">"18f642a2-5f69-4fc8-add6-13bf199ca326"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"segments"</span><span class="p">:[</span><span class="w">
-            </span><span class="s2">"src"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"Main.enso"</span><span class="w">
-          </span><span class="p">]</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"executionContext/push"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"contextId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"stackItem"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ExplicitCall"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"methodPointer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"file"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"rootId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18f642a2-5f69-4fc8-add6-13bf199ca326"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"segments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"src"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Main.enso"</span><span class="p">]</span><span class="w">
         </span><span class="p">},</span><span class="w">
-        </span><span class="nl">"definedOnType"</span><span class="p">:</span><span class="s2">"Main"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"main"</span><span class="w">
+        </span><span class="nl">"definedOnType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Main"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"main"</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"thisArgumentExpression"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"positionalArgumentsExpressions"</span><span class="p">:[</span><span class="w"> </span><span class="p">]</span><span class="w">
+      </span><span class="nl">"thisArgumentExpression"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"positionalArgumentsExpressions"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -2611,34 +2715,31 @@ for the precalculated metadata indexes.</p>
 <p>Returns successful reponse.</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"result"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
 <p>And a value update, result of the method <code class="language-plaintext highlighter-rouge">foo</code> call defined on type <code class="language-plaintext highlighter-rouge">Number</code>.</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"method"</span><span class="p">:</span><span class="s2">"executionContext/expressionValuesComputed"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"params"</span><span class="p">:{</span><span class="w">
-    </span><span class="nl">"contextId"</span><span class="p">:</span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"updates"</span><span class="p">:[</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"executionContext/expressionValuesComputed"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"contextId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="s2">"37f284d4-c593-4e65-a4be-4948fbd2adfb"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"Number"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"shortValue"</span><span class="p">:</span><span class="s2">"45"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"methodCall"</span><span class="p">:{</span><span class="w">
-          </span><span class="nl">"file"</span><span class="p">:{</span><span class="w">
-            </span><span class="nl">"rootId"</span><span class="p">:</span><span class="s2">"18f642a2-5f69-4fc8-add6-13bf199ca326"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"segments"</span><span class="p">:[</span><span class="w">
-              </span><span class="s2">"src"</span><span class="p">,</span><span class="w">
-              </span><span class="s2">"Main.enso"</span><span class="w">
-            </span><span class="p">]</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"37f284d4-c593-4e65-a4be-4948fbd2adfb"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"shortValue"</span><span class="p">:</span><span class="w"> </span><span class="s2">"45"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"methodCall"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"file"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"rootId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"18f642a2-5f69-4fc8-add6-13bf199ca326"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"segments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"src"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Main.enso"</span><span class="p">]</span><span class="w">
           </span><span class="p">},</span><span class="w">
-          </span><span class="nl">"definedOnType"</span><span class="p">:</span><span class="s2">"Number"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"foo"</span><span class="w">
+          </span><span class="nl">"definedOnType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo"</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
@@ -2650,14 +2751,14 @@ for the precalculated metadata indexes.</p>
 on the stack. In general, all consequent stack items should be <code class="language-plaintext highlighter-rouge">LocalCall</code>s.</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"method"</span><span class="p">:</span><span class="s2">"executionContext/push"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"params"</span><span class="p">:{</span><span class="w">
-    </span><span class="nl">"contextId"</span><span class="p">:</span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"stackItem"</span><span class="p">:{</span><span class="w">
-      </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"LocalCall"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"expressionId"</span><span class="p">:</span><span class="s2">"37f284d4-c593-4e65-a4be-4948fbd2adfb"</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"executionContext/push"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"contextId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"stackItem"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LocalCall"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"expressionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"37f284d4-c593-4e65-a4be-4948fbd2adfb"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -2666,25 +2767,25 @@ on the stack. In general, all consequent stack items should be <code class="lang
 <p>Returns successful reponse.</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"result"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
 <p>And update of some value inside the function <code class="language-plaintext highlighter-rouge">foo</code>.</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"method"</span><span class="p">:</span><span class="s2">"executionContext/expressionValuesComputed"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"params"</span><span class="p">:{</span><span class="w">
-    </span><span class="nl">"contextId"</span><span class="p">:</span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"updates"</span><span class="p">:[</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"executionContext/expressionValuesComputed"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"contextId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"updates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="s2">"1cda3676-bd62-41f8-b6a1-a1e1b7c73d18"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"Number"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"shortValue"</span><span class="p">:</span><span class="s2">"9"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"methodCall"</span><span class="p">:</span><span class="kc">null</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1cda3676-bd62-41f8-b6a1-a1e1b7c73d18"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Number"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"shortValue"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"methodCall"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
       </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -2694,11 +2795,11 @@ on the stack. In general, all consequent stack items should be <code class="lang
 <h3 id="pop-item">Pop Item</h3>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"method"</span><span class="p">:</span><span class="s2">"executionContext/pop"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"params"</span><span class="p">:{</span><span class="w">
-    </span><span class="nl">"contextId"</span><span class="p">:</span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="w">
+  </span><span class="nl">"jsonrpc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"executionContext/pop"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"contextId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1eb5ad04-4094-4c1f-be54-e9d29ddf19a3"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
@@ -2708,6 +2809,7 @@ the stack. Subsequent pop calls will result in an error indicating that the
 stack is empty.</p>
 
 <h3 id="executioncontextcreate"><code class="language-plaintext highlighter-rouge">executionContext/create</code></h3>
+
 <p>Sent from the client to the server to create a new execution context. Return
 capabilities <a href="#executioncontextcanmodify"><code class="language-plaintext highlighter-rouge">executionContext/canModify</code></a> and
 <a href="#executioncontextreceivesupdates"><code class="language-plaintext highlighter-rouge">executionContext/receivesUpdates</code></a>.</p>
@@ -2720,10 +2822,12 @@ capabilities <a href="#executioncontextcanmodify"><code class="language-plaintex
 </ul>
 
 <h4 id="parameters-32">Parameters</h4>
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="result-25">Result</h4>
+
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
   <span class="nl">canModify</span><span class="p">:</span> <span class="nx">CapabilityRegistration</span><span class="p">;</span>
@@ -2732,9 +2836,11 @@ capabilities <a href="#executioncontextcanmodify"><code class="language-plaintex
 </code></pre></div></div>
 
 <h4 id="errors-33">Errors</h4>
+
 <p>None</p>
 
 <h3 id="executioncontextdestroy"><code class="language-plaintext highlighter-rouge">executionContext/destroy</code></h3>
+
 <p>Sent from the client to the server destroy an execution context and free its
 resources.</p>
 
@@ -2746,16 +2852,19 @@ resources.</p>
 </ul>
 
 <h4 id="parameters-33">Parameters</h4>
+
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
 <h4 id="result-26">Result</h4>
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-34">Errors</h4>
+
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
 <code class="language-plaintext highlighter-rouge">executionContext/canModify</code> capability for this context.</li>
@@ -2764,11 +2873,11 @@ by provided id.</li>
 </ul>
 
 <h3 id="executioncontextfork"><code class="language-plaintext highlighter-rouge">executionContext/fork</code></h3>
+
 <p>Sent from the client to the server to duplicate an execution context, creating
-an independent copy, containing all the data precomputed in the first
-one. Return capabilities
-<a href="#executioncontextcanmodify"><code class="language-plaintext highlighter-rouge">executionContext/canModify</code></a> and
-<a href="#executioncontextreceivesupdates"><code class="language-plaintext highlighter-rouge">executionContext/receivesUpdates</code></a>.</p>
+an independent copy, containing all the data precomputed in the first one.
+Return capabilities <a href="#executioncontextcanmodify"><code class="language-plaintext highlighter-rouge">executionContext/canModify</code></a>
+and <a href="#executioncontextreceivesupdates"><code class="language-plaintext highlighter-rouge">executionContext/receivesUpdates</code></a>.</p>
 
 <ul>
   <li><strong>Type:</strong> Request</li>
@@ -2778,12 +2887,14 @@ one. Return capabilities
 </ul>
 
 <h4 id="parameters-34">Parameters</h4>
+
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
 <h4 id="result-27">Result</h4>
+
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
   <span class="nl">canModify</span><span class="p">:</span> <span class="nx">CapabilityRegistration</span><span class="p">;</span>
@@ -2792,9 +2903,11 @@ one. Return capabilities
 </code></pre></div></div>
 
 <h4 id="errors-35">Errors</h4>
+
 <p>No known errors.</p>
 
 <h3 id="executioncontextpush"><code class="language-plaintext highlighter-rouge">executionContext/push</code></h3>
+
 <p>Sent from the client to the server execute item and move the execution context
 to a new location deeper down the stack. If a stack item becomes invalid because
 of a text edit (e.g. the root function of the view was removed), it will stop
@@ -2808,6 +2921,7 @@ executing. If the function reappears, execution should resume as normal.</p>
 </ul>
 
 <h4 id="parameters-35">Parameters</h4>
+
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
   <span class="nl">stackItem</span><span class="p">:</span> <span class="nx">StackItem</span><span class="p">;</span>
@@ -2815,10 +2929,12 @@ executing. If the function reappears, execution should resume as normal.</p>
 </code></pre></div></div>
 
 <h4 id="result-28">Result</h4>
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-36">Errors</h4>
+
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
 <code class="language-plaintext highlighter-rouge">executionContext/canModify</code> capability for this context.</li>
@@ -2829,6 +2945,7 @@ top of the empty stack, or pushing <code class="language-plaintext highlighter-r
 </ul>
 
 <h3 id="executioncontextpop"><code class="language-plaintext highlighter-rouge">executionContext/pop</code></h3>
+
 <p>Sent from the client to the server move the execution context up the stack,
 corresponding to the client clicking out of the current breadcrumb.</p>
 
@@ -2840,16 +2957,19 @@ corresponding to the client clicking out of the current breadcrumb.</p>
 </ul>
 
 <h4 id="parameters-36">Parameters</h4>
+
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
 <h4 id="result-29">Result</h4>
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-37">Errors</h4>
+
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
 <code class="language-plaintext highlighter-rouge">executionContext/canModify</code> capability for this context.</li>
@@ -2858,6 +2978,7 @@ stack.</li>
 </ul>
 
 <h3 id="executioncontextrecompute"><code class="language-plaintext highlighter-rouge">executionContext/recompute</code></h3>
+
 <p>Sent from the client to the server to force recomputation of current position.
 May include a list of expressions for which caches should be invalidated.</p>
 
@@ -2869,6 +2990,7 @@ May include a list of expressions for which caches should be invalidated.</p>
 </ul>
 
 <h4 id="parameters-37">Parameters</h4>
+
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
   <span class="nl">invalidatedExpressions</span><span class="p">?:</span> <span class="dl">"</span><span class="s2">all</span><span class="dl">"</span> <span class="o">|</span> <span class="p">[</span><span class="nx">ExpressionId</span><span class="p">]</span>
@@ -2876,10 +2998,12 @@ May include a list of expressions for which caches should be invalidated.</p>
 </code></pre></div></div>
 
 <h4 id="result-30">Result</h4>
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-38">Errors</h4>
+
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
 <code class="language-plaintext highlighter-rouge">executionContext/canModify</code> capability for this context.</li>
@@ -2888,6 +3012,7 @@ empty stack.</li>
 </ul>
 
 <h3 id="executioncontextexpressionvaluescomputed"><code class="language-plaintext highlighter-rouge">executionContext/expressionValuesComputed</code></h3>
+
 <p>Sent from the server to the client to inform about new information for certain
 expressions becoming available.</p>
 
@@ -2899,16 +3024,19 @@ expressions becoming available.</p>
 </ul>
 
 <h4 id="parameters-38">Parameters</h4>
+
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
-  <span class="nl">updates</span><span class="p">:</span> <span class="p">[</span><span class="nx">ExpressionValueUpdate</span><span class="p">]</span>
+  <span class="nl">updates</span><span class="p">:</span> <span class="p">[</span><span class="nx">ExpressionValueUpdate</span><span class="p">];</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
 <h4 id="errors-39">Errors</h4>
+
 <p>None</p>
 
 <h3 id="executioncontextexecutionfailed"><code class="language-plaintext highlighter-rouge">executionContext/executionFailed</code></h3>
+
 <p>Sent from the server to the client to inform about a failure during execution of
 an execution context.</p>
 
@@ -2920,6 +3048,7 @@ an execution context.</p>
 </ul>
 
 <h4 id="parameters-39">Parameters</h4>
+
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
   <span class="nl">message</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -2927,9 +3056,11 @@ an execution context.</p>
 </code></pre></div></div>
 
 <h4 id="errors-40">Errors</h4>
+
 <p>None</p>
 
 <h3 id="executioncontextattachvisualisation"><code class="language-plaintext highlighter-rouge">executionContext/attachVisualisation</code></h3>
+
 <p>This message allows the client to attach a visualisation, potentially
 preprocessed by some arbitrary Enso code, to a given node in the program.</p>
 
@@ -2951,10 +3082,11 @@ preprocessed by some arbitrary Enso code, to a given node in the program.</p>
 
 <h4 id="result-31">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-41">Errors</h4>
+
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
 <code class="language-plaintext highlighter-rouge">executionContext/canModify</code> capability for this context.</li>
@@ -2968,6 +3100,7 @@ evaluated.</li>
 </ul>
 
 <h3 id="executioncontextdetachvisualisation"><code class="language-plaintext highlighter-rouge">executionContext/detachVisualisation</code></h3>
+
 <p>This message allows a client to detach a visualisation from the executing code.</p>
 
 <ul>
@@ -2988,10 +3121,11 @@ evaluated.</li>
 
 <h4 id="result-32">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-42">Errors</h4>
+
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
 <code class="language-plaintext highlighter-rouge">executionContext/canModify</code> capability for this context.</li>
@@ -3002,6 +3136,7 @@ visualisation can not be found.</li>
 </ul>
 
 <h3 id="executioncontextmodifyvisualisation"><code class="language-plaintext highlighter-rouge">executionContext/modifyVisualisation</code></h3>
+
 <p>This message allows a client to modify the configuration for an existing
 visualisation.</p>
 
@@ -3022,10 +3157,11 @@ visualisation.</p>
 
 <h4 id="result-33">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-43">Errors</h4>
+
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
 <code class="language-plaintext highlighter-rouge">executionContext/canModify</code> capability for this context.</li>
@@ -3041,6 +3177,7 @@ visualisation can not be found.</li>
 </ul>
 
 <h3 id="executioncontextvisualisationupdate"><code class="language-plaintext highlighter-rouge">executionContext/visualisationUpdate</code></h3>
+
 <p>This message is responsible for providing a visualisation data update to the
 client.</p>
 
@@ -3088,6 +3225,7 @@ root_type VisualisationUpdate;
 </code></pre>
 
 <h4 id="errors-44">Errors</h4>
+
 <p>N/A</p>
 
 <h2 id="search-operations">Search Operations</h2>
@@ -3125,98 +3263,99 @@ a key-value storage with <a href="#suggestionentry"><code class="language-plaint
 
 <h4 id="mytype">MyType</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">SuggestionEntryAtom</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">MyType</span><span class="dl">'</span><span class="p">,</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">SuggestionEntryAtom</span><span class="o">&gt;</span><span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MyType</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">arguments</span><span class="p">:</span> <span class="p">[],</span>
-  <span class="na">returnType</span><span class="p">:</span> <span class="dl">'</span><span class="s1">MyType</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">returnType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MyType</span><span class="dl">"</span><span class="p">,</span>
 <span class="p">};</span>
 </code></pre></div></div>
 
 <h4 id="maybenothing">Maybe.Nothing</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">SuggestionEntryAtom</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Nothing</span><span class="dl">'</span><span class="p">,</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">SuggestionEntryAtom</span><span class="o">&gt;</span><span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nothing</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">arguments</span><span class="p">:</span> <span class="p">[],</span>
-  <span class="na">returnType</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Maybe</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">returnType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Maybe</span><span class="dl">"</span><span class="p">,</span>
 <span class="p">};</span>
 </code></pre></div></div>
 
 <h4 id="maybejust">Maybe.Just</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">SuggestionEntryAtom</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Just</span><span class="dl">'</span><span class="p">,</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">SuggestionEntryAtom</span><span class="o">&gt;</span><span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Just</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">arguments</span><span class="p">:</span> <span class="p">[</span>
     <span class="p">{</span>
-      <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">a</span><span class="dl">'</span><span class="p">,</span>
-      <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Any</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">a</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Any</span><span class="dl">"</span><span class="p">,</span>
       <span class="na">isSuspended</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
       <span class="na">hasDefault</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="p">}</span>
+    <span class="p">},</span>
   <span class="p">],</span>
-  <span class="na">returnType</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Maybe</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">returnType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Maybe</span><span class="dl">"</span><span class="p">,</span>
 <span class="p">};</span>
 </code></pre></div></div>
 
 <h4 id="maybeis_just">Maybe.is_just</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">SuggestionEntryMethod</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">is_just</span><span class="dl">'</span><span class="p">,</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">SuggestionEntryMethod</span><span class="o">&gt;</span><span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">is_just</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">arguments</span><span class="p">:</span> <span class="p">[],</span>
-  <span class="na">selfType</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Maybe</span><span class="dl">'</span><span class="p">,</span>
-  <span class="na">returnType</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bool</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">selfType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Maybe</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">returnType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Bool</span><span class="dl">"</span><span class="p">,</span>
 <span class="p">};</span>
 </code></pre></div></div>
 
 <h4 id="foo">foo</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">SuggestionEntryFunction</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">foo</span><span class="dl">'</span><span class="p">,</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">SuggestionEntryFunction</span><span class="o">&gt;</span><span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">foo</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">arguments</span><span class="p">:</span> <span class="p">[</span>
     <span class="p">{</span>
-      <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">x</span><span class="dl">'</span><span class="p">,</span>
-      <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Number</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">x</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Number</span><span class="dl">"</span><span class="p">,</span>
       <span class="na">isSuspended</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
       <span class="na">hasDefault</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="p">}</span>
+    <span class="p">},</span>
   <span class="p">],</span>
-  <span class="na">returnType</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bool</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">returnType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Bool</span><span class="dl">"</span><span class="p">,</span>
 <span class="p">};</span>
 </code></pre></div></div>
 
 <h4 id="numberbaz">Number.baz</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">SuggestionEntryMethod</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">baz</span><span class="dl">'</span><span class="p">,</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">SuggestionEntryMethod</span><span class="o">&gt;</span><span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">baz</span><span class="dl">"</span><span class="p">,</span>
   <span class="na">arguments</span><span class="p">:</span> <span class="p">[</span>
     <span class="p">{</span>
-      <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">x</span><span class="dl">'</span><span class="p">,</span>
-      <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Number</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">x</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Number</span><span class="dl">"</span><span class="p">,</span>
       <span class="na">isSuspended</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
       <span class="na">hasDefault</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="p">}</span>
+    <span class="p">},</span>
   <span class="p">],</span>
-  <span class="na">selfType</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Number</span><span class="dl">'</span><span class="p">,</span>
-  <span class="na">returnType</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Number</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">selfType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Number</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">returnType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Number</span><span class="dl">"</span><span class="p">,</span>
 <span class="p">};</span>
 </code></pre></div></div>
 
 <h4 id="local-x">Local x</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">SuggestionEntryLocal</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">x</span><span class="dl">'</span><span class="p">,</span>
-  <span class="na">returnType</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Number</span><span class="dl">'</span><span class="p">,</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">SuggestionEntryLocal</span><span class="o">&gt;</span><span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">x</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">returnType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Number</span><span class="dl">"</span><span class="p">,</span>
 <span class="p">};</span>
 </code></pre></div></div>
 
 <h4 id="local-y">Local y</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">SuggestionEntryLocal</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">y</span><span class="dl">'</span><span class="p">,</span>
-  <span class="na">returnType</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Number</span><span class="dl">'</span><span class="p">,</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">SuggestionEntryLocal</span><span class="o">&gt;</span><span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">y</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">returnType</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Number</span><span class="dl">"</span><span class="p">,</span>
 <span class="p">};</span>
 </code></pre></div></div>
 
 <h3 id="searchgetsuggestionsdatabase"><code class="language-plaintext highlighter-rouge">search/getSuggestionsDatabase</code></h3>
+
 <p>Sent from client to the server to receive the full suggestions database.</p>
 
 <ul>
@@ -3227,10 +3366,12 @@ a key-value storage with <a href="#suggestionentry"><code class="language-plaint
 </ul>
 
 <h4 id="parameters-44">Parameters</h4>
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="result-34">Result</h4>
+
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="c1">// The list of suggestions database entries</span>
   <span class="nl">entries</span><span class="p">:</span> <span class="p">[</span><span class="nx">SuggestionsDatabaseEntry</span><span class="p">];</span>
@@ -3240,6 +3381,7 @@ a key-value storage with <a href="#suggestionentry"><code class="language-plaint
 </code></pre></div></div>
 
 <h4 id="errors-45">Errors</h4>
+
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
 suggestions database</li>
@@ -3248,6 +3390,7 @@ root directory</li>
 </ul>
 
 <h3 id="searchgetsuggestionsdatabaseversion"><code class="language-plaintext highlighter-rouge">search/getSuggestionsDatabaseVersion</code></h3>
+
 <p>Sent from client to the server to receive the current version of the suggestions
 database.</p>
 
@@ -3259,10 +3402,12 @@ database.</p>
 </ul>
 
 <h4 id="parameters-45">Parameters</h4>
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="result-35">Result</h4>
+
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="c1">// The version of the suggestions database</span>
   <span class="nl">currentVersion</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
@@ -3270,6 +3415,7 @@ database.</p>
 </code></pre></div></div>
 
 <h4 id="errors-46">Errors</h4>
+
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
 suggestions database</li>
@@ -3278,6 +3424,7 @@ root directory</li>
 </ul>
 
 <h3 id="searchsuggestionsdatabaseupdate"><code class="language-plaintext highlighter-rouge">search/suggestionsDatabaseUpdate</code></h3>
+
 <p>Sent from server to the client to inform abouth the change in the suggestions
 database.</p>
 
@@ -3297,9 +3444,11 @@ database.</p>
 </code></pre></div></div>
 
 <h4 id="errors-47">Errors</h4>
+
 <p>None</p>
 
 <h3 id="searchcompletion"><code class="language-plaintext highlighter-rouge">search/completion</code></h3>
+
 <p>Sent from client to the server to receive the autocomplete suggestion.</p>
 
 <ul>
@@ -3326,6 +3475,7 @@ database.</p>
 </code></pre></div></div>
 
 <h4 id="result-36">Result</h4>
+
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">results</span><span class="p">:</span> <span class="p">[</span><span class="nx">SuggestionEntryId</span><span class="p">];</span>
   <span class="nl">currentVersion</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
@@ -3333,6 +3483,7 @@ database.</p>
 </code></pre></div></div>
 
 <h4 id="errors-48">Errors</h4>
+
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
 suggestions database</li>
@@ -3343,12 +3494,14 @@ cannot be extracted from the provided file path parameter</li>
 </ul>
 
 <h2 id="inputoutput-operations">Input/Output Operations</h2>
+
 <p>The input/output portion of the language server API deals with redirecting
-stdin/stdout/stderr of Enso programs to the clients of the language server.
-This is incredibly important for enabling the high levels of interactivity
-required by Enso Studio.</p>
+stdin/stdout/stderr of Enso programs to the clients of the language server. This
+is incredibly important for enabling the high levels of interactivity required
+by Enso Studio.</p>
 
 <h3 id="ioredirectstandardoutput"><code class="language-plaintext highlighter-rouge">io/redirectStandardOutput</code></h3>
+
 <p>This message allows a client to redirect the standard output of Enso programs.
 Once the standard output is redirected, the Language server will notify the
 client about new output data by emitting <code class="language-plaintext highlighter-rouge">io/standardOutputAppended</code> messages.</p>
@@ -3362,17 +3515,20 @@ client about new output data by emitting <code class="language-plaintext highlig
 
 <h4 id="parameters-48">Parameters</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
+
 <h4 id="result-37">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-49">Errors</h4>
+
 <p>N/A</p>
 
 <h3 id="iosuppressstandardoutput"><code class="language-plaintext highlighter-rouge">io/suppressStandardOutput</code></h3>
+
 <p>This message allows a client to suppress the redirection of the standard output.</p>
 
 <ul>
@@ -3384,17 +3540,20 @@ client about new output data by emitting <code class="language-plaintext highlig
 
 <h4 id="parameters-49">Parameters</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
+
 <h4 id="result-38">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-50">Errors</h4>
+
 <p>N/A</p>
 
 <h3 id="iostandardoutputappended"><code class="language-plaintext highlighter-rouge">io/standardOutputAppended</code></h3>
+
 <p>Sent from the server to the client to inform that new output data are available
 for the standard output.</p>
 
@@ -3406,12 +3565,14 @@ for the standard output.</p>
 </ul>
 
 <h4 id="parameters-50">Parameters</h4>
+
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">output</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
 <h3 id="ioredirectstandarderror"><code class="language-plaintext highlighter-rouge">io/redirectStandardError</code></h3>
+
 <p>This message allows a client to redirect the standard error of Enso programs.
 Once the standard error is redirected, the Language server will notify the
 client about new output data by emitting <code class="language-plaintext highlighter-rouge">io/standardErrorAppended</code> messages.</p>
@@ -3425,17 +3586,20 @@ client about new output data by emitting <code class="language-plaintext highlig
 
 <h4 id="parameters-51">Parameters</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
+
 <h4 id="result-39">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-51">Errors</h4>
+
 <p>N/A</p>
 
 <h3 id="iosuppressstandarderror"><code class="language-plaintext highlighter-rouge">io/suppressStandardError</code></h3>
+
 <p>This message allows a client to suppress the redirection of the standard error.</p>
 
 <ul>
@@ -3447,17 +3611,20 @@ client about new output data by emitting <code class="language-plaintext highlig
 
 <h4 id="parameters-52">Parameters</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
+
 <h4 id="result-40">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-52">Errors</h4>
+
 <p>N/A</p>
 
 <h3 id="iostandarderrorappended"><code class="language-plaintext highlighter-rouge">io/standardErrorAppended</code></h3>
+
 <p>Sent from the server to the client to inform that new output data are available
 for the standard error.</p>
 
@@ -3469,12 +3636,14 @@ for the standard error.</p>
 </ul>
 
 <h4 id="parameters-53">Parameters</h4>
+
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">output</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
 <h3 id="iofeedstandardinput"><code class="language-plaintext highlighter-rouge">io/feedStandardInput</code></h3>
+
 <p>This message allows a client to feed the standard input of Enso programs.</p>
 
 <ul>
@@ -3491,15 +3660,18 @@ for the standard error.</p>
   <span class="nl">isLineTerminated</span><span class="p">:</span> <span class="nb">Boolean</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
+
 <h4 id="result-41">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h4 id="errors-53">Errors</h4>
+
 <p>N/A</p>
 
 <h3 id="iowaitingforstandardinput"><code class="language-plaintext highlighter-rouge">io/waitingForStandardInput</code></h3>
+
 <p>Sent from the server to the client to inform that an Enso program is suspended
 by <code class="language-plaintext highlighter-rouge">IO.readln</code>. This message is used to notify a client that she should feed the
 standard input.</p>
@@ -3512,14 +3684,17 @@ standard input.</p>
 </ul>
 
 <h4 id="parameters-55">Parameters</h4>
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h2 id="errors-54">Errors</h2>
+
 <p>The language server component also has its own set of errors. This section is
 not a complete specification and will be updated as new errors are added.</p>
 
 <h3 id="accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></h3>
+
 <p>It signals that a user doesn’t have access to a resource.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3529,6 +3704,7 @@ not a complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></h3>
+
 <p>This error signals generic file system errors.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3538,6 +3714,7 @@ not a complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="contentrootnotfounderror"><code class="language-plaintext highlighter-rouge">ContentRootNotFoundError</code></h3>
+
 <p>The error informs that the requested content root cannot be found.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3547,6 +3724,7 @@ not a complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="filenotfound"><code class="language-plaintext highlighter-rouge">FileNotFound</code></h3>
+
 <p>It signals that requested file doesn’t exist.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3556,6 +3734,7 @@ not a complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="fileexists-1"><code class="language-plaintext highlighter-rouge">FileExists</code></h3>
+
 <p>It signals that file already exists.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3565,6 +3744,7 @@ not a complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="operationtimeouterror"><code class="language-plaintext highlighter-rouge">OperationTimeoutError</code></h3>
+
 <p>It signals that IO operation timed out.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3574,6 +3754,7 @@ not a complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="notdirectory"><code class="language-plaintext highlighter-rouge">NotDirectory</code></h3>
+
 <p>It signals that provided path is not a directory.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3583,6 +3764,7 @@ not a complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="stackitemnotfounderror"><code class="language-plaintext highlighter-rouge">StackItemNotFoundError</code></h3>
+
 <p>It signals that provided stack item was not found.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3593,6 +3775,7 @@ not a complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="contextnotfounderror"><code class="language-plaintext highlighter-rouge">ContextNotFoundError</code></h3>
+
 <p>It signals that provided context was not found.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3602,6 +3785,7 @@ not a complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="emptystackerror"><code class="language-plaintext highlighter-rouge">EmptyStackError</code></h3>
+
 <p>It signals that stack is empty.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3611,6 +3795,7 @@ not a complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="invalidstackitemerror"><code class="language-plaintext highlighter-rouge">InvalidStackItemError</code></h3>
+
 <p>It signals that stack is invalid in this context.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3620,6 +3805,7 @@ not a complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="modulenotfounderror"><code class="language-plaintext highlighter-rouge">ModuleNotFoundError</code></h3>
+
 <p>It signals that the given module cannot be found.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3629,6 +3815,7 @@ not a complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="visualisationnotfounderror"><code class="language-plaintext highlighter-rouge">VisualisationNotFoundError</code></h3>
+
 <p>It signals that the visualisation cannot be found.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3638,6 +3825,7 @@ not a complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="visualisationexpressionerror"><code class="language-plaintext highlighter-rouge">VisualisationExpressionError</code></h3>
+
 <p>It signals that the expression specified in the <code class="language-plaintext highlighter-rouge">VisualisationConfiguration</code>
 cannot be evaluated.</p>
 
@@ -3648,6 +3836,7 @@ cannot be evaluated.</p>
 </code></pre></div></div>
 
 <h3 id="visualisationevaluationerror"><code class="language-plaintext highlighter-rouge">VisualisationEvaluationError</code></h3>
+
 <p>It is a push message. It signals that an evaluation of a code responsible for
 generating visualisation data failed.</p>
 
@@ -3658,6 +3847,7 @@ generating visualisation data failed.</p>
 </code></pre></div></div>
 
 <h3 id="filenotopenederror"><code class="language-plaintext highlighter-rouge">FileNotOpenedError</code></h3>
+
 <p>Signals that a file wasn’t opened.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3667,6 +3857,7 @@ generating visualisation data failed.</p>
 </code></pre></div></div>
 
 <h3 id="texteditvalidationerror"><code class="language-plaintext highlighter-rouge">TextEditValidationError</code></h3>
+
 <p>Signals that validation has failed for a series of edits.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3676,8 +3867,9 @@ generating visualisation data failed.</p>
 </code></pre></div></div>
 
 <h3 id="invalidversionerror"><code class="language-plaintext highlighter-rouge">InvalidVersionError</code></h3>
-<p>Signals that version provided by a client doesn’t match to the version
-computed by the server.</p>
+
+<p>Signals that version provided by a client doesn’t match to the version computed
+by the server.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
   <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">3003</span><span class="p">,</span>
@@ -3686,6 +3878,7 @@ computed by the server.</p>
 </code></pre></div></div>
 
 <h3 id="writedeniederror"><code class="language-plaintext highlighter-rouge">WriteDeniedError</code></h3>
+
 <p>Signals that the client doesn’t hold write lock to the buffer.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3695,6 +3888,7 @@ computed by the server.</p>
 </code></pre></div></div>
 
 <h3 id="capabilitynotacquired"><code class="language-plaintext highlighter-rouge">CapabilityNotAcquired</code></h3>
+
 <p>Signals that requested capability is not acquired.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3704,6 +3898,7 @@ computed by the server.</p>
 </code></pre></div></div>
 
 <h3 id="sessionnotinitialisederror"><code class="language-plaintext highlighter-rouge">SessionNotInitialisedError</code></h3>
+
 <p>Signals that requested cannot be proccessed, beacuse session is not initialised.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3713,6 +3908,7 @@ computed by the server.</p>
 </code></pre></div></div>
 
 <h3 id="sessionalreadyinitialisederror"><code class="language-plaintext highlighter-rouge">SessionAlreadyInitialisedError</code></h3>
+
 <p>Signals that session is already initialised.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3722,6 +3918,7 @@ computed by the server.</p>
 </code></pre></div></div>
 
 <h3 id="suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></h3>
+
 <p>Signals about an error accessing the suggestions database.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3731,6 +3928,7 @@ computed by the server.</p>
 </code></pre></div></div>
 
 <h3 id="projectnotfounderror"><code class="language-plaintext highlighter-rouge">ProjectNotFoundError</code></h3>
+
 <p>Signals that the project not found in the root directory.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3740,6 +3938,7 @@ computed by the server.</p>
 </code></pre></div></div>
 
 <h3 id="modulenamenotresolvederror"><code class="language-plaintext highlighter-rouge">ModuleNameNotResolvedError</code></h3>
+
 <p>Signals that the module name can not be resolved for the given file.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -3977,7 +4176,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

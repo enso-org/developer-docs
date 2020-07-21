@@ -572,6 +572,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/semantics/modules.html">
                     
@@ -581,6 +585,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -716,6 +724,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="scoping-rules">Scoping Rules</h1>
+
 <p>Enso’s scoping rules should be fairly familiar to those coming from other
 languages that are immutable (or make heavy use of immutability). In essence,
 Enso is a lexically-scoped language where bindings may be shadowed in child
@@ -741,6 +750,7 @@ scopes.</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="scopes">Scopes</h2>
+
 <p>A scope is the span in the code within which a set of accessible identifiers
 occurs. A nested scope may:</p>
 
@@ -779,6 +789,7 @@ contexts, we need to revisit the above rules.</li>
 </blockquote>
 
 <h2 id="introducing-new-scopes">Introducing New Scopes</h2>
+
 <p>The following constructs introduce new scopes in Enso:</p>
 
 <ul>
@@ -821,6 +832,7 @@ implementation of <code class="language-plaintext highlighter-rouge">case</code>
 </blockquote>
 
 <h3 id="scoping-of-type-signatures">Scoping of Type Signatures</h3>
+
 <p>Currently, type signatures in Enso obey a simple set of typing rules:</p>
 
 <ul>
@@ -833,11 +845,12 @@ scope in which the LHS of the type ascription exists.</li>
 
   <p>In order to enable much of the flexible metaprogramming ability that Enso aims
 for, we have an additional set of scoping rules for type signatures:</p>
+
   <ul>
     <li>Both operands of the type ascription operator share a scope.</li>
-    <li>If two names are used on the type and term levels to refer to the same entity,
-both are valid but this issues a warning. Referring to the same entity means
-that they are two names for the same underlying object.</li>
+    <li>If two names are used on the type and term levels to refer to the same
+entity, both are valid but this issues a warning. Referring to the same
+entity means that they are two names for the same underlying object.</li>
     <li>Name clashes are disallowed unless the clashing names refer to the same
 entity.</li>
     <li>Do we actually want to support this?</li>
@@ -846,10 +859,12 @@ entity.</li>
 </blockquote>
 
 <h2 id="implementation-notes">Implementation Notes</h2>
+
 <p>This section contains notes on the implementation of the Enso scoping rules in
 the interpreter.</p>
 
 <h3 id="function-call-arguments">Function Call Arguments</h3>
+
 <p>In order to support suspended function arguments in the interpreter in a
 performant way, we implicitly wrap <em>all</em> function arguments in a suspension. In
 conjunction with making the function itself responsible for when its arguments
@@ -868,6 +883,7 @@ frame accesses incorrect.</li>
 <p>To this end, we account for this implementation detail in alias analysis.</p>
 
 <h3 id="collapsing-scopes">Collapsing Scopes</h3>
+
 <p>Another quirk of the internal alias analysis process is down to the fact that
 the Enso IR represents Methods, functions, and blocks as separate constructs.
 This means that if you had a method containing a function containing a block, a
@@ -1111,7 +1127,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

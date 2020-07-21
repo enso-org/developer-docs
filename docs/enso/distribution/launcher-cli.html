@@ -570,6 +570,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/licences.html">
                     
@@ -579,6 +583,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -708,6 +716,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="enso-launcher-cli">Enso Launcher CLI</h1>
+
 <p>This document describes available command-line options of the Enso launcher.</p>
 
 <blockquote>
@@ -755,11 +764,12 @@ developed.</li>
 <h2 id="commands">Commands</h2>
 
 <h3 id="new"><code class="language-plaintext highlighter-rouge">new</code></h3>
-<p>Create a new, empty project in a specified directory.
-By default uses the <code class="language-plaintext highlighter-rouge">default</code> enso version, which can be overriden with
-<code class="language-plaintext highlighter-rouge">--version</code>.</p>
+
+<p>Create a new, empty project in a specified directory. By default uses the
+<code class="language-plaintext highlighter-rouge">default</code> enso version, which can be overriden with <code class="language-plaintext highlighter-rouge">--version</code>.</p>
 
 <p>Examples:</p>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso new project1 <span class="nt">--path</span> /somewhere/on/the/filesystem
     <span class="c"># creates project called project1 in the specified directory</span>
     <span class="c"># using the `default` Enso version</span>
@@ -768,27 +778,33 @@ By default uses the <code class="language-plaintext highlighter-rouge">default</
 </code></pre></div></div>
 
 <h3 id="install-engine"><code class="language-plaintext highlighter-rouge">install engine</code></h3>
+
 <p>Installs a specific version of the Enso engine.</p>
 
 <p>Examples:</p>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso <span class="nb">install </span>engine 2.0.1
 </code></pre></div></div>
 
 <h3 id="uninstall-engine"><code class="language-plaintext highlighter-rouge">uninstall engine</code></h3>
+
 <p>Uninstalls a specific version of the Enso engine.</p>
 
 <p>Examples:</p>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso uninstall engine 2.0.1
 </code></pre></div></div>
 
 <h3 id="install-distribution"><code class="language-plaintext highlighter-rouge">install distribution</code></h3>
+
 <p>Installs a portable Enso distribution into system-defined directories, as
 explained in
 <a href="/docs/enso/distribution/distribution.html#installed-enso-distribution-layout">Installed Enso Distribution Layout</a>.
-By default, it asks the user for confirmation, but this can be skipped by
-adding a <code class="language-plaintext highlighter-rouge">--yes</code> flag.</p>
+By default, it asks the user for confirmation, but this can be skipped by adding
+a <code class="language-plaintext highlighter-rouge">--yes</code> flag.</p>
 
 <p>Examples:</p>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; extraction-location/bin/enso install distribution
 This will install Enso to ~/.local/share/enso/.
 Configuration will be placed in ~/.config/enso/.
@@ -797,6 +813,7 @@ Do you want to continue? [Y/n]
 </code></pre></div></div>
 
 <h3 id="uninstall-distribution"><code class="language-plaintext highlighter-rouge">uninstall distribution</code></h3>
+
 <p>Uninstalls an installed Enso distribution from the installation location
 described in
 <a href="/docs/enso/distribution/distribution.html#installed-enso-distribution-layout">Installed Enso Distribution Layout</a>.
@@ -804,6 +821,7 @@ It removes the universal launcher and all components. By default, it asks the
 user for confirmation, but this can be skipped by adding a <code class="language-plaintext highlighter-rouge">--yes</code> flag.</p>
 
 <p>Examples:</p>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; enso uninstall distribution
 This will completely uninstall Enso from ~/.local/share/enso/,
 remove configuration from ~/.config/enso/
@@ -812,12 +830,14 @@ Do you want to continue? [y/N]
 </code></pre></div></div>
 
 <h3 id="list"><code class="language-plaintext highlighter-rouge">list</code></h3>
+
 <p>Lists all installed versions of Enso and managed GraalVM distributions.</p>
 
 <p>Optional arguments are <code class="language-plaintext highlighter-rouge">enso</code> to just list Enso installations or <code class="language-plaintext highlighter-rouge">runtime</code> to
 list the installed runtimes.</p>
 
 <p>Examples:</p>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso list
 Enso 2.0.1 -&gt; GraalVM 20.1.0-java11
 Enso 2.2.3 -&gt; GraalVM 20.1.0-java11
@@ -832,24 +852,28 @@ GraalVM 21.1.0-java14 <span class="o">(</span>used by 1 Enso installation<span c
 </code></pre></div></div>
 
 <h3 id="default"><code class="language-plaintext highlighter-rouge">default</code></h3>
+
 <p>Sets the default Enso version used outside of projects.</p>
 
 <p>If run without arguments, displays currently configured <code class="language-plaintext highlighter-rouge">default</code> version.</p>
 
 <p>Examples:</p>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso default 2.0.1
-default <span class="nb">set </span>to version 2.0.1 
+default <span class="nb">set </span>to version 2.0.1
 <span class="o">&gt;</span> enso default
 default version is 2.0.1
 </code></pre></div></div>
 
 <h3 id="config"><code class="language-plaintext highlighter-rouge">config</code></h3>
+
 <p>Can be used to manage project configuration or global user configuration (if
 outside a project or with the <code class="language-plaintext highlighter-rouge">--global</code> flag).</p>
 
 <p>If only the config path is provided, currently configured value is printed.</p>
 
 <p>Examples:</p>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso config <span class="nt">--global</span> author.name Example User
 <span class="o">&gt;</span> enso config author.name Example User
 <span class="o">&gt;</span> enso config author.name
@@ -857,39 +881,47 @@ Example User
 </code></pre></div></div>
 
 <h3 id="run"><code class="language-plaintext highlighter-rouge">run</code></h3>
+
 <p>Runs a project or an Enso script file.</p>
 
 <p>Examples:</p>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso run script.enso <span class="c"># runs the file in script mode</span>
 <span class="o">&gt;</span> enso run path/to/project1 <span class="c"># runs the project</span>
 <span class="o">&gt;</span> enso run <span class="c"># runs the current project based on current directory</span>
 </code></pre></div></div>
 
 <h3 id="repl"><code class="language-plaintext highlighter-rouge">repl</code></h3>
+
 <p>Launches an Enso REPL. If outside a project, it uses the <code class="language-plaintext highlighter-rouge">default</code> Enso version.
 If run inside a project or an optional project path is specified, the REPL is
 run in the context of that project, using the version specified in its
 configuration.</p>
 
 <p>Examples:</p>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso repl <span class="c"># version and context depend on current working directory</span>
 <span class="o">&gt;</span> enso repl /path/to/project <span class="c"># runs the REPL in context of the specified project</span>
 </code></pre></div></div>
 
 <h3 id="language-server"><code class="language-plaintext highlighter-rouge">language-server</code></h3>
+
 <p>Launches the language server for a given project.</p>
 
 <p>Examples:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso language-server 
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso language-server
     <span class="nt">--server</span> <span class="se">\</span>
     <span class="nt">--root-id</span> 3256d10d-45be-45b1-9ea4-7912ef4226b1 <span class="se">\</span>
     <span class="nt">--path</span> /tmp/content-root
 </code></pre></div></div>
 
 <h3 id="upgrade"><code class="language-plaintext highlighter-rouge">upgrade</code></h3>
+
 <p>Checks for updates of the launcher and downloads any new versions.</p>
 
 <p>Examples:</p>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso upgrade
 Launcher has been upgraded to the latest <span class="o">(</span>3.0.2<span class="o">)</span> version.
 <span class="o">&gt;</span> enso upgrade 2.0.1
@@ -897,6 +929,7 @@ Launcher has been downgraded to version 2.0.1.
 </code></pre></div></div>
 
 <h3 id="version"><code class="language-plaintext highlighter-rouge">version</code></h3>
+
 <p>Prints the version of the installed launcher as well as the full version string
 of the currently selected Enso distribution.</p>
 
@@ -920,19 +953,23 @@ Running on: OpenJDK 64-Bit Server VM, GraalVM Community, JDK 11.0.7+10-jvmci-20.
 result.</p>
 
 <h3 id="help"><code class="language-plaintext highlighter-rouge">help</code></h3>
+
 <p>Print this summary of available command and their usage.</p>
 
 <h2 id="general-options">General Options</h2>
 
 <h3 id="--version"><code class="language-plaintext highlighter-rouge">--version</code></h3>
+
 <p>Overrides the inferred (project local or <code class="language-plaintext highlighter-rouge">default</code>) version when running a
 command.</p>
 
 <h3 id="--use-system-jvm"><code class="language-plaintext highlighter-rouge">--use-system-jvm</code></h3>
+
 <p>Tells the launcher to use the default JVM (based on <code class="language-plaintext highlighter-rouge">JAVA_HOME</code>) instead of the
 managed one. Will not work if the set-up JVM version is not GraalVM.</p>
 
 <h2 id="jvm-options">JVM Options</h2>
+
 <p>For commands that launch an Enso component inside a JVM (<code class="language-plaintext highlighter-rouge">repl</code>, <code class="language-plaintext highlighter-rouge">run</code> and
 <code class="language-plaintext highlighter-rouge">language-server</code>), additional parameters are passed to the launcher components.
 Moreover, it is possible to pass parameters to the JVM that is used to launch
@@ -1174,7 +1211,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

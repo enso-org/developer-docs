@@ -540,6 +540,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/runtime/unbounded-recursion.html">
                     
@@ -585,6 +589,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -738,6 +746,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="builtin-base-methods">Builtin Base Methods</h1>
+
 <p>While we strive to implement most of the Enso standard library in Enso itself,
 it is necessary for certain methods, particularly ones involving operations out
 of reach for the standard language semantics, or primitive system calls, to be
@@ -759,13 +768,14 @@ generation of such methods’ boilerplate.</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="dsl-overview">DSL Overview</h2>
-<p>The Enso Base DSL exposes certain annotations that allow to generate
-boilerplate transforming standard Truffle nodes into a shape that can easily
-be exported to the Base library. This DSL facilitates automatic parsing
-and typechecking of method arguments and wrapping the node in an actual
-<code class="language-plaintext highlighter-rouge">Function</code> object.</p>
+
+<p>The Enso Base DSL exposes certain annotations that allow to generate boilerplate
+transforming standard Truffle nodes into a shape that can easily be exported to
+the Base library. This DSL facilitates automatic parsing and typechecking of
+method arguments and wrapping the node in an actual <code class="language-plaintext highlighter-rouge">Function</code> object.</p>
 
 <h2 id="builtinmethod-annotation"><code class="language-plaintext highlighter-rouge">@BuiltinMethod</code> Annotation</h2>
+
 <p>The <code class="language-plaintext highlighter-rouge">@BuiltinMethod</code> annotation is applied to a Truffle <code class="language-plaintext highlighter-rouge">Node</code> subclass that
 should be treated as a builtin method. It takes the following arguments:</p>
 
@@ -782,55 +792,58 @@ in a non-tail position, this parameter should be left defaulted.</li>
 </ol>
 
 <p>The annotation will generate a <code class="language-plaintext highlighter-rouge">RootNode</code> subclass in the same package as the
-declaring node, with a name basing on the declaring node’s name. The name of
-the generated node is the name of the original node, with the <code class="language-plaintext highlighter-rouge">Node</code> suffix
-stripped and the <code class="language-plaintext highlighter-rouge">MethodGen</code> suffix appended. E.g. <code class="language-plaintext highlighter-rouge">AndOperatorNode</code> will
-generate a <code class="language-plaintext highlighter-rouge">AndOperatorMethodGen</code> root node.</p>
+declaring node, with a name basing on the declaring node’s name. The name of the
+generated node is the name of the original node, with the <code class="language-plaintext highlighter-rouge">Node</code> suffix stripped
+and the <code class="language-plaintext highlighter-rouge">MethodGen</code> suffix appended. E.g. <code class="language-plaintext highlighter-rouge">AndOperatorNode</code> will generate a
+<code class="language-plaintext highlighter-rouge">AndOperatorMethodGen</code> root node.</p>
 
 <h2 id="structural-requirements">Structural Requirements</h2>
+
 <p>The DSL places certain structural requirements on the declaring node.</p>
 
 <ol>
-  <li><strong>Construction:</strong> The node must be constructible using either
-a paremeterless, static <code class="language-plaintext highlighter-rouge">build</code> method or a parameterless constructor.
-If a suitable <code class="language-plaintext highlighter-rouge">build</code> method is defined, it will be preferred over the
+  <li><strong>Construction:</strong> The node must be constructible using either a
+paremeterless, static <code class="language-plaintext highlighter-rouge">build</code> method or a parameterless constructor. If a
+suitable <code class="language-plaintext highlighter-rouge">build</code> method is defined, it will be preferred over the
 constructor.</li>
   <li><strong>Execution:</strong> The node must declare a single, accessible (i.e. at least
 package-private), non-void method named <code class="language-plaintext highlighter-rouge">execute</code>.</li>
 </ol>
 
 <h2 id="execute-method-semantics"><code class="language-plaintext highlighter-rouge">Execute</code> Method Semantics</h2>
+
 <p>The <code class="language-plaintext highlighter-rouge">execute</code> method defined by the declaring node has the following semantics.</p>
 
 <ol>
   <li>Return type. If the return type is <code class="language-plaintext highlighter-rouge">Stateful</code>, the method is assumed to
-modify the monadic state. For any other return type, the method cannot
-modify the monadic state.</li>
-  <li>Arguments. The method may take any number of arguments, though at least
-an argument named <code class="language-plaintext highlighter-rouge">self</code> must be present. The arguments have following
+modify the monadic state. For any other return type, the method cannot modify
+the monadic state.</li>
+  <li>Arguments. The method may take any number of arguments, though at least an
+argument named <code class="language-plaintext highlighter-rouge">self</code> must be present. The arguments have following
 semantics:
     <ol>
-      <li>An <code class="language-plaintext highlighter-rouge">Object</code> argument may be annotated with <code class="language-plaintext highlighter-rouge">@MonadicState</code>. This tells
-the DSL to substitute it for the current value of monadic state. Note
-that this value is read-only. In order to modify state, the method
-must return a <code class="language-plaintext highlighter-rouge">Stateful</code>.</li>
+      <li>An <code class="language-plaintext highlighter-rouge">Object</code> argument may be annotated with <code class="language-plaintext highlighter-rouge">@MonadicState</code>. This tells the
+DSL to substitute it for the current value of monadic state. Note that
+this value is read-only. In order to modify state, the method must return
+a <code class="language-plaintext highlighter-rouge">Stateful</code>.</li>
       <li>Any <code class="language-plaintext highlighter-rouge">VirtualFrame</code> argument will be passed the current execution frame.</li>
-      <li>Any <code class="language-plaintext highlighter-rouge">CallerInfo</code> argument will be passed the current <code class="language-plaintext highlighter-rouge">CallerInfo</code> and
-mark the method as requiring the caller info at runtime.</li>
+      <li>Any <code class="language-plaintext highlighter-rouge">CallerInfo</code> argument will be passed the current <code class="language-plaintext highlighter-rouge">CallerInfo</code> and mark
+the method as requiring the caller info at runtime.</li>
       <li>All other arguments are treated as positional arguments to the method.
-Note that according to the language specification, any method must take
-an argument named <code class="language-plaintext highlighter-rouge">this</code>. Because of a naming conflict with Java, this
-argument is called <code class="language-plaintext highlighter-rouge">_this</code> in the DSL. Please note that it is mandatory
-to take an argument called <code class="language-plaintext highlighter-rouge">_this</code>, even if it is unused.</li>
-      <li>The positional arguments can be of any typed specified by the runtime
-type system (see <code class="language-plaintext highlighter-rouge">org.enso.interpreter.runtime.Types</code>) or <code class="language-plaintext highlighter-rouge">Object</code>.
-Arguments typed as <code class="language-plaintext highlighter-rouge">Thunk</code> mark the argument as suspended in the
-generated function header.</li>
+Note that according to the language specification, any method must take an
+argument named <code class="language-plaintext highlighter-rouge">this</code>. Because of a naming conflict with Java, this
+argument is called <code class="language-plaintext highlighter-rouge">_this</code> in the DSL. Please note that it is mandatory to
+take an argument called <code class="language-plaintext highlighter-rouge">_this</code>, even if it is unused.</li>
+      <li>The positional arguments can be of any typed specified by the runtime type
+system (see <code class="language-plaintext highlighter-rouge">org.enso.interpreter.runtime.Types</code>) or <code class="language-plaintext highlighter-rouge">Object</code>. Arguments
+typed as <code class="language-plaintext highlighter-rouge">Thunk</code> mark the argument as suspended in the generated function
+header.</li>
     </ol>
   </li>
 </ol>
 
 <h2 id="generated-node">Generated Node</h2>
+
 <p>The DSL generates a single root node per annotated class. This node handles
 reading the arguments from the execution frame and typechecking them, before
 delegating to the declaring node.</p>
@@ -1071,7 +1084,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

@@ -570,6 +570,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/licences.html">
                     
@@ -579,6 +583,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -708,6 +716,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="enso-launcher">Enso Launcher</h1>
+
 <p>The launcher is used to run Enso commands (like the REPL, language server etc.)
 and seamlessly manage Enso versions. This document describes it’s features. Its
 command-line interface is described in the <a href="/docs/enso/distribution/launcher-cli.html">CLI</a> document.</p>
@@ -757,14 +766,16 @@ command-line interface is described in the <a href="/docs/enso/distribution/laun
 <!-- /MarkdownTOC -->
 
 <h2 id="launcher-distribution">Launcher Distribution</h2>
+
 <p>The launcher is distributed as a native binary for each platform (Windows,
 Linux, macOS). It is distributed in a ZIP archive as described in
 <a href="/docs/enso/distribution/distribution.html#enso-distribution-layout">Enso Distribution Layout</a> in two
-flavors - as packages containing just the launcher binary that can then
-download and install desired versions of the engine and as bundles that already
-contain the latest version of Enso engine and Graal runtime corresponding to it.</p>
+flavors - as packages containing just the launcher binary that can then download
+and install desired versions of the engine and as bundles that already contain
+the latest version of Enso engine and Graal runtime corresponding to it.</p>
 
 <h3 id="using-multiple-launcher-versions-side-by-side">Using Multiple Launcher Versions Side-By-Side</h3>
+
 <p>Multiple portable distributions of the launcher can be used side-by-side. To use
 multiple installed distributions, some tricks are necessary - before launching a
 different version, the environment variables <code class="language-plaintext highlighter-rouge">ENSO_DATA_DIRECTORY</code>,
@@ -772,6 +783,7 @@ different version, the environment variables <code class="language-plaintext hig
 corresponding to that version.</p>
 
 <h3 id="detecting-portable-distribution">Detecting Portable Distribution</h3>
+
 <p>As described in
 <a href="/docs/enso/distribution/distribution.html#enso-distribution-layout">Enso Distribution Layout</a>, the
 launcher can either be run in a portable distribution or installed locally. The
@@ -781,12 +793,14 @@ the parent directory for a file called <code class="language-plaintext highlight
 the launcher runs in portable mode. Otherwise, it runs in installed mode.</p>
 
 <h2 id="launcher-build">Launcher Build</h2>
+
 <p>The launcher is built using
 <a href="https://www.graalvm.org/docs/reference-manual/native-image/">GraalVM Native Image</a>
 which compiles the JVM code into a native binary ahead of time, resulting in a
 small and fast launching executable.</p>
 
 <h3 id="portability">Portability</h3>
+
 <p>On Linux, it is possible to statically link all libraries required by the Native
 Image, thus ensuring portability between Linux distributions.</p>
 
@@ -796,14 +810,17 @@ generally compatible between distribution versions on these platforms.
 Non-system dependencies are included in the binary on these platforms as well.</p>
 
 <h2 id="project-management">Project Management</h2>
+
 <p>The launcher provides basic project management utilities for the command-line
 user.</p>
 
 <h3 id="creating-a-project">Creating a Project</h3>
+
 <p>It allows to create an empty project in a specified directory with the basic
 configuration based on user’s config.</p>
 
 <h3 id="per-project-enso-version">Per-Project Enso Version</h3>
+
 <p>Project configuration can specify the exact Enso version that should be used
 inside that project. The launcher automatically detects if it is in a project
 (by traversing the directory structure). The current project can also be
@@ -822,10 +839,12 @@ the launcher check for new versions) and resolvers.</li>
 </blockquote>
 
 <h3 id="project-configuration">Project Configuration</h3>
+
 <p>The command-line allows to edit project configuration, for example: change the
 author’s name or Enso version.</p>
 
 <h2 id="enso-and-graal-version-management">Enso and Graal Version Management</h2>
+
 <p>The launcher automatically manages required Enso versions. When running inside a
 project, if the version specified in project configuration is not installed, it
 is installed automatically.</p>
@@ -840,6 +859,7 @@ launching this version of Enso. When a managed GraalVM distribution is no longer
 used by any installed version of Enso, it is automatically removed.</p>
 
 <h3 id="graalvm-override">GraalVM Override</h3>
+
 <p>While the launcher manages its own installation of GraalVM to ensure that the
 right JVM version is used to launch each version of Enso, the user can override
 this mechanism to use the installed system JVM instead. This is an advanced
@@ -850,6 +870,7 @@ GraalVM distribution. It will also print a warning if the major or minor version
 is different then required by that particular Enso version.</p>
 
 <h3 id="downloading-enso-releases">Downloading Enso Releases</h3>
+
 <p>The releases are discovered and downloaded using the
 <a href="https://docs.github.com/en/rest/reference/repos#releases">GitHub API</a>. As
 described in the <a href="/docs/enso/distribution/release-policy.html#github-releases">Release Policy</a>, each
@@ -867,11 +888,13 @@ ignored by the launcher unless it is specified by an exact version match. In
 that case it is downloaded, but a warning is printed.</p>
 
 <h3 id="downloading-graalvm-releases">Downloading GraalVM Releases</h3>
+
 <p>GraalVM is downloaded from its
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases">GitHub releases page</a>
 using GitHub API, similarly as Enso releases.</p>
 
 <h2 id="running-enso-components">Running Enso Components</h2>
+
 <p>The primary purpose of the launcher is running various Enso components, namely
 the REPL, running a project, Enso scripts or the language server.</p>
 
@@ -881,8 +904,8 @@ parameters and configuration:</p>
 <ul>
   <li>When running a project or the language server, the version specified in
 project configuration is used.</li>
-  <li>When running the REPL, if the current directory is inside a project,
-the project version is used, otherwise the <code class="language-plaintext highlighter-rouge">default</code> version from the global
+  <li>When running the REPL, if the current directory is inside a project, the
+project version is used, otherwise the <code class="language-plaintext highlighter-rouge">default</code> version from the global
 configuration is used. The current path is the working directory unless
 overridden with the <code class="language-plaintext highlighter-rouge">--path</code> parameter.</li>
   <li>When running an Enso script, if that script is located inside a project, the
@@ -891,11 +914,11 @@ used.</li>
 </ul>
 
 <p>Additional arguments passed to the launcher are forwarded to the launched
-component. Moreover, options for the JVM that is used to run the components
-can also be provided, as described in
-<a href="/docs/enso/distribution/launcher-cli.html#jvm-options">JVM Options</a>.</p>
+component. Moreover, options for the JVM that is used to run the components can
+also be provided, as described in <a href="/docs/enso/distribution/launcher-cli.html#jvm-options">JVM Options</a>.</p>
 
 <h3 id="running-plugins">Running Plugins</h3>
+
 <p>If the launcher gets an unknown command <code class="language-plaintext highlighter-rouge">foo</code>, it tries to run <code class="language-plaintext highlighter-rouge">enso-foo</code> and
 pass all the arguments that follow. If <code class="language-plaintext highlighter-rouge">enso-foo</code> is not found, it fails as
 normal. This can be used to implement plugins that are launched through the
@@ -909,6 +932,7 @@ supported. That description will be included in the command listing printed by
 <code class="language-plaintext highlighter-rouge">enso help</code>.</p>
 
 <h2 id="global-user-configuration">Global User Configuration</h2>
+
 <p>The launcher allows to edit global user configuration, saved in the <code class="language-plaintext highlighter-rouge">config</code>
 directory inside the Enso distribution structure.</p>
 
@@ -917,11 +941,13 @@ and used for creating new projects. It also specifies default project metadata
 used when creating a project with the <code class="language-plaintext highlighter-rouge">new</code> command.</p>
 
 <h2 id="updating-the-launcher">Updating the Launcher</h2>
+
 <p>Besides managing Enso versions, the launcher has the ability to also update
 itself. By default it is updated to the latest version available, but it also
 allows downgrades by specifying a version explicitly.</p>
 
 <h3 id="minimal-required-launcher-version">Minimal Required Launcher Version</h3>
+
 <p>Each version of Enso can specify the minimum version of launcher required to run
 it. This version is specified in a
 <a href="/docs/enso/distribution/release-policy.html#manifest-file">manifest file</a> that should be included as an
@@ -936,6 +962,7 @@ criteria above, it asks the user to upgrade the launcher using the <code class="
 command.</p>
 
 <h3 id="downloading-launcher-releases">Downloading Launcher Releases</h3>
+
 <p>The launcher is released alongside Enso, so each new release of Enso also
 contains native artifacts for the launcher for each platform. They are
 downloaded in the same way as Enso distribution. The launcher does not have to
@@ -944,6 +971,7 @@ a new Enso version requires a more recent launcher or the user explicitly wants
 to.</p>
 
 <h4 id="fallback-method">Fallback Method</h4>
+
 <p>To ensure that the launcher can be safely updated even if the distribution
 scheme changes, there should be support for a fallback upgrade scheme that is
 used if the default upgrade process fails.</p>
@@ -1197,7 +1225,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

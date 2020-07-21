@@ -538,6 +538,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/runtime/unbounded-recursion.html">
                     
@@ -583,6 +587,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -736,6 +744,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="searcher">Searcher</h1>
+
 <p>The language auto-completion feature requires an ability to search the codebase
 using different search criteria. This document describes the Searcher module,
 which consists of the suggestions database and the ranking algorithm for
@@ -757,22 +766,25 @@ ordering the results.</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="suggestions-database">Suggestions Database</h2>
+
 <p>Suggestions database holds entries for fulfilling the auto-completion requests
 with additional indexes used to answer the different search criteria. The
 database is populated partially by analyzing the sources and enriched with the
 extra information from the runtime.</p>
 
-<p>API data types for the suggestions database are specified in the <a href="../language-server/protocol-language-server.md">Language
-Server Message Specification</a>
+<p>API data types for the suggestions database are specified in the
+<a href="/docs/enso/language-server/protocol-language-server.html">Language Server Message Specification</a>
 document.</p>
 
 <h3 id="database-structure">Database Structure</h3>
+
 <p>Implementation utilizes the SQLite database.</p>
 
 <p>Database is created per project and the database file stored in the project
 directory. That way the index can be preserved between the IDE restarts.</p>
 
 <h4 id="suggestions-table">Suggestions Table</h4>
+
 <p>Suggestions table stores suggestion entries.</p>
 
 <table>
@@ -838,6 +850,7 @@ directory. That way the index can be preserved between the IDE restarts.</p>
 </table>
 
 <h4 id="arguments-table">Arguments Table</h4>
+
 <p>Arguments table stores all suggestion arguments with <code class="language-plaintext highlighter-rouge">suggestion_id</code> foreign
 key.</p>
 
@@ -894,6 +907,7 @@ key.</p>
 </table>
 
 <h4 id="suggestions-version-table">Suggestions Version Table</h4>
+
 <p>Versions table has a single row with the current database version. The version
 is updated on every change in the suggestions table.</p>
 
@@ -915,6 +929,7 @@ is updated on every change in the suggestions table.</p>
 </table>
 
 <h4 id="file-versions-table">File Versions Table</h4>
+
 <p>Keeps track of SHA versions of the opened files.</p>
 
 <table>
@@ -940,6 +955,7 @@ is updated on every change in the suggestions table.</p>
 </table>
 
 <h3 id="static-analysis">Static Analysis</h3>
+
 <p>The database is filled by analyzing the Intermediate Representation (<code class="language-plaintext highlighter-rouge">IR</code>)
 parsed from the source.</p>
 
@@ -958,6 +974,7 @@ information specifies the scope where the node was defined, which is used in the
 results <a href="#results-ranking">ranking</a> algorithm.</p>
 
 <h3 id="runtime-inspection">Runtime Inspection</h3>
+
 <p>The <code class="language-plaintext highlighter-rouge">IR</code> is missing information about the types. Runtime instrumentation is used
 to capture the types and refine the database entries.</p>
 
@@ -968,6 +985,7 @@ to capture the types and refine the database entries.</p>
 </ul>
 
 <h3 id="search-indexes">Search Indexes</h3>
+
 <p>The database allows searching the entries by the following criteria, applying
 the <a href="#results-ranking">ranking</a> algorithm:</p>
 
@@ -979,9 +997,11 @@ the <a href="#results-ranking">ranking</a> algorithm:</p>
 </ul>
 
 <h2 id="results-ranking">Results Ranking</h2>
+
 <p>The search result has an intrinsic ranking based on the scope and the type.</p>
 
 <h3 id="scope">Scope</h3>
+
 <p>The results from the local scope have the highest rank in the search result. As
 the scope becomes wider, the rank decreases.</p>
 
@@ -998,10 +1018,12 @@ the scope becomes wider, the rank decreases.</p>
 function, the search results will have the order of: <code class="language-plaintext highlighter-rouge">x2</code> &gt; <code class="language-plaintext highlighter-rouge">x1</code> &gt; <code class="language-plaintext highlighter-rouge">const_x</code>.</p>
 
 <h3 id="type">Type</h3>
+
 <p>Suggestions based on the type are selected by matching with the string runtime
 type representation.</p>
 
 <h2 id="implementation">Implementation</h2>
+
 <p>The searcher primarily consists of:</p>
 
 <ul>
@@ -1045,6 +1067,7 @@ in compile time.</li>
 </code></pre></div></div>
 
 <h3 id="indexing">Indexing</h3>
+
 <p>Indexing is a process of extracting suggestions information from the <code class="language-plaintext highlighter-rouge">IR</code>. To
 keep the index in the consistent state, the language server tracks SHA versions
 of all opened files in the suggestions database.</p>
@@ -1069,12 +1092,14 @@ module from the database and update the users.</li>
 </ul>
 
 <h3 id="suggestion-builder">Suggestion Builder</h3>
+
 <p>The suggestion builder takes part in the indexing process. It extracts
 suggestions from the compiled <code class="language-plaintext highlighter-rouge">IR</code>. It also converts <code class="language-plaintext highlighter-rouge">IR</code> locations represented
 as an absolute char indexes (from the beginning of the file) to a position
 relative to a line used in the rest of the project.</p>
 
 <h3 id="runtime-instrumentation">Runtime Instrumentation</h3>
+
 <p>Apart from the type ascriptions, we can only get the return types of expressions
 in runtime. On the module execution, the language server listens to the
 <code class="language-plaintext highlighter-rouge">ExpressionValuesComputed</code> notifications sent from the runtime, which contain
@@ -1082,6 +1107,7 @@ the external id and the actual return type. Then the language server uses
 external id as a key to update return types in the database.</p>
 
 <h3 id="search-requests">Search Requests</h3>
+
 <p>The search request handler has direct access to the database. The completion
 request is more complicated then others. To query the database, it needs to
 convert the requested file path to the module name. To do this, on startup, the
@@ -1322,7 +1348,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

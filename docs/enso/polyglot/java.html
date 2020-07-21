@@ -654,6 +654,14 @@ search.start();
                 
             
             
+            
+                
+            
+            
+            
+                
+            
+            
 
             
         
@@ -676,8 +684,9 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="polyglot-java">Polyglot Java</h1>
-<p>This document deals with the implementation of polyglot interoperation with
-Java in the runtime. Please familiarise yourself with the general operation of
+
+<p>This document deals with the implementation of polyglot interoperation with Java
+in the runtime. Please familiarise yourself with the general operation of
 <a href="/docs/enso/polyglot/polyglot-bindings.html">polyglot bindings</a>.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
@@ -691,6 +700,7 @@ Java in the runtime. Please familiarise yourself with the general operation of
 <!-- /MarkdownTOC -->
 
 <h2 id="class-lookup">Class Lookup</h2>
+
 <p>In order for the Enso runtime to effectively find Java objects for working with
 in a polyglot fashion, it will look in the <code class="language-plaintext highlighter-rouge">polyglot/java</code> subdirectory of an
 Enso project. This directory has the following requirements placed on it.</p>
@@ -714,13 +724,14 @@ maybe even compiling Java code.</li>
 </blockquote>
 
 <h2 id="polyglot-library-system">Polyglot Library System</h2>
+
 <p>The dynamic polyglot system is a dynamic runtime lookup for Java objects,
 allowing Enso code to work with them through a runtime reflection-style
 mechanism. It is comprised of the following components:</p>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">Java.lookup_class : Class.Path -&gt; Maybe Class</code>: A function that lets
-users look up a class by a given name on the runtime classpath.</li>
+  <li><code class="language-plaintext highlighter-rouge">Java.lookup_class : Class.Path -&gt; Maybe Class</code>: A function that lets users
+look up a class by a given name on the runtime classpath.</li>
   <li><code class="language-plaintext highlighter-rouge">Polyglot.instantiate : Class -&gt; Object</code>: A function that lets users
 instantiate a class into an object.</li>
   <li>A whole host of functions on the polyglot type that let you dynamically work
@@ -745,6 +756,7 @@ with object bindings.</li>
 </blockquote>
 
 <h2 id="polyglot-syntax-system">Polyglot Syntax System</h2>
+
 <p>The static system, however, lets us do much better in terms of user experience.
 Instead of having to dynamically look things up at runtime, we can instead do
 the following:</p>
@@ -1006,7 +1018,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

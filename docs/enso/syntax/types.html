@@ -554,6 +554,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/syntax/assignment.html">
                     
@@ -563,6 +567,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -778,6 +786,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="types-and-type-signatures">Types and Type Signatures</h1>
+
 <p>Enso is a statically typed language, meaning that every variable is associated
 with information about the possible values it can take. In Enso, the type
 language is the same as the term language, with no artificial separation. For
@@ -816,9 +825,10 @@ is a useful way of thinking about things when discussing type signatures.</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="type-signatures">Type Signatures</h2>
+
 <p>Enso allows users to provide explicit type signatures for values through use of
-the type ascription operator <code class="language-plaintext highlighter-rouge">:</code>. The expression <code class="language-plaintext highlighter-rouge">a : b</code> says that the value
-<code class="language-plaintext highlighter-rouge">a</code> has the type <code class="language-plaintext highlighter-rouge">b</code> attributed to it.</p>
+the type ascription operator <code class="language-plaintext highlighter-rouge">:</code>. The expression <code class="language-plaintext highlighter-rouge">a : b</code> says that the value <code class="language-plaintext highlighter-rouge">a</code>
+has the type <code class="language-plaintext highlighter-rouge">b</code> attributed to it.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">foo</span> <span class="p">:</span> <span class="p">(</span><span class="n">m</span> <span class="p">:</span> <span class="no">Monoid</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">m</span><span class="p">.</span><span class="nf">this</span>
 </code></pre></div></div>
@@ -845,6 +855,7 @@ value of type <code class="language-plaintext highlighter-rouge">E</code>.</p>
 </ul>
 
 <h3 id="type-operators">Type Operators</h3>
+
 <p>Please note that <code class="language-plaintext highlighter-rouge">:</code>, <code class="language-plaintext highlighter-rouge">in</code>, and <code class="language-plaintext highlighter-rouge">!</code> all behave as <em>standard operators</em> in Enso.
 This means that you can section them, which is incredibly useful for programming
 with types. In addition, Enso supports a number of additional operators for
@@ -998,11 +1009,14 @@ bind (<code class="language-plaintext highlighter-rouge">=</code>) has a relativ
 </blockquote>
 
 <h3 id="typeset-literals">Typeset Literals</h3>
+
 <p>Sometimes it is useful or necessary to write a typeset <em>literal</em> in your code.
 These work as follows.</p>
 
 <ul>
-  <li><strong>Typeset Member:</strong> Syntax for typeset members have three components:
+  <li>
+    <p><strong>Typeset Member:</strong> Syntax for typeset members have three components:</p>
+
     <ul>
       <li><strong>Label:</strong> The name of the member. This must always be present.</li>
       <li><strong>Type:</strong> The type of the member. This need not be present.</li>
@@ -1040,6 +1054,7 @@ introduction of new identifiers.</p>
 apply.</p>
 
 <h3 id="writing-type-signatures">Writing Type Signatures</h3>
+
 <p>When ascribing a type to a value, there are two main ways in which it can be
 done. Both of these ways are <em>semantically</em> equivalent, and ascribe the type
 given by the signature (to the right of the <code class="language-plaintext highlighter-rouge">:</code>) to the expression to the left
@@ -1054,9 +1069,9 @@ type signature with an arbitrary expression.</p>
 </code></pre></div>    </div>
   </li>
   <li>
-    <p><strong>Freestanding Ascription:</strong>  Using the type ascription operator to
-associate a type with a name. The name must be defined on <em>the line below</em>
-the ascription.</p>
+    <p><strong>Freestanding Ascription:</strong> Using the type ascription operator to associate
+a type with a name. The name must be defined on <em>the line below</em> the
+ascription.</p>
 
     <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="p">:</span> <span class="no">Type</span>
 <span class="n">a</span> <span class="o">=</span> <span class="o">...</span>
@@ -1083,6 +1098,7 @@ directly adjacent to the ascribed value?</li>
 </blockquote>
 
 <h3 id="behaviour-of-type-signatures">Behaviour of Type Signatures</h3>
+
 <p>In Enso, a type signature operates to constrain the values that a given variable
 can hold. Type signatures are <em>always</em> checked, but Enso may maintain more
 specific information in the type inference and checking engines about the type
@@ -1124,6 +1140,7 @@ introduces constraints to <code class="language-plaintext highlighter-rouge">b</
 </blockquote>
 
 <h2 id="operations-on-types">Operations on Types</h2>
+
 <p>Enso also provides a set of rich operations on its underlying type-system notion
 of typesets. Their syntax is as follows:</p>
 
@@ -1146,10 +1163,11 @@ supersedes this section while this actionable exists.</li>
 </blockquote>
 
 <h2 id="type-definitions">Type Definitions</h2>
+
 <p>Types in Enso are defined by using the <code class="language-plaintext highlighter-rouge">type</code> reserved name. This works in a
 context-dependent manner that is discussed properly in the
-<a href="/docs/enso/types/">type system design document</a>, but is summarised
-briefly below.</p>
+<a href="/docs/enso/types/">type system design document</a>, but is summarised briefly
+below.</p>
 
 <ul>
   <li>
@@ -1202,6 +1220,7 @@ using the standard type-ascription syntax:</p>
 </code></pre></div></div>
 
 <h3 id="visibility-and-access-modifiers">Visibility and Access Modifiers</h3>
+
 <p>While we don’t usually like making things private in a programming language, it
 sometimes the case that it is necessary to indicate that certain fields should
 not be touched (as this might break invariants and such like). To this end, we
@@ -1491,7 +1510,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

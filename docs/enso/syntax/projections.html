@@ -554,6 +554,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/syntax/assignment.html">
                     
@@ -563,6 +567,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -778,6 +786,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="projections-and-field-access">Projections and Field Access</h1>
+
 <p>Enso provides multiple ways for users to access data from their types. It has
 the old functional stalwart of pattern matching, but it also has an inbuilt
 notion of accessors based on lenses (field projections).</p>
@@ -796,6 +805,7 @@ notion of accessors based on lenses (field projections).</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="pattern-matching">Pattern Matching</h2>
+
 <p>Pattern matching in Enso works similarly to as you would expect in various other
 functional languages. Typing information is <em>always</em> refined in the branches of
 a case expression, which interacts well with dependent typing and type-term
@@ -849,18 +859,20 @@ unification present in Enso.</p>
 
   <ul>
     <li>Refine the syntax for the name-based case.</li>
-    <li>Provide code examples for why the renaming use-case is important (e.g.
-cases where there are clashing field names).</li>
+    <li>Provide code examples for why the renaming use-case is important (e.g. cases
+where there are clashing field names).</li>
     <li>Function-resolution matching.</li>
   </ul>
 </blockquote>
 
 <h3 id="the-underscore-in-pattern-matching">The Underscore in Pattern Matching</h3>
+
 <p>An underscore <code class="language-plaintext highlighter-rouge">_</code> passed as an argument to a syntactic pattern does not behave
 like the function argument shorthand. Instead it acts as a positional match that
 is given no name.</p>
 
 <h2 id="projections">Projections</h2>
+
 <p>Unlike the simple accessors defined by most programming language, Enso’s
 accessors are far more powerful. This is because they are based on lenses.</p>
 
@@ -1166,7 +1178,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

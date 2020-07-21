@@ -570,6 +570,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/licences.html">
                     
@@ -579,6 +583,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -708,8 +716,9 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="the-enso-distribution">The Enso Distribution</h1>
-<p>This document provides a specification of how the Enso distribution should
-be structured and how it should behave.</p>
+
+<p>This document provides a specification of how the Enso distribution should be
+structured and how it should behave.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
@@ -733,10 +742,11 @@ be structured and how it should behave.</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="universal-launcher">Universal Launcher</h2>
-<p>The <a href="/docs/enso/distribution/launcher.html">universal launcher</a> should be able to launch the
-proper version of Enso executable based on the version specified in the project
-being run, or use the default version if none specified. It should also be able
-to launch other Enso components, provided as
+
+<p>The <a href="/docs/enso/distribution/launcher.html">universal launcher</a> should be able to launch the proper
+version of Enso executable based on the version specified in the project being
+run, or use the default version if none specified. It should also be able to
+launch other Enso components, provided as
 <a href="/docs/enso/distribution/launcher.html#running-plugins">plugins</a>.</p>
 
 <blockquote>
@@ -749,11 +759,13 @@ it must have full control over which JVM is chosen and its parameters.</p>
 </blockquote>
 
 <h2 id="enso-distribution-layout">Enso Distribution Layout</h2>
+
 <p>Enso is distributed as a portable package that can be extracted anywhere on the
 system and run. It can also be installed for the local user into system-defined
 directories, as explained below.</p>
 
 <h3 id="portable-enso-distribution-layout">Portable Enso Distribution Layout</h3>
+
 <p>All files in the directory structure, except for configuration, can be safely
 removed and the launcher will re-download them if needed.</p>
 
@@ -790,6 +802,7 @@ removed and the launcher will re-download them if needed.</p>
 </code></pre></div></div>
 
 <h3 id="installed-enso-distribution-layout">Installed Enso Distribution Layout</h3>
+
 <p>After installation, the directory structure is following:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ENSO_DATA_DIRECTORY
@@ -860,6 +873,7 @@ value, depending on the system:</p>
 </table>
 
 <h3 id="installing-from-a-portable-distribution">Installing from a Portable Distribution</h3>
+
 <p>After downloading and extracting the portable distribution, the user can run
 <code class="language-plaintext highlighter-rouge">extraction-location/bin/enso install distribution</code> to install it locally. This
 will copy the files from the portable distribution into the installed locations
@@ -874,6 +888,7 @@ the user’s <code class="language-plaintext highlighter-rouge">PATH</code>.</p>
 <code class="language-plaintext highlighter-rouge">enso uninstall distribution</code>.</p>
 
 <h2 id="layout-of-an-enso-version-package">Layout of an Enso Version Package</h2>
+
 <p>This section describes the structure of a single version distribution. This
 system is intended to be implemented first and used e.g. for the Enso nightly
 builds / releases.</p>
@@ -904,21 +919,23 @@ version of the JVM is installed and used.</p>
 </code></pre></div></div>
 
 <blockquote>
-  <p><strong>Implementation Note:</strong>
-This structure makes use of deep nesting, which may give some with knowledge
-of Windows’ path-name limits pause (windows paths are historically limited to
-256 characters). However, there is no special action required to handle this
-limit as long as we are building on top of the JVM. The JVM automatically
-inserts the <code class="language-plaintext highlighter-rouge">\\?\</code> prefix required to bypass the windows path length limit.</p>
+  <p><strong>Implementation Note:</strong> This structure makes use of deep nesting, which may
+give some with knowledge of Windows’ path-name limits pause (windows paths are
+historically limited to 256 characters). However, there is no special action
+required to handle this limit as long as we are building on top of the JVM.
+The JVM automatically inserts the <code class="language-plaintext highlighter-rouge">\\?\</code> prefix required to bypass the windows
+path length limit.</p>
 </blockquote>
 
 <h3 id="standard-library">Standard Library</h3>
-<p>The standard library is a set of libraries shipped with the compiler.
-Whether a given package belongs to standard library can be a bit of an
-arbitrary choice, but the following are some guidelines:</p>
+
+<p>The standard library is a set of libraries shipped with the compiler. Whether a
+given package belongs to standard library can be a bit of an arbitrary choice,
+but the following are some guidelines:</p>
+
 <ol>
-  <li>Fundamental packages – basic collections and utilities should be a part
-of standard library.</li>
+  <li>Fundamental packages – basic collections and utilities should be a part of
+standard library.</li>
   <li>Packages relying on the compiler internals (e.g. the internal object
 representation). An example of such a package would be <code class="language-plaintext highlighter-rouge">Generic</code>, exposing
 reflective access to Enso objects.</li>
@@ -927,6 +944,7 @@ traces etc.</li>
 </ol>
 
 <h3 id="resolvers">Resolvers</h3>
+
 <p><strong>Note</strong> This system is not implemented yet.</p>
 
 <p>A resolver is a manifest containing library versions that are automatically
@@ -1175,7 +1193,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

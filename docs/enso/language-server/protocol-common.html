@@ -666,6 +666,14 @@ search.start();
                 
             
             
+            
+                
+            
+            
+            
+                
+            
+            
 
             
         
@@ -688,6 +696,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="enso-protocol-common-message-specification">Enso Protocol Common Message Specification</h1>
+
 <p>This document contains the specification of the Enso protocol messages that are
 common to multiple sub-components of the protocol.</p>
 
@@ -710,6 +719,7 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="protocol-message-specification">Protocol Message Specification</h2>
+
 <p>The message specification for protocol messages must include the following
 fields:</p>
 
@@ -725,8 +735,8 @@ internal / implementation detail (‘Public’ or ‘Private’).</li>
 
 <p>They must also contain separate sections specifying their parameters, result (if
 it has one), and any errors that may occur. These specifications should be
-either in typescript or flatbuffers syntax, depending on the connection on
-which the message occurs.</p>
+either in typescript or flatbuffers syntax, depending on the connection on which
+the message occurs.</p>
 
 <p>The capability specifications must include the following fields, as well as a
 section ‘Enables’ stating which protocol messages are gated by the capability.</p>
@@ -738,13 +748,16 @@ capability, described using typescript type syntax.</li>
 </ul>
 
 <h2 id="common-types">Common Types</h2>
+
 <p>There are a number of types that are shared between many of the protocol
 messages. They are specified below.</p>
 
 <h3 id="path"><code class="language-plaintext highlighter-rouge">Path</code></h3>
+
 <p>A path is a representation of a path relative to a specified content root.</p>
 
 <h4 id="format">Format</h4>
+
 <p>Please note that segments can only be ordinary file names, <code class="language-plaintext highlighter-rouge">..</code> and <code class="language-plaintext highlighter-rouge">.</code> may not
 be supported.</p>
 
@@ -769,6 +782,7 @@ table Path {
 </code></pre>
 
 <h3 id="ipwithsocket"><code class="language-plaintext highlighter-rouge">IPWithSocket</code></h3>
+
 <p>A IPWithSocket is an endpoint for communication between machines.</p>
 
 <h4 id="format-1">Format</h4>
@@ -780,6 +794,7 @@ table Path {
 </code></pre></div></div>
 
 <h3 id="ensouuid"><code class="language-plaintext highlighter-rouge">EnsoUUID</code></h3>
+
 <p>An EnsoUUID is a value object containing 128-bit universally unique identifier.</p>
 
 <h4 id="format-2">Format</h4>
@@ -1031,7 +1046,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

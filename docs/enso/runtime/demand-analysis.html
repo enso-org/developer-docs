@@ -540,6 +540,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/runtime/unbounded-recursion.html">
                     
@@ -585,6 +589,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -738,6 +746,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="demand-analysis">Demand Analysis</h1>
+
 <p>Demand analysis is the process of deciding when to compute the value of a
 suspended computation in a language which supports suspended computation.</p>
 
@@ -752,8 +761,9 @@ suspended computation in a language which supports suspended computation.</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="determining-when-to-force">Determining When To Force</h2>
+
 <p>As Enso supports dynamic dispatch for methods, we cannot always (even in the
-presence of a typechecker), statically determine whether or not the function 
+presence of a typechecker), statically determine whether or not the function
 that will eventually be called at any given call site. This means that we have
 to come up with a more efficient way to handle suspended arguments.</p>
 
@@ -771,6 +781,7 @@ be explicitly forced at their use sites in the function body.</li>
 </ol>
 
 <h2 id="avoiding-pathological-force-thunk-chains">Avoiding Pathological Force-Thunk Chains</h2>
+
 <p>The above approach does, when done naively, result in a severe performance
 pathology when passing suspended arguments into functions also expecting
 suspended arguments. Without intervention, the suspended argument gets wrapped
@@ -786,6 +797,7 @@ explicitly forcing it.</li>
 </ol>
 
 <h2 id="the-demand-analysis-algorithm">The Demand Analysis Algorithm</h2>
+
 <p>The algorithm for performing demand analysis on Enso code is as follows.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for (node &lt;- ir):
@@ -1035,7 +1047,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

@@ -576,6 +576,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/parser/operator-resolution.html">
                     
@@ -585,6 +589,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -756,6 +764,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="reading-source-code">Reading Source Code</h1>
+
 <p>The reader is responsible for abstracting the interface to reading a character
 from a stream. This handles abstracting away the various encodings that the
 project is going to use, as well as backing formats for the stream.</p>
@@ -775,6 +784,7 @@ project is going to use, as well as backing formats for the stream.</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="reader-functionality">Reader Functionality</h2>
+
 <p>The reader trait needs to have the following functionality:</p>
 
 <ul>
@@ -785,14 +795,17 @@ UTF-8, and hence abstract away the various underlying encodings.</li>
 </ul>
 
 <h2 id="provided-readers">Provided Readers</h2>
+
 <p>The parser implementation currently provides the following reader utilities to
 clients.</p>
 
 <h3 id="utf-8-reader">UTF-8 Reader</h3>
+
 <p>Rust natively uses UTF-8 encoding for its strings. In order for the IDE to make
 use of the parser, it must provide a simple rust-native reader.</p>
 
 <h3 id="utf-16-reader">UTF-16 Reader</h3>
+
 <p>As the JVM as a platform makes use of UTF-16 for encoding its strings, we need
 to provide a reader that will let JVM clients of the parser provide the source
 code in a streaming fashion without needing to re-encode it prior to passing it
@@ -1027,7 +1040,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

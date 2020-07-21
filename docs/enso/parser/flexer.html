@@ -578,6 +578,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/parser/operator-resolution.html">
                     
@@ -587,6 +591,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -758,6 +766,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="flexer">Flexer</h1>
+
 <p>The flexer is a finite-automata-based engine for generating lexers. Akin to
 <code class="language-plaintext highlighter-rouge">flex</code> and other lexer generators, it is given a definition as a series of rules
 from which it then generates code for a highly-optimised lexer.</p>
@@ -779,6 +788,7 @@ from which it then generates code for a highly-optimised lexer.</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="pattern-description">Pattern Description</h2>
+
 <p>The definition of a lexer using the flexer library consists of a set of rules
 for how to behave when matching portions of syntax. These rules behave as
 follows:</p>
@@ -814,6 +824,7 @@ of basic matchers for doing this.</p>
 </ul>
 
 <h2 id="state-management">State Management</h2>
+
 <p>States in the flexer engine provide a mechanism for grouping sets of rules
 together known as <code class="language-plaintext highlighter-rouge">State</code>. At any given time, only rules from the <em>active</em> state
 are considered by the lexer.</p>
@@ -826,6 +837,7 @@ are considered by the lexer.</p>
 </ul>
 
 <h2 id="code-generation">Code Generation</h2>
+
 <p>The patterns in a lexer definition are used to generate a highly-efficient and
 specialised lexer. This translation process works as follows:</p>
 
@@ -856,15 +868,16 @@ associated code is executed and the process starts over again until the input
 stream has been consumed.</p>
 
 <h3 id="automated-code-generation">Automated Code Generation</h3>
-<p>In order to avoid the lexer definition getting out of sync with its 
-implementation (the generated engine), it is necessary to create a separate 
-crate for the generated engine that has the lexer definition as one of its 
+
+<p>In order to avoid the lexer definition getting out of sync with its
+implementation (the generated engine), it is necessary to create a separate
+crate for the generated engine that has the lexer definition as one of its
 dependencies.</p>
 
-<p>This separation enables a call to <code class="language-plaintext highlighter-rouge">flexer.generate_specialized_code()</code> in 
-<code class="language-plaintext highlighter-rouge">build.rs</code> (or a macro) during compilation. The output can be stored in a new 
-file i.e. <code class="language-plaintext highlighter-rouge">lexer-engine.rs</code> and exported from the library with 
-<code class="language-plaintext highlighter-rouge">include!("lexer-engine.rs")</code>. The project structure therefore appears as 
+<p>This separation enables a call to <code class="language-plaintext highlighter-rouge">flexer.generate_specialized_code()</code> in
+<code class="language-plaintext highlighter-rouge">build.rs</code> (or a macro) during compilation. The output can be stored in a new
+file i.e. <code class="language-plaintext highlighter-rouge">lexer-engine.rs</code> and exported from the library with
+<code class="language-plaintext highlighter-rouge">include!("lexer-engine.rs")</code>. The project structure therefore appears as
 follows:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- lib/rust/lexer/
@@ -881,14 +894,15 @@ follows:</p>
     - cargo.toml &lt;-- lexer-definition is in dependencies and build-dependencies
 </code></pre></div></div>
 
-<p>With this design, <code class="language-plaintext highlighter-rouge">flexer.generate_specialized_code()</code> is going to be executed 
+<p>With this design, <code class="language-plaintext highlighter-rouge">flexer.generate_specialized_code()</code> is going to be executed
 on each rebuild of <code class="language-plaintext highlighter-rouge">lexer/generation</code>. Therefore, <code class="language-plaintext highlighter-rouge">generation</code> should contain
 only the minimum amount of logic (i.e. tests should be in separate crate) and
-its dependencies should optimally involve only such code which directly 
-influences the content of generated code (in order to minimize the
-unnecessary calls to expensive flexer specialization).</p>
+its dependencies should optimally involve only such code which directly
+influences the content of generated code (in order to minimize the unnecessary
+calls to expensive flexer specialization).</p>
 
 <h3 id="notes-on-code-generation">Notes on Code Generation</h3>
+
 <p>The following properties are likely to hold for the code generation machinery.</p>
 
 <ul>
@@ -899,8 +913,9 @@ as an argument.</li>
 </ul>
 
 <h2 id="an-example">An Example</h2>
-<p>The following code provides a sketchy example of the intended API for the
-flexer code generation using the definition of a simple lexer.</p>
+
+<p>The following code provides a sketchy example of the intended API for the flexer
+code generation using the definition of a simple lexer.</p>
 
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">use</span> <span class="nn">crate</span><span class="p">::</span><span class="nn">prelude</span><span class="p">::</span><span class="o">*</span><span class="p">;</span>
 
@@ -1234,7 +1249,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

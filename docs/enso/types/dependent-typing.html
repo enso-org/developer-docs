@@ -536,6 +536,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/types/pattern-matching.html">
                     
@@ -567,6 +571,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -798,6 +806,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="dependent-typing">Dependent Typing</h1>
+
 <p>Enso is a <a href="https://en.wikipedia.org/wiki/Dependent_type">dependently typed</a>
 programming language. This means that types are first-class values in the
 language, and hence can be manipulated and computed upon just like any other
@@ -834,6 +843,7 @@ dependency, relevance and requiredness (forall, foreach, etc).</li>
 <!-- /MarkdownTOC -->
 
 <h2 id="proving-program-properties">Proving Program Properties</h2>
+
 <p>Some notes:</p>
 
 <ul>
@@ -852,19 +862,19 @@ should hold when typechecking. It takes an unrestricted expression on types,
 and utilises this when typechecking. It may also take a string description of
 the property to prove, allowing for nicer error messages:</p>
 
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  append : (v1 : Vector a) -&gt; (v2 : Vector a) -&gt; (v3 : Vector a)
-  append = vec1 -&gt; vec2 -&gt;
-      prove (v3.size == v1.size + v2.size) "appending augments length"
-      ...
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>append : (v1 : Vector a) -&gt; (v2 : Vector a) -&gt; (v3 : Vector a)
+append = vec1 -&gt; vec2 -&gt;
+    prove (v3.size == v1.size + v2.size) "appending augments length"
+    ...
 </code></pre></div>    </div>
 
     <p>Sample error:</p>
 
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [line, col] Unable to prove that "appending augments length":
-      Required Property: v3.size == v1.size + v2.size
-      Proof State:       &lt;state&gt;
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[line, col] Unable to prove that "appending augments length":
+    Required Property: v3.size == v1.size + v2.size
+    Proof State:       &lt;state&gt;
 
-      &lt;caret diagnostics&gt;
+    &lt;caret diagnostics&gt;
 </code></pre></div>    </div>
 
     <p>This gives rise to the question as to how we determine which properties (or
@@ -883,6 +893,7 @@ Theory.</li>
 </blockquote>
 
 <h2 id="automating-the-proof-burden">Automating the Proof Burden</h2>
+
 <p>Even with as capable and simple a dependently-typed system as that provided by
 Enso, there is still a burden of proof imposed on our users that want to use
 these features. However, the language <a href="https://www.fstar-lang.org/">F*</a> has
@@ -1138,7 +1149,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

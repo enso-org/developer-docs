@@ -656,6 +656,14 @@ search.start();
                 
             
             
+            
+                
+            
+            
+            
+                
+            
+            
 
             
         
@@ -678,6 +686,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="polyglot-bindings">Polyglot Bindings</h1>
+
 <p>This document deals with the specification and design for the polyglot interop
 system provided in the Enso runtime. This system allows users to connect Enso to
 other supported programming languages, to both provide access to a wealth of
@@ -717,6 +726,7 @@ between Enso and that foreign code.</li>
 <!-- /MarkdownTOC -->
 
 <h2 id="impedance-mismatch">Impedance Mismatch</h2>
+
 <p>Polyglot interoperation in Enso has a significant impedance mismatch. In
 essence, this means that there is a mismatch between Enso’s language semantics
 and the semantics of the foreign languages that are being worked with.</p>
@@ -734,6 +744,7 @@ represented by Enso.</p>
 </blockquote>
 
 <h2 id="the-polyglot-ffi">The Polyglot FFI</h2>
+
 <p>The low-level polyglot FFI mechanism refers to a way to use polyglot objects
 directly in Enso code. This can be used to underlie a library implementaion in
 Enso, or to interoperate with code running in other languages.</p>
@@ -742,6 +753,7 @@ Enso, or to interoperate with code running in other languages.</p>
 languages and call them via a generic mechanism.</p>
 
 <h3 id="importing-polyglot-bindings">Importing Polyglot Bindings</h3>
+
 <p>When importing a polyglot binding into scope in an Enso file, this introduces a
 <em>polyglot object</em> into scope. This object will have appropriate fields and/or
 methods defined on it, as described by the foreign language implementation.</p>
@@ -756,6 +768,7 @@ clearer.</li>
 </blockquote>
 
 <h3 id="using-polyglot-bindings">Using Polyglot Bindings</h3>
+
 <p>With a polyglot object in scope, the user is free to call methods on it
 directly. These polyglot objects are inherently dynamically typed, meaning that
 any operation may <em>fail</em> at runtime.</p>
@@ -788,6 +801,7 @@ two things which have no real equivalent in the Enso type system.</p>
 </blockquote>
 
 <h3 id="importing-polyglot-bindings-syntax">Importing Polyglot Bindings (Syntax)</h3>
+
 <p>Polyglot bindings can be imported using a polyglot import directive. This is
 constructed as follows:</p>
 
@@ -808,6 +822,7 @@ language entity being imported (e.g. <code class="language-plaintext highlighter
 </code></pre></div></div>
 
 <h3 id="using-polyglot-bindings-syntax">Using Polyglot Bindings (Syntax)</h3>
+
 <p>A polyglot binding is a polyglot object that has methods and/or fields defined
 on it. Due to an impedance mismatch between languages, Enso implements a
 variadic syntax for calling these polyglot bindings using vectors.</p>
@@ -838,6 +853,7 @@ variadic syntax for calling these polyglot bindings using vectors.</p>
 </code></pre></div></div>
 
 <h3 id="finding-polyglot-bindings">Finding Polyglot Bindings</h3>
+
 <p>Polyglot objects for various languages are found in the <code class="language-plaintext highlighter-rouge">polyglot</code> subdirectory
 of an Enso project. This folder is subdivided into directories based on the
 polyglot language. The name of each subdirectory must match the language
@@ -848,19 +864,21 @@ implementation for that particular language needing to specify it. Please see
 the language-specific documentation for details.</p>
 
 <h2 id="embedded-syntax">Embedded Syntax</h2>
+
 <p>The term “Embedded Syntax” is our terminology for the ability to use foreign
 language syntaxes from directly inside <code class="language-plaintext highlighter-rouge">.enso</code> files. This system builds upon
 the more generic mechanisms used by the <a href="#the-polyglot-ffi">polyglot FFI</a> to
 provide a truly seamless user experience.</p>
 
 <h3 id="embedded-syntax-usage-syntax">Embedded Syntax Usage (Syntax)</h3>
+
 <p>A polyglot block is introduced as follows:</p>
 
 <ul>
   <li>The <code class="language-plaintext highlighter-rouge">polyglot</code> keyword starts a block.</li>
   <li>This must be followed by a language identifier (e.g. <code class="language-plaintext highlighter-rouge">java</code>).</li>
-  <li>After the language identifier, the remaining syntax behaves like it is an
-Enso function definition until the <code class="language-plaintext highlighter-rouge">=</code>.</li>
+  <li>After the language identifier, the remaining syntax behaves like it is an Enso
+function definition until the <code class="language-plaintext highlighter-rouge">=</code>.</li>
   <li>After the <code class="language-plaintext highlighter-rouge">=</code>, the user may write their foreign code.</li>
 </ul>
 
@@ -1113,7 +1131,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

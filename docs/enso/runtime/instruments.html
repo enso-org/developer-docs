@@ -540,6 +540,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/runtime/unbounded-recursion.html">
                     
@@ -585,6 +589,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -738,6 +746,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="instruments">Instruments</h1>
+
 <p>Instruments are used to track runtime events to allow for profiling, debugging
 and other kinds of behavior analysis at runtime.</p>
 
@@ -751,11 +760,13 @@ and other kinds of behavior analysis at runtime.</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="naming-conventions">Naming Conventions</h2>
+
 <p>Every Instrument must be implemented in Java and have name that ends with
 <code class="language-plaintext highlighter-rouge">Instrument</code>. This requirement is to ensure that the <a href="#fixing-compilation">fix</a>
 described below works.</p>
 
 <h2 id="fixing-compilation">Fixing Compilation</h2>
+
 <p>Annotations are used to register the implemented instruments with Graal. The
 annotation processor is triggered when recompiling the Java files.
 Unfortunately, when doing an incremental compilation, only the changed files are
@@ -1000,7 +1011,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

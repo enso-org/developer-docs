@@ -656,6 +656,14 @@ search.start();
                 
             
             
+            
+                
+            
+            
+            
+                
+            
+            
 
             
         
@@ -678,6 +686,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="typing-the-polyglot-bindings">Typing the Polyglot Bindings</h1>
+
 <p>The polyglot bindings inherently provide a problem for the Enso type system.
 When many of the languages with which we can interoperate are highly dynamic and
 flexible, or have significant mismatches between their type system and Enso’s,
@@ -699,6 +708,7 @@ boundary.</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="enso-values">Enso Values</h2>
+
 <p>The underlying nature of our runtime allows us to pass Enso values across the
 polyglot boundary while ensuring that they aren’t modified. This means that the
 typing information known about a value <code class="language-plaintext highlighter-rouge">v</code> <em>before</em> it is passed to a polyglot
@@ -723,10 +733,11 @@ case, the value needs to be treated as <code class="language-plaintext highlight
 </blockquote>
 
 <h2 id="polyglot-values">Polyglot Values</h2>
+
 <p>In the presence of a polyglot value, however, there is very little that we can
 determine about a value with which we are working. This means that we need to
-have a principled way to assert properties on a polyglot object that can then
-be reflected in the Enso type system. This mechanism needs to deal with:</p>
+have a principled way to assert properties on a polyglot object that can then be
+reflected in the Enso type system. This mechanism needs to deal with:</p>
 
 <ul>
   <li>Concurrent access to polyglot objects.</li>
@@ -744,6 +755,7 @@ could take to it.</li>
 </blockquote>
 
 <h2 id="dynamic">Dynamic</h2>
+
 <p>As Enso can seamlessly interoperate with other programming languages, we need a
 principled way of handling dynamic types that we don’t really know anything
 about. This mechanism needs:</p>
@@ -783,6 +795,7 @@ could self-modify underneath us.</li>
 </blockquote>
 
 <h3 id="the-enso-boundary">The Enso Boundary</h3>
+
 <p>Fortunately, we can at least avoid foreign languages modifying memory owned by
 the Enso interpreter. As part of the interop library, Graal lets us mark memory
 as read-only. This means that the majority of data passed out (from a functional
@@ -1023,7 +1036,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

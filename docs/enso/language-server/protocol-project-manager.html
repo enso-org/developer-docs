@@ -666,6 +666,14 @@ search.start();
                 
             
             
+            
+                
+            
+            
+            
+                
+            
+            
 
             
         
@@ -688,6 +696,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="enso-protocol-project-manager-message-specification">Enso Protocol Project Manager Message Specification</h1>
+
 <p>This document contains the specification of the Enso protocol messages that
 pertain to the project manager component. Please familiarise yourself with the
 <a href="/docs/enso/language-server/protocol-common.html">common</a> features of the protocol before reading this
@@ -734,10 +743,12 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="types">Types</h2>
+
 <p>There are a number of types that are used only within the project server’s
 protocol messages. These are specified here.</p>
 
 <h3 id="projectmetadata"><code class="language-plaintext highlighter-rouge">ProjectMetadata</code></h3>
+
 <p>This type represents information about a project.</p>
 
 <h4 id="format">Format</h4>
@@ -750,10 +761,12 @@ protocol messages. These are specified here.</p>
 </code></pre></div></div>
 
 <h2 id="project-management-operations">Project Management Operations</h2>
+
 <p>The primary responsibility of the project managers is to allow users to manage
 their projects.</p>
 
 <h3 id="projectopen"><code class="language-plaintext highlighter-rouge">project/open</code></h3>
+
 <p>This message requests that the project manager open a specified project. This
 operation also includes spawning an instance of the language server open on the
 specified project.</p>
@@ -781,6 +794,7 @@ specified project.</p>
 </code></pre></div></div>
 
 <h4 id="errors">Errors</h4>
+
 <ul>
   <li><a href="#projectnotfounderror"><code class="language-plaintext highlighter-rouge">ProjectNotFoundError</code></a> to signal that the project
 doesn’t exist.</li>
@@ -790,6 +804,7 @@ underlying data store.</li>
 </ul>
 
 <h3 id="projectclose"><code class="language-plaintext highlighter-rouge">project/close</code></h3>
+
 <p>This message requests that the project manager close a specified project. This
 operation includes shutting down the language server gracefully so that it can
 persist state to disk as needed.</p>
@@ -810,10 +825,12 @@ persist state to disk as needed.</p>
 
 <h4 id="result-1">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{}</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
 <h4 id="errors-1">Errors</h4>
+
 <ul>
   <li><a href="#projectnotfounderror"><code class="language-plaintext highlighter-rouge">ProjectNotFoundError</code></a> to signal that the project
 doesn’t exist.</li>
@@ -823,12 +840,13 @@ underlying data store.</li>
 during language server stoppage.</li>
   <li><a href="#projectnotopenerror"><code class="language-plaintext highlighter-rouge">ProjectNotOpenError</code></a> to signal cannot close a project
 that is not open.</li>
-  <li><a href="#projectopenbyotherpeerserror"><code class="language-plaintext highlighter-rouge">ProjectOpenByOtherPeersError</code></a> to signal
-that cannot close a project that is open by other clients.</li>
+  <li><a href="#projectopenbyotherpeerserror"><code class="language-plaintext highlighter-rouge">ProjectOpenByOtherPeersError</code></a> to signal that
+cannot close a project that is open by other clients.</li>
 </ul>
 
 <h3 id="projectlist"><code class="language-plaintext highlighter-rouge">project/list</code></h3>
-<p>This message requests that the project manager lists all user’s projects. The 
+
+<p>This message requests that the project manager lists all user’s projects. The
 list of projects is sorted by the open time.</p>
 
 <ul>
@@ -853,12 +871,14 @@ list of projects is sorted by the open time.</p>
 </code></pre></div></div>
 
 <h4 id="errors-2">Errors</h4>
+
 <ul>
   <li><a href="#projectdatastoreerror"><code class="language-plaintext highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
 underlying data store.</li>
 </ul>
 
 <h3 id="projectcreate"><code class="language-plaintext highlighter-rouge">project/create</code></h3>
+
 <p>This message requests the creation of a new project.</p>
 
 <ul>
@@ -883,16 +903,18 @@ underlying data store.</li>
 </code></pre></div></div>
 
 <h4 id="errors-3">Errors</h4>
+
 <ul>
   <li><a href="#projectnamevalidationerror"><code class="language-plaintext highlighter-rouge">ProjectNameValidationError</code></a> to signal
 validation failures.</li>
   <li><a href="#projectdatastoreerror"><code class="language-plaintext highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
 underlying data store.</li>
-  <li><a href="#projectexistserror"><code class="language-plaintext highlighter-rouge">ProjectExistsError</code></a> to signal that the project
-already exists.</li>
+  <li><a href="#projectexistserror"><code class="language-plaintext highlighter-rouge">ProjectExistsError</code></a> to signal that the project already
+exists.</li>
 </ul>
 
 <h3 id="projectrename"><code class="language-plaintext highlighter-rouge">project/rename</code></h3>
+
 <p>This message requests the renaming of a project.</p>
 
 <ul>
@@ -916,6 +938,7 @@ already exists.</li>
 </code></pre></div></div>
 
 <h4 id="errors-4">Errors</h4>
+
 <ul>
   <li><a href="#projectnamevalidationerror"><code class="language-plaintext highlighter-rouge">ProjectNameValidationError</code></a> to signal
 validation failures.</li>
@@ -923,13 +946,13 @@ validation failures.</li>
 underlying data store.</li>
   <li><a href="#projectexistserror"><code class="language-plaintext highlighter-rouge">ProjectExistsError</code></a> to signal that the project with
 the provided name already exists.</li>
-  <li><a href="#serviceerror"><code class="language-plaintext highlighter-rouge">ServiceError</code></a> to signal that the 
-the operation timed out.</li>
+  <li><a href="#serviceerror"><code class="language-plaintext highlighter-rouge">ServiceError</code></a> to signal that the the operation timed out.</li>
   <li><a href="#languageservererror"><code class="language-plaintext highlighter-rouge">LanguageServerError</code></a> to signal generic language
 server failures.</li>
 </ul>
 
 <h3 id="projectdelete"><code class="language-plaintext highlighter-rouge">project/delete</code></h3>
+
 <p>This message requests the deletion of a project.</p>
 
 <ul>
@@ -948,10 +971,12 @@ server failures.</li>
 
 <h4 id="result-5">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{}</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
 <h4 id="errors-5">Errors</h4>
+
 <ul>
   <li><a href="#projectdatastoreerror"><code class="language-plaintext highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
 underlying data store.</li>
@@ -962,6 +987,7 @@ the project cannot be removed, because is open by at least one user.</li>
 </ul>
 
 <h3 id="projectlistsample"><code class="language-plaintext highlighter-rouge">project/listSample</code></h3>
+
 <p>This request lists the sample projects that are available to the user.</p>
 
 <ul>
@@ -986,9 +1012,11 @@ the project cannot be removed, because is open by at least one user.</li>
 </code></pre></div></div>
 
 <h4 id="errors-6">Errors</h4>
+
 <p>TBC</p>
 
 <h2 id="language-server-management">Language Server Management</h2>
+
 <p>The project manager is also responsible for managing the language server. This
 means that it needs to be able to spawn the process, but also tell the process
 when to shut down.</p>
@@ -1003,10 +1031,12 @@ relationship is going to work.</li>
 </blockquote>
 
 <h2 id="errors-7">Errors</h2>
+
 <p>The project manager component has its own set of errors. This section is not a
 complete specification and will be updated as new errors are added.</p>
 
 <h3 id="projectnamevalidationerror"><code class="language-plaintext highlighter-rouge">ProjectNameValidationError</code></h3>
+
 <p>Signals validation failures.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -1016,6 +1046,7 @@ complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="projectdatastoreerror"><code class="language-plaintext highlighter-rouge">ProjectDataStoreError</code></h3>
+
 <p>Signals problems with underlying data store.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -1025,6 +1056,7 @@ complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="projectexistserror"><code class="language-plaintext highlighter-rouge">ProjectExistsError</code></h3>
+
 <p>Signals that the project already exists.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -1034,6 +1066,7 @@ complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="projectnotfounderror"><code class="language-plaintext highlighter-rouge">ProjectNotFoundError</code></h3>
+
 <p>Signals that the project doesn’t exist.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -1043,6 +1076,7 @@ complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="projectopenerror"><code class="language-plaintext highlighter-rouge">ProjectOpenError</code></h3>
+
 <p>Signals that the project cannot be open due to boot failures.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -1052,6 +1086,7 @@ complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="projectnotopenerror"><code class="language-plaintext highlighter-rouge">ProjectNotOpenError</code></h3>
+
 <p>Signals that cannot close project that is not open.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -1061,6 +1096,7 @@ complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="projectopenbyotherpeerserror"><code class="language-plaintext highlighter-rouge">ProjectOpenByOtherPeersError</code></h3>
+
 <p>Signals that cannot close a project that is open by other clients.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -1070,6 +1106,7 @@ complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="cannotremoveopenprojecterror"><code class="language-plaintext highlighter-rouge">CannotRemoveOpenProjectError</code></h3>
+
 <p>Signals that cannot remove open project.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -1079,6 +1116,7 @@ complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="projectcloseerror"><code class="language-plaintext highlighter-rouge">ProjectCloseError</code></h3>
+
 <p>Signals failures during shutdown of a server.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -1088,6 +1126,7 @@ complete specification and will be updated as new errors are added.</p>
 </code></pre></div></div>
 
 <h3 id="languageservererror"><code class="language-plaintext highlighter-rouge">LanguageServerError</code></h3>
+
 <p>Signals generic language server errors.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
@@ -1329,7 +1368,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

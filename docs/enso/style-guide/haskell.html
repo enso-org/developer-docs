@@ -34,6 +34,8 @@
         
 
         
+            <link rel="next" href="/docs/enso/style-guide/markdown.html" />
+        
     </head>
     <body>
         
@@ -534,9 +536,15 @@ search.start();
             
             
                 
-            
-            
-            
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/style-guide/markdown.html">
+                    
+                        <a href="/docs/enso/style-guide/markdown.html">
+                            
+                                Markdown Style Guide
+                            
+                        </a>
+                    </li>
                 
             
             
@@ -565,6 +573,28 @@ search.start();
             
             
             
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/style-guide/yaml.html">
+                    
+                        <a href="/docs/enso/style-guide/yaml.html">
+                            
+                                YAML Style Guide
+                            
+                        </a>
+                    </li>
                 
             
             
@@ -686,6 +716,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="haskell-style-guide">Haskell Style Guide</h1>
+
 <p>Like many style guides, this Haskell style guide exists for two primary reasons.
 The first is to provide guidelines that result in a consistent code style across
 all of the Enso codebases, while the second is to guide people towards a style
@@ -739,10 +770,12 @@ programmer burden; there is usually only <em>one way</em> to lay out code correc
 <!-- /MarkdownTOC -->
 
 <h2 id="code-formatting">Code Formatting</h2>
+
 <p>This section explains the rules for visually laying out your code. They provide
 a robust set of guidelines for creating a consistent visual to the code.</p>
 
 <h3 id="whitespace">Whitespace</h3>
+
 <p>The rules for whitespace in the Enso codebases are relatively simple:</p>
 
 <ul>
@@ -753,6 +786,7 @@ a robust set of guidelines for creating a consistent visual to the code.</p>
 </ul>
 
 <h3 id="line-wrapping">Line Wrapping</h3>
+
 <p>In order to provide visual consistency across our codebases, and also to
 contribute to making our code easier to scan, we enforce that all code should be
 wrapped to 80 characters width at a maximum.</p>
@@ -802,8 +836,8 @@ on a line.</p>
     <span class="n">veryLongFunction2</span> <span class="n">veryLongArgument2</span> <span class="n">veryLongArgument3</span>
 </code></pre></div>    </div>
   </li>
-  <li>Function signatures should wrap on the <code class="language-plaintext highlighter-rouge">=&gt;</code> and <code class="language-plaintext highlighter-rouge">-&gt;</code>, and in the context of
-a doc comment should have each argument on a separate line.</li>
+  <li>Function signatures should wrap on the <code class="language-plaintext highlighter-rouge">=&gt;</code> and <code class="language-plaintext highlighter-rouge">-&gt;</code>, and in the context of a
+doc comment should have each argument on a separate line.</li>
   <li>
     <p>Lists (and all list-like constructs e.g. constraint tuples, import lists)
 should be wrapped with a <em>leading</em> comma, aligned with the opening bracket,
@@ -832,6 +866,7 @@ line. We would much prefer that the code wraps to two lines and that naming
 remains intelligible than names become so shortened as to be useless.</p>
 
 <h3 id="alignment">Alignment</h3>
+
 <p>When there are multiple lines that are visually similar, we try to align the
 similar portions of the lines vertically.</p>
 
@@ -849,6 +884,7 @@ multiple lines, it <em>no longer counts</em> as visually similar, and hence subs
 lines should not be aligned with it.</p>
 
 <h3 id="naming">Naming</h3>
+
 <p>Enso has some fairly simple general naming conventions, though the sections
 below may provide more rules for use in specific cases.</p>
 
@@ -870,6 +906,7 @@ this rule is for functions which fail intentionally on a broken implementation
 </ul>
 
 <h3 id="imports">Imports</h3>
+
 <p>Organising imports properly means that it’s easy to find the provenance of a
 given function even in the absence of IDE-style tooling. We organise our imports
 in four sections, each of which may be omitted if empty.</p>
@@ -927,6 +964,7 @@ use the simplified form:</p>
 </code></pre></div></div>
 
 <h3 id="exports">Exports</h3>
+
 <p>There is nothing more frustrating than having a need to use a function in a
 module that hasn’t been exported. To that end, we do not allow for restricted
 export lists in our modules.</p>
@@ -938,6 +976,7 @@ that these functions can be imported by clients of the API if they need to, but
 that we provide no guarantees about API stability when using those functions.</p>
 
 <h3 id="section-headers">Section Headers</h3>
+
 <p>In order to visually break up the code for easier ‘visual grepping’, we organise
 it using section headers. These allow us to easily find the section that we are
 looking for, even in a large file.</p>
@@ -967,6 +1006,7 @@ subsections may be omitted if they don’t exist, and a file may contain multipl
 of these sections as relevant.</p>
 
 <h3 id="auto-formatting">Auto-Formatting</h3>
+
 <p>While we have attempted to use haskell auto-formatters to enforce many of the
 above stylistic choices in this document, none have been found to be flexible
 enough for our needs. However, as tools evolve or new ones emerge, we are open
@@ -974,6 +1014,7 @@ to revisiting this decision; if you know of a tool that would let us automate
 the above stylistic rules, then please speak up.</p>
 
 <h2 id="commenting">Commenting</h2>
+
 <p>Comments in code are a tricky area to get right as we have found that comments
 often expire quickly, and in absence of a way to validate them, remain incorrect
 for long periods of time. In order to best deal with this problem, we make the
@@ -999,6 +1040,7 @@ a sign that the code in question needs refactoring.</p>
 comments should not be used as a crutch for badly-designed code.</p>
 
 <h3 id="documentation-comments">Documentation Comments</h3>
+
 <p>One of the primary forms of comment that we allow across the Enso codebases is
 the doc comment. Every language construct that can have an associated doc
 comment should do so. These are intended to be consumed by users of the API, and
@@ -1015,6 +1057,7 @@ choices made in the function’s implementation. See <a href="#source-notes">Sou
 below for how to indicate that kind of information.</p>
 
 <h3 id="source-notes">Source Notes</h3>
+
 <p>Source Notes is a mechanism for moving detailed design information about a piece
 of code out of the code itself. In doing so, it retains the key information
 about the design while not impeding the flow of the code.</p>
@@ -1091,6 +1134,7 @@ its usage is safe in this context.</li>
 </ul>
 
 <h3 id="todo-comments">TODO Comments</h3>
+
 <p>We follow a simple convention for <code class="language-plaintext highlighter-rouge">TODO</code> comments in our codebases:</p>
 
 <ul>
@@ -1107,6 +1151,7 @@ its usage is safe in this context.</li>
 </code></pre></div></div>
 
 <h3 id="other-comment-usage">Other Comment Usage</h3>
+
 <p>There are, of course, a few other situations where commenting is very useful:</p>
 
 <ul>
@@ -1119,10 +1164,12 @@ where the bug has been reported.</li>
 </ul>
 
 <h2 id="program-design">Program Design</h2>
+
 <p>Any good style guide goes beyond purely stylistic rules, and also talks about
 design styles to use in code.</p>
 
 <h3 id="libraries">Libraries</h3>
+
 <p>The Enso project has many internal libraries that are useful, but we have found
 that maintaining these on Hackage while they are under such active development
 is counterproductive.</p>
@@ -1133,6 +1180,7 @@ freely used by others of our projects by depending on a git commit of the
 project that they live in. All of these are safe to use.</p>
 
 <h4 id="prologue">Prologue</h4>
+
 <p><code class="language-plaintext highlighter-rouge">Prologue</code> is our replacement for Haskell’s <code class="language-plaintext highlighter-rouge">Prelude</code>. For the most part it is
 compatible with the prelude, though it is designed with a safe API as the first
 port of call.</p>
@@ -1150,6 +1198,7 @@ computation.</p>
 <p>It is highly recommended that you scan the code of Prologue.</p>
 
 <h4 id="safety">Safety</h4>
+
 <p>It is incredibly important that we can trust the code that we use, and hence we
 tend to disallow the definition of unsafe functions in our public API. When
 defining an unsafe function, you must account for the following:</p>
@@ -1167,11 +1216,13 @@ usage of it is safe.</li>
 <p>Furthermore, we do not allow for code containing pattern matches that can fail.</p>
 
 <h4 id="controlmonadexception">Control.Monad.Exception</h4>
+
 <p>We have our own exception framework based on <code class="language-plaintext highlighter-rouge">ExceptT</code> that encodes exception
 usage at the type level. This ensures that all synchronous exceptions must be
 dealt with.</p>
 
-<p>It is defined in <a href="https://github.com/enso-org/luna/tree/master/lib/exception"><code class="language-plaintext highlighter-rouge">lib/exception/</code></a>
+<p>It is defined in
+<a href="https://github.com/enso-org/luna/tree/master/lib/exception"><code class="language-plaintext highlighter-rouge">lib/exception/</code></a>
 and contains utilities for declaring that a function throws an exception, as
 well as throwing and catching exceptions.</p>
 
@@ -1195,6 +1246,7 @@ re-wrapping an error thrown inside our function.</li>
 </ul>
 
 <h3 id="modules">Modules</h3>
+
 <p>Unlike much of the Haskell ecosystem, we tend to design modules to be imported
 <em>qualified</em> rather than unqualified. This means that we have a few rules to keep
 in mind:</p>
@@ -1211,11 +1263,14 @@ means that we rarely refer to the module name in the function name (e.g.
 </ul>
 
 <h3 id="data-declarations">Data Declarations</h3>
+
 <p>When declaring data types in the Enso codebases, please make sure to keep the
 following rules of thumb in mind:</p>
 
 <ul>
-  <li>For single-constructor types:
+  <li>
+    <p>For single-constructor types:</p>
+
     <ul>
       <li>Write the definition across multiple lines.</li>
       <li>Always name your fields.</li>
@@ -1229,7 +1284,9 @@ following rules of thumb in mind:</p>
 <span class="n">makeLenses</span> <span class="sc">''</span><span class="err">R</span><span class="n">ectangle</span>
 </code></pre></div>    </div>
   </li>
-  <li>For multiple-constructor data-types:
+  <li>
+    <p>For multiple-constructor data-types:</p>
+
     <ul>
       <li>Write the definition across multiple lines.</li>
       <li>Never name your fields.</li>
@@ -1262,6 +1319,7 @@ type if logically correct:
 </ul>
 
 <h4 id="lenses">Lenses</h4>
+
 <p>The Enso codebases make significant use of Lenses, and so we have some rules for
 their use:</p>
 
@@ -1294,6 +1352,7 @@ use a double underscore in the data declaration (e.g. <code class="language-plai
 <code class="language-plaintext highlighter-rouge">point_y</code>.</p>
 
 <h3 id="testing-and-benchmarking">Testing and Benchmarking</h3>
+
 <p>New code should always be accompanied by tests. These can be unit, integration,
 or some combination of the two, and they should always aim to test the new code
 in a rigorous fashion.</p>
@@ -1325,14 +1384,16 @@ for a development build.</li>
 entirely useless.</p>
 
 <h3 id="warnings-and-lints">Warnings, and Lints</h3>
+
 <p>In general, we aim for a codebase that is free of warnings and lints, and we do
 this using the following ideas:</p>
 
 <h4 id="warnings">Warnings</h4>
-<p>New code should introduce no new warnings onto main. You may build with
-warnings on your own branch, but the code that is submitted as part of a PR
-should not introduce new warnings. You should also endeavour to fix any warnings
-that you come across during development.</p>
+
+<p>New code should introduce no new warnings onto main. You may build with warnings
+on your own branch, but the code that is submitted as part of a PR should not
+introduce new warnings. You should also endeavour to fix any warnings that you
+come across during development.</p>
 
 <p>Sometimes it is impossible to fix a warning (e.g. TemplateHaskell generated code
 often warns about unused pattern matches). In such cases, you are allowed to
@@ -1341,15 +1402,17 @@ must be accompanied by a source note explaining <em>why</em> the warning cannot 
 fixed otherwise.</p>
 
 <h4 id="lints">Lints</h4>
+
 <p>We also recommend using HLint on your code as a stylistic guide, as we find that
 its suggestions in general lead to more readable code. If you don’t know how to
 set up automatic linting for your editor, somebody will be able to help.</p>
 
 <p>An example of an anti-pattern that HLint will catch is the repeated-<code class="language-plaintext highlighter-rouge">$</code>. Instead
-of <code class="language-plaintext highlighter-rouge">foo $ bar $ baz $ bam quux</code>, you should write <code class="language-plaintext highlighter-rouge">foo . bar. baz $ bam quux</code>
-to use function composition.</p>
+of <code class="language-plaintext highlighter-rouge">foo $ bar $ baz $ bam quux</code>, you should write <code class="language-plaintext highlighter-rouge">foo . bar. baz $ bam quux</code> to
+use function composition.</p>
 
 <h2 id="language-extensions">Language Extensions</h2>
+
 <p>Much like any sophisticated Haskell codebase, Enso makes heavy use of the GHC
 language extensions. We have a broad swath of extensions that are enabled by
 default across our projects, and a further set which are allowed whenever
@@ -1367,6 +1430,7 @@ available to you, we recommend checking the GHC Users Guide entry for that
 extension (linked from the extension’s table below).</p>
 
 <h3 id="default-extensions">Default Extensions</h3>
+
 <p>The following language extensions are considered to be so safe, or to have such
 high utility, that they are considered to be Enso’s set of default extensions.
 You can find said set of extensions for Enso itself defined in a
@@ -1426,9 +1490,9 @@ would not be possible without <code class="language-plaintext highlighter-rouge"
 (<code class="language-plaintext highlighter-rouge">&lt;$&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;*&gt;</code>, and <code class="language-plaintext highlighter-rouge">join</code>) as far as is possible. This will preserve the
 original semantics as long as the type has an appropriate applicative instance.</p>
 
-<p>Applicative operations are often easier to optimise than monadic ones, so if
-you can write a computation using applicatives please do. This is the same
-reason that we prefer <code class="language-plaintext highlighter-rouge">pure</code> to <code class="language-plaintext highlighter-rouge">return</code>.</p>
+<p>Applicative operations are often easier to optimise than monadic ones, so if you
+can write a computation using applicatives please do. This is the same reason
+that we prefer <code class="language-plaintext highlighter-rouge">pure</code> to <code class="language-plaintext highlighter-rouge">return</code>.</p>
 
 <h4 id="bangpatterns">BangPatterns</h4>
 
@@ -1939,8 +2003,8 @@ the signature provided in the class definition.</p>
   </tbody>
 </table>
 
-<p>Enables <code class="language-plaintext highlighter-rouge">\case</code> as an alternative to <code class="language-plaintext highlighter-rouge">case &lt;...&gt; of</code>. This often results in
-much cleaner code.</p>
+<p>Enables <code class="language-plaintext highlighter-rouge">\case</code> as an alternative to <code class="language-plaintext highlighter-rouge">case &lt;...&gt; of</code>. This often results in much
+cleaner code.</p>
 
 <h4 id="liberaltypesynonyms">LiberalTypeSynonyms</h4>
 
@@ -2041,7 +2105,9 @@ typeclasses.</p>
 branches, using the guard-style notation familiar from function definitions.</p>
 
 <h4 id="namedwildcards">NamedWildCards</h4>
+
 <h4 id="negativeliterals">NegativeLiterals</h4>
+
 <h4 id="noimplicitprelude">NoImplicitPrelude</h4>
 
 <table>
@@ -2566,6 +2632,7 @@ letting the programmer execute arbitrary logic as part of a pattern match. This
 is very useful for the creation of clean APIs.</p>
 
 <h3 id="allowed-extensions">Allowed Extensions</h3>
+
 <p>These extensions can be used in your code without reservation, but are not
 enabled by default because they may interact negatively with other parts of the
 codebase.</p>
@@ -2591,8 +2658,8 @@ codebase.</p>
   </tbody>
 </table>
 
-<p>Block arguments allow expressions such as <code class="language-plaintext highlighter-rouge">do</code>, <code class="language-plaintext highlighter-rouge">\</code>, <code class="language-plaintext highlighter-rouge">if</code>, <code class="language-plaintext highlighter-rouge">case</code>, and <code class="language-plaintext highlighter-rouge">let</code>,
-to be used as both arguments to operators and to functions. This can often make
+<p>Block arguments allow expressions such as <code class="language-plaintext highlighter-rouge">do</code>, <code class="language-plaintext highlighter-rouge">\</code>, <code class="language-plaintext highlighter-rouge">if</code>, <code class="language-plaintext highlighter-rouge">case</code>, and <code class="language-plaintext highlighter-rouge">let</code>, to
+be used as both arguments to operators and to functions. This can often make
 code more readable than it otherwise would be.</p>
 
 <h4 id="gadts">GADTs</h4>
@@ -2824,6 +2891,7 @@ of as a dual to the above <code class="language-plaintext highlighter-rouge">-Xu
 manipulation of unboxed product types.</p>
 
 <h3 id="allowed-with-care">Allowed With Care</h3>
+
 <p>If you make use of any of these extensions in your code, you should accompany
 their usage by a source note that explains why they are used.</p>
 
@@ -2982,10 +3050,11 @@ terminating.</p>
 
 <p>Permits the definition of superclass constraints which can potentially lead to
 the non-termination of the type-checker. Much like the above, this is sometimes
-necessary but should only be enabled when you are <em>sure</em> that you will not
-cause the typechecker to loop.</p>
+necessary but should only be enabled when you are <em>sure</em> that you will not cause
+the typechecker to loop.</p>
 
 <h3 id="disallowed-extensions">Disallowed Extensions</h3>
+
 <p>If a language extension hasn’t been listed in the above sections, then it is
 considered to be disallowed throughout the Enso codebases. If you have a good
 reason to want to use one of these disallowed extensions, please talk to Ara or
@@ -3136,6 +3205,10 @@ search.start();
                 
 
                 
+                    <a href="/docs/enso/style-guide/markdown.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Markdown Style Guide">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
             
             </div>
 
@@ -3225,7 +3298,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

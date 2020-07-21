@@ -570,6 +570,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/licences.html">
                     
@@ -579,6 +583,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -708,6 +716,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="release-policy">Release Policy</h1>
+
 <p>As an open-source project and programming language, it is incredibly important
 that we have a well-defined release policy. This document defines said policy.</p>
 
@@ -735,6 +744,7 @@ that we have a well-defined release policy. This document defines said policy.</
 <!-- /MarkdownTOC -->
 
 <h2 id="versioning">Versioning</h2>
+
 <p>Releases of Enso are versioned using <a href="https://semver.org">semantic versioning</a>.
 Where <code class="language-plaintext highlighter-rouge">a.b.c-tag</code> is the version string, <code class="language-plaintext highlighter-rouge">a</code> is the major version, <code class="language-plaintext highlighter-rouge">b</code>, is the
 minor version, <code class="language-plaintext highlighter-rouge">c</code> is the patch version, and <code class="language-plaintext highlighter-rouge">tag</code> is additional metadata, the
@@ -751,10 +761,12 @@ pre-release change is made. These are not intended to be stable.</li>
 </ul>
 
 <h3 id="launcher-versioning">Launcher Versioning</h3>
+
 <p>The launcher is released alongside Enso releases, so the launcher version is
 tied to the Enso version that it is released with.</p>
 
 <h2 id="release-branches">Release Branches</h2>
+
 <p>A release branch in the Enso repository is a branch prefixed with <code class="language-plaintext highlighter-rouge">release/</code>.
 Release branches obey the following rules:</p>
 
@@ -772,6 +784,7 @@ contained in that release.</li>
 branch of the repository.</p>
 
 <h2 id="release-workflow">Release Workflow</h2>
+
 <p>Cutting a release for Enso proceeds as follows:</p>
 
 <ol>
@@ -791,16 +804,19 @@ official.</li>
 </ol>
 
 <h3 id="tag-naming">Tag Naming</h3>
+
 <p>Tags for releases are named as follows <code class="language-plaintext highlighter-rouge">enso-version</code>, where <code class="language-plaintext highlighter-rouge">version</code> is the
 semver string (see <a href="#versioning">versioning</a>) representing the version being
 released.</p>
 
 <h3 id="github-releases">GitHub Releases</h3>
+
 <p>A release is considered <em>official</em> once it has been made into a release on
 <a href="https://github.com/enso-org/enso/releases">GitHub</a>. Once official, a release
 may not be changed in any way, except to mark it as broken.</p>
 
 <h4 id="manifest-file">Manifest File</h4>
+
 <p>Each GitHub release contains an asset named <code class="language-plaintext highlighter-rouge">manifest.yaml</code> which is a YAML file
 containing metadata regarding the release. The manifest is also included in the
 root of an Enso version package. It has at least the following fields:</p>
@@ -815,6 +831,7 @@ different Java versions, this specifies which variant to use.</li>
 </ul>
 
 <p>For example:</p>
+
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">minimum-launcher-version</span><span class="pi">:</span> <span class="s">0.0.1</span>
 <span class="na">graal-vm-version</span><span class="pi">:</span> <span class="s">20.1.0</span>
 <span class="na">graal-java-version</span><span class="pi">:</span> <span class="s">java11</span>
@@ -827,6 +844,7 @@ stored in
 and other values are added to this template at build time.</p>
 
 <h4 id="release-assets-structure">Release Assets Structure</h4>
+
 <p>Each release contains a build of the Enso engine and native launcher binaries
 for each supported platform. Moreover, for convenience, it should include
 bundles containing native launcher binaries and the latest engine build for each
@@ -844,6 +862,7 @@ platform. So each release should contain the following assets:</p>
 </ul>
 
 <h4 id="marking-a-release-as-broken">Marking a Release as Broken</h4>
+
 <p>We intend to <em>never</em> delete a release from GitHub, as users may have projects
 that depend on specific versions of Enso. Instead, we provide a mechanism for
 marking releases as broken that works as follows:</p>
@@ -853,12 +872,13 @@ marking releases as broken that works as follows:</p>
   <li>The release description is edited to visibly mark the release as broken.</li>
 </ul>
 
-<p>A broken release is one that <em>must not</em> be downloaded by the launcher unless
-a project specifies <em>an exact version match</em>, and it <em>must not</em> be used in new
+<p>A broken release is one that <em>must not</em> be downloaded by the launcher unless a
+project specifies <em>an exact version match</em>, and it <em>must not</em> be used in new
 projects by the launcher unless <em>explicitly</em> specified by the user as an exact
 version match.</p>
 
 <h3 id="release-notes">Release Notes</h3>
+
 <p>Release notes should contain a summary of the changes made between the last
 release and the current release. They should follow the template given below:</p>
 
@@ -900,7 +920,6 @@ release and the current release. They should follow the template given below:</p
 <span class="p">
 -</span> A list of changes that do not have user-facing impact, but represent
   significant improvements to the internals of Enso and related tools.
-
 </code></pre></div></div>
 
 <p>If there are no changes for a section, the section should contain a bullet point
@@ -910,18 +929,21 @@ that reads “Nothing”.</p>
 <code class="language-plaintext highlighter-rouge">main</code> and the various release branches.</p>
 
 <h2 id="version-support">Version Support</h2>
+
 <p>We aim to support a given major version for some period of time after the
 release of the next major version. For a detailed breakdown of the major
 versions that are currently supported, please see the <a href="./security.md">security</a>
 document.</p>
 
 <h2 id="working-on-the-current-release">Working on the Current Release</h2>
+
 <p>When working on the current release, development should take place against the
 <code class="language-plaintext highlighter-rouge">main</code> branch. When it is time to cut a release, the new commits on the main
 branch are cherry-picked onto the current release branch. From there, the
 release proceeds as described in <a href="#release-workflow">release workflow</a> above.</p>
 
 <h2 id="backporting-fixes">Backporting Fixes</h2>
+
 <p>Supporting a major version for some time after the release of the next major
 version will sometimes require backporting a fix to the previous major version
 from the current version or from <code class="language-plaintext highlighter-rouge">main</code>.</p>
@@ -1182,7 +1204,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

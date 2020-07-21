@@ -666,6 +666,14 @@ search.start();
                 
             
             
+            
+                
+            
+            
+            
+                
+            
+            
 
             
         
@@ -688,6 +696,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="the-enso-protocol">The Enso Protocol</h1>
+
 <p>Enso is a sophisticated language, but in order to provide a great user
 experience to our users we also need the ability to provide great tooling. This
 tooling means a language server, but it also means a set of extra peripheral
@@ -754,6 +763,7 @@ please see <a href="/docs/enso/language-server/">the protocol message specificat
 <!-- /MarkdownTOC -->
 
 <h2 id="architecture">Architecture</h2>
+
 <p>The divisions of responsibility between the backend engine services are dictated
 purely by necessity. As multi-client editing necessitates careful
 synchronisation and conflict resolution, between the actions of multiple
@@ -776,6 +786,7 @@ decision as to run them in different processes until the requirements become
 more clear.</p>
 
 <h3 id="the-project-manager">The Project Manager</h3>
+
 <p>The project manager service is responsible for both allowing users to work with
 their projects but also the setup and teardown of the language server itself.
 Its responsibilities can be summarised as follows:</p>
@@ -788,6 +799,7 @@ it to persist any state that it needs to disk.</li>
 </ul>
 
 <h3 id="language-server">Language Server</h3>
+
 <p>The language server is responsible for managing incoming connections and
 communicating with the clients, as well as resolving any potential conflicts
 between the clients. It is responsible for the following:</p>
@@ -832,6 +844,7 @@ language server. Instead, the LS should only depend on <code class="language-pla
 interface with the runtime.</p>
 
 <h2 id="textual-protocol">Textual Protocol</h2>
+
 <p>The protocol refers to the communication format that all of the above services
 speak between each other and to the GUI. This protocol is not specialised only
 to language server operations, as instead it needs to work for all of the
@@ -851,8 +864,8 @@ following process:
 commands) we will do so.</li>
       <li>If this is not possible, we will specify an <em>extension</em> to the protocol.
 This extension will be well-specified within this document, and should be
-in the spirit of the existing protocol. If relevant, we may propose it as
-a future extension to the specification.</li>
+in the spirit of the existing protocol. If relevant, we may propose it as a
+future extension to the specification.</li>
     </ol>
   </li>
 </ul>
@@ -861,6 +874,7 @@ a future extension to the specification.</li>
 need a protocol extension to support Enso’s custom language functionality.</p>
 
 <h3 id="textual-protocol-communication-patterns">Textual Protocol Communication Patterns</h3>
+
 <p>Whatever protocol we decide on will need to have support for a couple of main
 communication patterns:</p>
 
@@ -869,9 +883,9 @@ communication patterns:</p>
 able to support this kind of connection to deal with events that do not occur
 strictly in response to client actions (e.g. updates to observed values).</li>
   <li><strong>Req/Res:</strong> A standard request/response model, the server will need to be
-able to support this kind of connection to deal with one-off requests from
-the client, and potentially to make requests to the client (e.g. list modules
-in the current project, please refresh your file state).</li>
+able to support this kind of connection to deal with one-off requests from the
+client, and potentially to make requests to the client (e.g. list modules in
+the current project, please refresh your file state).</li>
 </ul>
 
 <p>There are also certain messages that follow the request/response model but where
@@ -891,6 +905,7 @@ LSP.</p>
 </ul>
 
 <h3 id="textual-protocol-transport">Textual Protocol Transport</h3>
+
 <p>The transport of the protocol refers to the underlying layer over which its
 messages (discussed in <a href="#the-protocol-format">the protocol format</a> below) are
 sent. As we are maintaining compatibility with LSP, the protocol transport
@@ -916,6 +931,7 @@ and tear it down.</li>
 </blockquote>
 
 <h3 id="the-protocol-format">The Protocol Format</h3>
+
 <p>Protocol messages are defined by LSP. Any extensions to the messages defined in
 the standard should use similar patterns such that they are not incongruous with
 LSP messages. The following notes apply:</p>
@@ -930,6 +946,7 @@ LSP messages. The following notes apply:</p>
 and the other is a binary WebSocket.</p>
 
 <h2 id="textual-protocol-functionality">Textual Protocol Functionality</h2>
+
 <p>This entire section deals with the <em>functional</em> requirements placed upon the
 protocol used by the engine services. These requirements are overwhelmingly
 imposed by the IDE, but also include additional functionality for the future
@@ -940,6 +957,7 @@ those <em>expected</em> for the 2.0 release. Any additional functionality beyond
 milestone is described in a <a href="#functionality-post-20">dedicated section</a>.</p>
 
 <h3 id="textual-diff-management">Textual Diff Management</h3>
+
 <p>The engine services need to support robust handling of textual diffs. This is
 simply because it is the primary form of communication for synchronising source
 code between the IDE and the engine. It will need to support the following
@@ -986,6 +1004,7 @@ track updates as necessary.</li>
 </ul>
 
 <h3 id="handling-multiple-clients">Handling Multiple Clients</h3>
+
 <p>Multiple-client support will be implemented while remaining compatible with the
 LSP specification.</p>
 
@@ -1015,6 +1034,7 @@ state, and then <code class="language-plaintext highlighter-rouge">applyEdit</co
 </ul>
 
 <h3 id="project-state-management">Project State Management</h3>
+
 <p>One of the most important functionalities for this service set is the ability to
 manage the state of a project in general. The project state refers to the whole
 set of the project files and metadata and needs to support the following
@@ -1035,6 +1055,7 @@ projects in a single engine, as this would allow users to work with multiple
 related projects in a single instance of the IDE.</p>
 
 <h3 id="file-management-and-storage">File Management and Storage</h3>
+
 <p>The nature of LSP means that file management and storage is <em>not</em> handled by the
 language server, and is instead handled by the editor. The protocol makes a
 distinction between:</p>
@@ -1053,6 +1074,7 @@ file operations between the IDE and that machine are handled <em>indepdendently<
 the language server.</p>
 
 <h3 id="execution-management">Execution Management</h3>
+
 <p>The language server process will need to be able to respond to requests for
 various kinds of execution of Enso code. Furthermore, it needs to be able to
 respond to requests to ‘listen’ to the execution of various portions of code.
@@ -1100,6 +1122,7 @@ client. If unspecified this should be set to a sensible default.</li>
 </ul>
 
 <h4 id="caching">Caching</h4>
+
 <p>One of the most important elements of execution management for the language
 server is the ability to control and interact with the execution cache state in
 the runtime.</p>
@@ -1131,6 +1154,7 @@ better cache-eviction decisions.</li>
 </ul>
 
 <h4 id="progress-reporting">Progress Reporting</h4>
+
 <p>In the future it will be desirable for long running computations to provide
 real-time progress information (e.g. for training a neural network it would be
 great to know which epoch is running).</p>
@@ -1148,6 +1172,7 @@ of long-running operations within the <em>language server</em> rather than in us
 code.</p>
 
 <h3 id="completion">Completion</h3>
+
 <p>The IDE needs the ability to request completions for some target point (cursor
 position) in the source code. In essence, this boils down to <em>some</em> kind of
 smart completion. The completion should provide the following:</p>
@@ -1202,6 +1227,7 @@ any optimisations here.</li>
 </ul>
 
 <h3 id="analysis-operations">Analysis Operations</h3>
+
 <p>We also want to be able to support a useful set of semantic analysis operations
 to help users navigate their code. As these rely on knowledge of the language
 semantics, they must be explicitly supported by the language server:</p>
@@ -1214,6 +1240,7 @@ file is closed, then the edit should be made directly, as the LSP specifies.</li
 </ul>
 
 <h3 id="functionality-post-20">Functionality Post 2.0</h3>
+
 <p>In addition to the functionality discussed in detail above, there are further
 augmentations that could sensibly be made to the Engine services to support a
 much better editing and user-experience for Enso. These are listed briefly below
@@ -1243,7 +1270,8 @@ inspect values during execution of a program. This debugging functionality
 should allow for hot-reloading of code, changing of values within a live
 program, and various other debugger functionality (step over, step in, step
 out, continue, etc). Future debugger functionality should be based on the
-standard <a href="https://microsoft.github.io/debug-adapter-protocol/specification">debug adapter protocol</a>.</li>
+standard
+<a href="https://microsoft.github.io/debug-adapter-protocol/specification">debug adapter protocol</a>.</li>
   <li><strong>Profiling Information:</strong> Profiling information for the executing code, able
 to be displayed visually in Enso Studio.</li>
   <li><strong>Code Formatting:</strong> Automatic formatting of Enso code using the One True
@@ -1268,6 +1296,7 @@ relevant to our language. Currently we only support a small subset thereof.</li>
 </ul>
 
 <h2 id="binary-protocol">Binary Protocol</h2>
+
 <p>The binary protocol refers to the auxiliary protocol used to transport raw
 binary data between the engine and the client. This functionality is <em>entirely</em>
 extraneous to the operation of the <a href="#textual-protocol">textual protocol</a>, and is
@@ -1347,6 +1376,7 @@ table Success {}
 </code></pre>
 
 <h3 id="binary-protocol-communication-patterns">Binary Protocol Communication Patterns</h3>
+
 <p>The binary protocol currently only supports a single type of communication
 pattern:</p>
 
@@ -1356,6 +1386,7 @@ performed using the textual protocol.</li>
 </ul>
 
 <h3 id="binary-protocol-transport">Binary Protocol Transport</h3>
+
 <p>The binary protocol uses <a href="https://github.com/google/flatbuffers">flatbuffers</a>
 for the protocol transport format. This choice has been made for a few reasons:</p>
 
@@ -1367,16 +1398,18 @@ data.</li>
 </ul>
 
 <h2 id="binary-protocol-functionality">Binary Protocol Functionality</h2>
+
 <p>The binary protocol exists in order to serve the high-bandwidth data transfer
 requirements of the engine and the GUI.</p>
 
 <h3 id="displaying-visualisations">Displaying Visualisations</h3>
+
 <p>A major part of Enso Studio’s functionality is the rich embedded visualisations
 that it supports. This means that the following functionality is necessary:</p>
 
 <ul>
-  <li>Execution of an arbitrary Enso expression on a cached value designated by
-a source location.</li>
+  <li>Execution of an arbitrary Enso expression on a cached value designated by a
+source location.</li>
   <li>The ability to create and destroy visualisation subscriptions with an
 arbitrary piece of Enso code as the preprocessing function.</li>
   <li>The ability to update <em>existing</em> subscriptions with a new preprocessing
@@ -1402,6 +1435,7 @@ visualisation data to identify an update.</li>
 </ul>
 
 <h2 id="service-connection-setup">Service Connection Setup</h2>
+
 <p>As these services need to support multiple clients in future, there is some
 rigmarole around setting up the various connections needed by each client. The
 process for spawning and connecting to an engine instance is as follows:</p>
@@ -1413,15 +1447,17 @@ passing the socket information as part of the initialisation flow.</li>
 be used to identify the client while it is connected.</li>
   <li><strong>Protocol Connection Initialisation:</strong> The client performs the init for the
 textual protocol connection, passing its client identifier as it does so.
-See <a href="/docs/enso/language-server/protocol-language-server.html#sessioninitprotocolconnection"><code class="language-plaintext highlighter-rouge">session/initProtocolConnection</code></a>
+See
+<a href="/docs/enso/language-server/protocol-language-server.html#sessioninitprotocolconnection"><code class="language-plaintext highlighter-rouge">session/initProtocolConnection</code></a>
 for more information.</li>
   <li><strong>Data Connection Initialisation:</strong> The client performs the init for the
 data connection, passing its client identifier as it does so. See
-<a href="/docs/enso/language-server/protocol-language-server.html#sessioninitdataconnection"><code class="language-plaintext highlighter-rouge">session/initDataConnection</code></a> below more
-information.</li>
+<a href="/docs/enso/language-server/protocol-language-server.html#sessioninitdataconnection"><code class="language-plaintext highlighter-rouge">session/initDataConnection</code></a>
+below more information.</li>
 </ol>
 
 <h2 id="service-connection-teardown">Service Connection Teardown</h2>
+
 <p>As the engine performs sophisticated caching and persisting of data where
 possible, it is very important that the client informs the engine of the end of
 its session. In contrast to the initialisation flow above, this is not an
@@ -1667,7 +1703,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

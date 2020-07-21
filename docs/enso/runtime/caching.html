@@ -540,6 +540,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/runtime/unbounded-recursion.html">
                     
@@ -585,6 +589,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -738,6 +746,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="caching">Caching</h1>
+
 <p>It is not uncommon for users in data-analysis jobs to work with data on the
 order of <em>gigabytes</em> or even <em>terabytes</em>. As fast as computers have become, and
 as efficient as programming languages can be, you still don’t want to compute on
@@ -807,6 +816,7 @@ than having to recompute the entire program.</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="cache-candidates">Cache Candidates</h2>
+
 <p>The key use of the Enso value cache is to support the interactive editing of
 user code. This means that it caches all bindings within the scope of a given
 function, including the function arguments. This means that, as users edit their
@@ -827,27 +837,29 @@ this function (in this case <code class="language-plaintext highlighter-rouge">c
 
 <p>All intermediate results and inputs are considered as candidates, though as the
 cache design evolves, the <em>selected</em> candidates may be refined. Ultimately we
-want to cache and reuse as much as possible to minimize the computation
-costs. At the same time, we want to limit the memory consumed by the cache.</p>
+want to cache and reuse as much as possible to minimize the computation costs.
+At the same time, we want to limit the memory consumed by the cache.</p>
 
 <h3 id="initial-cache-candidates">Initial Cache Candidates</h3>
+
 <p>The initial version of the cache only stores the right-hand-sides of binding
 expressions. This is for two main reasons:</p>
 
 <ul>
-  <li>Firstly, this allows us to ensure that the cache does not cause the JVM to
-go out of memory between executions, allowing us to avoid the implementation
-of a <a href="#memory-management">memory-bounded cache</a> for now.</li>
+  <li>Firstly, this allows us to ensure that the cache does not cause the JVM to go
+out of memory between executions, allowing us to avoid the implementation of a
+<a href="#memory-management">memory-bounded cache</a> for now.</li>
   <li>It also simplifies the initial implementation of weighting program components.</li>
 </ul>
 
 <h3 id="further-development-of-cache-candidates">Further Development of Cache Candidates</h3>
+
 <p>The next step for the cache is to expand the portions of the introspected scope
 that we cache. In general, this means the caching of intermediate expressions.</p>
 
-<p>However, once we do this, we can no longer guarantee that we do not push the
-JVM out of memory between two program executions. This is best demonstrated
-by example.</p>
+<p>However, once we do this, we can no longer guarantee that we do not push the JVM
+out of memory between two program executions. This is best demonstrated by
+example.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a = (computeHugeObject b).size
 </code></pre></div></div>
@@ -858,6 +870,7 @@ the intermediate result of the discarded <code class="language-plaintext highlig
 need some way of tracking the sizes of individual cache entries.</p>
 
 <h2 id="partial-evaluation-and-side-effects">Partial-Evaluation and Side-Effects</h2>
+
 <p>The more theoretically-minded people among those reading this document may
 instantly realise that there is a <em>problem</em> with this approach. In the presence
 of caching, it becomes <em>entirely</em> unpredictable as to when side effects are
@@ -872,6 +885,7 @@ context, thereby potentially re-evaluating side-effecting computations as well.<
 presence of caching and partial-evaluation.</p>
 
 <h3 id="side-effects-in-the-initial-version">Side Effects in the Initial Version</h3>
+
 <p>Many of the mechanisms required to deal with this kind of issue properly are
 complex and require deep type-level support in the compiler. To that end, the
 initial version of the interpreter is going to pretend that the problem doesn’t
@@ -887,6 +901,7 @@ really exist.</p>
 we cannot initially do much better.</p>
 
 <h4 id="a-stopgap">A Stopgap</h4>
+
 <p>While the compiler won’t have the machinery in place to properly track
 information about side-effects, we can implement a stop-gap solution that at
 least allows the GUI to allow users to make the decision about whether or not to
@@ -903,6 +918,7 @@ opt in to automatic re-evaluation of these values.</li>
 </ul>
 
 <h3 id="in-the-future">In The Future</h3>
+
 <p>As the compiler evolves, however, we can do better than this. In particular, we
 can employ type-system information to determine which functions are
 side-effecting (in absence of annotations), and to class some kinds of said
@@ -932,10 +948,12 @@ capabilities that will be useful in doing so.</li>
 </blockquote>
 
 <h2 id="cache-eviction-strategy">Cache Eviction Strategy</h2>
+
 <p>The cache eviction strategy refers to the method by which we determine which
 entries in the cache are invalidated (if any) after a given change to the code.</p>
 
 <h3 id="initial-eviction-strategy">Initial Eviction Strategy</h3>
+
 <p>In the initial version of the caching mechanism, the eviction strategies are
 intended to be fairly simplistic and conservative to ensure correctness.</p>
 
@@ -957,6 +975,7 @@ the dynamic symbol are evicted from the cache.</li>
 </ol>
 
 <h3 id="future-eviction-strategies">Future Eviction Strategies</h3>
+
 <p>In the future, however, the increasing sophistication of the front-end compiler
 for Enso will allow us to do better than this by accounting for more granular
 information in the eviction decisions.</p>
@@ -977,12 +996,13 @@ limit. The cache should not exceed the specified memory limit.</li>
   <p>The actionables for this section are:</p>
 
   <ul>
-    <li>Evolve the cache eviction strategy by employing more granular information
-as the compiler evolves to provide it.</li>
+    <li>Evolve the cache eviction strategy by employing more granular information as
+the compiler evolves to provide it.</li>
   </ul>
 </blockquote>
 
 <h2 id="dataflow-analysis">Dataflow Analysis</h2>
+
 <p>Dataflow analysis is the process by which the compiler discovers the
 relationships between program expressions. The output of the process is a data
 dependency graph that can be queried for an expression, and returns the set of
@@ -1005,6 +1025,7 @@ with registering them properly.</p>
 that depend on it, and the set of expressions that it depends on.</p>
 
 <h3 id="identifying-expressions">Identifying Expressions</h3>
+
 <p>Expressions are identified, for the purposes of dataflow analysis, by unique
 identifiers on every IR node. The dataflow analysis process creates a dependency
 graph between these identifiers.</p>
@@ -1015,11 +1036,13 @@ identifiers is left to the runtime and is not the responsibility of the dataflow
 analysis pass.</p>
 
 <h3 id="specifying-dataflow">Specifying Dataflow</h3>
-<p>Dataflow analysis takes place on the core set of language constructs, defined
-as those that extend <code class="language-plaintext highlighter-rouge">IRKind.Primitive</code>. Their dataflow is specified as follows,
+
+<p>Dataflow analysis takes place on the core set of language constructs, defined as
+those that extend <code class="language-plaintext highlighter-rouge">IRKind.Primitive</code>. Their dataflow is specified as follows,
 with arrows representing edges in the graph.</p>
 
 <h4 id="atom">Atom</h4>
+
 <p>An atom is dependent on the definitions of its arguments, particularly with
 regard to any defaults.</p>
 
@@ -1027,6 +1050,7 @@ regard to any defaults.</p>
 </code></pre></div></div>
 
 <h4 id="method">Method</h4>
+
 <p>A method is dependent on the definition of its body. Methods at the point that
 dataflow analysis runs are ‘bare’ methods, meaning that they are defined as
 functions.</p>
@@ -1035,6 +1059,7 @@ functions.</p>
 </code></pre></div></div>
 
 <h4 id="block">Block</h4>
+
 <p>The value of a block is dependent purely on the value of its return expression.
 The return expression may depend on other values.</p>
 
@@ -1042,6 +1067,7 @@ The return expression may depend on other values.</p>
 </code></pre></div></div>
 
 <h4 id="binding">Binding</h4>
+
 <p>The value of a binding is dependent both on the name of the binding and the
 expression being assigned in the binding.</p>
 
@@ -1050,6 +1076,7 @@ binding &lt;- expression
 </code></pre></div></div>
 
 <h4 id="lambda">Lambda</h4>
+
 <p>The value of a lambda is dependent on the return value from its body, as well as
 the definitions of any defaults for its arguments.</p>
 
@@ -1058,6 +1085,7 @@ lambda &lt;- argumentDefaults
 </code></pre></div></div>
 
 <h4 id="definition-argument">Definition Argument</h4>
+
 <p>The value of a function definition argument is dependent purely on the value of
 its default, if that default is present.</p>
 
@@ -1065,6 +1093,7 @@ its default, if that default is present.</p>
 </code></pre></div></div>
 
 <h4 id="prefix-application">Prefix Application</h4>
+
 <p>The value of a prefix application is dependent on the values of both the
 function expression being called, and the arguments.</p>
 
@@ -1073,6 +1102,7 @@ prefix &lt;- arguments
 </code></pre></div></div>
 
 <h4 id="call-argument">Call Argument</h4>
+
 <p>The value of a call argument is dependent both on the value that it’s wrapping,
 as well as the name it has, if it exists.</p>
 
@@ -1081,6 +1111,7 @@ callArgument &lt;- argumentName
 </code></pre></div></div>
 
 <h4 id="forced-term">Forced Term</h4>
+
 <p>A forced term is purely dependent on the value of the term being forced (the
 <code class="language-plaintext highlighter-rouge">target</code>).</p>
 
@@ -1088,6 +1119,7 @@ callArgument &lt;- argumentName
 </code></pre></div></div>
 
 <h4 id="typeset-members">Typeset Members</h4>
+
 <p>A typeset member is dependent on the definition of its label, as well as the
 possibly present definitions of its type and value.</p>
 
@@ -1097,6 +1129,7 @@ typesetMember &lt;- memberValue
 </code></pre></div></div>
 
 <h4 id="typing-operators">Typing Operators</h4>
+
 <p>All typing operators in Enso (<code class="language-plaintext highlighter-rouge">IR.Type</code>) are dependent on their constituent
 parts:</p>
 
@@ -1104,6 +1137,7 @@ parts:</p>
 </code></pre></div></div>
 
 <h4 id="name">Name</h4>
+
 <p>An occurrence of a name is dependent on the definition site of that name. This
 means that it is broken down into two options:</p>
 
@@ -1129,8 +1163,9 @@ used the changed definition in particular.</p>
 </ol>
 
 <h4 id="case-expressions">Case Expressions</h4>
-<p>The value of a case expression depends on the value of its scrutinee, as well
-as the definitions of its branches.</p>
+
+<p>The value of a case expression depends on the value of its scrutinee, as well as
+the definitions of its branches.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>case &lt;- scrutinee
 case &lt;- branches
@@ -1138,6 +1173,7 @@ case &lt;- fallback
 </code></pre></div></div>
 
 <h4 id="case-branches">Case Branches</h4>
+
 <p>The value of a case branch depends on both the pattern expression and the result
 expression.</p>
 
@@ -1146,21 +1182,24 @@ caseBranch &lt;- expression
 </code></pre></div></div>
 
 <h4 id="comments">Comments</h4>
+
 <p>The value of a comment is purely dependent on the value of the commented entity.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>comment &lt;- commented
 </code></pre></div></div>
 
 <h2 id="cache-backend">Cache Backend</h2>
+
 <p>The cache is implemented as key-value storage with an eviction function.</p>
 
 <p>The cache stores the right-hand side expressions of the bindings in the
 key-value storage. The storage can be as simple as a Hash Map with values
-wrapped into the Soft References as a fallback strategy of clearing the
-cache. The eviction function purges invalidated expressions from previous
-program execution.</p>
+wrapped into the Soft References as a fallback strategy of clearing the cache.
+The eviction function purges invalidated expressions from previous program
+execution.</p>
 
 <h3 id="further-development">Further development</h3>
+
 <p>Cache intermediate results of expressions to reduce the cost of new computations
 and extend the eviction strategy to clear the cache based on memory consumption.</p>
 
@@ -1184,6 +1223,7 @@ information of the stored values</p>
 </blockquote>
 
 <h2 id="memory-bounded-caches">Memory Bounded Caches</h2>
+
 <p>Memory management refers to a way of controlling the size of the cache, avoiding
 the Out Of Memory errors.</p>
 
@@ -1198,6 +1238,7 @@ the Out Of Memory errors.</p>
 total amount involves some tradeoffs.</p>
 
 <h3 id="soft-references">Soft References</h3>
+
 <p>Soft References is a way to mark the cache entries available for garbage
 collection whenever JVM runs a GC. In practice, it can cause long GC times and
 reduced overall performance. This strategy is generally considered as a last
@@ -1214,35 +1255,42 @@ the other hand, serialization itself can provide the size of the object, which
 is enough to implement the eviction policy, even without running the <em>isolates</em>.</p>
 
 <h3 id="serialization">Serialization</h3>
+
 <p>One approach to get the size of the value stored in the cache is
 <em>serialization</em>. The downside is the computational overhead of transforming the
 object into a byte sequence.</p>
 
 <h3 id="instrumentation">Instrumentation</h3>
+
 <p>Another way of getting the object’s size is to use JVM instrumentation. This
 approach requires running JVM with <em>javaagent</em> attached, which can complicate
 the deployment and have indirect performance penalties.</p>
 
 <h3 id="manual-memory-management">Manual Memory Management</h3>
+
 <p>This method implies tracking the size of the values by hand. It can be done for
 the values of Enso language, knowing the size of its primitive types. For
 interacting with other languages, Enso can provide an interface that developers
 should implement to have a better experience with the cache.</p>
 
 <h3 id="comparison-of-memory-management-approaches">Comparison of Memory Management Approaches</h3>
+
 <p>Below are some key takeaways after experimenting with the <em>instrumentation</em> and
 <em>serialization</em> approaches.</p>
 
 <h4 id="enso-runtime-benchmark">Enso Runtime Benchmark</h4>
+
 <p>The existing runtime benchmark was executed with the java agent attached to
 measure the impact of instrumentation.</p>
 
 <h4 id="serialization-benchmark">Serialization Benchmark</h4>
+
 <p><a href="https://github.com/RuedigerMoeller/fast-serialization">FST</a> library was used
 for the serialization benchmark. It doesn’t require an explicit scheme and
 relies on Java <code class="language-plaintext highlighter-rouge">Serializable</code> interface.</p>
 
 <h4 id="instrumentation-benchmark">Instrumentation Benchmark</h4>
+
 <p>Java
 <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/instrument/Instrumentation.html">`Instrumentation#getObjectSize()</a>
 can only provide a <em>shallow</em> memory of the object. It does not follow the
@@ -1253,6 +1301,7 @@ references and only takes into account public fields containing primitive types.
 reflection to follow the references and access the private fields of the object.</p>
 
 <h4 id="benchmark-results">Benchmark Results</h4>
+
 <p>Benchmarks measured Java array, <code class="language-plaintext highlighter-rouge">java.util.LinkedList</code>, and a custom
 implementation of lined list <code class="language-plaintext highlighter-rouge">ConsList</code>, an object that maintains references for
 its head and tail.</p>
@@ -1535,7 +1584,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

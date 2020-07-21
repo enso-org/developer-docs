@@ -540,6 +540,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/runtime/unbounded-recursion.html">
                     
@@ -585,6 +589,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -738,8 +746,9 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="runtime-features">Runtime Features</h1>
-<p>This document contains a detailed specification of Enso’s runtime. It includes
-a description of the technologies on which it is built, as well as the features
+
+<p>This document contains a detailed specification of Enso’s runtime. It includes a
+description of the technologies on which it is built, as well as the features
 and functionality that it is required to support. In addition, the document aims
 to explain why <em>this</em> design, rather than one of the many alternatives available
 to the team.</p>
@@ -795,6 +804,7 @@ then describe the design of each component in detail.</p>
 <!-- /MarkdownTOC -->
 
 <h1 id="architectural-overview">Architectural Overview</h1>
+
 <p>The Enso runtime is just one of the many components of the Enso ecosystem. This
 section provides an overview of how it fits into the broader ecosystem, with a
 particular focus on how it enables workflows for Enso Studio, the Enso CLI, and
@@ -803,6 +813,7 @@ architecture of the runtime itself, breaking down the opaque ‘runtime’ label
 into the</p>
 
 <h2 id="the-broader-enso-ecosystem">The Broader Enso Ecosystem</h2>
+
 <p>While the runtime is arguably the core part of Enso, for the language would not
 be able to exist without it, the language’s success is just as dependent on the
 surrounding ecosystem.</p>
@@ -844,6 +855,7 @@ interfaces to foreign languages.</li>
 </ul>
 
 <h2 id="the-runtimes-architecture">The Runtime’s Architecture</h2>
+
 <p>In order to better appreciate how the components specified below interact, it is
 important to have an understanding of the high-level architecture of the runtime
 itself. The design in this document pertains <em>only</em> to the ‘Enso Runtime’
@@ -855,6 +867,7 @@ information between the various components.</p>
 <p>TBC…</p>
 
 <h1 id="choosing-graalvm">Choosing GraalVM</h1>
+
 <p>Building the runtime on top of GraalVM was of course not the only choice that
 could’ve been made, but it was overwhelmingly the most sensible option out of
 those considered.</p>
@@ -866,13 +879,13 @@ being considered.</p>
   <li><strong>LLVM:</strong> A battle-tested and comprehensive toolchain for the creation of
 language compilers, <a href="https://llvm.org/">LLVM</a> includes facilities for
 compilation, optimisation, JIT, and linking.</li>
-  <li><strong>GHC:</strong> The <a href="https://gitlab.haskell.org/ghc/">Glasgow Haskell Compiler</a> is
-a sophisticated compiler and runtime for Haskell that provides a
+  <li><strong>GHC:</strong> The <a href="https://gitlab.haskell.org/ghc/">Glasgow Haskell Compiler</a> is a
+sophisticated compiler and runtime for Haskell that provides a
 language-agnostic set of internal representations that could be leveraged to
 compile and/or interpret other functional languages.</li>
   <li><strong>JVM:</strong> The <a href="https://openjdk.java.net/">JVM</a> is a high-performance virtual
-machine that includes sophisticated garbage collection, profiling tools, and
-a JIT compiler.</li>
+machine that includes sophisticated garbage collection, profiling tools, and a
+JIT compiler.</li>
   <li><strong>GraalVM:</strong> A universal virtual machine and language development toolkit,
 <a href="https://www.graalvm.org/">GraalVM</a> provides a framework for building language
 interpreters, as well as a JIT compiler. Most importantly, it provides tools
@@ -891,6 +904,7 @@ upsides (e.g. the JVM’s sophisticated garbage collection machinery), they all
 had at least one ‘fatal flaw’ for Enso’s use case.</p>
 
 <h3 id="speed-of-development">Speed of Development</h3>
+
 <p>A language runtime is a complex beast, so any solution that could remove some of
 the implementation burden would be beneficial to Enso as a product.</p>
 
@@ -916,6 +930,7 @@ interface, thereby enabling rapid development of a performant runtime without
 the need to implement complex components such as a GC and concurrency.</p>
 
 <h3 id="language-interoperability-support">Language Interoperability Support</h3>
+
 <p>With Enso aiming to be the be-all and end-all for the data-science world, the
 ability to seamlessly interoperate with other programming languages is key. This
 means that a user should be able to paste in some Python or R code and have it
@@ -935,6 +950,7 @@ dream for ensuring that Enso can seamlessly communicate with a whole host of
 other programming languages.</p>
 
 <h3 id="implementation-performance">Implementation Performance</h3>
+
 <p>Data science often involves the manipulation of very large amounts of data, and
 ensuring that an interactive environment like Enso doesn’t slow down as it does
 so requires a high level of performance.</p>
@@ -951,6 +967,7 @@ of effort, while still providing comprehensive facilities to improve performance
 further in the future.</p>
 
 <h3 id="maintenance-burden">Maintenance Burden</h3>
+
 <p>Just as important as getting a working runtime is the ability for the developers
 to improve and evolve it. This encompasses many factors, but Enso is primarily
 concerned with being able to evolve without having to account for undue changes
@@ -978,10 +995,12 @@ and as a result provides many of the facilities required by Enso for free or at
 least for little effort.</p>
 
 <h1 id="the-runtime-components">The Runtime Components</h1>
+
 <p>Like any sensible large software project, Enso’s runtime is modular and broken
 down into components. These are described in detail below.</p>
 
 <h2 id="language-server">Language Server</h2>
+
 <p>The language server component is responsible for controlling the runtime itself.
 It communicates with other portions of the ecosystem (such as the REPL and the
 Enso Studio backend) via a protocol. While this protocol is based on the
@@ -1002,6 +1021,7 @@ it has been extended significantly to better support Enso’s use-cases.</p>
 -->
 
 <h2 id="filesystem-driver">Filesystem Driver</h2>
+
 <p>This component of the runtime deals with access from the runtime to external
 devices. This includes the Enso code files on disk, but is also responsible for
 watching filesystem resources (such as databases, files, and sockets) that are
@@ -1014,6 +1034,7 @@ used by Enso programs.</p>
 -->
 
 <h2 id="typechecker">Typechecker</h2>
+
 <p>The typechecker is the portion of the runtime that handles the type-inference
 and type-checking of Enso code. This is a sophisticated piece of machinery, with
 the primary theory under which it operates being described in the specification
@@ -1029,6 +1050,7 @@ of <a href="/docs/enso/types/">the type system</a>.</p>
 -->
 
 <h2 id="optimiser">Optimiser</h2>
+
 <p>With much of Enso’s performance relying on the JIT optimiser built into Graal,
 the native language optimiser instead relies on handling more front-end specific
 optimisations.</p>
@@ -1045,6 +1067,7 @@ optimisations.</p>
 -->
 
 <h2 id="interpreter-and-jit">Interpreter and JIT</h2>
+
 <p>The interpreter component is responsible for the actual execution of Enso code.
 It is built on top of the Truffle framework provided by GraalVM, and is JIT
 compiled by GraalVM.</p>
@@ -1061,10 +1084,12 @@ compiled by GraalVM.</p>
 -->
 
 <h1 id="cross-cutting-concerns">Cross-Cutting Concerns</h1>
+
 <p>The runtime also has to deal with a number of concerns that don’t fit directly
 into the above components, but are nevertheless important parts of the design.</p>
 
 <h2 id="caching">Caching</h2>
+
 <p>The runtime cache for Enso is a key part of how it delivers exceptional
 performance when working on big data sets. The key recognition, as seen in many
 data processing tools, is that changing code or data often doesn’t require the
@@ -1084,10 +1109,11 @@ portions that are required of it, while using cached results for the rest.</p>
 -->
 
 <h2 id="profiling-and-debugging">Profiling and Debugging</h2>
-<p>Similarly important to the Enso user experience is the ability to visually
-debug and profile programs. This component deals with the retrieval, storage,
-and manipulation of profiling data, as well as the ability to debug programs in
-Enso using standard and non-standard debugging paradigms.</p>
+
+<p>Similarly important to the Enso user experience is the ability to visually debug
+and profile programs. This component deals with the retrieval, storage, and
+manipulation of profiling data, as well as the ability to debug programs in Enso
+using standard and non-standard debugging paradigms.</p>
 
 <!-- TODO
 - An analysis of how breakpoints can be set in the Truffle interpreter.
@@ -1099,6 +1125,7 @@ Enso using standard and non-standard debugging paradigms.</p>
 -->
 
 <h2 id="foreign-language-interoperability">Foreign Language Interoperability</h2>
+
 <p>This component deals with using the GraalVM language interoperability features
 to provide a seamless interface to foreign code from inside Enso.</p>
 
@@ -1111,6 +1138,7 @@ to provide a seamless interface to foreign code from inside Enso.</p>
 -->
 
 <h2 id="lightweight-concurrency">Lightweight Concurrency</h2>
+
 <p>Though not strictly a component, this section deals with how Enso can provide
 its users with lightweight concurrency primitives in the form of green threads.</p>
 
@@ -1123,6 +1151,7 @@ its users with lightweight concurrency primitives in the form of green threads.<
 -->
 
 <h1 id="the-initial-version-of-the-runtime">The Initial Version of the Runtime</h1>
+
 <p>In order to have a working version of the new runtime as quickly as possible, it
 was decided to design and build an initial, stripped-down version of the final
 design. This design focused on development of a minimal working subset of the
@@ -1134,6 +1163,7 @@ runtime that would allow Enso to run.</p>
 -->
 
 <h1 id="development-considerations">Development Considerations</h1>
+
 <p>As part of developing the new Enso runtime, the following things need to be
 accounted for. This is to ensure that the eventual quality of the software is
 high, and that we also provide a product that is actually useful to our users.</p>
@@ -1384,7 +1414,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {

@@ -554,6 +554,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/syntax/assignment.html">
                     
@@ -563,6 +567,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -778,6 +786,7 @@ search.start();
                 <div class="search-noresults">
                     <section class="normal markdown-section">
                         <h1 id="naming">Naming</h1>
+
 <p>This file describes the syntax for naming language constructs in Enso, as well
 as the various rules that names follow.</p>
 
@@ -799,6 +808,7 @@ giving Enso code a uniform identity.</p>
 <!-- /MarkdownTOC -->
 
 <h2 id="naming-constructs">Naming Constructs</h2>
+
 <p>Given that Enso is dependently-typed, with no artificial separation between the
 type and value-level syntaxes, an arbitrary name can refer to both types and
 values. This means that naming itself can become a bit of a concern. At first
@@ -832,10 +842,10 @@ to an identifier in scope are known as <em>pattern contexts</em>.</li>
   <li>In a <a href="#pattern-contexts">pattern context</a>, an identifier in referent form will
 <em>always</em> refer to a name in scope, whereas an identifier in variable form is
 interpreted as the creation of a fresh identifier.</li>
-  <li>This behaviour <em>only</em> occurs in pattern contexts. In all other contexts,
-both conventions refer to that name already in scope.</li>
-  <li>Operator names behave as variable names when placed in a prefix position
-(e.g. <code class="language-plaintext highlighter-rouge">+ a b</code>).</li>
+  <li>This behaviour <em>only</em> occurs in pattern contexts. In all other contexts, both
+conventions refer to that name already in scope.</li>
+  <li>Operator names behave as variable names when placed in a prefix position (e.g.
+<code class="language-plaintext highlighter-rouge">+ a b</code>).</li>
   <li>Operator names behave as referent names when placed in an infix position (e.g.
 <code class="language-plaintext highlighter-rouge">a + b</code>).</li>
   <li>All literals (e.g. <code class="language-plaintext highlighter-rouge">1</code> and <code class="language-plaintext highlighter-rouge">"Hello"</code>) are treated as referent names.</li>
@@ -850,6 +860,7 @@ both conventions refer to that name already in scope.</li>
 </ul>
 
 <h2 id="pattern-contexts">Pattern Contexts</h2>
+
 <p>A pattern context is a span in the code where variable identifiers (as described
 above) can be used to introduce new identifiers into the scope containing the
 pattern context. The following spans are pattern contexts:</p>
@@ -889,6 +900,7 @@ means in a formal sense.</li>
 </blockquote>
 
 <h2 id="localised-naming">Localised Naming</h2>
+
 <p>We do, however, recognise that there is sometimes a need for unicode characters
 in names (e.g. designing a high-level visual library that targets a narrow
 domain in a specific country). To that end, Enso allows users to specify
@@ -898,6 +910,7 @@ optional localised names as part of a function’s documentation.</p>
 names in the language server, and in Enso Studio.</p>
 
 <h2 id="operator-naming">Operator Naming</h2>
+
 <p>Operator names are those built solely from operator symbols (e.g. <code class="language-plaintext highlighter-rouge">+</code> or <code class="language-plaintext highlighter-rouge">&lt;*&gt;</code>).
 Operator symbols are defined as characters in the following set.</p>
 
@@ -909,6 +922,7 @@ Operator symbols are defined as characters in the following set.</p>
 (e.g. <code class="language-plaintext highlighter-rouge">[</code> and <code class="language-plaintext highlighter-rouge">]</code>, which start and end a vector literal respectively).</p>
 
 <h2 id="reserved-names">Reserved Names</h2>
+
 <p>Even though we do not intend to reserve any names at the level of the lexer or
 parser, there are a number of constructs so core to the operation of Enso as a
 language that we do not want to let them be overridden or redefined by users.
@@ -930,8 +944,8 @@ relevant implementation of monadic bind.</li>
   <li><code class="language-plaintext highlighter-rouge">.</code>: This is the forward function chaining operator.</li>
   <li><code class="language-plaintext highlighter-rouge">case ... of</code>: This reserved name is the case expression that is fundamental
 to the operation of control flow in the language.</li>
-  <li><code class="language-plaintext highlighter-rouge">this</code>:  This reserved name is the one used to refer to the enclosing type in
-a method or type definition.</li>
+  <li><code class="language-plaintext highlighter-rouge">this</code>: This reserved name is the one used to refer to the enclosing type in a
+method or type definition.</li>
   <li><code class="language-plaintext highlighter-rouge">here</code>: This reserved name is the one used to refer to the enclosing module.</li>
   <li><code class="language-plaintext highlighter-rouge">in</code>: Used to specify the monadic context(s) in a type signature.</li>
 </ul>
@@ -1181,7 +1195,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 08:15:26 +0000"
+        "time": "2020-07-21 13:00:36 +0000"
     },
     "basePath": "",
     "book": {
