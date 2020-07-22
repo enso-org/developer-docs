@@ -242,10 +242,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/">
                     
@@ -255,6 +251,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -931,6 +931,22 @@ description and return with exit code 0, for the plugin to be considered
 supported. That description will be included in the command listing printed by
 <code class="language-plaintext highlighter-rouge">enso help</code>.</p>
 
+<h4 id="testing-plugins">Testing plugins</h4>
+
+<p>When testing the launcher, we want to test plugin discovery. To do so, we
+override the <code class="language-plaintext highlighter-rouge">PATH</code> of the tested launcher to a directory containing prepared
+plugins. On Windows, the environment variables are usually treated as
+case-insensitive but not all the time. When launching a process with an added
+environment variable called <code class="language-plaintext highlighter-rouge">PATH</code>, that process actually has two variables in
+its environment - the original <code class="language-plaintext highlighter-rouge">Path</code> and the overriden <code class="language-plaintext highlighter-rouge">PATH</code>. This can be seen
+when querying <code class="language-plaintext highlighter-rouge">System.getenv()</code> - the returned map contains both <code class="language-plaintext highlighter-rouge">Path</code> and
+<code class="language-plaintext highlighter-rouge">PATH</code> with their respective values. However, <code class="language-plaintext highlighter-rouge">System.getenv("PATH")</code> uses some
+platform specific logic, and even if both variables are present in the
+environment, it actually returns the value corresponding to <code class="language-plaintext highlighter-rouge">Path</code>. This is
+likely the expected behaviour on Windows. So to successfully override the system
+path on Windows, we need to override <code class="language-plaintext highlighter-rouge">Path</code>, not <code class="language-plaintext highlighter-rouge">PATH</code> like on Unix-based
+systems.</p>
+
 <h2 id="global-user-configuration">Global User Configuration</h2>
 
 <p>The launcher allows to edit global user configuration, saved in the <code class="language-plaintext highlighter-rouge">config</code>
@@ -1225,7 +1241,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 20:29:25 +0000"
+        "time": "2020-07-22 17:29:02 +0000"
     },
     "basePath": "",
     "book": {

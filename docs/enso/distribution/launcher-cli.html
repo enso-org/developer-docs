@@ -242,10 +242,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/">
                     
@@ -255,6 +251,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -910,8 +910,7 @@ configuration.</p>
 
 <p>Examples:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso language-server
-    <span class="nt">--server</span> <span class="se">\</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso language-server <span class="se">\</span>
     <span class="nt">--root-id</span> 3256d10d-45be-45b1-9ea4-7912ef4226b1 <span class="se">\</span>
     <span class="nt">--path</span> /tmp/content-root
 </code></pre></div></div>
@@ -971,12 +970,14 @@ managed one. Will not work if the set-up JVM version is not GraalVM.</p>
 <h2 id="jvm-options">JVM Options</h2>
 
 <p>For commands that launch an Enso component inside a JVM (<code class="language-plaintext highlighter-rouge">repl</code>, <code class="language-plaintext highlighter-rouge">run</code> and
-<code class="language-plaintext highlighter-rouge">language-server</code>), additional parameters are passed to the launcher components.
-Moreover, it is possible to pass parameters to the JVM that is used to launch
-these components, which may be helpful with debugging.</p>
+<code class="language-plaintext highlighter-rouge">language-server</code>), parameters that the launcher does not know about (for
+example introduced in versions of Enso newer than the launcher knows about) may
+be passed after a double dash (<code class="language-plaintext highlighter-rouge">--</code>), i.e. <code class="language-plaintext highlighter-rouge">enso repl -- --someUnknownFlag</code>.</p>
 
-<p>A parameter of the form <code class="language-plaintext highlighter-rouge">--jvm.argumentName=argumentValue</code> will be passed to the
-JVM as <code class="language-plaintext highlighter-rouge">-DargumentName=argumentValue</code>.</p>
+<p>Moreover, it is possible to pass parameters to the JVM that is used to launch
+these components, which may be helpful with debugging. A parameter of the form
+<code class="language-plaintext highlighter-rouge">--jvm.argumentName=argumentValue</code> will be passed to the JVM as
+<code class="language-plaintext highlighter-rouge">-DargumentName=argumentValue</code>.</p>
 
                         
                         
@@ -1211,7 +1212,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-21 20:29:25 +0000"
+        "time": "2020-07-22 17:29:02 +0000"
     },
     "basePath": "",
     "book": {
