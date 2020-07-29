@@ -821,6 +821,7 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
     <ul>
       <li><a href="#suggestionsdatabaseexample">Suggestions Database Example</a></li>
       <li><a href="#searchgetsuggestionsdatabase"><code class="language-plaintext highlighter-rouge">search/getSuggestionsDatabase</code></a></li>
+      <li><a href="#invalidatesuggestionsdatabase"><code class="language-plaintext highlighter-rouge">search/invalidateSuggestionsDatabase</code></a></li>
       <li><a href="#searchgetsuggestionsdatabaseversion"><code class="language-plaintext highlighter-rouge">search/getSuggestionsDatabaseVersion</code></a></li>
       <li><a href="#searchsuggestionsdatabaseupdate"><code class="language-plaintext highlighter-rouge">search/suggestionsDatabaseUpdate</code></a></li>
       <li><a href="#searchcompletion"><code class="language-plaintext highlighter-rouge">search/completion</code></a></li>
@@ -3358,7 +3359,7 @@ a key-value storage with <a href="#suggestionentry"><code class="language-plaint
 <ul>
   <li><strong>Type:</strong> Request</li>
   <li><strong>Direction:</strong> Client -&gt; Server</li>
-  <li><strong>Connection:</strong> Binary</li>
+  <li><strong>Connection:</strong> Protocol</li>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
@@ -3386,15 +3387,15 @@ suggestions database</li>
 root directory</li>
 </ul>
 
-<h3 id="searchgetsuggestionsdatabaseversion"><code class="language-plaintext highlighter-rouge">search/getSuggestionsDatabaseVersion</code></h3>
+<h3 id="searchinvalidatesuggestionsdatabase"><code class="language-plaintext highlighter-rouge">search/invalidateSuggestionsDatabase</code></h3>
 
-<p>Sent from client to the server to receive the current version of the suggestions
-database.</p>
+<p>Sent from client to the server to clean the suggestions database resetting the
+version.</p>
 
 <ul>
   <li><strong>Type:</strong> Request</li>
   <li><strong>Direction:</strong> Client -&gt; Server</li>
-  <li><strong>Connection:</strong> Binary</li>
+  <li><strong>Connection:</strong> Protocol</li>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
@@ -3405,13 +3406,42 @@ database.</p>
 
 <h4 id="result-35">Result</h4>
 
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="errors-46">Errors</h4>
+
+<ul>
+  <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
+suggestions database</li>
+</ul>
+
+<h3 id="searchgetsuggestionsdatabaseversion"><code class="language-plaintext highlighter-rouge">search/getSuggestionsDatabaseVersion</code></h3>
+
+<p>Sent from client to the server to receive the current version of the suggestions
+database.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-46">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="result-36">Result</h4>
+
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="c1">// The version of the suggestions database</span>
   <span class="nl">currentVersion</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-46">Errors</h4>
+<h4 id="errors-47">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -3428,11 +3458,11 @@ database.</p>
 <ul>
   <li><strong>Type:</strong> Notification</li>
   <li><strong>Direction:</strong> Server -&gt; Client</li>
-  <li><strong>Connection:</strong> Binary</li>
+  <li><strong>Connection:</strong> Protocol</li>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-46">Parameters</h4>
+<h4 id="parameters-47">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">updates</span><span class="p">:</span> <span class="p">[</span><span class="nx">SuggestionsDatabaseUpdate</span><span class="p">];</span>
@@ -3440,7 +3470,7 @@ database.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-47">Errors</h4>
+<h4 id="errors-48">Errors</h4>
 
 <p>None</p>
 
@@ -3451,11 +3481,11 @@ database.</p>
 <ul>
   <li><strong>Type:</strong> Request</li>
   <li><strong>Direction:</strong> Client -&gt; Server</li>
-  <li><strong>Connection:</strong> Binary</li>
+  <li><strong>Connection:</strong> Protocol</li>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-47">Parameters</h4>
+<h4 id="parameters-48">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="c1">// The edited file</span>
@@ -3471,7 +3501,7 @@ database.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-36">Result</h4>
+<h4 id="result-37">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">results</span><span class="p">:</span> <span class="p">[</span><span class="nx">SuggestionEntryId</span><span class="p">];</span>
@@ -3479,7 +3509,7 @@ database.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-48">Errors</h4>
+<h4 id="errors-49">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -3510,17 +3540,17 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-48">Parameters</h4>
+<h4 id="parameters-49">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="result-37">Result</h4>
+<h4 id="result-38">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-49">Errors</h4>
+<h4 id="errors-50">Errors</h4>
 
 <p>N/A</p>
 
@@ -3535,17 +3565,17 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-49">Parameters</h4>
+<h4 id="parameters-50">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="result-38">Result</h4>
+<h4 id="result-39">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-50">Errors</h4>
+<h4 id="errors-51">Errors</h4>
 
 <p>N/A</p>
 
@@ -3561,7 +3591,7 @@ for the standard output.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-50">Parameters</h4>
+<h4 id="parameters-51">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">output</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -3573,31 +3603,6 @@ for the standard output.</p>
 <p>This message allows a client to redirect the standard error of Enso programs.
 Once the standard error is redirected, the Language server will notify the
 client about new output data by emitting <code class="language-plaintext highlighter-rouge">io/standardErrorAppended</code> messages.</p>
-
-<ul>
-  <li><strong>Type:</strong> Request</li>
-  <li><strong>Direction:</strong> Client -&gt; Server</li>
-  <li><strong>Connection:</strong> Protocol</li>
-  <li><strong>Visibility:</strong> Public</li>
-</ul>
-
-<h4 id="parameters-51">Parameters</h4>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
-</code></pre></div></div>
-
-<h4 id="result-39">Result</h4>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
-</code></pre></div></div>
-
-<h4 id="errors-51">Errors</h4>
-
-<p>N/A</p>
-
-<h3 id="iosuppressstandarderror"><code class="language-plaintext highlighter-rouge">io/suppressStandardError</code></h3>
-
-<p>This message allows a client to suppress the redirection of the standard error.</p>
 
 <ul>
   <li><strong>Type:</strong> Request</li>
@@ -3620,6 +3625,31 @@ client about new output data by emitting <code class="language-plaintext highlig
 
 <p>N/A</p>
 
+<h3 id="iosuppressstandarderror"><code class="language-plaintext highlighter-rouge">io/suppressStandardError</code></h3>
+
+<p>This message allows a client to suppress the redirection of the standard error.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-53">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="result-41">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="errors-53">Errors</h4>
+
+<p>N/A</p>
+
 <h3 id="iostandarderrorappended"><code class="language-plaintext highlighter-rouge">io/standardErrorAppended</code></h3>
 
 <p>Sent from the server to the client to inform that new output data are available
@@ -3632,7 +3662,7 @@ for the standard error.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-53">Parameters</h4>
+<h4 id="parameters-54">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">output</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -3650,7 +3680,7 @@ for the standard error.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-54">Parameters</h4>
+<h4 id="parameters-55">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">input</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -3658,12 +3688,12 @@ for the standard error.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-41">Result</h4>
+<h4 id="result-42">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-53">Errors</h4>
+<h4 id="errors-54">Errors</h4>
 
 <p>N/A</p>
 
@@ -3680,12 +3710,12 @@ standard input.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-55">Parameters</h4>
+<h4 id="parameters-56">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h2 id="errors-54">Errors</h2>
+<h2 id="errors-55">Errors</h2>
 
 <p>The language server component also has its own set of errors. This section is
 not a complete specification and will be updated as new errors are added.</p>
@@ -4173,7 +4203,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-28 20:25:06 +0000"
+        "time": "2020-07-29 11:52:07 +0000"
     },
     "basePath": "",
     "book": {
