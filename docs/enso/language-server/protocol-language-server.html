@@ -236,26 +236,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/language-server/">
                     
@@ -265,6 +245,26 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -932,6 +932,9 @@ type, <code class="language-plaintext highlighter-rouge">this</code> will be sub
 <h3 id="expressionvalueupdate"><code class="language-plaintext highlighter-rouge">ExpressionValueUpdate</code></h3>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ExpressionValueUpdate</span> <span class="p">{</span>
+  <span class="cm">/** The id of updated expression */</span>
+  <span class="nl">expressionId</span><span class="p">:</span> <span class="nx">ExpressionId</span><span class="p">;</span>
+
   <span class="cm">/** The updated suggestion id */</span>
   <span class="nl">suggestionId</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
@@ -987,7 +990,6 @@ type, <code class="language-plaintext highlighter-rouge">this</code> will be sub
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// The definition scope</span>
 <span class="kr">interface</span> <span class="nx">SuggestionEntryScope</span> <span class="p">{</span>
-
   <span class="c1">// The start position of the definition scope</span>
   <span class="nl">start</span><span class="p">:</span> <span class="nx">Position</span><span class="p">;</span>
   <span class="c1">// The end position of the definition scope</span>
@@ -995,9 +997,9 @@ type, <code class="language-plaintext highlighter-rouge">this</code> will be sub
 <span class="p">}</span>
 
 <span class="c1">// A type of suggestion entries.</span>
-<span class="nx">type</span> <span class="nx">SuggestionEntry</span>
+<span class="nx">type</span> <span class="nx">SuggestionEntry</span> <span class="o">=</span>
   <span class="c1">// A value constructor</span>
-  <span class="o">=</span> <span class="nx">SuggestionEntryAtom</span>
+  <span class="o">|</span> <span class="nx">SuggestionEntryAtom</span>
   <span class="c1">// A method defined on a type</span>
   <span class="o">|</span> <span class="nx">SuggestionEntryMethod</span>
   <span class="c1">// A function</span>
@@ -4203,7 +4205,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-29 11:52:07 +0000"
+        "time": "2020-07-30 09:27:14 +0000"
     },
     "basePath": "",
     "book": {
