@@ -1008,24 +1008,6 @@ run:</p>
 <code class="language-plaintext highlighter-rouge">sbt / test</code>. To test the Rust components you can run <code class="language-plaintext highlighter-rouge">cargo test</code>. Finally, you
 can run the WASM tests for the rust components by using <code class="language-plaintext highlighter-rouge">./run --test-wasm</code>.</p>
 
-<h4 id="installing-the-jupyter-kernel">Installing the Jupyter kernel</h4>
-
-<p>Enso has a highly experimental and not-actively-maintained Jupyer Kernel. To run
-it:</p>
-
-<ol>
-  <li>Build (or download from the CI server) the CLI Fat Jar.</li>
-  <li>Fill in the <code class="language-plaintext highlighter-rouge">engine/language-server/jupyter-kernel/enso/kernel.json</code> file,
-providing correct paths to the <code class="language-plaintext highlighter-rouge">runner.jar</code> distribution and GraalVM
-<code class="language-plaintext highlighter-rouge">JAVA_HOME</code>.</li>
-  <li>Run:</li>
-</ol>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jupyter kernelspec <span class="nb">install</span> &lt;ROOT_OF_THIS_REPO&gt;/engine/language-server/jupyter-kernel/enso
-</code></pre></div></div>
-
-<p>Congratulations, your Jupyter Kernel should now be installed and ready to use.</p>
-
 <h4 id="passing-debug-options">Passing Debug Options</h4>
 
 <p>GraalVM provides some useful debugging options, including the ability to output
@@ -1546,7 +1528,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-31 05:32:08 +0000"
+        "time": "2020-07-31 19:21:37 +0000"
     },
     "basePath": "",
     "book": {
