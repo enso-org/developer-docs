@@ -774,6 +774,7 @@ containing robust and descriptive parser errors directly in the AST.</p>
 
 <ul>
   <li><a href="#functionality">Functionality</a></li>
+  <li><a href="#generation">Generation</a></li>
 </ul>
 
 <!-- /MarkdownTOC -->
@@ -809,6 +810,103 @@ an unambiguous fashion.</li>
 parser phases.</li>
   </ul>
 </blockquote>
+
+<h2 id="generation">Generation</h2>
+
+<p>The single source of truth for the AST is its Rust implementation. Therefore, in
+order to not get out of sync, the Scala AST implementation is generated during
+compilation directly from the Rust ast source file.</p>
+
+<p>The command for generating the Scala ast and storing it in the file
+<code class="language-plaintext highlighter-rouge">foo/ast.scala</code> is following:
+<code class="language-plaintext highlighter-rouge">cargo run -p ast -- --generate-scala-ast foo/ast.scala</code>.</p>
+
+<p>Since there isn’t 1:1 mapping between Rust and Scala, only a subset of Rust’s
+structures is supported. These are follows.</p>
+
+<h5 id="primitives">Primitives</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u32   | i32   | u16 | i16 | i8 =&gt; Int,
+usize | isize | u64 | i64      =&gt; Long,
+u8                             =&gt; Byte,
+char                           =&gt; Char,
+Vec                            =&gt; Vector,
+</code></pre></div></div>
+
+<p><em>Note: It is assumed, that Enso runs on 64bit platforms. Therefore, <code class="language-plaintext highlighter-rouge">usize</code> and
+<code class="language-plaintext highlighter-rouge">isize</code> are converted to <code class="language-plaintext highlighter-rouge">Long</code>.</em></p>
+
+<h5 id="structures-with-named-fields">Structures With Named Fields</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>struct Foo&lt;X&gt; { x: X&lt;z::Y&gt;, .. }
+</code></pre></div></div>
+
+<p>Is converted into:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>case class Foo[X](x: X[Z.Y], ..)
+</code></pre></div></div>
+
+<h5 id="enums-with-named-fields">Enums With Named Fields</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>enum Foo{ Bar{x:X}, Baz{y:Y, z:Z} }
+</code></pre></div></div>
+
+<p>Is converted into:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sealed trait Foo
+case class Bar(x:X) extends Foo
+case class Baz(y:Y, z:Z) extends Foo
+</code></pre></div></div>
+
+<h5 id="enums-with-one-unnamed-qualified-field">Enums With One Unnamed Qualified Field</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>enum Enum { Foo(x::Foo), Bar(x::Bar), Baz(y::Baz) }
+
+mod x {
+    pub struct Foo { .. }
+    pub struct Bar { .. }
+}
+
+mod y {
+    pub struct Baz { .. }
+}
+</code></pre></div></div>
+
+<p>Is converted into:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sealed trait Enum
+
+object X {
+    sealed trait X extends Enum
+    case class Foo(..) extends X
+    case class Bar(..) extends X
+}
+
+object Y {
+    sealed trait Y extends Enum
+    case class Baz(..) extends Y
+}
+</code></pre></div></div>
+
+<h5 id="modules">Modules</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mod foo { .. }
+</code></pre></div></div>
+
+<p>Is converted into:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>object Foo { sealed trait Foo; .. }
+</code></pre></div></div>
+
+<h5 id="type-aliases">Type Aliases</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>type A&lt;X&gt; = B&lt;X,Y&gt;;
+</code></pre></div></div>
+
+<p>Is converted into:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>type A[X] = B[X, Y]
+</code></pre></div></div>
 
                         
                         
@@ -1043,7 +1141,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-30 09:27:14 +0000"
+        "time": "2020-07-31 05:32:08 +0000"
     },
     "basePath": "",
     "book": {
