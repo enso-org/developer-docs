@@ -782,6 +782,12 @@ from which it then generates code for a highly-optimised lexer.</p>
       <li><a href="#notes-on-code-generation">Notes on Code Generation</a></li>
     </ul>
   </li>
+  <li><a href="#structuring-the-flexer-code">Structuring the Flexer Code</a>
+    <ul>
+      <li><a href="#supporting-the-definition-of-lexers">Supporting the Definition of Lexers</a></li>
+      <li><a href="#supporting-code-generation">Supporting Code Generation</a></li>
+    </ul>
+  </li>
   <li><a href="#an-example">An Example</a></li>
 </ul>
 
@@ -911,6 +917,43 @@ for all lexers.</li>
   <li>The primary generation is in <code class="language-plaintext highlighter-rouge">consume_next_character</code>, which takes a <code class="language-plaintext highlighter-rouge">Lexer</code>
 as an argument.</li>
 </ul>
+
+<h2 id="structuring-the-flexer-code">Structuring the Flexer Code</h2>
+
+<p>In order to unify the API between the definition and generated usages of the
+flexer, the API is separated into the following components:</p>
+
+<ul>
+  <li><strong>Flexer:</strong> The main flexer definition itself, providing functionality common
+to the definition and implementation of all lexers.</li>
+  <li><strong>FlexerState:</strong> The stateful components of a lexer definition. This trait is
+implemented for a particular lexer definition, allowing the user to store
+arbitrary data in their lexer, as needed.</li>
+  <li><strong>User-Defined Lexer:</strong> The user can then define a lexer that <em>wraps</em> the
+flexer, specialised to the particular <code class="language-plaintext highlighter-rouge">FlexerState</code> that the user has defined.
+It is recommended to implement <code class="language-plaintext highlighter-rouge">Deref</code> and <code class="language-plaintext highlighter-rouge">DerefMut</code> between the defined
+lexer and the <code class="language-plaintext highlighter-rouge">Flexer</code>, to allow for ease of use.</li>
+</ul>
+
+<h3 id="supporting-the-definition-of-lexers">Supporting the Definition of Lexers</h3>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Fill it in as the generation solidifies.</li>
+  </ul>
+</blockquote>
+
+<h3 id="supporting-code-generation">Supporting Code Generation</h3>
+
+<p>This architecture separates out the generated code (which can be defined purely
+on the user-defined lexer), from the code that is defined as part of the lexer
+definition. This means that the same underlying structures can be used to both
+<em>define</em> the lexer, and be used by the generated code from that definition.</p>
+
+<p>For an example of how these components are used in the generated lexer, please
+see <a href="../../lib/rust/flexer/tests/generated_api_test.rs"><code class="language-plaintext highlighter-rouge">generated_api_test</code></a>.</p>
 
 <h2 id="an-example">An Example</h2>
 
@@ -1249,7 +1292,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-03 14:01:20 +0000"
+        "time": "2020-08-03 17:27:41 +0000"
     },
     "basePath": "",
     "book": {
