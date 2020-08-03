@@ -831,6 +831,7 @@ usize | isize | u64 | i64      =&gt; Long,
 u8                             =&gt; Byte,
 char                           =&gt; Char,
 Vec                            =&gt; Vector,
+Uuid                           =&gt; UUID,
 </code></pre></div></div>
 
 <p><em>Note: It is assumed, that Enso runs on 64bit platforms. Therefore, <code class="language-plaintext highlighter-rouge">usize</code> and
@@ -895,8 +896,11 @@ object Y {
 
 <p>Is converted into:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>object Foo { sealed trait Foo; .. }
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>object Foo { .. }
 </code></pre></div></div>
+
+<p>Furthermore, the content of <code class="language-plaintext highlighter-rouge">ast.rs</code> is wrapped inside additional <code class="language-plaintext highlighter-rouge">object Ast</code>,
+in order to support top level type aliases.</p>
 
 <h5 id="type-aliases">Type Aliases</h5>
 
@@ -907,6 +911,8 @@ object Y {
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>type A[X] = B[X, Y]
 </code></pre></div></div>
+
+<p>Note that in contrast to Rust, Scala doesn’t support types outside objects.</p>
 
                         
                         
@@ -1141,7 +1147,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-07-31 19:21:37 +0000"
+        "time": "2020-08-03 14:01:20 +0000"
     },
     "basePath": "",
     "book": {
