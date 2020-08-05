@@ -1108,6 +1108,11 @@ that pops up.</li>
 and add them to <code class="language-plaintext highlighter-rouge">truffleRunOptions</code> in <a href="build.sbt"><code class="language-plaintext highlighter-rouge">build.sbt</code></a>. Remove the
 portion of these options after <code class="language-plaintext highlighter-rouge">suspend=y</code>, including the comma. They are
 placeholders that we don’t use.</li>
+  <li>Alternatively, certain tasks, such as <code class="language-plaintext highlighter-rouge">run</code>, <code class="language-plaintext highlighter-rouge">benchOnly</code> and <code class="language-plaintext highlighter-rouge">testOnly</code> can
+be used through the <code class="language-plaintext highlighter-rouge">withDebug</code> SBT command. For this to work, your remote
+configuration must specify the host of <code class="language-plaintext highlighter-rouge">localhost</code> and the port <code class="language-plaintext highlighter-rouge">5005</code>.
+The command syntax is <code class="language-plaintext highlighter-rouge">withDebug --debugger TASK_NAME -- TASK_PARAMETERS</code>,
+e.g. <code class="language-plaintext highlighter-rouge">withDebug --debugger testOnly -- *AtomConstructors*</code>.</li>
   <li>Now, when you want to debug something, you can place a breakpoint as usual in
 IntelliJ, and then execute your remote debugging configuration. Now, in the
 SBT shell, run a command to execute the code you want to debug (e.g.
@@ -1525,7 +1530,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-04 10:33:02 +0000"
+        "time": "2020-08-05 20:17:39 +0000"
     },
     "basePath": "",
     "book": {
