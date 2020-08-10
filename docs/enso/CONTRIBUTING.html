@@ -470,6 +470,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/SECURITY.html">
                     
@@ -830,6 +834,18 @@ compiler that they relate to.</p>
 
 <h3 id="system-requirements">System Requirements</h3>
 
+<p>The following operating systems are supported for developing Enso:</p>
+
+<ul>
+  <li>Windows 10</li>
+  <li>macOS 10.14 and above</li>
+  <li>Linux 4.4 and above</li>
+</ul>
+
+<p>Currently only the x86_64 (amd64) architecture is supported. You may be able to
+develop Enso on other systems, but issues arising from unsupported
+configurations will not be fixed by the core team.</p>
+
 <p>In order to build and run Enso you will need the following tools:</p>
 
 <ul>
@@ -844,6 +860,8 @@ for the same Java version as specified in <a href="../build.sbt"><code class="la
   <li><a href="https://doc.rust-lang.org/cargo/getting-started/installation.html">Cargo</a>,
 the rust build tool.</li>
   <li><a href="https://rustup.rs">Rustup</a>, the rust toolchain management utility.</li>
+  <li>On MacOS and Linux, the <code class="language-plaintext highlighter-rouge">tar</code> command is required for running some tests. It
+should be installed by default on most distributions.</li>
 </ul>
 
 <p>Managing multiple JVM installations can be a pain, so some of the team use
@@ -884,8 +902,8 @@ SSH Keys with GitHub).</li>
 
 <h3 id="getting-set-up-rust">Getting Set Up (Rust)</h3>
 
-<p>The SBT project requires a specific nightly rust toolchain. To get it set up, 
-you will need to install <a href="https://rustup.rs/">rustup</a> and then run the following 
+<p>The SBT project requires a specific nightly rust toolchain. To get it set up,
+you will need to install <a href="https://rustup.rs/">rustup</a> and then run the following
 commands:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rustup toolchain <span class="nb">install </span>nightly-2019-11-04
@@ -1110,9 +1128,9 @@ portion of these options after <code class="language-plaintext highlighter-rouge
 placeholders that we don’t use.</li>
   <li>Alternatively, certain tasks, such as <code class="language-plaintext highlighter-rouge">run</code>, <code class="language-plaintext highlighter-rouge">benchOnly</code> and <code class="language-plaintext highlighter-rouge">testOnly</code> can
 be used through the <code class="language-plaintext highlighter-rouge">withDebug</code> SBT command. For this to work, your remote
-configuration must specify the host of <code class="language-plaintext highlighter-rouge">localhost</code> and the port <code class="language-plaintext highlighter-rouge">5005</code>.
-The command syntax is <code class="language-plaintext highlighter-rouge">withDebug --debugger TASK_NAME -- TASK_PARAMETERS</code>,
-e.g. <code class="language-plaintext highlighter-rouge">withDebug --debugger testOnly -- *AtomConstructors*</code>.</li>
+configuration must specify the host of <code class="language-plaintext highlighter-rouge">localhost</code> and the port <code class="language-plaintext highlighter-rouge">5005</code>. The
+command syntax is <code class="language-plaintext highlighter-rouge">withDebug --debugger TASK_NAME -- TASK_PARAMETERS</code>, e.g.
+<code class="language-plaintext highlighter-rouge">withDebug --debugger testOnly -- *AtomConstructors*</code>.</li>
   <li>Now, when you want to debug something, you can place a breakpoint as usual in
 IntelliJ, and then execute your remote debugging configuration. Now, in the
 SBT shell, run a command to execute the code you want to debug (e.g.
@@ -1530,7 +1548,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-10 08:25:47 +0000"
+        "time": "2020-08-10 10:15:34 +0000"
     },
     "basePath": "",
     "book": {

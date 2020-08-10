@@ -448,6 +448,20 @@ search.start();
             
             
                 
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/infrastructure/native-image.html">
+                    
+                        <a href="/docs/enso/infrastructure/native-image.html">
+                            
+                                Native Image
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
             
             
             
@@ -697,8 +711,10 @@ compilation. The build configuration is defined in
       <li><a href="#flatbuffers-generation">Flatbuffers Generation</a></li>
       <li><a href="#ensuring-jars-were-loaded">Ensuring JARs Were Loaded</a></li>
       <li><a href="#debugging-command">Debugging Command</a></li>
+      <li><a href="#recompile-parser">Recompile Parser</a></li>
     </ul>
   </li>
+  <li><a href="#native-image">Native Image</a></li>
 </ul>
 
 <!-- /MarkdownTOC -->
@@ -862,19 +878,8 @@ This task ensures that the <code class="language-plaintext highlighter-rouge">sy
 
 <h2 id="native-image">Native Image</h2>
 
-<p><a href="../../project/NativeImage.scala"><code class="language-plaintext highlighter-rouge">NativeImage</code></a> defines a task that can compile
-a project into a native binary using Graal’s Native Image. It compiles the
-project and runs the Native Image tool which builds the image. To be able to use
-it, the Native Image component has to be installed within the used GraalVM
-distribution. It can be installed by running <code class="language-plaintext highlighter-rouge">gu install native-image</code>.</p>
-
-<p>The task is parametrized with <code class="language-plaintext highlighter-rouge">staticOnLinux</code> parameter which if set to <code class="language-plaintext highlighter-rouge">true</code>,
-will statically link the built binary, to ensure portability between Linux
-distributions. For Windows and MacOS, the binaries should generally be portable,
-as described in <a href="/docs/enso/distribution/launcher.html#portability">Launcher Portability</a>.</p>
-
-<p>As Native Image does not support cross-compilation, the native binaries can only
-be built for the platform and architecture that the build is running on.</p>
+<p><a href="../../project/NativeImage.scala"><code class="language-plaintext highlighter-rouge">NativeImage</code></a> task is described at
+<a href="/docs/enso/infrastructure/native-image.html">Native Image</a>.</p>
 
                         
                         
@@ -1109,7 +1114,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-10 08:25:47 +0000"
+        "time": "2020-08-10 10:15:34 +0000"
     },
     "basePath": "",
     "book": {
