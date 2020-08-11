@@ -896,9 +896,6 @@ protocol messages. These are specified here.</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">ContextId</span> <span class="o">=</span> <span class="nx">UUID</span><span class="p">;</span>
 </code></pre></div></div>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">SuggestionEntryId</span> <span class="o">=</span> <span class="nx">number</span><span class="p">;</span>
-</code></pre></div></div>
-
 <h3 id="stackitem"><code class="language-plaintext highlighter-rouge">StackItem</code></h3>
 
 <p>A representation of an executable position in code, used by the execution APIs.</p>
@@ -3529,7 +3526,7 @@ database.</p>
 <h4 id="result-37">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
-  <span class="nl">results</span><span class="p">:</span> <span class="p">[</span><span class="nx">SuggestionEntryId</span><span class="p">];</span>
+  <span class="nl">results</span><span class="p">:</span> <span class="p">[</span><span class="nx">SuggestionId</span><span class="p">];</span>
   <span class="nl">currentVersion</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -4228,7 +4225,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-10 12:36:29 +0000"
+        "time": "2020-08-11 12:19:15 +0000"
     },
     "basePath": "",
     "book": {
