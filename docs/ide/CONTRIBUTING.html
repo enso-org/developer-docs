@@ -248,16 +248,6 @@ search.start();
             
             
                 
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/ide/repository-structure.html">
-                    
-                        <a href="/docs/ide/repository-structure.html">
-                            
-                                repository-structure.md
-                            
-                        </a>
-                    </li>
-                
             
             
             
@@ -843,6 +833,20 @@ WASM debug symbols, minimize the output binaries, etc.), run
 <code class="language-plaintext highlighter-rouge">node ./run dist</code> instead. The final packages will be located at
 <code class="language-plaintext highlighter-rouge">app/dist/native</code>.</p>
   </li>
+  <li>
+    <p><strong>Selective mode</strong>
+In order to compile only part of the project, and thus drastically shorten 
+the incremental compile time, you are advised to use the selective 
+compilation mode by passing the <code class="language-plaintext highlighter-rouge">--crate</code> option to the <code class="language-plaintext highlighter-rouge">build</code> or <code class="language-plaintext highlighter-rouge">watch</code>
+command, e.g. <code class="language-plaintext highlighter-rouge">node ./watch --crate ensogl/example</code> to compile only the 
+renderer-related example scenes. Please note, that in order to run a scene
+in a web-browser, the scene has to be compiled and has to expose a public
+function with a name starting with <code class="language-plaintext highlighter-rouge">entry_point_</code>. Thus, if you compile 
+only selected crate, you will have access only to the example scenes that
+were defined or re-exported by that crate. In particular, the <code class="language-plaintext highlighter-rouge">ide</code> crate
+exposes the <code class="language-plaintext highlighter-rouge">entry_point_ide</code> function, so you have to compile it to test
+your code in the Enso IDE.</p>
+  </li>
 </ul>
 
 <h3 id="testing-linting-and-validation">Testing, Linting, and Validation</h3>
@@ -1122,7 +1126,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-13 12:23:59 +0000"
+        "time": "2020-08-14 07:24:19 +0000"
     },
     "basePath": "",
     "book": {
