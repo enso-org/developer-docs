@@ -352,6 +352,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/parser/tech-analysis.html">
                     
@@ -777,16 +781,25 @@ the compiler and runtime to work with the AST.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
+<ul>
+  <li><a href="#overall-architecture">Overall Architecture</a></li>
+</ul>
+
 <!-- /MarkdownTOC -->
 
-<blockquote>
-  <p>The actionables for this section are:</p>
+<h1 id="overall-architecture">Overall Architecture</h1>
 
-  <ul>
-    <li>Work out how on earth this is going to work.</li>
-    <li>Produce a detailed design for this functionality.</li>
-  </ul>
-</blockquote>
+<p>The JVM foreign function interface (FFI), named
+<a href="https://en.wikipedia.org/wiki/Java_Native_Interface">Java Native Interface</a>
+(JNI), enables the Rust parser library to call and be called by the parser
+library implemented in Scala.</p>
+
+<p>Specifically, in our architecture, the JNI is used for:</p>
+
+<ul>
+  <li>Invoking Rust parser methods from Scala.</li>
+  <li>Invoking Scala AST constructors from Rust.</li>
+</ul>
 
                         
                         
@@ -1021,7 +1034,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-14 07:24:19 +0000"
+        "time": "2020-08-14 09:11:51 +0000"
     },
     "basePath": "",
     "book": {
