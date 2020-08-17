@@ -804,11 +804,14 @@ code from modules.</p>
 <ul>
   <li><a href="#import-syntax">Import Syntax</a>
     <ul>
-      <li><a href="#visibility-of-imported-bindings">Visibility of Imported Bindings</a></li>
+      <li><a href="#qualified-imports">Qualified Imports</a></li>
+      <li><a href="#unqualified-imports">Unqualified Imports</a></li>
     </ul>
   </li>
   <li><a href="#export-syntax">Export Syntax</a>
     <ul>
+      <li><a href="#qualified-exports">Qualified Exports</a></li>
+      <li><a href="#unqualified-exports">Unqualified Exports</a></li>
       <li><a href="#visibility-of-export-bindings">Visibility of Export Bindings</a></li>
     </ul>
   </li>
@@ -818,56 +821,49 @@ code from modules.</p>
 
 <h2 id="import-syntax">Import Syntax</h2>
 
-<p>Importing a module is a way to bring its contents into scope in the current
-module. Imports in Enso appear as follows:</p>
+<p>There are two main ways of importing a module into the current scope.</p>
 
-<ul>
-  <li>They start with the <code class="language-plaintext highlighter-rouge">import</code> keyword.</li>
-  <li>The <code class="language-plaintext highlighter-rouge">import</code> keyword is followed by a module path (e.g. <code class="language-plaintext highlighter-rouge">Base.Vector.Unsafe</code>).</li>
-</ul>
+<h3 id="qualified-imports">Qualified Imports</h3>
 
-<p>From there, Enso imports are broken up into four main categories:</p>
+<p>These imports consist of the word <code class="language-plaintext highlighter-rouge">import</code> followed by a qualified name of a
+module. This can by optionally followed by the <code class="language-plaintext highlighter-rouge">as</code> word, and a referent name of
+the module as it should be visible in the importing scope.</p>
+
+<p>The only name brought into scope by such an import is the name of the module (or
+the name provided after the <code class="language-plaintext highlighter-rouge">as</code> keyword, if provided).</p>
+
+<h3 id="unqualified-imports">Unqualified Imports</h3>
+
+<p>Unqualified imports are broken up into three main categories:</p>
 
 <ol>
-  <li><strong>Unqualified Imports:</strong> These import all symbols from the module into the
-current scope, and consist only of the <code class="language-plaintext highlighter-rouge">import</code> keyword and a module path.
-Imported items are imported accessible without qualification.</li>
-  <li><strong>Qualified Imports:</strong> These import all symbols from the module into the
-current scope with symbols qualified under a name <em>different</em> from the
-module name. It consists of the <code class="language-plaintext highlighter-rouge">import</code> keyword followed by a module path
-followed by the <code class="language-plaintext highlighter-rouge">as</code> keyword, followed by a referent name.</li>
-  <li><strong>Restricted Imports:</strong> These import only the specific symbols from the
-module into the current scope. They consist of the <code class="language-plaintext highlighter-rouge">import</code> keyword,
-followed by a module path, followed by the <code class="language-plaintext highlighter-rouge">only</code> keyword, followed by a
-space-separated list of symbols.</li>
+  <li><strong>Unrestricted Imports:</strong> These import all symbols from the module into the
+current scope. They consist of the keyword <code class="language-plaintext highlighter-rouge">from</code>, followed by a qualified
+module name, followed by an optional rename part (using the <code class="language-plaintext highlighter-rouge">as</code> keyword),
+then the keywords <code class="language-plaintext highlighter-rouge">import all</code>. For example:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from Base.List as Builtin_List import all
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Restricted Imports:</strong> These import a specified set of names for use as
+automatically resolved referent names. They consist of the keyword <code class="language-plaintext highlighter-rouge">from</code>,
+followed by a qualified module name (with optional <code class="language-plaintext highlighter-rouge">as</code>-rename), then the
+word <code class="language-plaintext highlighter-rouge">import</code> followed by a coma-separated list of referent names to be
+imported. For example:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from Base.List import Cons, Nil
+</code></pre></div>    </div>
+  </li>
   <li><strong>Hiding Imports:</strong> These are the inverse of restricted imports, and import
-<em>all</em> symbols other than the named ones into the current scope. They consist
-of the <code class="language-plaintext highlighter-rouge">import</code> keyword, followed by a module path, followed by the keyword
-<code class="language-plaintext highlighter-rouge">only</code>, followed by a space-separated list of symbols.</li>
+<em>all</em> symbosl other than the named ones. They consist of the <code class="language-plaintext highlighter-rouge">from</code> keyword,
+followed by a qualified module name (with optional <code class="language-plaintext highlighter-rouge">as</code>-rename), then the
+words <code class="language-plaintext highlighter-rouge">import all hiding</code>, followed by a coma-separated list of referent
+names to be excluded from the import. For example:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from Base.List import all hiding Cons, Nil
+</code></pre></div>    </div>
+  </li>
 </ol>
-
-<p>The qualified import syntax can be combined with the restricted and hiding
-import syntaxes.</p>
-
-<p>By way of example, the following code uses a variety of import types:</p>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">import</span> <span class="no">A</span>                          <span class="c1"># unqualified</span>
-<span class="n">import</span> <span class="no">B</span> <span class="n">as</span> <span class="no">T</span>                     <span class="c1"># qualified</span>
-<span class="n">import</span> <span class="no">C</span> <span class="n">only</span> <span class="n">symbol_1</span> <span class="n">symbol_2</span>   <span class="c1"># restricted</span>
-<span class="n">import</span> <span class="no">D</span> <span class="n">hiding</span> <span class="n">symbol_1</span> <span class="n">symbol_2</span> <span class="c1"># hiding</span>
-<span class="n">import</span> <span class="no">E</span> <span class="n">as</span> <span class="no">U</span> <span class="n">only</span> <span class="n">symbol_3</span>       <span class="c1"># qualified + restricted</span>
-<span class="n">import</span> <span class="no">F</span> <span class="n">as</span> <span class="no">V</span> <span class="n">hiding</span> <span class="n">symbol_4</span>     <span class="c1"># qualified + hiding</span>
-</code></pre></div></div>
 
 <p>Imports in Enso <em>may</em> introduce ambiguous symbols, but this is not an error
 until one of the ambiguous symbols is <em>used</em> in Enso code.</p>
-
-<h3 id="visibility-of-imported-bindings">Visibility of Imported Bindings</h3>
-
-<p>When importing a module <code class="language-plaintext highlighter-rouge">X</code> into the current module <code class="language-plaintext highlighter-rouge">Y</code>, the bindings from <code class="language-plaintext highlighter-rouge">X</code>
-made available by the import (see above) become available in <code class="language-plaintext highlighter-rouge">Y</code>. However, Enso
-does not re-export imported bindings from a module by default, so the imported
-bindings from <code class="language-plaintext highlighter-rouge">X</code> are not visible in a module <em>importing</em> <code class="language-plaintext highlighter-rouge">Y</code>.</p>
 
 <h2 id="export-syntax">Export Syntax</h2>
 
@@ -875,49 +871,48 @@ bindings from <code class="language-plaintext highlighter-rouge">X</code> are no
 its users with a mechanism to <em>export</em> imported elements from modules. They
 appear in Enso as follows:</p>
 
-<ul>
-  <li>They start with the <code class="language-plaintext highlighter-rouge">export</code> keyword.</li>
-  <li>The <code class="language-plaintext highlighter-rouge">export</code> keyword is followed by a module name (e.g. <code class="language-plaintext highlighter-rouge">My_Module</code>) that is
-available in the current scope.</li>
-  <li>The <em>current</em> module is implicitly exported unqualified.</li>
-</ul>
+<h3 id="qualified-exports">Qualified Exports</h3>
 
-<p>From there, Enso exports are broken up into four main categories:</p>
+<p>These exports consist of the word <code class="language-plaintext highlighter-rouge">export</code> followed by a qualified name of a
+module. This can by optionally followed by the <code class="language-plaintext highlighter-rouge">as</code> word, and a referent name of
+the module as it should be visible in the exporting scope.</p>
+
+<p>The only name brought into scope by such an export is the name of the module (or
+the name provided after the <code class="language-plaintext highlighter-rouge">as</code> keyword, if provided).</p>
+
+<h3 id="unqualified-exports">Unqualified Exports</h3>
+
+<p>Unqualified exports are broken up into three main categories:</p>
 
 <ol>
-  <li><strong>Unqualified Exports:</strong> These export all symbols from the named module as
-if they were defined in the exporting module. They consist of the <code class="language-plaintext highlighter-rouge">export</code>
-keyword, followed by a visible module name.</li>
-  <li><strong>Qualified Exports:</strong> These export all symbols from the module as if they
-were defined in a module nested within the exporting module. It consists of
-the <code class="language-plaintext highlighter-rouge">export</code> keyword, followed by a module name, followed by the <code class="language-plaintext highlighter-rouge">as</code>
-keyword, followed by another module name.</li>
-  <li><strong>Restricted Exports:</strong> These export only the specified symbols from the
-exporting module, as if they were defined in the exporting module. It
-consists of the <code class="language-plaintext highlighter-rouge">export</code> keyword, followed by a module name, followed by the
-<code class="language-plaintext highlighter-rouge">only</code> keyword, and then a space-separated list of symbols.</li>
-  <li><strong>Hiding Exports:</strong> These export all symbols from the module <em>except</em> those
-explicitly specified. It consists of the <code class="language-plaintext highlighter-rouge">export</code> keyword, followed by a
-module name, followed by the <code class="language-plaintext highlighter-rouge">hiding</code> keyword, and then a space-separated
-list of symbols.</li>
+  <li><strong>Unrestricted Exports:</strong> These export all symbols from the module into the
+current scope. They consist of the keyword <code class="language-plaintext highlighter-rouge">from</code>, followed by a qualified
+module name, followed by an optional rename part (using the <code class="language-plaintext highlighter-rouge">as</code> keyword),
+then the keywords <code class="language-plaintext highlighter-rouge">export all</code>. For example:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from Base.List as Builtin_List export all
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Restricted Exports:</strong> These export a specified set of names, behaving as
+though they were redefined in the current scope. They consist of the keyword
+<code class="language-plaintext highlighter-rouge">from</code>, followed by a qualified module name (with optional <code class="language-plaintext highlighter-rouge">as</code>-rename), then
+the word <code class="language-plaintext highlighter-rouge">export</code> followed by a coma-separated list of names to be exported.
+For example:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from Base.List export Cons, Nil, from_vector
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Hiding Exports:</strong> These are the inverse of restricted exports, and export
+<em>all</em> symbols other than the named ones. They consist of the <code class="language-plaintext highlighter-rouge">from</code> keyword,
+followed by a qualified module name (with optional <code class="language-plaintext highlighter-rouge">as</code>-rename), then the
+words <code class="language-plaintext highlighter-rouge">export all hiding</code>, followed by a coma-separated list of names to be
+excluded from the export. For example:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from Base.List export all hiding from_vector, Nil
+</code></pre></div>    </div>
+  </li>
 </ol>
 
-<p>The qualified export syntax can be combined with the restricted and hiding
-export syntaxes.</p>
-
-<p>By way of example, the following code uses a variety of export types:</p>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">export</span> <span class="no">A</span>
-<span class="n">export</span> <span class="no">B</span> <span class="n">as</span> <span class="no">X</span>
-<span class="n">export</span> <span class="no">C</span> <span class="n">only</span> <span class="n">symbol_1</span>
-<span class="n">export</span> <span class="no">D</span> <span class="n">hiding</span> <span class="n">symbol_1</span>
-<span class="n">export</span> <span class="no">E</span> <span class="n">as</span> <span class="no">Y</span> <span class="n">only</span> <span class="n">symbol_1</span>
-<span class="n">export</span> <span class="no">F</span> <span class="n">as</span> <span class="no">Y</span> <span class="n">hiding</span> <span class="n">symbol_1</span>
-</code></pre></div></div>
-
-<p>In essence, an export allows the user to <code class="language-plaintext highlighter-rouge">paste</code> the contents of the module
+<p>In essence, an export allows the user to “paste” the contents of the module
 being exported into the module declaring the export. This means that exports
-that create name clashes need to be resolved at the <em>export</em> site.</p>
+that create name clashes must be resolved at the <em>export</em> site.</p>
 
 <h3 id="visibility-of-export-bindings">Visibility of Export Bindings</h3>
 
@@ -1157,7 +1152,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-14 09:11:51 +0000"
+        "time": "2020-08-17 15:45:54 +0000"
     },
     "basePath": "",
     "book": {
