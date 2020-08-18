@@ -738,6 +738,7 @@ future directions and enhancements to it.</p>
       <li><a href="#the-src-directory">The <code class="language-plaintext highlighter-rouge">src</code> Directory</a></li>
       <li><a href="#the-polyglot-directory">The <code class="language-plaintext highlighter-rouge">polyglot</code> Directory</a></li>
       <li><a href="#the-packageyaml-file">The <code class="language-plaintext highlighter-rouge">package.yaml</code> File</a></li>
+      <li><a href="#the-visualization-directory">The <code class="language-plaintext highlighter-rouge">visualization</code> Directory</a></li>
     </ul>
   </li>
   <li><a href="#build-reproducibility">Build Reproducibility</a></li>
@@ -756,11 +757,13 @@ future directions and enhancements to it.</p>
 │   │   └── jar.jar
 │   └── js
 │       └── library.js
-└── src
-    ├── Main.enso
-    └── Sub_Module
-        ├── Helper.enso
-        └── Util.enso
+├── src
+│   ├── Main.enso
+│   └── Sub_Module
+│       ├── Helper.enso
+│       └── Util.enso
+└── visualization (optional)
+    └── 
 </code></pre></div></div>
 
 <h3 id="the-src-directory">The <code class="language-plaintext highlighter-rouge">src</code> Directory</h3>
@@ -888,6 +891,18 @@ that are not included in the resolver. Defaults to an empty list.</p>
     <li>Extend the library version field to handle version bounds.</li>
   </ul>
 </blockquote>
+
+<h3 id="the-visualization-directory">The <code class="language-plaintext highlighter-rouge">visualization</code> Directory</h3>
+
+<p>As Enso is a visual language, a package may contain a specification of how data
+can be displayed in various tools, for example
+<a href="https://github.com/enso-org/ide">Enso IDE</a>. The Enso package structure may
+optionally contain a <code class="language-plaintext highlighter-rouge">visualization</code> directory which may contain visualization
+definitions.</p>
+
+<p>For more information on how visualization definitions should work with the Enso
+IDE, see
+<a href="https://dev.enso.org/docs/ide/product/visualizations.html#custom-visualization-example">this example</a>.</p>
 
 <h2 id="build-reproducibility">Build Reproducibility</h2>
 
@@ -1139,7 +1154,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-17 15:45:54 +0000"
+        "time": "2020-08-18 15:05:54 +0000"
     },
     "basePath": "",
     "book": {
