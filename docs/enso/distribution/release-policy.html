@@ -838,11 +838,32 @@ used with this release of Enso,</li>
 different Java versions, this specifies which variant to use.</li>
 </ul>
 
+<p>It can also contain the following additional fields:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">jvm-options</code> - specifies a list of options that should be passed to the JVM
+running the engine. These options can be used to fine-tune version specific
+optimization settings etc. Each option must have a key called <code class="language-plaintext highlighter-rouge">value</code> which
+specifies what option should be passed. That value can include a variable
+<code class="language-plaintext highlighter-rouge">$enginePackagePath</code> which is substituted with the absolute path to the root
+of the engine package that is being launched. Optionally, the option may
+define <code class="language-plaintext highlighter-rouge">os</code> which will restrict this option only to the provided operating
+system. Possible <code class="language-plaintext highlighter-rouge">os</code> values are <code class="language-plaintext highlighter-rouge">linux</code>, <code class="language-plaintext highlighter-rouge">macos</code> and <code class="language-plaintext highlighter-rouge">windows</code>.</li>
+</ul>
+
 <p>For example:</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">minimum-launcher-version</span><span class="pi">:</span> <span class="s">0.0.1</span>
 <span class="na">graal-vm-version</span><span class="pi">:</span> <span class="s">20.1.0</span>
 <span class="na">graal-java-version</span><span class="pi">:</span> <span class="m">11</span>
+<span class="na">jvm-options</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">-Dpolyglot.engine.IterativePartialEscape=true"</span>
+  <span class="pi">-</span> <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">-Dtruffle.class.path.append=$enginePackagePath</span><span class="se">\\</span><span class="s">component</span><span class="se">\\</span><span class="s">runtime.jar"</span>
+    <span class="na">os</span><span class="pi">:</span> <span class="s2">"</span><span class="s">windows"</span>
+  <span class="pi">-</span> <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">-Dtruffle.class.path.append=$enginePackagePath/component/runtime.jar"</span>
+    <span class="na">os</span><span class="pi">:</span> <span class="s2">"</span><span class="s">linux"</span>
+  <span class="pi">-</span> <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">-Dtruffle.class.path.append=$enginePackagePath/component/runtime.jar"</span>
+    <span class="na">os</span><span class="pi">:</span> <span class="s2">"</span><span class="s">macos"</span>
 </code></pre></div></div>
 
 <p>The <code class="language-plaintext highlighter-rouge">minimum-launcher-version</code> should be updated whenever a new version of Enso
@@ -1214,7 +1235,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-18 15:05:54 +0000"
+        "time": "2020-08-19 12:25:47 +0000"
     },
     "basePath": "",
     "book": {

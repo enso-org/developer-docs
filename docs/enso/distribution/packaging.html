@@ -818,6 +818,7 @@ The following is an example of this manifest file.</p>
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">license</span><span class="pi">:</span> <span class="s">MIT</span>
 <span class="na">name</span><span class="pi">:</span> <span class="s">My_Package</span>
 <span class="na">version</span><span class="pi">:</span> <span class="s">1.0.1</span>
+<span class="na">enso-version</span><span class="pi">:</span> <span class="s">0.1.0</span>
 <span class="na">author</span><span class="pi">:</span> <span class="s2">"</span><span class="s">John</span><span class="nv"> </span><span class="s">Doe</span><span class="nv"> </span><span class="s">&lt;john.doe@example.com&gt;"</span>
 <span class="na">maintainer</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Jane</span><span class="nv"> </span><span class="s">Doe</span><span class="nv"> </span><span class="s">&lt;jane.doe@example.com&gt;"</span>
 <span class="na">resolver</span><span class="pi">:</span> <span class="s">lts-1.2.0</span>
@@ -839,6 +840,13 @@ fields cannot be published.</p>
 <p><strong>Optional (required for publishing)</strong> <em>String</em>: The short license name of this
 package. Defaults to <code class="language-plaintext highlighter-rouge">None</code>, meaning the package is not safe for use by third
 parties.</p>
+
+<h4 id="enso-version">enso-version</h4>
+
+<p><strong>Optional (required for publishing)</strong> <em>String</em>: Specifies the Enso version that
+should be used for this project. If not set or set to <code class="language-plaintext highlighter-rouge">default</code>, the default
+locally installed Enso version will be used. The version should not be <code class="language-plaintext highlighter-rouge">default</code>
+if the package is to be published.</p>
 
 <h4 id="version">version</h4>
 
@@ -1154,7 +1162,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-18 15:05:54 +0000"
+        "time": "2020-08-19 12:25:47 +0000"
     },
     "basePath": "",
     "book": {

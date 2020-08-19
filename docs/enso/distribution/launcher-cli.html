@@ -975,12 +975,23 @@ command.</p>
 <p>Tells the launcher to use the default JVM (based on <code class="language-plaintext highlighter-rouge">JAVA_HOME</code>) instead of the
 managed one. Will not work if the set-up JVM version is not GraalVM.</p>
 
-<h2 id="jvm-options">JVM Options</h2>
+<h2 id="options-from-newer-versions">Options From Newer Versions</h2>
 
 <p>For commands that launch an Enso component inside a JVM (<code class="language-plaintext highlighter-rouge">repl</code>, <code class="language-plaintext highlighter-rouge">run</code> and
 <code class="language-plaintext highlighter-rouge">language-server</code>), parameters that the launcher does not know about (for
 example introduced in versions of Enso newer than the launcher knows about) may
 be passed after a double dash (<code class="language-plaintext highlighter-rouge">--</code>), i.e. <code class="language-plaintext highlighter-rouge">enso repl -- --someUnknownFlag</code>.</p>
+
+<h2 id="jvm-options">JVM Options</h2>
+
+<p>If an environment variable <code class="language-plaintext highlighter-rouge">ENSO_JVM_OPTS</code> is defined, JVM options defined there
+are passed to the launcher JVM.</p>
+
+<blockquote>
+  <p>Note: Currently the <code class="language-plaintext highlighter-rouge">ENSO_JVM_OPTS</code> are parsed by splitting on the space
+character, so individual options listed in this environment variable should
+not contain spaces or they may be interpreted incorrectly.</p>
+</blockquote>
 
 <p>Moreover, it is possible to pass parameters to the JVM that is used to launch
 these components, which may be helpful with debugging. A parameter of the form
@@ -1220,7 +1231,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-18 15:05:54 +0000"
+        "time": "2020-08-19 12:25:47 +0000"
     },
     "basePath": "",
     "book": {
