@@ -242,34 +242,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/semantics/">
                     
@@ -279,6 +251,34 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -833,9 +833,15 @@ exists.</p>
 
 <h2 id="export-statement-semantics">Export Statement Semantics</h2>
 
-<p>An export statement always exports the name of the exported module (possibly
-renamed). Additionally, any items explicitly mentioned in a <code class="language-plaintext highlighter-rouge">from</code> export,
-become available as though they were defined in the exporting module.</p>
+<p>A qualified export statement only exports the name of the exported module
+(possibly renamed).</p>
+
+<p>In a <code class="language-plaintext highlighter-rouge">from</code> export, any mentioned items become available as though they were
+defined in the exporting module.</p>
+
+<p>Please note it is explicitly forbidden for export statements across modules
+to form a cycle. If export statements cycle is detected, a compile error will
+be reported.</p>
 
 <h2 id="project-main-module">Project Main Module</h2>
 
@@ -1078,7 +1084,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-19 22:25:12 +0000"
+        "time": "2020-08-20 16:43:58 +0000"
     },
     "basePath": "",
     "book": {
