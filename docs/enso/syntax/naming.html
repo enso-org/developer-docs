@@ -806,10 +806,18 @@ giving Enso code a uniform identity.</p>
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
 <ul>
-  <li><a href="#naming-constructs">Naming Constructs</a></li>
+  <li><a href="#naming-constructs">Naming Constructs</a>
+    <ul>
+      <li><a href="#external-identifiers">External Identifiers</a></li>
+    </ul>
+  </li>
   <li><a href="#pattern-contexts">Pattern Contexts</a></li>
   <li><a href="#localised-naming">Localised Naming</a></li>
-  <li><a href="#operator-naming">Operator Naming</a></li>
+  <li><a href="#operator-naming">Operator Naming</a>
+    <ul>
+      <li><a href="#modifier-operators">Modifier Operators</a></li>
+    </ul>
+  </li>
   <li><a href="#reserved-names">Reserved Names</a></li>
 </ul>
 
@@ -867,6 +875,27 @@ conventions refer to that name already in scope.</li>
   <li>Using them in a type ascription (free variables).</li>
 </ul>
 
+<h3 id="external-identifiers">External Identifiers</h3>
+
+<p>As Enso has the ability to interface with many other programming languages in a
+highly-integrated fashion, it needs to be able to use naming styles from other
+languages natively. To do this, we have the concept of a <em>third</em> kind of
+identifier, called the ‘external’ identifier.</p>
+
+<p>An external identifier is one that doesn’t match either the variable or referent
+forms described above, for example <code class="language-plaintext highlighter-rouge">someJavaName</code>. It is not an <em>exclusive</em>
+category, however. Common styles of naming functions in Python, for example,
+will usually lex as variable identifiers.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Work out how and where to make a variable/referent distinction for external
+names.</li>
+  </ul>
+</blockquote>
+
 <h2 id="pattern-contexts">Pattern Contexts</h2>
 
 <p>A pattern context is a span in the code where variable identifiers (as described
@@ -922,12 +951,18 @@ names in the language server, and in Enso Studio.</p>
 <p>Operator names are those built solely from operator symbols (e.g. <code class="language-plaintext highlighter-rouge">+</code> or <code class="language-plaintext highlighter-rouge">&lt;*&gt;</code>).
 Operator symbols are defined as characters in the following set.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!$%&amp;*+-/&lt;&gt;?^~|:\,.()[]{}=
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>;!$%&amp;*+-/&lt;&gt;?^~|:\\=
 </code></pre></div></div>
 
 <p>Please note that not every sequence that can be created from the above is a
 <em>valid</em> operator name, as some may collide with built-in language constructs
 (e.g. <code class="language-plaintext highlighter-rouge">[</code> and <code class="language-plaintext highlighter-rouge">]</code>, which start and end a vector literal respectively).</p>
+
+<h3 id="modifier-operators">Modifier Operators</h3>
+
+<p>Barring specially defined operators (<code class="language-plaintext highlighter-rouge">=</code>, <code class="language-plaintext highlighter-rouge">==</code>, <code class="language-plaintext highlighter-rouge">!=</code>, <code class="language-plaintext highlighter-rouge">#=</code>, <code class="language-plaintext highlighter-rouge">&gt;=</code> and <code class="language-plaintext highlighter-rouge">&lt;=</code>), any
+operator that ends with an equals sign <code class="language-plaintext highlighter-rouge">=</code> is called a <em>modifier</em> operator.
+These will, in the future, have special treatment in the language.</p>
 
 <h2 id="reserved-names">Reserved Names</h2>
 
@@ -1203,7 +1238,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-26 23:10:22 +0000"
+        "time": "2020-08-27 12:28:31 +0000"
     },
     "basePath": "",
     "book": {

@@ -786,6 +786,28 @@ specific nodes on the AST.</p>
 
 <!-- /MarkdownTOC -->
 
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Work out how to ensure that precedence and associativity isn’t broken by the
+macro resolution phase.</li>
+    <li>Work out how to handle the special case for <code class="language-plaintext highlighter-rouge">,</code>. We don’t want comma to be
+subject to the variable precedence functionality, as conventional spacing
+for defining lists goes <code class="language-plaintext highlighter-rouge">[x, y, z]</code> and that should be allowed without the
+variable precedence happening.</li>
+    <li>Work out how to handle the special case for <code class="language-plaintext highlighter-rouge">-</code>. The expression <code class="language-plaintext highlighter-rouge">-n</code> should
+be treated as an application of the unary operator negate, while <code class="language-plaintext highlighter-rouge">- n</code>
+should be treated as part of a larger expression (e.g. a section,
+subtraction).</li>
+    <li>As Enso has no syntactic marker for the introduction of a lambda, we need to
+have a special case for <code class="language-plaintext highlighter-rouge">-&gt;</code> so that it has appropriate precedence on its
+left and right sides. Ideally, <code class="language-plaintext highlighter-rouge">map.fold 0 $ y -&gt; foo $ y</code> is resolved as
+<code class="language-plaintext highlighter-rouge">(map.fold 0) $ (y -&gt; (foo $ y))</code>. This makes writing code much more
+natural.</li>
+  </ul>
+</blockquote>
+
 <h2 id="resolution-algorithm">Resolution Algorithm</h2>
 
 <p>The operator resolution process uses a version of the classic
@@ -1035,7 +1057,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-26 23:10:22 +0000"
+        "time": "2020-08-27 12:28:31 +0000"
     },
     "basePath": "",
     "book": {

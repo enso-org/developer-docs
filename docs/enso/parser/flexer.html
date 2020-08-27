@@ -865,6 +865,11 @@ deactivated by using <code class="language-plaintext highlighter-rouge">flexer::
 from which they can inherit rules. This is fantastic for removing the need to
 repeat yourself when defining the lexer.</p>
 
+<p>When inheriting rules from a parent group, the rules from the parent group are
+matched strictly <em>after</em> the rules from the child group. This means that groups
+are able to selectively “override” the rules of their parents. Rules are still
+matched in order for each group’s set of rules.</p>
+
 <h3 id="patterns">Patterns</h3>
 
 <p>Rules are defined to match <em>patterns</em>. Patterns are regular-grammar-like
@@ -1211,7 +1216,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-26 23:10:22 +0000"
+        "time": "2020-08-27 12:28:31 +0000"
     },
     "basePath": "",
     "book": {
