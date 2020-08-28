@@ -366,10 +366,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
                     
                     <li class="chapter active" data-level="1.2" data-path="/docs/enso/CONTRIBUTING.html">
                     
@@ -528,6 +524,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/getting-enso.html">
                     
@@ -537,6 +537,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -866,6 +870,12 @@ the rust build tool.</li>
   <li><a href="https://rustup.rs">Rustup</a>, the rust toolchain management utility.</li>
   <li>On MacOS and Linux, the <code class="language-plaintext highlighter-rouge">tar</code> command is required for running some tests. It
 should be installed by default on most distributions.</li>
+  <li>If you want to be able to build the Launcher Native Image, you will need a
+native C compiler for your platform as described in the
+<a href="https://www.graalvm.org/reference-manual/native-image/#prerequisites">Native Image Prerequisites</a>.
+On Linux that will be <code class="language-plaintext highlighter-rouge">gcc</code>, on macOS you may need <code class="language-plaintext highlighter-rouge">xcode</code> and on Windows you
+need to configure the Developer Command Prompt for Microsoft Visual C++ for
+the x64 architecture.</li>
 </ul>
 
 <p>Managing multiple JVM installations can be a pain, so some of the team use
@@ -1013,7 +1023,7 @@ vanilla GraalVM distribution. To run it, use:</p>
 Native Image component is installed in your GraalVM distribution. To install it,
 run:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gu <span class="nb">install </span>native-image
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;path-to-graal-home&gt;/bin/gu <span class="nb">install </span>native-image
 </code></pre></div></div>
 
 <p>Then, you can build the launcher using:</p>
@@ -1552,7 +1562,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-27 12:28:31 +0000"
+        "time": "2020-08-28 11:04:06 +0000"
     },
     "basePath": "",
     "book": {

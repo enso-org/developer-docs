@@ -34,6 +34,8 @@
         
 
         
+            <link rel="next" href="/docs/enso/infrastructure/rust.html" />
+        
     </head>
     <body>
         
@@ -343,20 +345,6 @@ search.start();
             
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/enso/infrastructure/rust.html">
-                    
-                        <a href="/docs/enso/infrastructure/rust.html">
-                            
-                                Rust
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-                    
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/infrastructure/sbt.html">
                     
                         <a href="/docs/enso/infrastructure/sbt.html">
@@ -522,9 +510,15 @@ search.start();
             
             
                 
-            
-            
-            
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/infrastructure/rust.html">
+                    
+                        <a href="/docs/enso/infrastructure/rust.html">
+                            
+                                Rust
+                            
+                        </a>
+                    </li>
                 
             
             
@@ -549,6 +543,28 @@ search.start();
             
             
             
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/infrastructure/upgrading-graalvm.html">
+                    
+                        <a href="/docs/enso/infrastructure/upgrading-graalvm.html">
+                            
+                                Upgrading GraalVM
+                            
+                        </a>
+                    </li>
                 
             
             
@@ -728,7 +744,8 @@ Native Image is used for building the Launcher.</p>
 <h3 id="native-image-component">Native Image Component</h3>
 
 <p>The Native Image component has to be installed within the used GraalVM
-distribution. It can be installed by running <code class="language-plaintext highlighter-rouge">gu install native-image</code>.</p>
+distribution. It can be installed by running
+<code class="language-plaintext highlighter-rouge">&lt;path-to-graal-home&gt;/bin/gu install native-image</code>.</p>
 
 <h3 id="additional-linux-dependencies">Additional Linux Dependencies</h3>
 
@@ -741,12 +758,18 @@ suggested by Graal as an alternative. The sbt task automatically downloads a
 bundle containing all requirements for a static build with <code class="language-plaintext highlighter-rouge">musl</code>. It only
 requires a <code class="language-plaintext highlighter-rouge">tar</code> command to be available to extract the bundle.</p>
 
-<p>Currently, to enable compiling with <code class="language-plaintext highlighter-rouge">musl</code>, <code class="language-plaintext highlighter-rouge">-H:UseMuslC=/path/to/musl/bundle</code>
-option is added to the <code class="language-plaintext highlighter-rouge">native-image</code> command. In the future, the command may
-use a different option for enabling <code class="language-plaintext highlighter-rouge">musl</code> or even enable it by default, so the
-Native Image task may need updating with a newer Graal release. More information
-may be found in
+<p>Currently, to use <code class="language-plaintext highlighter-rouge">musl</code>, the <code class="language-plaintext highlighter-rouge">--libc=musl</code> option has to be added to the build
+and <code class="language-plaintext highlighter-rouge">gcc-musl</code> must be available in the system PATH for the native-image. In the
+future it is possible that a different option will be used or that the bundle
+will not be required anymore if it became prepackaged. This task may thus need
+an update when moving to a newer version of Graal. More information may be found
+in
 <a href="https://github.com/oracle/graal/blob/master/substratevm/STATIC-IMAGES.md">the Native Image documentation</a>.</p>
+
+<p>To make the bundle work correctly with GraalVM 20.2, a shell script called
+<code class="language-plaintext highlighter-rouge">gcc-musl</code> which loads the bundle’s configuration is created by the task and the
+paths starting with <code class="language-plaintext highlighter-rouge">/build/bundle</code> in <code class="language-plaintext highlighter-rouge">musl-gcc.specs</code> are replaced with
+absolute paths to the bundle location.</p>
 
 <h2 id="static-builds">Static Builds</h2>
 
@@ -952,6 +975,10 @@ search.start();
                 
 
                 
+                    <a href="/docs/enso/infrastructure/rust.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Rust">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
             
             </div>
 
@@ -1041,7 +1068,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-27 12:28:31 +0000"
+        "time": "2020-08-28 11:04:06 +0000"
     },
     "basePath": "",
     "book": {
