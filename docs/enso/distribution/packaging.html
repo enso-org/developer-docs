@@ -823,8 +823,12 @@ The following is an example of this manifest file.</p>
 <span class="na">name</span><span class="pi">:</span> <span class="s">My_Package</span>
 <span class="na">version</span><span class="pi">:</span> <span class="s">1.0.1</span>
 <span class="na">enso-version</span><span class="pi">:</span> <span class="s">0.1.0</span>
-<span class="na">author</span><span class="pi">:</span> <span class="s2">"</span><span class="s">John</span><span class="nv"> </span><span class="s">Doe</span><span class="nv"> </span><span class="s">&lt;john.doe@example.com&gt;"</span>
-<span class="na">maintainer</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Jane</span><span class="nv"> </span><span class="s">Doe</span><span class="nv"> </span><span class="s">&lt;jane.doe@example.com&gt;"</span>
+<span class="na">authors</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">John Doe</span>
+    <span class="na">email</span><span class="pi">:</span> <span class="s">john.doe@example.com</span>
+<span class="na">maintainers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Jane Doe</span>
+    <span class="na">email</span><span class="pi">:</span> <span class="s">jane.doe@example.com</span>
 <span class="na">resolver</span><span class="pi">:</span> <span class="s">lts-1.2.0</span>
 <span class="na">extra-dependencies</span><span class="pi">:</span>
   <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Base</span>
@@ -859,16 +863,24 @@ if the package is to be published.</p>
 format. If not set, it defaults to <code class="language-plaintext highlighter-rouge">dev</code> (which can be used for development, but
 is not a valid version for publishing).</p>
 
-<h4 id="author">author</h4>
+<h4 id="authors">authors</h4>
 
-<p><strong>Optional</strong> <em>String</em> or <em>List of Strings</em>: The name(s) and contact info(s) of
-the author(s) of this library, in the <code class="language-plaintext highlighter-rouge">Name &lt;contact&gt;</code> or <code class="language-plaintext highlighter-rouge">Name</code> format.</p>
+<p><strong>Optional</strong> <em>List of contacts</em>: The name(s) and contact info(s) of the
+author(s) of this library.</p>
 
-<h4 id="maintainer">maintainer</h4>
+<p>A contact is of the form:</p>
 
-<p><strong>Optional</strong> <em>String</em> or <em>List of Strings</em>: The name(s) and contact info(s) of
-the current maintainer(s) of this library, in the <code class="language-plaintext highlighter-rouge">Name &lt;contact&gt;</code> or <code class="language-plaintext highlighter-rouge">Name</code>
-format.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">Contact Name</span>
+<span class="na">email</span><span class="pi">:</span> <span class="s">email@example.com</span>
+</code></pre></div></div>
+
+<p>Both <code class="language-plaintext highlighter-rouge">name</code> and <code class="language-plaintext highlighter-rouge">email</code> fields are optional, but at least one of them has to be
+present.</p>
+
+<h4 id="maintainers">maintainers</h4>
+
+<p><strong>Optional</strong> <em>List of contacts</em>: The name(s) and contact info(s) of the current
+maintainer(s) of this library, in the same format as <code class="language-plaintext highlighter-rouge">authors</code> above.</p>
 
 <h4 id="resolver">resolver</h4>
 
@@ -1166,7 +1178,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-28 11:04:06 +0000"
+        "time": "2020-08-31 13:54:36 +0000"
     },
     "basePath": "",
     "book": {
