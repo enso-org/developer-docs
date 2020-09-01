@@ -853,6 +853,10 @@ specifies what option should be passed. That value can include a variable
 of the engine package that is being launched. Optionally, the option may
 define <code class="language-plaintext highlighter-rouge">os</code> which will restrict this option only to the provided operating
 system. Possible <code class="language-plaintext highlighter-rouge">os</code> values are <code class="language-plaintext highlighter-rouge">linux</code>, <code class="language-plaintext highlighter-rouge">macos</code> and <code class="language-plaintext highlighter-rouge">windows</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">broken</code> - can be set to <code class="language-plaintext highlighter-rouge">true</code> to mark this release as broken. This field is
+never set in a release. Instead, when the launcher is installing a release
+marked as broken using the <code class="language-plaintext highlighter-rouge">broken</code> file, it adds this property to the
+manifest to preserve that information.</li>
 </ul>
 
 <p>For example:</p>
@@ -1239,7 +1243,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-08-31 13:54:36 +0000"
+        "time": "2020-09-01 10:05:04 +0000"
     },
     "basePath": "",
     "book": {
