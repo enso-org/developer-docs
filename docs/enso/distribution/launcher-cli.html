@@ -778,14 +778,14 @@ developed.</li>
 <h3 id="new"><code class="language-plaintext highlighter-rouge">new</code></h3>
 
 <p>Create a new, empty project in a specified directory. By default uses the
-<code class="language-plaintext highlighter-rouge">default</code> enso version, which can be overriden with <code class="language-plaintext highlighter-rouge">--version</code>.</p>
+<code class="language-plaintext highlighter-rouge">default</code> enso version, which can be overriden with <code class="language-plaintext highlighter-rouge">--use-enso-version</code>.</p>
 
 <p>Examples:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso new project1 <span class="nt">--path</span> /somewhere/on/the/filesystem
-    <span class="c"># creates project called project1 in the specified directory</span>
+    <span class="c"># creates project called Project1 in the specified directory</span>
     <span class="c"># using the `default` Enso version</span>
-<span class="o">&gt;</span> enso new project2 <span class="nt">--version</span> 2.0.1
+<span class="o">&gt;</span> enso new project2 <span class="nt">--use-enso-version</span> 2.0.1
     <span class="c"># creates the project in the current directory, using the 2.0.1 version</span>
 </code></pre></div></div>
 
@@ -813,7 +813,7 @@ developed.</li>
 explained in
 <a href="/docs/enso/distribution/distribution.html#installed-enso-distribution-layout">Installed Enso Distribution Layout</a>.
 By default, it asks the user for confirmation, but this can be skipped by adding
-a <code class="language-plaintext highlighter-rouge">--yes</code> flag.</p>
+the <code class="language-plaintext highlighter-rouge">--auto-confirm</code> flag.</p>
 
 <p>Examples:</p>
 
@@ -830,7 +830,8 @@ Do you want to continue? [Y/n]
 described in
 <a href="/docs/enso/distribution/distribution.html#installed-enso-distribution-layout">Installed Enso Distribution Layout</a>.
 It removes the universal launcher and all components. By default, it asks the
-user for confirmation, but this can be skipped by adding a <code class="language-plaintext highlighter-rouge">--yes</code> flag.</p>
+user for confirmation, but this can be skipped by adding a <code class="language-plaintext highlighter-rouge">--auto-confirm</code>
+flag.</p>
 
 <p>Examples:</p>
 
@@ -879,17 +880,17 @@ default version is 2.0.1
 
 <h3 id="config"><code class="language-plaintext highlighter-rouge">config</code></h3>
 
-<p>Can be used to manage project configuration or global user configuration (if
-outside a project or with the <code class="language-plaintext highlighter-rouge">--global</code> flag).</p>
+<p>Can be used to manage global user configuration.</p>
 
-<p>If only the config path is provided, currently configured value is printed.</p>
+<p>If only the config path is provided, currently configured value is printed. If
+the provided value is an empty string, the given key is removed from the config.</p>
 
 <p>Examples:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso config <span class="nt">--global</span> author.name Example User
-<span class="o">&gt;</span> enso config author.name Example User
-<span class="o">&gt;</span> enso config author.name
-Example User
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso config author.name Example User <span class="c"># Sets `author.name`.</span>
+<span class="o">&gt;</span> enso config author.email <span class="c"># Prints current value.</span>
+user@example.com
+<span class="o">&gt;</span> enso config author.name <span class="s2">""</span> <span class="c"># Removes the value from the config.</span>
 </code></pre></div></div>
 
 <h3 id="run"><code class="language-plaintext highlighter-rouge">run</code></h3>
@@ -969,7 +970,7 @@ result.</p>
 
 <h2 id="general-options">General Options</h2>
 
-<h3 id="--version"><code class="language-plaintext highlighter-rouge">--version</code></h3>
+<h3 id="--use-enso-version"><code class="language-plaintext highlighter-rouge">--use-enso-version</code></h3>
 
 <p>Overrides the inferred (project local or <code class="language-plaintext highlighter-rouge">default</code>) version when running a
 command.</p>
@@ -1235,7 +1236,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-09-01 10:05:04 +0000"
+        "time": "2020-09-01 11:24:23 +0000"
     },
     "basePath": "",
     "book": {
