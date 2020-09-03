@@ -764,10 +764,14 @@ developed.</li>
   </li>
   <li><a href="#general-options">General Options</a>
     <ul>
-      <li><a href="#--version"><code class="language-plaintext highlighter-rouge">--version</code></a></li>
+      <li><a href="#--use-enso-version"><code class="language-plaintext highlighter-rouge">--use-enso-version</code></a></li>
       <li><a href="#--use-system-jvm"><code class="language-plaintext highlighter-rouge">--use-system-jvm</code></a></li>
+      <li><a href="#--auto-confirm"><code class="language-plaintext highlighter-rouge">--auto-confirm</code></a></li>
+      <li><a href="#--hide-progress"><code class="language-plaintext highlighter-rouge">--hide-progress</code></a></li>
+      <li><a href="#--ensure-portable"><code class="language-plaintext highlighter-rouge">--ensure-portable</code></a></li>
     </ul>
   </li>
+  <li><a href="#options-from-newer-versions">Options From Newer Versions</a></li>
   <li><a href="#jvm-options">JVM Options</a></li>
 </ul>
 
@@ -945,8 +949,10 @@ Launcher has been downgraded to version 2.0.1.
 <p>Prints the version of the installed launcher as well as the full version string
 of the currently selected Enso distribution.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso version
+<p>Flag <code class="language-plaintext highlighter-rouge">--json</code> can be added to get the output in JSON format, instead of the
+human-readable format that is the default.</p>
 
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso version
 Enso Launcher
 Version:    0.0.1
 Built with: scala-2.13.3 <span class="k">for </span>GraalVM 20.1.0
@@ -979,6 +985,21 @@ command.</p>
 
 <p>Tells the launcher to use the default JVM (based on <code class="language-plaintext highlighter-rouge">JAVA_HOME</code>) instead of the
 managed one. Will not work if the set-up JVM version is not GraalVM.</p>
+
+<h3 id="--auto-confirm"><code class="language-plaintext highlighter-rouge">--auto-confirm</code></h3>
+
+<p>Tells the launcher to not ask questions, but proceed with defaults. Useful for
+automation.</p>
+
+<h3 id="--hide-progress"><code class="language-plaintext highlighter-rouge">--hide-progress</code></h3>
+
+<p>Suppresses displaying progress bars for downloads and other long running
+actions. May be needed if program output is piped.</p>
+
+<h3 id="--ensure-portable"><code class="language-plaintext highlighter-rouge">--ensure-portable</code></h3>
+
+<p>Checks if the launcher is run in portable mode and if it is not, terminates the
+application.</p>
 
 <h2 id="options-from-newer-versions">Options From Newer Versions</h2>
 
@@ -1236,7 +1257,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-09-01 11:24:23 +0000"
+        "time": "2020-09-03 10:45:15 +0000"
     },
     "basePath": "",
     "book": {
