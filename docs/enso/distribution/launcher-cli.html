@@ -939,9 +939,11 @@ configuration.</p>
 <p>Examples:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso upgrade
-Launcher has been upgraded to the latest <span class="o">(</span>3.0.2<span class="o">)</span> version.
+...
+<span class="o">[</span>info] Successfully upgraded launcher to 3.0.2.
 <span class="o">&gt;</span> enso upgrade 2.0.1
-Launcher has been downgraded to version 2.0.1.
+...
+<span class="o">[</span>info] Successfully upgraded launcher to 2.0.1.
 </code></pre></div></div>
 
 <h3 id="version"><code class="language-plaintext highlighter-rouge">version</code></h3>
@@ -954,17 +956,17 @@ human-readable format that is the default.</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> enso version
 Enso Launcher
-Version:    0.0.1
-Built with: scala-2.13.3 <span class="k">for </span>GraalVM 20.1.0
-Built from: main @ 919ffbdfacc44cc35a1b38f1bad5b573acdbe358
-Running on: Linux 4.15.0-109-generic <span class="o">(</span>amd64<span class="o">)</span>
-Currently selected Enso version:
+Version:    0.1.0
+Built with: scala-2.13.3 <span class="k">for </span>GraalVM 20.2.0
+Built from: wip/rw/launcher-self-update<span class="k">*</span> @ c76f7fe6a9e9f37cd8a296c615b7515d1b896d73
+Built on:   Linux <span class="o">(</span>amd64<span class="o">)</span>
+Current default Enso engine:
 Enso Compiler and Runtime
-Version:    0.0.1
+Version:    0.1.1-rc5
 Built with: scala-2.13.3 <span class="k">for </span>GraalVM 20.1.0
-Built from: main @ 919ffbdfacc44cc35a1b38f1bad5b573acdbe358
+Built from: enso-0.1.1-rc5 @ 391eca6de06b0c642cf7868db62209a9af3d241d
 Running on: OpenJDK 64-Bit Server VM, GraalVM Community, JDK 11.0.7+10-jvmci-20.1-b02
-            Linux 4.15.0-108-generic <span class="o">(</span>amd64<span class="o">)</span>
+            Linux 4.15.0-112-generic <span class="o">(</span>amd64<span class="o">)</span>
 </code></pre></div></div>
 
 <p>Besides <code class="language-plaintext highlighter-rouge">enso version</code>, <code class="language-plaintext highlighter-rouge">enso --version</code> is also supported and yields the same
@@ -1257,7 +1259,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-09-03 10:45:15 +0000"
+        "time": "2020-09-09 13:38:40 +0000"
     },
     "basePath": "",
     "book": {

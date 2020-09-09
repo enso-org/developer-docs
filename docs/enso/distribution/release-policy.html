@@ -744,6 +744,8 @@ that we have a well-defined release policy. This document defines said policy.</
   <li><a href="#release-workflow">Release Workflow</a>
     <ul>
       <li><a href="#tag-naming">Tag Naming</a></li>
+      <li><a href="#manifest-files">Manifest Files</a></li>
+      <li><a href="#breaking-changes-to-launcher-upgrade">Breaking Changes to Launcher Upgrade</a></li>
       <li><a href="#github-releases">GitHub Releases</a></li>
       <li><a href="#release-notes">Release Notes</a></li>
     </ul>
@@ -821,13 +823,9 @@ official.</li>
 semver string (see <a href="#versioning">versioning</a>) representing the version being
 released.</p>
 
-<h3 id="github-releases">GitHub Releases</h3>
+<h3 id="manifest-files">Manifest Files</h3>
 
-<p>A release is considered <em>official</em> once it has been made into a release on
-<a href="https://github.com/enso-org/enso/releases">GitHub</a>. Once official, a release
-may not be changed in any way, except to mark it as broken.</p>
-
-<h4 id="manifest-file">Manifest File</h4>
+<h4 id="engine-manifest">Engine Manifest</h4>
 
 <p>Each GitHub release contains an asset named <code class="language-plaintext highlighter-rouge">manifest.yaml</code> which is a YAML file
 containing metadata regarding the release. The manifest is also included in the
@@ -879,6 +877,60 @@ introduces changes that require a more recent launcher version. This value is
 stored in
 <a href="../../distribution/manifest.template.yaml"><code class="language-plaintext highlighter-rouge">distribution/manifest.template.yaml</code></a>
 and other values are added to this template at build time.</p>
+
+<h4 id="launcher-manifest">Launcher Manifest</h4>
+
+<p>Additionally, each release should contain an asset named
+<code class="language-plaintext highlighter-rouge">launcher-manifest.yaml</code> which contains launcher-specific release metadata.</p>
+
+<p>It contains the following fields:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">minimum-version-for-upgrade</code> - specifies the minimum version of the launcher
+that is allowed to upgrade to this launcher version. If a launcher is older
+than the version specified here it must perform the upgrade in steps, first
+upgrading to an older version newer than <code class="language-plaintext highlighter-rouge">minimum-version-for-upgrade</code> and
+only then, using that version, to the target version. This logic ensures that
+if a newer launcher version required custom upgrade logic not present in older
+versions, the upgrade can still be performed by first upgrading to a newer
+version that does not require the new logic but knows about it and continuing
+the upgrade with that knowledge.</li>
+  <li><code class="language-plaintext highlighter-rouge">files-to-copy</code> - a list of files that should be copied into the
+distribution’s data root. This may include the <code class="language-plaintext highlighter-rouge">README</code> and similar files, so
+that after the upgrade these additional files are also up-to-date. These files
+are treated as non-essential, i.e. an error when copying them will not cancel
+the upgrade (but it should be reported).</li>
+  <li><code class="language-plaintext highlighter-rouge">directories-to-copy</code> - a list of directories that should be copied into the
+distribution’s data root. Acts similarly to <code class="language-plaintext highlighter-rouge">files-to-copy</code>.</li>
+</ul>
+
+<p>A template manifest file, located in
+<a href="../../distribution/launcher-manifest.yaml"><code class="language-plaintext highlighter-rouge">distribution/launcher-manifest.yaml</code></a>,
+is automatically copied to the release. If any new files or directories are
+added or a breaking change to the upgrade mechanism is being made, this manifest
+template must be updated accordingly.</p>
+
+<h3 id="breaking-changes-to-launcher-upgrade">Breaking Changes to Launcher Upgrade</h3>
+
+<p>If at any point the launcher’s upgrade mechanism needs an update, i.e.
+additional logic must be added that was not present before, special action is
+required.</p>
+
+<p>First, the additional logic has to be implemented and a new launcher version
+should be released which includes this additional logic, but does not require it
+yet. Then, another version can be released that can depend on this new logic and
+its <code class="language-plaintext highlighter-rouge">minimum-version-for-upgrade</code> has to be bumped to that previous version
+which already includes new logic but does not depend on it.</p>
+
+<p>This way, old launcher versions can first upgrade to a version that contains the
+new logic (as it does not depend on it yet, the upgrade is possible) and using
+that new version, upgrade to the target version that depends on that logic.</p>
+
+<h3 id="github-releases">GitHub Releases</h3>
+
+<p>A release is considered <em>official</em> once it has been made into a release on
+<a href="https://github.com/enso-org/enso/releases">GitHub</a>. Once official, a release
+may not be changed in any way, except to mark it as broken.</p>
 
 <h4 id="release-assets-structure">Release Assets Structure</h4>
 
@@ -1243,7 +1295,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-09-03 10:45:15 +0000"
+        "time": "2020-09-09 13:38:40 +0000"
     },
     "basePath": "",
     "book": {
