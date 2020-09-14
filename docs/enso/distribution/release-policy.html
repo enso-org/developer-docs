@@ -234,6 +234,18 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/">
                     
@@ -243,18 +255,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
                 
             
             
@@ -582,6 +582,20 @@ search.start();
             
             
                 
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/fallback-launcher-release-infrastructure.html">
+                    
+                        <a href="/docs/enso/distribution/fallback-launcher-release-infrastructure.html">
+                            
+                                Fallback Launcher Release Infrastructure
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
             
             
             
@@ -731,6 +745,17 @@ search.start();
 
 <p>As an open-source project and programming language, it is incredibly important
 that we have a well-defined release policy. This document defines said policy.</p>
+
+<blockquote>
+  <p><strong>Once a release has been made it is immutable. The release should only ever
+be edited to mark it as broken. Nothing else should ever be changed.</strong></p>
+
+  <p><strong>No two release workflows can be running at once, to avoid race conditions
+since releases
+<a href="/docs/enso/distribution/fallback-launcher-release-infrastructure.html#updating-the-release-list">must update files in S3</a>.
+Make sure that tags which trigger release builds are pushed sequentially, only
+pushing the next one after the previous build has finished.</strong></p>
+</blockquote>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
@@ -967,6 +992,24 @@ marking releases as broken that works as follows:</p>
 project specifies <em>an exact version match</em>, and it <em>must not</em> be used in new
 projects by the launcher unless <em>explicitly</em> specified by the user as an exact
 version match.</p>
+
+<p>When the release is marked as broken at GitHub, a GitHub Actions
+<a href="/docs/enso/distribution/fallback-launcher-release-infrastructure.html#marking-the-release-as-broken">Workflow</a>
+is triggered that also updates the release in the fallback mechanism. Given its
+current implementation is prone to race conditions when updating releases, the
+<code class="language-plaintext highlighter-rouge">broken</code> file should be added to releases one by one, making sure that only one
+update workflow is running at the same time and that no release workflows are
+running in parallel with it.</p>
+
+<p>In an unusual situation in which you want to upload a release that is marked as
+broken from the start, you should first publish it in a non-broken state and
+only mark it as broken after publishing. That is because the GitHub Workflow
+that will persist the broken mark to S3 is not triggered for release drafts.</p>
+
+<blockquote>
+  <p><strong>When marking the release as broken, you should make sure that the workflow
+persisting the broken mark to Se has succeeded and re-run it if necessary.</strong></p>
+</blockquote>
 
 <h3 id="release-notes">Release Notes</h3>
 
@@ -1295,7 +1338,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-09-11 09:38:48 +0000"
+        "time": "2020-09-14 09:06:39 +0000"
     },
     "basePath": "",
     "book": {
