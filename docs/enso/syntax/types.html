@@ -837,6 +837,7 @@ is a useful way of thinking about things when discussing type signatures.</p>
   <li><a href="#operations-on-types">Operations on Types</a></li>
   <li><a href="#type-definitions">Type Definitions</a>
     <ul>
+      <li><a href="#body-atom-definitions">Body Atom Definitions</a></li>
       <li><a href="#visibility-and-access-modifiers">Visibility and Access Modifiers</a></li>
     </ul>
   </li>
@@ -1239,6 +1240,30 @@ using the standard type-ascription syntax:</p>
     <span class="n">use</span> <span class="no">Nothing</span>
 </code></pre></div></div>
 
+<h3 id="body-atom-definitions">Body Atom Definitions</h3>
+
+<p>When defining an atom in the body of a type (as described above), there are two
+ways in which you can define an atom:</p>
+
+<ol>
+  <li><strong>Create a New Atom:</strong> Using the <code class="language-plaintext highlighter-rouge">type</code> keyword inside the body of a type
+will define a <em>new</em> atom with the fields you specify. The syntax for doing
+this is the same as that of a bare atom.</li>
+</ol>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">type</span> <span class="no">Just</span> <span class="n">value</span>
+</code></pre></div></div>
+
+<ol>
+  <li><strong>Include an Atom:</strong> You can also use a type body to define methods on an
+already existing atom. To do this, you can <em>include</em> the atom in the type’s
+body by naming it explicitly. This will introduce it into the scope of your
+type and define any methods you define in your type on the included atom.</li>
+</ol>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Nothing</span>
+</code></pre></div></div>
+
 <h3 id="visibility-and-access-modifiers">Visibility and Access Modifiers</h3>
 
 <p>While we don’t usually like making things private in a programming language, it
@@ -1530,7 +1555,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-09-17 12:47:09 +0000"
+        "time": "2020-09-17 12:59:32 +0000"
     },
     "basePath": "",
     "book": {
