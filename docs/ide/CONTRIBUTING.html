@@ -788,30 +788,23 @@ and the <a href="https://dev.enso.org/docs/style-guide/rust.html">Rust style gui
 before contributing to the codebase.</p>
 
 <h3 id="setting-up-engine-services">Setting up Engine Services</h3>
-<p>IDE requires a service named Project Picker to be running in the background
-on the local machine. The service, being part of the Enso Engine, currently
-must be built from the sources on the 
-<a href="https://github.com/luna/enso">enso repository</a>. If the service is not running,
-the IDE will not start.</p>
+<p>IDE requires a service named Project Manager to be running in the background
+on the local machine. The service, being part of the Enso Engine, can be
+downloaded from <a href="https://github.com/enso-org/enso/actions?query=workflow%3A&quot;Engine+CI&quot;+branch%3Amain">per-commit builds</a>.</p>
 
-<p>However, it is possible to hack on many components of the IDE without the
-service. The debug scenes and tests will work even without the Project Picker.</p>
+<p>If the service is not running,the IDE will not start. However, it is possible 
+to hack on many components of the IDE without the service. The debug scenes 
+and tests will work even without the Project Manager.</p>
 
-<p>To run Project Picker, it must be first built — please follow the Enso
-Engine 
-<a href="https://github.com/luna/enso/blob/main/docs/CONTRIBUTING.md">contributing guidelines</a>
-to obtain sources and necessary tools. When they are in place, the service
-can be built and started by issuing the following command in the <a href="https://github.com/luna/enso">enso
- repository</a> root:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt -java-home $JAVA_HOME -J-Xss10M project-manager/run
-</code></pre></div></div>
-
-<p>Where <code class="language-plaintext highlighter-rouge">$JAVA_HOME</code> is the path where <code class="language-plaintext highlighter-rouge">graalvm-ce-java8-20.0.0</code> is located.</p>
+<p>The Project Manager requires to be run with the GraalVM version <code class="language-plaintext highlighter-rouge">20.2.0</code> and it 
+must be the Java 11 build. You can download it from <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.2.0">here</a>,
+and install according to the <a href="https://www.graalvm.org/docs/getting-started-with-graalvm/#install-graalvm">instructions</a>.
+Remember to set <code class="language-plaintext highlighter-rouge">$PATH</code> and <code class="language-plaintext highlighter-rouge">$JAVA_HOME</code> to the GraalVM installation directory.</p>
 
 <p>In future significant improvements to this process are planned, specifically:</p>
 <ul>
   <li>not requiring the engine to be able to start the IDE;</li>
-  <li>providing self-contained Project Picker service packages.</li>
+  <li>providing self-contained Project Manager service packages.</li>
 </ul>
 
 <h3 id="development">Development</h3>
@@ -1142,7 +1135,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-09-15 13:06:23 +0000"
+        "time": "2020-09-17 12:47:09 +0000"
     },
     "basePath": "",
     "book": {
