@@ -708,9 +708,12 @@ search.start();
 <h4 id="node-editing">Node Editing</h4>
 <p>| Shortcut | Action |
 | ——– | —— |
-| <kbd>Ctrl</kbd>+<kbd>n</kbd> | Creates an empty node. |
+| <kbd>Shift</kbd>+<kbd>Tab</kbd> | Show searcher for adding new node. |
 | <kbd>Ctrl</kbd>+<kbd>Backspace</kbd> | Removes the selected nodes. |
-| <kbd>Ctrl</kbd>+<kbd>g</kbd> | Collapses the selected nodes. |</p>
+| <kbd>Ctrl</kbd>+<kbd>g</kbd> | Collapses the selected nodes. |
+| <kbd>Ctrl</kbd>+<kbd>LMB</kbd> | Start editing node expression. |
+| <kbd>Enter</kbd> when suggestion is selected, or <kbd>LMB</kbd> on suggestion | Pick selected suggestion and commit editing. |
+| <kbd>Enter</kbd> <em>when suggestion is not selected</em> | Commit editing with the current input. |</p>
 
 <h4 id="navigation">Navigation</h4>
 
@@ -754,18 +757,6 @@ search.start();
     <tr>
       <td><kbd>LMB</kbd> drag background</td>
       <td>Deselect all nodes. Select nodes using selection-box.</td>
-    </tr>
-    <tr>
-      <td><kbd>cmd</kbd> / <kbd>ctrl</kbd> + <kbd>LMB</kbd> click node name</td>
-      <td>Add or remove node from the selection group.</td>
-    </tr>
-    <tr>
-      <td><kbd>cmd</kbd> / <kbd>ctrl</kbd> + <kbd>LMB</kbd> click node name</td>
-      <td>Add or remove node from the selection group.</td>
-    </tr>
-    <tr>
-      <td><kbd>cmd</kbd> / <kbd>ctrl</kbd> + <kbd>LMB</kbd> drag background</td>
-      <td>Add nodes to the selection group.</td>
     </tr>
     <tr>
       <td><kbd>shift</kbd> + <kbd>LMB</kbd> click node name</td>
@@ -1076,7 +1067,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-09-17 12:59:32 +0000"
+        "time": "2020-09-17 14:37:15 +0000"
     },
     "basePath": "",
     "book": {
