@@ -792,8 +792,9 @@ future directions and enhancements to it.</p>
 │   └── Sub_Module
 │       ├── Helper.enso
 │       └── Util.enso
-└── visualization (optional)
-    └── ...
+├── visualization (optional)
+│   └── ...
+└── data (optional)
 </code></pre></div></div>
 
 <h3 id="the-src-directory">The <code class="language-plaintext highlighter-rouge">src</code> Directory</h3>
@@ -837,6 +838,12 @@ last segment.</li>
 used by the supported polyglot languages. The contents of each subdirectory is
 specified on a per-language basis, in the
 <a href="/docs/enso/polyglot/">polyglot documentation</a>.</p>
+
+<h3 id="the-data-directory">The <code class="language-plaintext highlighter-rouge">data</code> Directory</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">data</code> directory contains any data files and resources that the user needs
+quick access to. Allows referring to resource files in a location-independent
+way, by using the <code class="language-plaintext highlighter-rouge">Enso_Project.data</code> method.</p>
 
 <h3 id="the-packageyaml-file">The <code class="language-plaintext highlighter-rouge">package.yaml</code> File</h3>
 
@@ -1204,7 +1211,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-10-09 09:28:56 +0000"
+        "time": "2020-10-09 12:06:24 +0000"
     },
     "basePath": "",
     "book": {
