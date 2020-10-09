@@ -599,9 +599,9 @@ search.start();
             
                 
                     
-                    <li class="chapter active" data-level="1.2" data-path="/docs/enso/distribution/licences.html">
+                    <li class="chapter active" data-level="1.2" data-path="/docs/enso/distribution/licenses.html">
                     
-                        <a href="/docs/enso/distribution/licences.html">
+                        <a href="/docs/enso/distribution/licenses.html">
                             
                                 Licenses
                             
@@ -768,10 +768,11 @@ dependencies that we distribute with Enso.</p>
   </li>
   <li><a href="#preparing-the-distribution">Preparing the Distribution</a>
     <ul>
-      <li><a href="#launcher">Launcher</a></li>
-      <li><a href="#engine-components">Engine Components</a></li>
+      <li><a href="#review">Review</a></li>
     </ul>
   </li>
+  <li><a href="#standard-library">Standard Library</a></li>
+  <li><a href="#bundles">Bundles</a></li>
 </ul>
 
 <!-- /MarkdownTOC -->
@@ -783,31 +784,29 @@ distributed artifacts.</p>
 
 <h3 id="sbt">SBT</h3>
 
-<p>We can use the plugin <code class="language-plaintext highlighter-rouge">sbt-license-report</code> to gather a list of used dependencies
-and their licences. To use it, run <code class="language-plaintext highlighter-rouge">enso/dumpLicenseReport</code> in the SBT shell.
-This will gather dependency information for all the subprojects. For each
-subproject, <code class="language-plaintext highlighter-rouge">license-reports</code> directory will be created in its <code class="language-plaintext highlighter-rouge">target</code>
-directory, containing the reports in multiple formats.</p>
+<p>We use a <code class="language-plaintext highlighter-rouge">GatherLicenses</code> task that uses the <code class="language-plaintext highlighter-rouge">sbt-license-report</code> and other
+sources to gather copyright information related to the used dependencies.</p>
 
-<p>It is important to note that the report for the root <code class="language-plaintext highlighter-rouge">enso</code> project will not
-contain dependencies of the subprojects. Instead, to list the relevant
-dependencies, you need to look at the reports for the subprojects that are
-actually built into distributable artifacts. For now these are: <code class="language-plaintext highlighter-rouge">runtime</code>,
-<code class="language-plaintext highlighter-rouge">runner</code>, <code class="language-plaintext highlighter-rouge">project-manager</code> and <code class="language-plaintext highlighter-rouge">launcher</code>.</p>
+<p>To configure the task, <code class="language-plaintext highlighter-rouge">GatherLicenses.distributions</code> should be set with
+sequence of distributions. Each distribution describes one component that is
+distributed separately and should include all references to all projects that
+are included as part of its distribution. Currently, we have the <code class="language-plaintext highlighter-rouge">launcher</code>
+distribution that consists of one <code class="language-plaintext highlighter-rouge">launcher</code> component and the <code class="language-plaintext highlighter-rouge">engine</code>
+distribution which includes <code class="language-plaintext highlighter-rouge">runtime</code>, <code class="language-plaintext highlighter-rouge">engine-runner</code> and <code class="language-plaintext highlighter-rouge">project-manager</code>.</p>
 
-<h4 id="sbt-license-report-configuration"><code class="language-plaintext highlighter-rouge">sbt-license-report</code> Configuration</h4>
+<p>Another relevant setting is <code class="language-plaintext highlighter-rouge">GatherLicenses.licenseConfigurations</code> which defines
+which <code class="language-plaintext highlighter-rouge">ivy</code> configurations are considered to search for dependencies. Currently
+it is set to only consider <code class="language-plaintext highlighter-rouge">compile</code> dependencies, as dependencies for
+<code class="language-plaintext highlighter-rouge">provided</code>, <code class="language-plaintext highlighter-rouge">test</code> or <code class="language-plaintext highlighter-rouge">benchmark</code> are not distributed and there are no
+<code class="language-plaintext highlighter-rouge">assembly</code>-specific dependencies.</p>
 
-<p>Settings for the plugin are defined in the <code class="language-plaintext highlighter-rouge">licenseSettings</code> variable in
-<a href="../../build.sbt"><code class="language-plaintext highlighter-rouge">build.sbt</code></a>. The settings have to be applied to each project
-by adding <code class="language-plaintext highlighter-rouge">.settings(licenseSettings)</code> to the project definition (defining these
-settings at the top level or in the <code class="language-plaintext highlighter-rouge">ThisBuild</code> configuration yielded no
-effects, so this workaround is required).</p>
+<p><code class="language-plaintext highlighter-rouge">GatherLicenses.configurationRoot</code> specifies where the review tool will look for
+the files specifying review state and <code class="language-plaintext highlighter-rouge">GatherLicenses.distributionRoot</code>
+specifies where the final notice packages should be generated.</p>
 
-<p>The most relevant setting is <code class="language-plaintext highlighter-rouge">licenseConfigurations</code> which defines which <code class="language-plaintext highlighter-rouge">ivy</code>
-configurations are considered to search for dependencies.</p>
-
-<p>Currently it is set to only consider <code class="language-plaintext highlighter-rouge">compile</code> dependencies, as dependencies for
-<code class="language-plaintext highlighter-rouge">provided</code>, <code class="language-plaintext highlighter-rouge">test</code> or <code class="language-plaintext highlighter-rouge">benchmark</code> are not distributed.</p>
+<p>To run the automated license gathering task, run <code class="language-plaintext highlighter-rouge">enso/gatherLicenses</code> in SBT.
+This will create a report and packages which are described in the
+<a href="#preparing-the-distribution">next section</a>.</p>
 
 <h3 id="rust">Rust</h3>
 
@@ -820,54 +819,235 @@ configurations are considered to search for dependencies.</p>
     <li>When the parser is rewritten to Rust and is distributed within the
 artifacts, this section should be revisited to describe a scheme of
 gathering dependencies used in the Rust projects.</li>
+    <li>It would be good to re-use the SBT task as much as possible, possibly by
+creating a frontend for it using <code class="language-plaintext highlighter-rouge">cargo-license</code>.</li>
   </ul>
 </blockquote>
 
 <h2 id="preparing-the-distribution">Preparing the Distribution</h2>
 
-<p>When a new dependency is added, its transitive dependencies have to be analysed
-as described in the previous section. Various action has to be taken depending
-on the particular licences.</p>
+<p>When a new dependency is added, the <code class="language-plaintext highlighter-rouge">enso/gatherLicenses</code> should be re-run to
+generate the updated report.</p>
 
-<p>For most dependencies under the Apache, MIT or BSD licences, a copy of the
-licence has to be included within the distribution and if the dependency
-includes a <code class="language-plaintext highlighter-rouge">NOTICE</code> file, the contents of this file have to be reproduced within
-the distribution by adding them to an aggregate <code class="language-plaintext highlighter-rouge">NOTICE</code> file. To find these
-<code class="language-plaintext highlighter-rouge">NOTICE</code> files it may be necessary to walk through the <code class="language-plaintext highlighter-rouge">JAR</code>s containing the
-dependencies or visit project websites of each dependency.</p>
+<p>The report can be opened in review mode by launching a server located in
+<code class="language-plaintext highlighter-rouge">tools/legal-review-helper</code> by running <code class="language-plaintext highlighter-rouge">npm start</code> in that directory.
+Alternatively, <code class="language-plaintext highlighter-rouge">enso/openLegalReviewReport</code> can be used instead to automatically
+open the report in review-mode after generating it (but it requires <code class="language-plaintext highlighter-rouge">npm</code> to be
+visible on the system PATH in SBT).</p>
 
-<h3 id="launcher">Launcher</h3>
+<p>The report will show what license the dependencies use and include any copyright
+notices and files found within each dependency.</p>
 
-<p>As the launcher is distributed as a native binary executable, the licences and
-notices have to be included separately.</p>
+<p>Each copyright notice and file should be reviewed to decide if it should be kept
+or ignored. If a notice is automatically detected in a wrong way, it should be
+ignored and a fixed one should be added manually. The review process is
+described in detail in the <a href="#review">next section</a>.</p>
 
-<p>The licences should be put in the
-<a href="../../distribution/launcher/components-licences"><code class="language-plaintext highlighter-rouge">distribution/launcher/components-licences</code></a>
-directory. The notices should be gathered in
-<a href="../../distribution/launcher/NOTICE"><code class="language-plaintext highlighter-rouge">distribution/launcher/NOTICE</code></a>. These
-files are included by the CI build within the built artifacts.</p>
+<p>Each new type of license has to be reviewed to ensure that it is compatible with
+our distribution and usage scheme. Licenses are reviewed per-distribution, as
+for example the binary distribution of the launcher may impose different
+requirements than distribution of the engine as JARs.</p>
 
-<h3 id="engine-components">Engine Components</h3>
+<p>After the review is done, the <code class="language-plaintext highlighter-rouge">enso/gatherLicenses</code> should be re-run again to
+generate the updated packages that are included in the distribution. Before a PR
+is merged, it should be ensure that there are no warnings in the generation. The
+packages are located in separate subdirectories of the <code class="language-plaintext highlighter-rouge">distribution</code> directory
+for each artifact.</p>
 
-<h4 id="standard-library">Standard Library</h4>
+<blockquote>
+  <p>This may possibly be automated in the next PR that includes the current legal
+review. The generating task could write a file indicating if there were any
+warnings and containing a hash of the dependency list. The build job on CI
+could then run a task <code class="language-plaintext highlighter-rouge">verifyLegalReview</code> which would check if there are no
+warnings and if the review is up to date (by comparing the hash of the
+dependency list at the time of the review with the current one).</p>
+</blockquote>
+
+<blockquote>
+  <p>TODO [RW] currently the auto-generated notice packages are not included in the
+built artifacts. That is because the legal review settings have not yet been
+prepared. Once that is done, the CI should be modified accordingly. This will
+be updated in the next PR.</p>
+</blockquote>
+
+<h3 id="review">Review</h3>
+
+<p>The review can be performed manually by modifying the settings inside of the
+<code class="language-plaintext highlighter-rouge">tools/legal-review</code> directory or it can be partially automated.</p>
+
+<h4 id="review-process">Review Process</h4>
+
+<ol>
+  <li>Open the review in edit mode using the helper script.
+    <ul>
+      <li>You can type <code class="language-plaintext highlighter-rouge">enso / openLegalReviewReport</code> if you have <code class="language-plaintext highlighter-rouge">npm</code> in your PATH
+as visible from SBT.</li>
+      <li>Or you can just run <code class="language-plaintext highlighter-rouge">npm start</code> (and <code class="language-plaintext highlighter-rouge">npm install</code> if needed) in the
+<code class="language-plaintext highlighter-rouge">tools/legal-review-helper</code> directory.</li>
+    </ul>
+  </li>
+  <li>For each package listed in the review for a given distribution:
+    <ol>
+      <li>Review licenses
+        <ul>
+          <li>Make sure that the component’s license is accepted - that we know that
+its license type is compatible with our distribution scheme.</li>
+          <li>When a license is accepted, a file should be added in the
+<code class="language-plaintext highlighter-rouge">reviewed-licenses</code> directory, with name as indicated in the report. The
+file should contain a single line that is the path (relative to
+repository root) to the default license file for that license type which
+should be included in the distribution.
+            <ul>
+              <li>The license may have been already accepted if it is the same license
+as earlier dependencies for the same artifact.</li>
+            </ul>
+          </li>
+          <li>Check if any license-like files have been automatically found in the
+attached files. If an attached file contains (case-insensitive)
+‘license’ or ‘licence’ in its name, the review tool will compare it with
+the default license file.
+            <ul>
+              <li>To trigger this comparison, the license must have been already
+reviewed when the report was being generated, so you may consider
+re-running the report after reviewing the license types to get this
+information.</li>
+              <li>If an attached file is exactly the same as the license file, it can be
+safely ignored.</li>
+              <li>If an attached file differs from the default license file, it should
+be carefully checked.
+                <ul>
+                  <li>Most of the time, that file should be marked as kept and the default
+license ignored.</li>
+                  <li>To ignore the default license, create an empty file <code class="language-plaintext highlighter-rouge">custom-license</code>
+inside the directory belonging to the relevant package.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Review which files to include
+        <ul>
+          <li>You can click on a filename to display its contents.</li>
+          <li>We want to include any NOTICE files that contain copyright notices or
+credits.</li>
+          <li>False-positives (unrelated files) or duplicates may be ignored.</li>
+        </ul>
+      </li>
+      <li>Review copyright notices
+        <ul>
+          <li>You may click on a copyright line to display context (surrounding text)
+and in which files it was found.</li>
+          <li>We want to include most of the notices, as it is better to include
+duplicates rather than skip something important.</li>
+          <li>But we need to ignore false-positives, for example code that contains
+the word ‘copyright’ in it and was falsely classified.</li>
+          <li>You may click ‘Keep’ to add the displayed copyright line to the
+copyright notice or if there is exactly one context associated with the
+line, you can click ‘Keep as context’ to add this whole context to the
+notice.</li>
+        </ul>
+      </li>
+      <li>Add missing information
+        <ul>
+          <li>You can manually add additional copyright notices by adding them to a
+file <code class="language-plaintext highlighter-rouge">copyright-add</code> inside the directory belonging to the relevant
+package.</li>
+          <li>You can manually add additional files by adding them into a subdirectory
+called <code class="language-plaintext highlighter-rouge">files-add</code> located in the directory belonging to the relevant
+package.</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li>Add any additional information:
+    <ul>
+      <li>You can add additional files by adding them into a subdirectory called
+<code class="language-plaintext highlighter-rouge">files-add</code> in the root directory of distribution configuration.</li>
+      <li>You can create a custom notice header that will replace the default one, by
+creating a file called <code class="language-plaintext highlighter-rouge">notice-header</code>.</li>
+    </ul>
+  </li>
+  <li>After you are done, re-run <code class="language-plaintext highlighter-rouge">enso/gatherLicenses</code> to generate the updated
+packages.
+    <ul>
+      <li>Ensure that there are no more warnings, and if there are any go back to fix
+the issues.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>The updates performed using the web script are remembered locally, so they will
+not show up after the refresh. If you ever need to open the edit mode after
+closing its window, you should re-generate the report using
+<code class="language-plaintext highlighter-rouge">enso/gatherLicenses</code> or just open it using <code class="language-plaintext highlighter-rouge">enso/openLegalReviewReport</code> which
+will refresh it automatically.</p>
+
+<h4 id="review-configuration">Review Configuration</h4>
+
+<p>The review state is driven by configuration files located in
+<code class="language-plaintext highlighter-rouge">tools/legal-review</code>. This directory contains separate subdirectories for each
+artifact.</p>
+
+<p>The subdirectory for each artifact may contain the following entries:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">notice-header</code> - contains the header that will start the main generated
+NOTICE</li>
+  <li><code class="language-plaintext highlighter-rouge">files-add</code> - directory that may contain additional files that should be added
+to the notice package</li>
+  <li><code class="language-plaintext highlighter-rouge">reviewed-licenses</code> - directory that may contain files for reviewed licenses;
+the files should be named with the normalized license name and they should
+contain a path to that license’s file (the path should be relative to the
+repository root)</li>
+  <li>and for each dependency, a subdirectory named as its <code class="language-plaintext highlighter-rouge">packageName</code> with
+following entries:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">files-add</code> - directory that may contain additional files that should be
+added to the subdirectory for this package</li>
+      <li><code class="language-plaintext highlighter-rouge">files-keep</code> - a file containing names of files found in the package sources
+that should be included in the package</li>
+      <li><code class="language-plaintext highlighter-rouge">files-ignore</code> - a file containing names of files found in the package
+sources that should not be included</li>
+      <li><code class="language-plaintext highlighter-rouge">custom-license</code> - a file that indicates that the dependency should not
+point to the default license, but it should contain a custom one within its
+files</li>
+      <li><code class="language-plaintext highlighter-rouge">copyright-keep</code> - copyright lines that should be included in the notice
+summary for the package</li>
+      <li><code class="language-plaintext highlighter-rouge">copyright-keep-context</code> - copyright lines that should be included
+(alongside with their context) in the notice summary for the package</li>
+      <li><code class="language-plaintext highlighter-rouge">copyright-ignore</code> - copyright lines that should not be included in the
+notice summary for the package</li>
+      <li><code class="language-plaintext highlighter-rouge">copyright-add</code> - a single file whose contents will be added to the notice
+summary for the package</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Manually adding files and copyright, modifying the notice header and marking
+licenses as reviewed has to be done manually. But deciding if a file or
+copyright notice should be kept or ignored can be done much quicker using the
+GUI launched by <code class="language-plaintext highlighter-rouge">enso/openLegalReviewReport</code>. The GUI is a very simple one - it
+assumes that the report is up to date and uses the server to modify the
+configuration. The configuration changes are not refreshed automatically -
+instead if the webpage is refreshed after modifications it may contain stale
+information - to get up-to-date information, <code class="language-plaintext highlighter-rouge">enso/openLegalReviewReport</code> or
+<code class="language-plaintext highlighter-rouge">enso/gatherLicenses</code> has to be re-run.</p>
+
+<h2 id="standard-library">Standard Library</h2>
+
+<p>The dependencies of standard library are built using Maven, so they have to be
+handled separately. Currently there are not many of them so this is handled
+manually. If that becomes a problem, they could be attached to the frontend of
+the <code class="language-plaintext highlighter-rouge">GatherLicenses</code> task.</p>
 
 <p>The third-party licenses for Java extensions of the standard library are
 gathered in the <code class="language-plaintext highlighter-rouge">third-party-licenses</code> directory in the <code class="language-plaintext highlighter-rouge">Base</code> library. The
-gathering process is automatic, triggered by the <code class="language-plaintext highlighter-rouge">package</code> goal of the
-associated Maven configuration file.</p>
+gathering process is partially-automatic, triggered by the <code class="language-plaintext highlighter-rouge">package</code> goal of the
+associated Maven configuration file. However when another dependency is added to
+the standard library, its licenses should be reviewed before merging the PR.</p>
 
-<blockquote>
-  <p>The actionables for this section are:</p>
-
-  <ul>
-    <li>The engine components as distributed as a JAR archive that everyone can
-open. At least some of the dependencies contain their licences within that
-archive. It should be checked if this is enough or if the licences and
-notices should be replicated in the distributed packages anyway.</li>
-  </ul>
-</blockquote>
-
-<h3 id="bundles">Bundles</h3>
+<h2 id="bundles">Bundles</h2>
 
 <p>Beside the launcher and engine components, the distributed bundles also contain
 a distribution of GraalVM CE. This distribution however contains its own licence
@@ -876,7 +1056,7 @@ regard.</p>
 
                         
                         
-                        <a href="https://github.com/enso-org/enso/blob/main/docs/enso/distribution/licences.md">Open this doc on GitHub</a>
+                        <a href="https://github.com/enso-org/enso/blob/main/docs/enso/distribution/licenses.md">Open this doc on GitHub</a>
                         
                     </section>
                 </div>
@@ -1097,13 +1277,13 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "docs/enso/distribution/licences.md",
+        "path": "docs/enso/distribution/licenses.md",
         "mtime": "",
         "type": "markdown"
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-10-09 12:06:24 +0000"
+        "time": "2020-10-09 14:21:42 +0000"
     },
     "basePath": "",
     "book": {
