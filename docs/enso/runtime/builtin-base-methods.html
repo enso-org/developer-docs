@@ -752,6 +752,10 @@ search.start();
                 
             
             
+            
+                
+            
+            
 
             
         
@@ -812,11 +816,6 @@ should be treated as a builtin method. It takes the following arguments:</p>
   <li><code class="language-plaintext highlighter-rouge">name</code> <strong>String</strong> the method name.</li>
   <li><code class="language-plaintext highlighter-rouge">description</code> <strong>String</strong> a summary of the method’s behavior, for
 documentation purposes.</li>
-  <li><code class="language-plaintext highlighter-rouge">alwaysDirect</code> <strong>Boolean = <code class="language-plaintext highlighter-rouge">true</code></strong> describes whether the function can always
-be safely called directly. It should be set to <code class="language-plaintext highlighter-rouge">false</code> for methods that
-evaluate user code in a tail position (e.g. <code class="language-plaintext highlighter-rouge">if_then_else</code>). If the method
-does not take functions or thunks as parameters, or it only evaluates these
-in a non-tail position, this parameter should be left defaulted.</li>
 </ol>
 
 <p>The annotation will generate a <code class="language-plaintext highlighter-rouge">RootNode</code> subclass in the same package as the
@@ -1112,7 +1111,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-10-15 13:04:51 +0000"
+        "time": "2020-10-15 14:53:34 +0000"
     },
     "basePath": "",
     "book": {

@@ -752,6 +752,10 @@ search.start();
                 
             
             
+            
+                
+            
+            
 
             
         
@@ -814,7 +818,7 @@ like a builtin language loop construct.</p>
 
 <p>In pseudocode, a tail recursive function, like:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">foo</span> <span class="n">x</span> <span class="o">=</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">then</span> <span class="nb">print</span> <span class="s2">"foo"</span> <span class="k">else</span> <span class="n">foo</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">foo</span> <span class="n">x</span> <span class="o">=</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">then</span> <span class="nb">print</span> <span class="s2">"foo"</span> <span class="k">else</span> <span class="vi">@Tail_Call</span> <span class="n">foo</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>becomes:</p>
@@ -1174,7 +1178,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-10-15 13:04:51 +0000"
+        "time": "2020-10-15 14:53:34 +0000"
     },
     "basePath": "",
     "book": {
