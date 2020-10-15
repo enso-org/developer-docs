@@ -756,6 +756,9 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#position"><code class="language-plaintext highlighter-rouge">Position</code></a></li>
       <li><a href="#range"><code class="language-plaintext highlighter-rouge">Range</code></a></li>
       <li><a href="#textedit"><code class="language-plaintext highlighter-rouge">TextEdit</code></a></li>
+      <li><a href="#diagnostictype"><code class="language-plaintext highlighter-rouge">DiagnosticType</code></a></li>
+      <li><a href="#stacktraceelement"><code class="language-plaintext highlighter-rouge">StackTraceElement</code></a></li>
+      <li><a href="#diagnostic"><code class="language-plaintext highlighter-rouge">Diagnostic</code></a></li>
       <li><a href="#sha3-224"><code class="language-plaintext highlighter-rouge">SHA3-224</code></a></li>
       <li><a href="#fileedit"><code class="language-plaintext highlighter-rouge">FileEdit</code></a></li>
       <li><a href="#filecontents"><code class="language-plaintext highlighter-rouge">FileContents</code></a></li>
@@ -840,7 +843,8 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#executioncontextpop"><code class="language-plaintext highlighter-rouge">executionContext/pop</code></a></li>
       <li><a href="#executioncontextrecompute"><code class="language-plaintext highlighter-rouge">executionContext/recompute</code></a></li>
       <li><a href="#executioncontextexpressionvaluescomputed"><code class="language-plaintext highlighter-rouge">executionContext/expressionValuesComputed</code></a></li>
-      <li><a href="#executioncontextexecutionFailed"><code class="language-plaintext highlighter-rouge">executionContext/executionFailed</code></a></li>
+      <li><a href="#executioncontextexecutionfailed"><code class="language-plaintext highlighter-rouge">executionContext/executionFailed</code></a></li>
+      <li><a href="#executioncontextexecutionstatus"><code class="language-plaintext highlighter-rouge">executionContext/executionStatus</code></a></li>
       <li><a href="#executioncontextattachvisualisation"><code class="language-plaintext highlighter-rouge">executionContext/attachVisualisation</code></a></li>
       <li><a href="#executioncontextdetachvisualisation"><code class="language-plaintext highlighter-rouge">executionContext/detachVisualisation</code></a></li>
       <li><a href="#executioncontextmodifyvisualisation"><code class="language-plaintext highlighter-rouge">executionContext/modifyVisualisation</code></a></li>
@@ -1277,11 +1281,88 @@ struct Position {
 <span class="p">}</span>
 </code></pre></div></div>
 
+<h3 id="diagnostictype"><code class="language-plaintext highlighter-rouge">DiagnosticType</code></h3>
+
+<p>The type of diagnostic message.</p>
+
+<h4 id="format-14">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">DiagnosticType</span> <span class="o">=</span> <span class="nb">Error</span> <span class="o">|</span> <span class="nx">Warning</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="stacktraceelement"><code class="language-plaintext highlighter-rouge">StackTraceElement</code></h3>
+
+<p>The frame of the stack trace. If the error refer to a builtin node, the <code class="language-plaintext highlighter-rouge">path</code>
+and <code class="language-plaintext highlighter-rouge">location</code> fields will be empty.</p>
+
+<h4 id="format-15">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">StackTraceElement</span> <span class="p">{</span>
+  <span class="cm">/**
+   * The function name containing the stack trace element.
+   */</span>
+  <span class="nl">functionName</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The location of the file.
+   */</span>
+  <span class="nl">path</span><span class="p">?:</span> <span class="nx">Path</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The location of the element in a file.
+   */</span>
+  <span class="nl">location</span><span class="p">?:</span> <span class="nx">Range</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="diagnostic"><code class="language-plaintext highlighter-rouge">Diagnostic</code></h3>
+
+<p>A diagnostic object is produced as a result of an execution attempt, like
+pushing the method pointer to a call stack, or editing the file. It can
+represent a compiler warning, a compilation error, or a runtime error. The
+message has optional <code class="language-plaintext highlighter-rouge">path</code>, <code class="language-plaintext highlighter-rouge">location</code> and <code class="language-plaintext highlighter-rouge">stack</code> fields containing
+information about the location in the source code.</p>
+
+<p>In case of the runtime errors, the <code class="language-plaintext highlighter-rouge">path</code> and <code class="language-plaintext highlighter-rouge">location</code> fields may be empty if
+the error happens in a builtin node. Then, to locate the error in the code, you
+can use the <code class="language-plaintext highlighter-rouge">stack</code> field with a stack trace to find the first element with
+non-empty location (as the head of the stack will point to the builtin element).</p>
+
+<h4 id="format-16">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Diagnostic</span> <span class="p">{</span>
+  <span class="cm">/**
+   * The type of diagnostic message.
+   */</span>
+  <span class="nl">kind</span><span class="p">:</span> <span class="nx">DiagnosticType</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The diagnostic message.
+   */</span>
+  <span class="nl">message</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The location of a file containing the diagnostic.
+   */</span>
+  <span class="nl">path</span><span class="p">?:</span> <span class="nx">Path</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The location of the diagnostic object in a file.
+   */</span>
+  <span class="nl">location</span><span class="p">?:</span> <span class="nx">Range</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The stack trace.
+   */</span>
+  <span class="nl">stack</span><span class="p">:</span> <span class="nx">StackTraceElement</span><span class="p">[];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
 <h3 id="sha3-224"><code class="language-plaintext highlighter-rouge">SHA3-224</code></h3>
 
 <p>The <code class="language-plaintext highlighter-rouge">SHA3-224</code> message digest encoded as a base16 string.</p>
 
-<h4 id="format-14">Format</h4>
+<h4 id="format-17">Format</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">SHA3</span><span class="o">-</span><span class="mi">224</span> <span class="o">=</span> <span class="nb">String</span><span class="p">;</span>
 </code></pre></div></div>
@@ -1307,7 +1388,7 @@ of applying previous ones on the original buffer contents. In pseudocode:</p>
 <span class="n">applyEdits</span> <span class="n">buffer</span> <span class="p">(</span><span class="n">first</span> <span class="o">:</span> <span class="n">rest</span><span class="p">)</span> <span class="o">=</span> <span class="n">applyEdits</span> <span class="p">(</span><span class="n">applyTextEdit</span> <span class="n">buffer</span> <span class="n">first</span><span class="p">)</span> <span class="n">rest</span>
 </code></pre></div></div>
 
-<h4 id="format-15">Format</h4>
+<h4 id="format-18">Format</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">FileEdit</span> <span class="p">{</span>
   <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
@@ -1321,7 +1402,7 @@ of applying previous ones on the original buffer contents. In pseudocode:</p>
 
 <p>A representation of the contents of a file.</p>
 
-<h4 id="format-16">Format</h4>
+<h4 id="format-19">Format</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">FileContents</span><span class="p">[</span><span class="nx">T</span><span class="p">]</span> <span class="p">{</span>
   <span class="nl">contents</span><span class="p">:</span> <span class="nx">T</span><span class="p">;</span>
@@ -1334,7 +1415,7 @@ of applying previous ones on the original buffer contents. In pseudocode:</p>
 
 <p>A representation of what kind of type a filesystem object can be.</p>
 
-<h4 id="format-17">Format</h4>
+<h4 id="format-20">Format</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">FileSystemObject</span> <span class="o">=</span> <span class="nx">Directory</span> <span class="o">|</span> <span class="nx">SymlinkLoop</span> <span class="o">|</span> <span class="nx">File</span> <span class="o">|</span> <span class="nx">Other</span><span class="p">;</span>
 
@@ -1693,6 +1774,8 @@ given execution context.</p>
 
 <ul>
   <li><a href="#executioncontextexpressionvaluescomputed"><code class="language-plaintext highlighter-rouge">executionContext/expressionValuesComputed</code></a></li>
+  <li><a href="#executioncontextexecutionfailed"><code class="language-plaintext highlighter-rouge">executionContext/executionFailed</code></a></li>
+  <li><a href="#executioncontextexecutionstatus"><code class="language-plaintext highlighter-rouge">executionContext/executionStatus</code></a></li>
 </ul>
 
 <h4 id="disables-3">Disables</h4>
@@ -3081,8 +3164,15 @@ expressions becoming available.</p>
 
 <h3 id="executioncontextexecutionfailed"><code class="language-plaintext highlighter-rouge">executionContext/executionFailed</code></h3>
 
-<p>Sent from the server to the client to inform about a failure during execution of
-an execution context.</p>
+<p>Sent from the server to the client to inform about a critical failure when
+attempting to execute a context.</p>
+
+<p>When the <a href="#executioncontextexecutionstatus"><code class="language-plaintext highlighter-rouge">executionContext/executionStatus</code></a>
+notifies about potential problems in the code found by compiler, or the errors
+during runtime, this message signals about the errors in the logic or the
+implementation. It can be a compiler crash, an attempt to execute an empty
+stack, an error location a method or a module when issuing a
+<a href="#executioncontextpush"><code class="language-plaintext highlighter-rouge">executionContext/push</code></a> command.</p>
 
 <ul>
   <li><strong>Type:</strong> Notification</li>
@@ -3094,12 +3184,54 @@ an execution context.</p>
 <h4 id="parameters-39">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="cm">/**
+   * The identifier of the execution context.
+   */</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The error message.
+   */</span>
   <span class="nl">message</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The location of a file producing the error.
+   */</span>
+  <span class="nl">path</span><span class="p">?:</span> <span class="nx">Path</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
 <h4 id="errors-40">Errors</h4>
+
+<p>None</p>
+
+<h3 id="executioncontextexecutionstatus"><code class="language-plaintext highlighter-rouge">executionContext/executionStatus</code></h3>
+
+<p>Sent from the server to the client to inform about a status of execution.</p>
+
+<ul>
+  <li><strong>Type:</strong> Notification</li>
+  <li><strong>Direction:</strong> Server -&gt; Client</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-40">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="cm">/**
+   * The identifier of the execution context.
+   */</span>
+  <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The list of encountered problems.
+   */</span>
+  <span class="nl">diagnostics</span><span class="p">:</span> <span class="nx">Diagnostic</span><span class="p">[];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-41">Errors</h4>
 
 <p>None</p>
 
@@ -3115,7 +3247,7 @@ preprocessed by some arbitrary Enso code, to a given node in the program.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-40">Parameters</h4>
+<h4 id="parameters-41">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">AttachVisualisationRequest</span> <span class="p">{</span>
   <span class="nl">visualisationId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
@@ -3129,7 +3261,7 @@ preprocessed by some arbitrary Enso code, to a given node in the program.</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-41">Errors</h4>
+<h4 id="errors-42">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3154,7 +3286,7 @@ evaluated.</li>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-41">Parameters</h4>
+<h4 id="parameters-42">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">DetachVisualisationRequest</span> <span class="p">{</span>
   <span class="nl">executionContextId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
@@ -3168,7 +3300,7 @@ evaluated.</li>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-42">Errors</h4>
+<h4 id="errors-43">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3191,7 +3323,7 @@ visualisation.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-42">Parameters</h4>
+<h4 id="parameters-43">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ModifyVisualisationRequest</span> <span class="p">{</span>
   <span class="nl">visualisationId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
@@ -3204,7 +3336,7 @@ visualisation.</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-43">Errors</h4>
+<h4 id="errors-44">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3236,7 +3368,7 @@ client.</p>
 pre-serialized before being inserted into this message. As far as this level of
 transport is concerned, it is just a binary blob.</p>
 
-<h4 id="parameters-43">Parameters</h4>
+<h4 id="parameters-44">Parameters</h4>
 
 <pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
 
@@ -3268,7 +3400,7 @@ table VisualisationUpdate {
 root_type VisualisationUpdate;
 </code></pre>
 
-<h4 id="errors-44">Errors</h4>
+<h4 id="errors-45">Errors</h4>
 
 <p>N/A</p>
 
@@ -3409,7 +3541,7 @@ a key-value storage with <a href="#suggestionentry"><code class="language-plaint
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-44">Parameters</h4>
+<h4 id="parameters-45">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -3424,7 +3556,7 @@ a key-value storage with <a href="#suggestionentry"><code class="language-plaint
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-45">Errors</h4>
+<h4 id="errors-46">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -3445,7 +3577,7 @@ version.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-45">Parameters</h4>
+<h4 id="parameters-46">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -3455,7 +3587,7 @@ version.</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-46">Errors</h4>
+<h4 id="errors-47">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -3474,7 +3606,7 @@ database.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-46">Parameters</h4>
+<h4 id="parameters-47">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -3487,7 +3619,7 @@ database.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-47">Errors</h4>
+<h4 id="errors-48">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -3508,7 +3640,7 @@ database.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-47">Parameters</h4>
+<h4 id="parameters-48">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">updates</span><span class="p">:</span> <span class="p">[</span><span class="nx">SuggestionsDatabaseUpdate</span><span class="p">];</span>
@@ -3516,7 +3648,7 @@ database.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-48">Errors</h4>
+<h4 id="errors-49">Errors</h4>
 
 <p>None</p>
 
@@ -3531,7 +3663,7 @@ database.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-48">Parameters</h4>
+<h4 id="parameters-49">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="c1">// The edited file</span>
@@ -3555,7 +3687,7 @@ database.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-49">Errors</h4>
+<h4 id="errors-50">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -3586,7 +3718,7 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-49">Parameters</h4>
+<h4 id="parameters-50">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -3596,7 +3728,7 @@ client about new output data by emitting <code class="language-plaintext highlig
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-50">Errors</h4>
+<h4 id="errors-51">Errors</h4>
 
 <p>N/A</p>
 
@@ -3611,7 +3743,7 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-50">Parameters</h4>
+<h4 id="parameters-51">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -3621,7 +3753,7 @@ client about new output data by emitting <code class="language-plaintext highlig
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-51">Errors</h4>
+<h4 id="errors-52">Errors</h4>
 
 <p>N/A</p>
 
@@ -3637,7 +3769,7 @@ for the standard output.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-51">Parameters</h4>
+<h4 id="parameters-52">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">output</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -3657,7 +3789,7 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-52">Parameters</h4>
+<h4 id="parameters-53">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -3667,7 +3799,7 @@ client about new output data by emitting <code class="language-plaintext highlig
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-52">Errors</h4>
+<h4 id="errors-53">Errors</h4>
 
 <p>N/A</p>
 
@@ -3682,7 +3814,7 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-53">Parameters</h4>
+<h4 id="parameters-54">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -3692,7 +3824,7 @@ client about new output data by emitting <code class="language-plaintext highlig
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-53">Errors</h4>
+<h4 id="errors-54">Errors</h4>
 
 <p>N/A</p>
 
@@ -3708,7 +3840,7 @@ for the standard error.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-54">Parameters</h4>
+<h4 id="parameters-55">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">output</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -3726,7 +3858,7 @@ for the standard error.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-55">Parameters</h4>
+<h4 id="parameters-56">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">input</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -3739,7 +3871,7 @@ for the standard error.</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-54">Errors</h4>
+<h4 id="errors-55">Errors</h4>
 
 <p>N/A</p>
 
@@ -3756,12 +3888,12 @@ standard input.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-56">Parameters</h4>
+<h4 id="parameters-57">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h2 id="errors-55">Errors</h2>
+<h2 id="errors-56">Errors</h2>
 
 <p>The language server component also has its own set of errors. This section is
 not a complete specification and will be updated as new errors are added.</p>
@@ -4249,7 +4381,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-10-12 09:05:02 +0000"
+        "time": "2020-10-15 13:04:51 +0000"
     },
     "basePath": "",
     "book": {
