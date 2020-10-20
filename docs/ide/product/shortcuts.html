@@ -37,7 +37,8 @@
     </head>
     <body>
         
-        <div class="book"><div class="book-summary">
+        <div class="book">
+<div class="book-summary">
     <div id="search-searchbar">
     </div>
     <div class="post-list" id="search-hits">
@@ -165,7 +166,7 @@ search.start();
                 </a>
             </li>
 
-            <li class="divider"></li>
+            <li class="divider">
             
             
             
@@ -181,7 +182,7 @@ search.start();
                         Go back
                     </a>
                 </li>
-                <li class="divider"></li>
+                <li class="divider">
             
                 
              
@@ -700,13 +701,14 @@ search.start();
         </ul>
     </nav>
 </div>
-<div class="book-body"><div class="body-inner">
+<div class="book-body">
+<div class="body-inner">
     <div class="book-header" role="navigation">
         <!-- Title -->
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >Shortcuts</a>
+                <a href=".">Shortcuts</a>
             
         </h1>
     </div>
@@ -715,148 +717,95 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <h3 id="the-meta-key">The <kbd>meta</kbd> key.</h3>
-<p>The <kbd>meta</kbd> key was introduced to make the shortcuts consistent across platforms. It is defined as <kbd>command</kbd> on macOS, and as <kbd>ctlr</kbd> on Windows and Linux.</p>
+                        <h2 id="general-assumptions">General Assumptions</h2>
 
-<h3 id="graph-editor">Graph Editor</h3>
+<h4 id="the-meta-key">The <kbd>meta</kbd> key.</h4>
+<p>The <kbd>meta</kbd> key was introduced to make the shortcuts consistent across platforms. 
+It is defined as <kbd>command</kbd> on macOS, and as <kbd>ctrl</kbd> on Windows and Linux.</p>
+
+<h4 id="keyboard-only-workflow">Keyboard-only Workflow</h4>
+<p>The GUI and all shortcuts were designed in a way to allow both efficient mouse-only as well as
+keyboard-only workflows. In most cases, there is a relation between mouse and keyboard shortcuts,
+namely, the <code class="language-plaintext highlighter-rouge">left-mouse-button</code> corresponds to <code class="language-plaintext highlighter-rouge">enter</code>. For example, stepping into a node is done
+by either double clicking the node, or just pressing the enter key.</p>
+
+<h4 id="missing--not-working-shortcuts">Missing / not working shortcuts</h4>
+<p>Some of the shortcuts presented below are marked with the <img class="emoji" title=":warning:" alt=":warning:" src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png" height="20" width="20"> icon, which means, that they are
+planned, but not yet implemented. Feel free to contribute and help us implement them!</p>
+
+<p>Shortcuts marked with the <img class="emoji" title=":bangbang:" alt=":bangbang:" src="https://github.githubassets.com/images/icons/emoji/unicode/203c.png" height="20" width="20"> icon should work, but are reported to be broken and require
+further investigation.</p>
+
+<h2 id="graph-editor">Graph Editor</h2>
+
+<h4 id="general-shortcuts">General Shortcuts</h4>
 <p>| Shortcut | Action |
 | ——– | —— |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>s</kbd> | Toggle light/dark application style. Currently doesn’t work properly, as the Theme Switcher is not created yet. (https://github.com/enso-org/ide/issues/795)|
-| <kbd>Ctrl</kbd>+<kbd>`</kbd> | Show Code Editor |
-| <kbd>Meta</kbd>+<kbd>S</kbd> | Save module |</p>
+| <kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>s</kbd> | Toggle light/dark application style. Currently doesn’t work properly, as the Theme Switcher is not created yet. (https://github.com/enso-org/ide/issues/795)|
+| <kbd>ctrl</kbd>+<kbd>`</kbd>                  | Show Code Editor |
+| <kbd>meta</kbd>+<kbd>s</kbd>                  | Save module |</p>
+
+<h4 id="navigation">Navigation</h4>
+<p>| Shortcut | Action |
+| ——– | —— |
+| Drag gesture (two fingers)             | Pan the scene.
+| Pinch gesture (two fingers)            | Zoom the scene.
+| <kbd>MMB</kbd> drag                    | Pan the scene.
+| <kbd>RMB</kbd> drag                    | Zoom the scene.
+| <kbd>LMB</kbd> double press node name  | Step into the node.
+| <img class="emoji" title=":warning:" alt=":warning:" src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png" height="20" width="20"> <kbd>LMB</kbd> double press background | Step out of the current node.
+| <kbd>enter</kbd>                       | Step in the last selected node.
+| <kbd>alt</kbd>+<kbd>enter</kbd>        | Step out of the current node.</p>
+
+<h4 id="node-layout">Node Layout</h4>
+<p>| Shortcut | Action |
+| ——– | —— |
+| <kbd>LMB</kbd> drag non-selected node name | Move the node to new position (dragging do not modify selection). |
+| <kbd>LMB</kbd> drag selected node name     | Move all selected nodes the node to new positions. |</p>
+
+<h4 id="node-selection">Node Selection</h4>
+<p>| Shortcut | Action |
+| — | — |
+| <kbd>LMB</kbd> click node name                                                       | Deselect all nodes. Select the target node. |
+| <kbd>LMB</kbd> click background                                                      | Deselect all nodes. |
+| <img class="emoji" title=":warning:" alt=":warning:" src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png" height="20" width="20"> <kbd>LMB</kbd> drag background                                             | Select nodes using selection-box. |
+| <kbd>shift</kbd> + <kbd>LMB</kbd> click node name                                    | Add / remove node to the selection group. |
+| <img class="emoji" title=":warning:" alt=":warning:" src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png" height="20" width="20"> <kbd>shift</kbd> + <kbd>LMB</kbd> drag background                          | Add / remove nodes to the selection group. |
+| <img class="emoji" title=":warning:" alt=":warning:" src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png" height="20" width="20"> <kbd>*-arrow</kbd>                                                         | Select node on the right side of the newest selected node. |
+| <img class="emoji" title=":warning:" alt=":warning:" src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png" height="20" width="20"> <kbd>cmd</kbd> + <kbd>a</kbd>                                              | Select all nodes. |
+| <img class="emoji" title=":warning:" alt=":warning:" src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png" height="20" width="20"> <kbd>escape</kbd>                                                          | Deselect all nodes (if not in a mode, like edit mode). |
+| <kbd>shift</kbd> + <kbd>ctrl</kbd> + <kbd>LMB</kbd> click node name                  | Add node to the selection group. |
+| <img class="emoji" title=":warning:" alt=":warning:" src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png" height="20" width="20"> <kbd>shift</kbd> + <kbd>ctrl</kbd> + <kbd>LMB</kbd> drag background        | Add nodes to the selection group. |
+| <kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>LMB</kbd> click node name                   | Remove node to the selection group. |
+| <img class="emoji" title=":warning:" alt=":warning:" src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png" height="20" width="20"> <kbd>shift</kbd> + <kbd>alt</kbd> + <kbd>LMB</kbd> drag background         | Remove nodes to the selection group. |
+| <kbd>shift</kbd> + <kbd>ctrl</kbd> + <kbd>alt</kbd> + <kbd>LMB</kbd> click node name | Inverse node selection. |
+| <img class="emoji" title=":warning:" alt=":warning:" src="https://github.githubassets.com/images/icons/emoji/unicode/26a0.png" height="20" width="20"> <kbd>shift</kbd> + <kbd>ctrl</kbd> + <kbd>alt</kbd> + <kbd>LMB</kbd> drag background | Inverse nodes selection. |</p>
 
 <h4 id="node-editing">Node Editing</h4>
 <p>| Shortcut | Action |
 | ——– | —— |
-| <kbd>shift</kbd>+<kbd>tab</kbd> | Show searcher for adding new node. |
-| <kbd>ctrl</kbd>+<kbd>backspace</kbd> | Removes the selected nodes. |
-| <kbd>ctrl</kbd>+<kbd>g</kbd> | Collapses the selected nodes. |
-| <kbd>meta</kbd>+<kbd>left-mouse-button</kbd> | Start editing node expression. |
-| <kbd>enter</kbd> when suggestion is selected, or <kbd>LMB</kbd> on suggestion | Pick selected suggestion and commit editing. |
-| <kbd>enter</kbd> <em>when suggestion is not selected</em> | Commit editing with the current input. |</p>
-
-<h4 id="navigation">Navigation</h4>
-
-<table>
-  <thead>
-    <tr>
-      <th>Shortcut</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><kbd>ctrl</kbd>+<kbd>enter</kbd></td>
-      <td>Step into the last selected node.</td>
-    </tr>
-    <tr>
-      <td><kbd>ctrl</kbd>+<kbd>up</kbd></td>
-      <td>Step out of the current node.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h4 id="node-selection">Node Selection</h4>
-
-<table>
-  <thead>
-    <tr>
-      <th>Shortcut</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><kbd>left-mouse-button</kbd> click node name</td>
-      <td>Deselect all nodes. Select the target node.</td>
-    </tr>
-    <tr>
-      <td><kbd>left-mouse-button</kbd> click background</td>
-      <td>Deselect all nodes.</td>
-    </tr>
-    <tr>
-      <td><kbd>left-mouse-button</kbd> drag background</td>
-      <td>Deselect all nodes. Select nodes using selection-box.</td>
-    </tr>
-    <tr>
-      <td><kbd>shift</kbd> + <kbd>left-mouse-button</kbd> click node name</td>
-      <td>Add node to the selection group.</td>
-    </tr>
-    <tr>
-      <td><kbd>shift</kbd> + <kbd>left-mouse-button</kbd> drag background</td>
-      <td>Add nodes to the selection group.</td>
-    </tr>
-    <tr>
-      <td><kbd>option</kbd> + <kbd>left-mouse-button</kbd> click node name</td>
-      <td>Remove node from the selection group.</td>
-    </tr>
-    <tr>
-      <td><kbd>option</kbd> + <kbd>left-mouse-button</kbd> drag background</td>
-      <td>Remove nodes from the selection group.</td>
-    </tr>
-    <tr>
-      <td><kbd>option</kbd> + <kbd>shift</kbd> + <kbd>LMB</kbd> click node name</td>
-      <td>Inverse node selection.</td>
-    </tr>
-    <tr>
-      <td><kbd>option</kbd> + <kbd>shift</kbd> + <kbd>LMB</kbd> drag background</td>
-      <td>Inverse nodes selection.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="node-dragging">Node dragging</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>Shortcut</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>left-mouse-button drag non-selected node name</td>
-      <td>Move the node to new position.</td>
-    </tr>
-    <tr>
-      <td>left-mouse-button drag selected node name</td>
-      <td>Move all selected nodes the node to new positions.</td>
-    </tr>
-  </tbody>
-</table>
+| <kbd>tab</kbd>                                   | Show / hide node searcher. |
+| <kbd>backspace</kbd>                             | Remove selected nodes. |
+| <kbd>cmd</kbd>+<kbd>g</kbd>                      | Collapse (group) selected nodes. |
+| <kbd>meta</kbd>+<kbd>LMB</kbd>                   | Start editing node expression. |
+| <kbd>meta</kbd>+<kbd>enter</kbd>                 | Start editing node expression. |
+| <kbd>enter</kbd> or <kbd>LMB</kbd> on suggestion | Pick selected suggestion and commit editing. |</p>
 
 <h3 id="visualization">Visualization</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>Shortcut</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><kbd>cmd</kbd> / <kbd>ctrl</kbd> + <kbd>space</kbd></td>
-      <td>Toggle visualization visibility of the selected node.</td>
-    </tr>
-    <tr>
-      <td><kbd>cmd</kbd> / <kbd>ctrl</kbd> + <kbd>f</kbd></td>
-      <td>Cycle visualizations of the selected node.</td>
-    </tr>
-    <tr>
-      <td><kbd>cmd</kbd> / <kbd>ctrl</kbd> + <kbd>\</kbd></td>
-      <td>Toggle documentation view visibility</td>
-    </tr>
-  </tbody>
-</table>
+<p>| Shortcut | Action |
+| ——– | —— |
+| <kbd>space</kbd>                         | Toggle visualization visibility of the selected node. |
+| <kbd>space</kbd> hold                    | Preview visualization of the selected node (hide on release). |
+| <kbd>space</kbd> double press            | Toggle visualization fullscreen mode (with improper depth sorting now). |
+| <kbd>ctrl</kbd> + <kbd>space</kbd>       | Cycle visualizations of the selected node. |
+| <img class="emoji" title=":bangbang:" alt=":bangbang:" src="https://github.githubassets.com/images/icons/emoji/unicode/203c.png" height="20" width="20"> <kbd>cmd</kbd> + <kbd>\</kbd> | Toggle documentation view visibility |</p>
 
 <h3 id="debug">Debug</h3>
 <p>| Shortcut | Action |
 | ——– | —— |
-| <kbd>cmd</kbd> / <kbd>ctrl</kbd> + <kbd>d</kbd>     | Send test data to the selected node. |
-| <kbd>cmd</kbd> / <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>enter</kbd> | Push a hardcoded breadcrumb without navigating. |
-| <kbd>cmd</kbd> / <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>arrow up</kbd> | Pop a breadcrumb without navigating. |</p>
+| <kbd>ctrl</kbd> + <kbd>d</kbd>                           | Send test data to the selected node. |
+| <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>enter</kbd>    | Push a hardcoded breadcrumb without navigating. |
+| <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>arrow up</kbd> | Pop a breadcrumb without navigating. |</p>
 
                         
                         
@@ -1087,7 +1036,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-10-19 08:51:25 +0000"
+        "time": "2020-10-20 02:46:02 +0000"
     },
     "basePath": "",
     "book": {
