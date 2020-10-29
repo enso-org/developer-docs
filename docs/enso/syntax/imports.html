@@ -865,7 +865,7 @@ the name provided after the <code class="language-plaintext highlighter-rouge">a
 current scope. They consist of the keyword <code class="language-plaintext highlighter-rouge">from</code>, followed by a qualified
 module name, followed by an optional rename part (using the <code class="language-plaintext highlighter-rouge">as</code> keyword),
 then the keywords <code class="language-plaintext highlighter-rouge">import all</code>. For example:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from Base.List as Builtin_List import all
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from Base.Data.List as Builtin_List import all
 </code></pre></div>    </div>
   </li>
   <li><strong>Restricted Imports:</strong> These import a specified set of names for use as
@@ -873,7 +873,7 @@ automatically resolved referent names. They consist of the keyword <code class="
 followed by a qualified module name (with optional <code class="language-plaintext highlighter-rouge">as</code>-rename), then the
 word <code class="language-plaintext highlighter-rouge">import</code> followed by a coma-separated list of referent names to be
 imported. For example:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from Base.List import Cons, Nil
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from Base.Data.List import Cons, Nil
 </code></pre></div>    </div>
   </li>
   <li><strong>Hiding Imports:</strong> These are the inverse of restricted imports, and import
@@ -881,7 +881,7 @@ imported. For example:
 followed by a qualified module name (with optional <code class="language-plaintext highlighter-rouge">as</code>-rename), then the
 words <code class="language-plaintext highlighter-rouge">import all hiding</code>, followed by a coma-separated list of referent
 names to be excluded from the import. For example:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from Base.List import all hiding Cons, Nil
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from Base.Data.List import all hiding Cons, Nil
 </code></pre></div>    </div>
   </li>
 </ol>
@@ -913,7 +913,7 @@ the name provided after the <code class="language-plaintext highlighter-rouge">a
 current scope. They consist of the keyword <code class="language-plaintext highlighter-rouge">from</code>, followed by a qualified
 module name, followed by an optional rename part (using the <code class="language-plaintext highlighter-rouge">as</code> keyword),
 then the keywords <code class="language-plaintext highlighter-rouge">export all</code>. For example:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from Base.List as Builtin_List export all
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from Base.Data.List as Builtin_List export all
 </code></pre></div>    </div>
   </li>
   <li><strong>Restricted Exports:</strong> These export a specified set of names, behaving as
@@ -921,7 +921,7 @@ though they were redefined in the current scope. They consist of the keyword
 <code class="language-plaintext highlighter-rouge">from</code>, followed by a qualified module name (with optional <code class="language-plaintext highlighter-rouge">as</code>-rename), then
 the word <code class="language-plaintext highlighter-rouge">export</code> followed by a coma-separated list of names to be exported.
 For example:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from Base.List export Cons, Nil, from_vector
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from Base.Data.List export Cons, Nil, from_vector
 </code></pre></div>    </div>
   </li>
   <li><strong>Hiding Exports:</strong> These are the inverse of restricted exports, and export
@@ -929,7 +929,7 @@ For example:
 followed by a qualified module name (with optional <code class="language-plaintext highlighter-rouge">as</code>-rename), then the
 words <code class="language-plaintext highlighter-rouge">export all hiding</code>, followed by a coma-separated list of names to be
 excluded from the export. For example:
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from Base.List export all hiding from_vector, Nil
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from Base.Data.List export all hiding from_vector, Nil
 </code></pre></div>    </div>
   </li>
 </ol>
@@ -1176,7 +1176,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-10-21 09:01:03 +0000"
+        "time": "2020-10-29 05:53:40 +0000"
     },
     "basePath": "",
     "book": {

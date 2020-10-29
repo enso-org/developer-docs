@@ -1305,8 +1305,8 @@ performed from another module.</li>
     <p>To use members protected by an access modifier, you must <em>import</em> that access
 modifier from the file in which you want to access those elements.</p>
 
-    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">import</span> <span class="kp">private</span> <span class="no">Base</span><span class="o">.</span><span class="no">Vector</span>
-<span class="n">import</span> <span class="n">unsafe</span> <span class="no">Base</span><span class="o">.</span><span class="no">Atom</span>
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">import</span> <span class="kp">private</span> <span class="no">Base</span><span class="o">.</span><span class="no">Data</span><span class="o">.</span><span class="no">Vector</span>
+<span class="n">import</span> <span class="n">unsafe</span> <span class="no">Base</span><span class="o">.</span><span class="no">Data</span><span class="o">.</span><span class="no">Atom</span>
 </code></pre></div>    </div>
   </li>
   <li>
@@ -1314,8 +1314,8 @@ modifier from the file in which you want to access those elements.</p>
 limit the scope in which you have access to the modified definitions.</p>
 
     <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">function_using_modifiers</span> <span class="n">v</span> <span class="n">x</span> <span class="o">=</span>
-    <span class="n">import</span> <span class="kp">private</span> <span class="no">Base</span><span class="o">.</span><span class="no">Vector</span>
-    <span class="n">import</span> <span class="n">unsafe</span> <span class="no">Base</span><span class="o">.</span><span class="no">Atom</span>
+    <span class="n">import</span> <span class="kp">private</span> <span class="no">Base</span><span class="o">.</span><span class="no">Data</span><span class="o">.</span><span class="no">Vector</span>
+    <span class="n">import</span> <span class="n">unsafe</span> <span class="no">Base</span><span class="o">.</span><span class="no">Data</span><span class="o">.</span><span class="no">Atom</span>
 
     <span class="n">v</span><span class="p">.</span><span class="nf">mutate_at_index</span> <span class="mi">0</span> <span class="p">(</span><span class="n">_</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="no">MyAtom</span><span class="p">.</span><span class="nf">mutate_field</span> <span class="nb">name</span><span class="o">=</span><span class="s2">"sum"</span> <span class="p">(</span><span class="n">with</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">20</span><span class="p">)</span>
@@ -1567,7 +1567,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-10-21 09:01:03 +0000"
+        "time": "2020-10-29 05:53:40 +0000"
     },
     "basePath": "",
     "book": {
