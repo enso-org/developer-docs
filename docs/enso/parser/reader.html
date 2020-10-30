@@ -426,60 +426,6 @@ search.start();
             
             
                 
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/enso/parser/flexer.html">
-                    
-                        <a href="/docs/enso/parser/flexer.html">
-                            
-                                Flexer
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
             
             
             
@@ -505,6 +451,18 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -584,22 +542,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/parser/operator-resolution.html">
                     
@@ -609,6 +551,14 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -660,6 +610,22 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/parser/parser-driver.html">
                     
@@ -678,6 +644,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/parser/ast.html">
                     
@@ -687,6 +657,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -734,6 +708,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter active" data-level="1.2" data-path="/docs/enso/parser/reader.html">
                     
@@ -743,6 +721,14 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -805,10 +791,18 @@ project is going to use, as well as backing formats for the stream.</p>
 
 <ul>
   <li><a href="#reader-functionality">Reader Functionality</a></li>
-  <li><a href="#provided-readers">Provided Readers</a>
+  <li><a href="#reader-structure">Reader Structure</a>
     <ul>
-      <li><a href="#utf-8-reader">UTF-8 Reader</a></li>
-      <li><a href="#utf-16-reader">UTF-16 Reader</a></li>
+      <li><a href="#read">Read</a></li>
+      <li><a href="#decoder">Decoder</a></li>
+    </ul>
+  </li>
+  <li><a href="#provided-encodings">Provided Encodings</a>
+    <ul>
+      <li><a href="#utf-8">UTF-8</a></li>
+      <li><a href="#utf-16">UTF-16</a></li>
+      <li><a href="#utf-32">UTF-32</a></li>
+      <li><a href="#benchmarks">Benchmarks</a></li>
     </ul>
   </li>
 </ul>
@@ -1111,7 +1105,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-10-30 11:32:33 +0000"
+        "time": "2020-10-30 14:07:40 +0000"
     },
     "basePath": "",
     "book": {

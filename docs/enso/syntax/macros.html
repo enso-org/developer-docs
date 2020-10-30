@@ -440,10 +440,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/syntax/layout.html">
                     
@@ -453,6 +449,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -654,6 +654,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter active" data-level="1.2" data-path="/docs/enso/syntax/macros.html">
                     
@@ -663,10 +667,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -741,10 +741,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -845,7 +841,11 @@ runtime.</li>
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
 <ul>
-  <li><a href="#annotations">Annotations</a></li>
+  <li><a href="#annotations">Annotations</a>
+    <ul>
+      <li><a href="#annotation-naming">Annotation Naming</a></li>
+    </ul>
+  </li>
   <li><a href="#automatic-deriving">Automatic Deriving</a></li>
 </ul>
 
@@ -882,6 +882,13 @@ implicitly nested inside each other:</p>
 that we are able to reserve words such as <code class="language-plaintext highlighter-rouge">type</code> to ensure that users can always
 have a good sense of what the most common constructs in the language mean,
 rather than allowing them to be overridden outside of the stdlib.</p>
+
+<h3 id="annotation-naming">Annotation Naming</h3>
+
+<p>The naming of annotations follows the standard rules that Enso uses for naming
+its <a href="/docs/enso/syntax/naming.html#naming-constructs">identifiers</a>. This means that they can be in
+both referent or variable form as the annotation head is <em>not</em> a
+<a href="/docs/enso/syntax/naming.html#pattern-contexts">pattern context</a>.</p>
 
 <h2 id="automatic-deriving">Automatic Deriving</h2>
 
@@ -1123,7 +1130,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-10-30 11:32:33 +0000"
+        "time": "2020-10-30 14:07:40 +0000"
     },
     "basePath": "",
     "book": {

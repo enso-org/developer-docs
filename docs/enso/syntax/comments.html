@@ -438,10 +438,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/syntax/layout.html">
                     
@@ -451,6 +447,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -652,6 +652,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/syntax/macros.html">
                     
@@ -661,10 +665,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -739,10 +739,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -839,6 +835,7 @@ most programming languages.</li>
 
 <ul>
   <li><a href="#disable-comments">Disable Comments</a></li>
+  <li><a href="#freeze-comments">Freeze Comments</a></li>
   <li><a href="#documentation-comments">Documentation Comments</a>
     <ul>
       <li><a href="#tags">Tags</a></li>
@@ -859,15 +856,40 @@ most programming languages.</li>
 in that they prevent a given piece of code from executing. In Enso, they are
 created by prefixing the expression to disable with the <code class="language-plaintext highlighter-rouge">#</code> character.</p>
 
-<p>These aren’t <em>exactly</em> like most language’s disable comments however:</p>
+<p>Disable comments in Enso do not have their contents validated, and continue from
+the <code class="language-plaintext highlighter-rouge">#</code> character to the end of the line.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span> <span class="c1"># here is some commented text</span>
+</code></pre></div></div>
+
+<p>Disable comments are <em>not</em> allowed inside textual interpolations.</p>
+
+<h2 id="freeze-comments">Freeze Comments</h2>
+
+<p>Freeze comments are a special type of comment used to enable the ‘freezing’ or
+caching of expensive computations in Enso. When used, they cache the result of
+an expression, reusing the value instead of recomputing it even if the
+underlying data changes.</p>
+
+<p>A portion of code that is frozen has the following properties:</p>
 
 <ul>
-  <li>When you disable a line in Enso, it is still run through the parser to see if
-it is syntactically valid.</li>
-  <li>No identifiers in it are resolved, however.</li>
-  <li>This is important as it allows the disabled expression to still be displayed
-in the visual syntax.</li>
+  <li>It is still lexed as if it were code, and validated by the parser to check for
+validity.</li>
+  <li>No identifier resolution takes place.</li>
 </ul>
+
+<p>These are very important as they still allow the frozen expression to be
+displayed properly in the visual syntax.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Work out what they should look like visually.</li>
+    <li>Work out how best to implement this.</li>
+  </ul>
+</blockquote>
 
 <h2 id="documentation-comments">Documentation Comments</h2>
 
@@ -886,6 +908,8 @@ for more information). By way of example:</p>
    continues all the way down
    until I unindent again.
 </code></pre></div></div>
+
+<p>Documentation comments are <em>not</em> allowed inside textual interpolations.</p>
 
 <p>The tool that generates this documentation aims to be fairly robust, and tries
 to assign produce sensible results even if the user makes a mistake. Such
@@ -1245,7 +1269,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-10-30 11:32:33 +0000"
+        "time": "2020-10-30 14:07:40 +0000"
     },
     "basePath": "",
     "book": {
