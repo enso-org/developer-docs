@@ -18,8 +18,18 @@
                         {{ content }}
                         {% assign dirpath = page.path | split: "/" %}
                         {% if dirpath[0] == "docs" %}
-                        <a href="https://github.com/enso-org/enso/blob/main/{{page.path}}">Open this doc on GitHub</a>
+                          {% if dirpath[1] == "enso" %}
+                            {% assign githubpath = page.path | remove:'docs/enso/' %}
+                            <a href="https://github.com/enso-org/enso/blob/main/docs/{{githubpath}}">Open this doc on GitHub</a>
+                          {% elsif dirpath[1] == "ide" %}
+                            {% assign githubpath = page.path | remove:'docs/ide/' %}
+                            <a href="https://github.com/enso-org/ide/blob/main/docs/{{githubpath}}">Open this doc on GitHub</a>
+                          {% else %}
+                            {% assign githubpath = page.path | remove:'docs/' %}
+                            <a href="https://github.com/enso-org/enso-org.github.io/tree/sources/docs/{{githubpath}}">Open this doc on GitHub</a>
+                          {% endif %}
                         {% endif %}
+
                     </section>
                 </div>
 
