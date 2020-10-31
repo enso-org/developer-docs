@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Contributing to the Enso Rust Libraries · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Flexer · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -30,11 +30,9 @@
         
 
         
-            <link rel="prev" href="/docs/rust-libs/" />
+            <link rel="prev" href="/docs/rust-lib/flexer/" />
         
 
-        
-            <link rel="next" href="/docs/rust-libs/SECURITY.html" />
         
     </head>
     <body>
@@ -178,8 +176,8 @@ search.start();
             
         
             
-            <li class="chapter" data-level="1.1" data-path="/docs/rust-libs ">
-                    <a href="/docs/rust-libs">
+            <li class="chapter" data-level="1.1" data-path="/docs/rust-lib/flexer ">
+                    <a href="/docs/rust-lib/flexer">
                         Go back
                     </a>
                 </li>
@@ -286,42 +284,12 @@ search.start();
             
             
                 
-            
-            
-            
-                
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/rust-libs/">
+                    <li class="chapter" data-level="1.1" data-path="/docs/rust-lib/flexer/">
                     
-                        <a href="/docs/rust-libs/">
+                        <a href="/docs/rust-lib/flexer/">
                             
-                                Enso Rust Libraries Developer Documentation
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-                    
-                    <li class="chapter active" data-level="1.2" data-path="/docs/rust-libs/CONTRIBUTING.html">
-                    
-                        <a href="/docs/rust-libs/CONTRIBUTING.html">
-                            
-                                Contributing to the Enso Rust Libraries
+                                Enso&#39;s Parser
                             
                         </a>
                     </li>
@@ -370,28 +338,12 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/rust-libs/SECURITY.html">
+                    <li class="chapter active" data-level="1.2" data-path="/docs/rust-lib/flexer/flexer.html">
                     
-                        <a href="/docs/rust-libs/SECURITY.html">
+                        <a href="/docs/rust-lib/flexer/flexer.html">
                             
-                                Security Policy
+                                Flexer
                             
                         </a>
                     </li>
@@ -480,15 +432,41 @@ search.start();
             
             
                 
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/rust-libs/release-policy.html">
-                    
-                        <a href="/docs/rust-libs/release-policy.html">
-                            
-                                Release Policy
-                            
-                        </a>
-                    </li>
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -728,7 +706,7 @@ search.start();
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >Contributing to the Enso Rust Libraries</a>
+                <a href="." >Flexer</a>
             
         </h1>
     </div>
@@ -737,282 +715,225 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <h1 id="contributing-to-this-repository">Contributing to This Repository</h1>
+                        <h1 id="flexer">Flexer</h1>
 
-<p>Thank you for your interest in contributing to these libraries! We believe that
-only through community involvement can we make them the best they can be! There
-are a whole host of ways to contribute, and every single one is appreciated. The
-major sections of this document are linked below:</p>
+<p>The flexer is a finite-automata-based engine for the definition and generation
+of lexers. Akin to <code class="language-plaintext highlighter-rouge">flex</code>, and other lexer generators, the user may use it to
+define a series of rules for lexing their language, which are then used by the
+flexer to generate a highly-efficient lexer implementation.</p>
 
-<!-- MarkdownTOC levels="2" autolink="true" -->
+<p>Where the flexer differs from other programs in this space, however, is the
+power that it gives users. When matching a rule, the flexer allows its users to
+execute <em>arbitrary</em> Rust code, which may even manipulate the lexer’s state and
+position. This means that the languages that can be lexed by the flexer extend
+from the simplest regular grammars right up to unrestricted grammars (but please
+don’t write a programming language whose syntax falls into this category). It
+also differs in that it chooses the first complete match for a rule, rather than
+the longest one, which makes lexers much easier to define and maintain.</p>
+
+<p>For detailed library documentation, please see the
+<a href="../../lib/rust/flexer/src/lib.rs">crate documentation</a> itself. This includes a
+comprehensive tutorial on how to define a lexer using the flexer.</p>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
 
 <ul>
-  <li><a href="#the-contributor-license-agreement">The Contributor License Agreement</a></li>
-  <li><a href="#issues">Issues</a></li>
-  <li><a href="#bug-reports">Bug Reports</a></li>
-  <li><a href="#hacking-on-these-libraries">Hacking on These Libraries</a></li>
-  <li><a href="#developing-in-conjunction-with-enso--ide">Developing in Conjunction with Enso / IDE</a></li>
-  <li><a href="#pull-requests">Pull Requests</a></li>
-  <li><a href="#issue-triage">Issue Triage</a></li>
+  <li><a href="#the-lexing-process">The Lexing Process</a></li>
+  <li><a href="#lexing-rules">Lexing Rules</a>
+    <ul>
+      <li><a href="#groups">Groups</a></li>
+      <li><a href="#patterns">Patterns</a></li>
+      <li><a href="#transition-functions">Transition Functions</a></li>
+    </ul>
+  </li>
+  <li><a href="#code-generation">Code Generation</a>
+    <ul>
+      <li><a href="#automated-code-generation">Automated Code Generation</a></li>
+    </ul>
+  </li>
+  <li><a href="#structuring-the-flexer-code">Structuring the Flexer Code</a>
+    <ul>
+      <li><a href="#supporting-code-generation">Supporting Code Generation</a></li>
+    </ul>
+  </li>
 </ul>
 
 <!-- /MarkdownTOC -->
 
-<p>All contributions to Enso should be in keeping with our
-<a href="https://github.com/enso-org/enso/docs/CODE_OF_CONDUCT.md">Code of Conduct</a>.</p>
+<h2 id="the-lexing-process">The Lexing Process</h2>
 
-<h2 id="the-contributor-license-agreement">The Contributor License Agreement</h2>
+<p>In the flexer, the lexing process proceeds from the top to the bottom of the
+user-defined rules, and selects the first expression that <em>matches fully</em>. Once
+a pattern has been matched against the input, the associated code is executed
+and the process starts again until the input stream has been consumed.</p>
 
-<p>As part of your first contribution to this repository, you need to accept the
-Contributor License Agreement. You will automatically be asked to sign the CLA
-when you make your first pull request.</p>
+<p>This point about <em>matching fully</em> is particularly important to keep in mind, as
+it differs from other lexer generators that tend to prefer the <em>longest</em> match
+instead.</p>
 
-<p>Any work intentionally submitted for inclusion in Enso shall be licensed under
-this CLA.</p>
+<h2 id="lexing-rules">Lexing Rules</h2>
 
-<p>The CLA you sign applies to all repositories associated with the Enso project,
-so you will only have to sign it once at the start of your contributions.</p>
-
-<h2 id="issues">Issues</h2>
-
-<p>If you’re wanting to get involved with Enso’s development and are looking for
-somewhere to start, you can check out the following tags in our issues:</p>
-
-<ul>
-  <li><a href="https://github.com/enso-org/rust-lib/labels/Status%3A%20Good%20First%20Issue">Good First Issue</a></li>
-  <li><a href="https://github.com/enso-org/rust-lib/labels/Status%3A%20Help%20Wanted">Help Wanted</a></li>
-</ul>
-
-<p>You can use the “Size” and “Difficulty” labels that should be assigned to every
-issue to get a better idea of how much work a given issue might be.</p>
-
-<h2 id="bug-reports">Bug Reports</h2>
-
-<p>While it’s never great to find a bug, they are a reality of software and
-software development! We can’t fix or improve on the things that we don’t know
-about, so report as many bugs as you can! If you’re not sure whether something
-is a bug, file it anyway!</p>
-
-<p><strong>If you are concerned that your bug publicly presents a security risk to the
-users of Enso, please look at our <a href="/docs/rust-libs/SECURITY.html">security guidelines</a>.</strong></p>
-
-<p>Even though GitHub search can be a bit hard to use sometimes, we’d appreciate if
-you could
-<a href="https://github.com/enso-org/rust-lib/search?q=&amp;type=Issues&amp;utf8=%E2%9C%93">search</a>
-for your issue before filing a bug as it’s possible that someone else has
-already reported the issue. We know the search isn’t the best, and it can be
-hard to know what to search for, so we really don’t mind if you do submit a
-duplicate!</p>
-
-<p>Opening an issue is as easy as following
-<a href="https://github.com/enso-org/rust-lib/issues/new?template=bug-report.md">this link</a>
-and filling out the fields. The template is intended to collect all the
-information we need to best diagnose the issue, so please take the time to fill
-it out accurately.</p>
-
-<p>The reproduction steps and the version information are particularly important,
-as the more easily we can reproduce it, the faster we can fix the bug!</p>
-
-<h2 id="hacking-on-these-libraries">Hacking on These Libraries</h2>
-
-<p>This will get you up and running for working on these libraries, with only a
-minimal amount of setup required.</p>
-
-<h3 id="system-requirements">System Requirements</h3>
-
-<p>In order to build these libraries you will need the following tools.</p>
-
-<ul>
-  <li><a href="https://doc.rust-lang.org/cargo/getting-started/installation.html">Cargo</a>,
-the standard rust build tool.</li>
-  <li><a href="https://rustup.rs">Rustup</a> for managing rust toolchains.</li>
-  <li><a href="https://nodejs.org/en/">Node</a> if you want to test the libraries with WASM.</li>
-  <li><a href="https://github.com/rustwasm/wasm-pack">wasm-pack</a> for building WASM versions
-of the libraries and running WASM tests.</li>
-</ul>
-
-<p>We only support the current LTS node version. This is currently <code class="language-plaintext highlighter-rouge">v12.18.4</code>.</p>
-
-<h3 id="getting-the-sources">Getting the Sources</h3>
-
-<p>Given you’ve probably been reading this document on GitHub, you might have an
-inkling where to look!. You can clone Enso using two methods:</p>
-
-<ul>
-  <li><strong>Via HTTPS:</strong> We recommend you only use HTTPS if checking out the sources as
-read-only.</li>
-</ul>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/enso-org/rust-lib.git
-</code></pre></div></div>
-
-<ul>
-  <li><strong>Via SSH:</strong> For those who plan on regularly making direct commits, cloning
-over SSH may provide a better user experience (but requires setting up your
-SSH Keys with GitHub).</li>
-</ul>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone git@github.com:enso-org/rust-lib.git
-</code></pre></div></div>
-
-<h3 id="getting-set-up-rust">Getting Set Up (Rust)</h3>
-
-<p>You can get set up by running the following commands in the cloned repository.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rustup toolchain <span class="nb">install </span>nightly-2019-11-04
-rustup override <span class="nb">set </span>nightly-2019-11-04
-rustup component add clippy
-</code></pre></div></div>
-
-<h3 id="building-the-libraries">Building the Libraries</h3>
-
-<p>Building these libraries is as simple as using the cargo build tool. You can run
-<code class="language-plaintext highlighter-rouge">cargo build</code> to build all of the libraries, or <code class="language-plaintext highlighter-rouge">cargo build $lib</code>, where <code class="language-plaintext highlighter-rouge">$lib</code>
-is the name of one of the libraries in this project.</p>
-
-<h4 id="troubleshooting">Troubleshooting</h4>
-
-<p>If you are having issues building the libraries, please check the list below
-before filing an issue with us.</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">error[E0554]</code>: <code class="language-plaintext highlighter-rouge">#![feature]</code> may not be used on the $chan release
-channel<code class="language-plaintext highlighter-rouge">: The version of </code>rustc<code class="language-plaintext highlighter-rouge">seen by</code>cargo` is not a nightly build, and a
-nightly build is required.</li>
-  <li><strong>Compile Errors:</strong> Please check that you are on the correct <code class="language-plaintext highlighter-rouge">rustc</code> nightly
-(<code class="language-plaintext highlighter-rouge">nightly-2019-11-04</code>).</li>
-</ul>
-
-<p>If your problem was not listed above, please
-<a href="https://github.com/enso-org/rust-lib/issues/new?assignees=&amp;labels=Type%3A+Bug&amp;template=bug-report.md&amp;title=">file a bug report</a>
-in our issue tracker and we will get back to you as soon as possible.</p>
-
-<h2 id="developing-in-conjunction-with-enso--ide">Developing in Conjunction with Enso / IDE</h2>
-
-<p>As these libraries are used frequently by both the
-<a href="https://github.com/enso-org/enso">Enso language</a> and the
-<a href="https://github.com/enso-org/ide">Enso IDE</a>, it is often necessary to develop
-these libraries alongside those projects. This section deals with the workflow
-for doing so.</p>
-
-<h3 id="patch-overrides">Patch Overrides</h3>
-
-<p><a href="https://doc.rust-lang.org/cargo/">Cargo</a>, the Rust package manager and build
-tool, has support for
-<a href="https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html">overriding dependencies</a>.
-The best way that we’ve found to use this functionality for developing these
-libraries in conjunction with another project is to use a
-<a href="https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html#the-patch-section">patch version override</a>.</p>
-
-<p>As the patch paths care able to point <em>outside</em> the current Cargo project, you
-can check out this repository and the other one side by side and set the patch
-paths for the libraries you want to develop.</p>
-
-<p>The following is an example:</p>
-
-<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[patch.crates-io]</span>
-<span class="nn">enso-automata</span>       <span class="o">=</span> <span class="p">{</span> <span class="py">path</span> <span class="p">=</span> <span class="s">"../rust-lib/src/automata"</span>       <span class="p">}</span>
-<span class="nn">enso-data</span>           <span class="o">=</span> <span class="p">{</span> <span class="py">path</span> <span class="p">=</span> <span class="s">"../rust-lib/src/data"</span>           <span class="p">}</span>
-<span class="nn">enso-generics</span>       <span class="o">=</span> <span class="p">{</span> <span class="py">path</span> <span class="p">=</span> <span class="s">"../rust-lib/src/generics"</span>       <span class="p">}</span>
-<span class="nn">enso-logger</span>         <span class="o">=</span> <span class="p">{</span> <span class="py">path</span> <span class="p">=</span> <span class="s">"../rust-lib/src/logger"</span>         <span class="p">}</span>
-<span class="nn">enso-macro-utils</span>    <span class="o">=</span> <span class="p">{</span> <span class="py">path</span> <span class="p">=</span> <span class="s">"../rust-lib/src/macro-utils"</span>    <span class="p">}</span>
-<span class="nn">enso-optics</span>         <span class="o">=</span> <span class="p">{</span> <span class="py">path</span> <span class="p">=</span> <span class="s">"../rust-lib/src/optics"</span>         <span class="p">}</span>
-<span class="nn">enso-prelude</span>        <span class="o">=</span> <span class="p">{</span> <span class="py">path</span> <span class="p">=</span> <span class="s">"../rust-lib/src/prelude"</span>        <span class="p">}</span>
-<span class="nn">enso-shapely</span>        <span class="o">=</span> <span class="p">{</span> <span class="py">path</span> <span class="p">=</span> <span class="s">"../rust-lib/src/shapely/impl"</span>   <span class="p">}</span>
-<span class="nn">enso-shapely-macros</span> <span class="o">=</span> <span class="p">{</span> <span class="py">path</span> <span class="p">=</span> <span class="s">"../rust-lib/src/shapely/macros"</span> <span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="pr-workflow">PR Workflow</h3>
-
-<p>This does, however, create a bit of a dependency for the order in which you
-submit your PRs. We recommend working as follows if you need to develop one of
-these libraries alongside a project.</p>
+<p>A lexing rule for the flexer is a combination of three things:</p>
 
 <ol>
-  <li>Clone this repository alongside the project repository, such that it is at
-the relative path <code class="language-plaintext highlighter-rouge">../rust-lib</code>.</li>
-  <li>In your project’s <code class="language-plaintext highlighter-rouge">Cargo.toml</code>, add a patch override for each library in
-this repo that you want to work on.</li>
-  <li>When you are done, you need to bump the library versions for the changed
-libraries, and PR your changes to this repo. Make sure that you <em>only</em> do
-this after you’re done, as before can cause some issues with <code class="language-plaintext highlighter-rouge">Cargo.lock</code>.</li>
-  <li>Once the PR is accepted, you need to follow the
-<a href="/docs/rust-libs/release-policy.html">release process</a> to release new versions to
-<a href="https://crates.io"><code class="language-plaintext highlighter-rouge">crates.io</code></a>.</li>
-  <li>Once those versions are released, you need to first remove the patch
-overrides and then update the versions in your project.</li>
-  <li>You can now PR your changes to the main project.</li>
+  <li>A group.</li>
+  <li>A pattern.</li>
+  <li>A transition function.</li>
 </ol>
 
-<h2 id="pull-requests">Pull Requests</h2>
+<p>An example of defining a rule is as follows:</p>
 
-<p>Pull Requests are the primary method for making changes to these libraries.
-GitHub has
-<a href="https://help.github.com/articles/about-pull-requests/">fantastic documentation</a>
-on using the pull request feature. This repo uses the ‘fork-and-pull’ model of
-development. It is as described
-<a href="https://help.github.com/articles/about-collaborative-development-models/">here</a>
-and involves people pushing changes to their own fork and creating pull requests
-to bring those changes into the main Enso repository.</p>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">define</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="n">Self</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="k">mut</span> <span class="n">lexer</span>     <span class="o">=</span> <span class="nn">TestLexer</span><span class="p">::</span><span class="nf">new</span><span class="p">();</span>
+    <span class="k">let</span> <span class="n">a_word</span>        <span class="o">=</span> <span class="nn">Pattern</span><span class="p">::</span><span class="nf">char</span><span class="p">(</span><span class="sc">'a'</span><span class="p">)</span><span class="nf">.many1</span><span class="p">();</span>
+    <span class="k">let</span> <span class="n">root_group_id</span> <span class="o">=</span> <span class="n">lexer</span><span class="py">.initial_state</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">root_group</span>    <span class="o">=</span> <span class="n">lexer</span><span class="nf">.groups_mut</span><span class="p">()</span><span class="nf">.group_mut</span><span class="p">(</span><span class="n">root_group_id</span><span class="p">);</span>
+    <span class="c">// Here is the rule definition.</span>
+    <span class="n">root_group</span><span class="nf">.create_rule</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a_word</span><span class="p">,</span><span class="s">"self.on_first_word(reader)"</span><span class="p">);</span>
+    <span class="n">lexer</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
-<p>Please make all pull requests against the <code class="language-plaintext highlighter-rouge">main</code> branch.</p>
+<h3 id="groups">Groups</h3>
+
+<p>A group is a mechanism that the flexer provides to allow grouping of rules
+together. The flexer has a concept of a “state stack”, which records the
+currently active state at the current time, that can be manipulated by the
+user-defined <a href="#transition-functions">transition functions</a>.</p>
+
+<p>A state can be made active by using <code class="language-plaintext highlighter-rouge">flexer::push_state(state)</code>, and can be
+deactivated by using <code class="language-plaintext highlighter-rouge">flexer::pop_state(state)</code> or
+<code class="language-plaintext highlighter-rouge">flexer::pop_states_until(state)</code>. In addition, states may also have <em>parents</em>,
+from which they can inherit rules. This is fantastic for removing the need to
+repeat yourself when defining the lexer.</p>
+
+<p>When inheriting rules from a parent group, the rules from the parent group are
+matched strictly <em>after</em> the rules from the child group. This means that groups
+are able to selectively “override” the rules of their parents. Rules are still
+matched in order for each group’s set of rules.</p>
+
+<h3 id="patterns">Patterns</h3>
+
+<p>Rules are defined to match <em>patterns</em>. Patterns are regular-grammar-like
+descriptions of the textual content (as characters) that should be matched. For
+a description of the various patterns provided by the flexer, see
+<a href="../../lib/rust/flexer/src/automata/pattern.rs">pattern.rs</a>.</p>
+
+<p>When a pattern is matched, the associated
+<a href="#transition-functions">transition function</a> is executed.</p>
+
+<h3 id="transition-functions">Transition Functions</h3>
+
+<p>The transition function is a piece of arbitrary rust code that is executed when
+the pattern for a given rule is matched by the flexer. This code may perform
+arbitrary manipulations of the lexer state, and is where the majority of the
+power of the flexer stems from.</p>
+
+<h2 id="code-generation">Code Generation</h2>
+
+<p>While it would be possible to interpret the flexer definition directly at
+runtime, this would involve far too much dynamicism and non-cache-local lookup
+to be at all fast.</p>
+
+<p>Instead, the flexer includes
+<a href="../../lib/rust/flexer/src/generate.rs"><code class="language-plaintext highlighter-rouge">generate.rs</code></a>, a library for generating
+highly-specialized lexer implementations based on the definition provided by the
+user. The transformation that it implements operates as follows for each group
+of rules.</p>
+
+<ol>
+  <li>The set of rules in a group is used to generate a
+<a href="https://en.wikipedia.org/wiki/Nondeterministic_finite_automaton">Nondeterministic Finite Automaton</a>,
+(NFA).</li>
+  <li>The NFA is ttransformed into a
+<a href="https://en.wikipedia.org/wiki/Deterministic_finite_automaton">Deterministic Finite Automaton</a>
+(DFA), using a variant of the standard
+<a href="https://en.wikipedia.org/wiki/Powerset_construction">powerset construction</a>
+algorithm. This variant has been modified to ensure that the following
+additional properties hold:
+    <ul>
+      <li>Patterns are matched in the order in which they are defined.</li>
+      <li>The associated transition functions are maintained correctly through the
+transformation.</li>
+      <li>The lexing process is <code class="language-plaintext highlighter-rouge">O(n)</code>, where <code class="language-plaintext highlighter-rouge">n</code> is the size of the input.</li>
+    </ul>
+  </li>
+  <li>The DFA is then used to generate the rust code that implements that lexer.</li>
+</ol>
+
+<p>The generated lexer contains a main loop that consumes the input stream
+character-by-character, evaluating what is effectively a big <code class="language-plaintext highlighter-rouge">match</code> expression
+that processes the input to evaluate the user-provided transition functions as
+appropriate.</p>
+
+<h3 id="automated-code-generation">Automated Code Generation</h3>
+
+<p>In order to avoid the lexer definition getting out of sync with its
+implementation (the generated engine), it is necessary to create a separate
+crate for the generated engine that has the lexer definition as one of its
+dependencies.</p>
+
+<p>This separation enables a call to <code class="language-plaintext highlighter-rouge">flexer::State::specialize()</code> in the crate’s
+<code class="language-plaintext highlighter-rouge">build.rs</code> (or a macro) during compilation. The output can be stored in a new
+file i.e. <code class="language-plaintext highlighter-rouge">engine.rs</code> and exported from the library as needed. The project
+structure would therefore appear as follows.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- lib/rust/lexer/
+  - definition/
+    - src/
+      - lib.rs
+    - cargo.toml
+
+  - generation/
+    - src/
+      - engine.rs &lt;-- the generated file
+      - lib.rs    &lt;-- `pub mod engine`
+    - build.rs    &lt;-- calls `flexer::State::specialize()` and saves its output to
+                      `src/engine.rs`
+    - cargo.toml &lt;-- lexer-definition is in dependencies and build-dependencies
+</code></pre></div></div>
+
+<p>With this design, <code class="language-plaintext highlighter-rouge">flexer.generate_specialized_code()</code> is going to be executed
+on each rebuild of <code class="language-plaintext highlighter-rouge">lexer/generation</code>. Therefore, <code class="language-plaintext highlighter-rouge">generation</code> should contain
+only the minimum amount of logic, and should endeavor to minimize any
+unnecessary dependencies to avoid recompiling too often.</p>
+
+<h2 id="structuring-the-flexer-code">Structuring the Flexer Code</h2>
+
+<p>In order to unify the API between the definition and generated usages of the
+flexer, the API is separated into the following components:</p>
 
 <ul>
-  <li>We run CI on all contributions to this repo, but it’s still useful for you to
-run the tests yourself locally first! This can be done by running <code class="language-plaintext highlighter-rouge">cargo test</code>
-or by running <code class="language-plaintext highlighter-rouge">cargo test $lib</code>, where <code class="language-plaintext highlighter-rouge">$lib</code> is the name of the library.</li>
-  <li>Additionally, please ensure that your code conforms to the Enso style guide
-for <a href="https://github.com/enso-org/enso/docs/style-guide/rust.md">Rust</a>.</li>
+  <li><code class="language-plaintext highlighter-rouge">Flexer</code>: The main flexer definition itself, providing functionality common to
+the definition and implementation of all lexers.</li>
+  <li><code class="language-plaintext highlighter-rouge">flexer::State</code>: The stateful components of a lexer definition. This trait is
+implemented for a particular lexer definition, allowing the user to store
+arbitrary data in their lexer, as needed.</li>
+  <li><strong>User-Defined Lexer:</strong> The user can then define a lexer that <em>wraps</em> the
+flexer, specialised to the particular <code class="language-plaintext highlighter-rouge">flexer::State</code> that the user has
+defined. It is recommended to implement <code class="language-plaintext highlighter-rouge">Deref</code> and <code class="language-plaintext highlighter-rouge">DerefMut</code> between the
+defined lexer and the <code class="language-plaintext highlighter-rouge">Flexer</code>, to allow for ease of use.</li>
 </ul>
 
-<p>Make sure you perform these checks before <em>every</em> pull request. You can even add
-<a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks">git hooks</a> before
-every push to make sure that you can’t forget.</p>
+<h3 id="supporting-code-generation">Supporting Code Generation</h3>
 
-<ul>
-  <li>Every pull request to the Enso repository is reviewed by a member of the core
-team! You’ll get assigned a reviewer based on the areas your PR touches, but
-please feel free to ask for a specific person if you’ve worked with them in a
-specific area before!</li>
-  <li>If you have questions, or would like to begin the review process before your
-PR is ‘done’, please use the
-<a href="https://github.blog/2019-02-14-introducing-draft-pull-requests/">Draft Pull Requests</a>
-feature on GitHub. Doing so will allow you to make use of our CI
-infrastructure as part of your development process.</li>
-</ul>
+<p>This architecture separates out the generated code (which can be defined purely
+on the user-defined lexer), from the code that is defined as part of the lexer
+definition. This means that the same underlying structures can be used to both
+<em>define</em> the lexer, and be used by the generated code from that definition.</p>
 
-<p>Once the reviewer approves your pull request it will be tested by our continuous
-integration provider before being merged. If we request changes to your PR,
-please feel free to discuss the suggestions and comments! We can only achieve
-the best results through open collaboration.</p>
-
-<h2 id="issue-triage">Issue Triage</h2>
-
-<p>Sometimes issues can be left open long after the bug has been fixed. Other
-times, a bug might go stale because something has changed in the meantime.</p>
-
-<p>It can be helpful to go through older bug reports and make sure that they are
-still valid. Load up an older issue, double check that it’s still true, and
-leave a comment letting us know if it is or is not. The
-<a href="https://github.com/enso-org/rust-lib/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-asc">least recently updated</a>
-sort is good for finding issues like this.</p>
-
-<p>Contributors with sufficient permissions can help by adding labels to help with
-issue triage.</p>
-
-<p>If you’re looking for somewhere to start, take a look at the
-<a href="https://github.com/enso-org/rust-lib/labels/Difficulty%3A%20Beginner">Difficulty: Beginner</a>
-issue label, as well as the
-<a href="https://github.com/enso-org/rust-lib/labels/Status%3A%20Help%20Wanted">Status: Help Wanted</a>
-and
-<a href="https://github.com/enso-org/rust-lib/labels/Status%3A%20Good%20First%20Issue">Status: Good First Issue</a>
-labels.</p>
+<p>For an example of how these components are used in the generated lexer, please
+see <a href="../../lib/rust/flexer/tests/generated_api_test.rs"><code class="language-plaintext highlighter-rouge">generated_api_test</code></a>.</p>
 
                         
                         
                           
                             
-                            <a href="https://github.com/enso-org/enso-org.github.io/tree/sources/docs/rust-libs/CONTRIBUTING.md">Open this doc on GitHub</a>
+                            
+                            
+                            
+                            
+                            <a href="https://github.com/enso-org/rust-lib/blob/main/docs/flexer/flexer.md">Open this doc on GitHub</a>
                           
                         
 
@@ -1146,15 +1067,11 @@ search.start();
     </div>
 </div>
 
-                <a href="/docs/rust-libs/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Rust Libraries Developer Documentation">
+                <a href="/docs/rust-lib/flexer/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso's Parser">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
 
-                
-                    <a href="/docs/rust-libs/SECURITY.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Security Policy">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
                 
             
             </div>
@@ -1239,13 +1156,13 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "docs/rust-libs/CONTRIBUTING.md",
+        "path": "docs/rust-lib/flexer/flexer.md",
         "mtime": "",
         "type": "markdown"
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-10-31 22:24:19 +0000"
+        "time": "2020-10-31 23:14:14 +0000"
     },
     "basePath": "",
     "book": {

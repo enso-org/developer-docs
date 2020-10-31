@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso&#39;s Parser · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Release Policy · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -30,11 +30,9 @@
         
 
         
-            <link rel="prev" href="/docs/rust-libs" />
+            <link rel="prev" href="/docs/rust-lib/SECURITY.html" />
         
 
-        
-            <link rel="next" href="/docs/rust-libs/flexer/flexer.html" />
         
     </head>
     <body>
@@ -178,8 +176,8 @@ search.start();
             
         
             
-            <li class="chapter" data-level="1.1" data-path="/docs/rust-libs ">
-                    <a href="/docs/rust-libs">
+            <li class="chapter" data-level="1.1" data-path="/docs/rust-lib ">
+                    <a href="/docs/rust-lib">
                         Go back
                     </a>
                 </li>
@@ -286,12 +284,42 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
-                    <li class="chapter active" data-level="1.2" data-path="/docs/rust-libs/flexer/">
+                    <li class="chapter" data-level="1.1" data-path="/docs/rust-lib/">
                     
-                        <a href="/docs/rust-libs/flexer/">
+                        <a href="/docs/rust-lib/">
                             
-                                Enso&#39;s Parser
+                                Enso Rust Libraries Developer Documentation
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/rust-lib/CONTRIBUTING.html">
+                    
+                        <a href="/docs/rust-lib/CONTRIBUTING.html">
+                            
+                                Contributing to the Enso Rust Libraries
                             
                         </a>
                     </li>
@@ -340,12 +368,28 @@ search.start();
             
             
                 
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/rust-libs/flexer/flexer.html">
+                    <li class="chapter" data-level="1.1" data-path="/docs/rust-lib/SECURITY.html">
                     
-                        <a href="/docs/rust-libs/flexer/flexer.html">
+                        <a href="/docs/rust-lib/SECURITY.html">
                             
-                                Flexer
+                                Security Policy
                             
                         </a>
                     </li>
@@ -434,41 +478,15 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/rust-lib/release-policy.html">
+                    
+                        <a href="/docs/rust-lib/release-policy.html">
+                            
+                                Release Policy
+                            
+                        </a>
+                    </li>
                 
             
             
@@ -697,17 +715,6 @@ search.start();
             
             
 
-            
-                
-
-                
-                
-                
-                
-                
-                
-                
-                
             
         
         </ul>
@@ -719,7 +726,7 @@ search.start();
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >Enso&#39;s Parser</a>
+                <a href="." >Release Policy</a>
             
         </h1>
     </div>
@@ -728,26 +735,120 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <h1 id="the-flexer">The Flexer</h1>
+                        <h1 id="release-policy">Release Policy</h1>
 
-<p>The flexer is a finite-automaton-based engine for the generation of
-highly-efficient lexers. It is capable of supporting the lexing of unrestricted
-grammars as it provides the author with the ability to manipulate the lexing
-state after every match.</p>
+<p>As an open-source project, it is incredibly important that we have a
+well-defined release policy. This document defines said policy.</p>
 
-<p>The various components of the flexer’s design and architecture are described
-below:</p>
+<blockquote>
+  <p><strong>Once a release has been made it is immutable. The release should only ever
+be edited to mark it as broken. Nothing else should ever be changed.</strong></p>
+</blockquote>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
 
 <ul>
-  <li><a href="/docs/rust-libs/flexer/flexer.html"><strong>Overview of the Flexer:</strong></a> A brief overview of the flexer,
-including what it is and how it works.</li>
+  <li><a href="#versioning">Versioning</a></li>
+  <li><a href="#release-branches">Release Branches</a></li>
+  <li><a href="#release-workflow">Release Workflow</a>
+    <ul>
+      <li><a href="#release-ordering">Release Ordering</a></li>
+      <li><a href="#tag-naming">Tag Naming</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="versioning">Versioning</h2>
+
+<p>Releases of these libraries are versioned using
+<a href="https://semver.org">semantic versioning</a>. Where <code class="language-plaintext highlighter-rouge">a.b.c-tag</code> is the version
+string, <code class="language-plaintext highlighter-rouge">a</code> is the major version, <code class="language-plaintext highlighter-rouge">b</code>, is the minor version, <code class="language-plaintext highlighter-rouge">c</code> is the patch
+version, and <code class="language-plaintext highlighter-rouge">tag</code> is additional metadata, the following hold:</p>
+
+<ul>
+  <li>Breaking changes to the public API will result in a major version increase.</li>
+  <li>Addition of functionality in a backwards-compatible manner will result in a
+minor version increase.</li>
+  <li>Backwards-compatible bug fixes will result in a patch version increase.</li>
+  <li>The tag will indicate pre-release or beta versions, and will increase when any
+pre-release change is made. These are not intended to be stable.</li>
+</ul>
+
+<h2 id="release-branches">Release Branches</h2>
+
+<p>Releases are made from the <code class="language-plaintext highlighter-rouge">main</code> branch in this repository, and each release to
+<a href="https://crates.io"><code class="language-plaintext highlighter-rouge">crates.io</code></a> must correspond to a tag on the <code class="language-plaintext highlighter-rouge">main</code> branch.</p>
+
+<h2 id="release-workflow">Release Workflow</h2>
+
+<p>Cutting a release for these libraries works as follows:</p>
+
+<ol>
+  <li>PR your changes against <code class="language-plaintext highlighter-rouge">main</code>, ensuring that the modified libraries have a
+bumped version number.</li>
+  <li>Once the PR lands on <code class="language-plaintext highlighter-rouge">main</code>, create a tag for each library you are
+releasing, named as described below in <a href="#tag-naming">tag naming</a>.</li>
+  <li>Release each of these libraries to <a href="https://crates.io"><code class="language-plaintext highlighter-rouge">crates.io</code></a>. If you
+are a member of the Enso team and do not have the required permissions,
+please ask.</li>
+</ol>
+
+<p>If a change to a library (e.g. prelude) is not required in the downstream
+libraries in this repo and additionally <em>does not cause breakage</em> of said
+downstream libraries, it is not necessary to release new versions of the
+downstream libraries too.</p>
+
+<h3 id="release-ordering">Release Ordering</h3>
+
+<p>As the crates in this repository are interdependent, you will need to release
+them in the following order as <code class="language-plaintext highlighter-rouge">cargo</code> does not yet have support for
+interdependent releases, and the <code class="language-plaintext highlighter-rouge">cargo publish-all</code> project doesn’t seem to
+work.</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">enso-macro-utils</code></li>
+  <li><code class="language-plaintext highlighter-rouge">enso-generics</code></li>
+  <li><code class="language-plaintext highlighter-rouge">enso-shapely-macros</code></li>
+  <li><code class="language-plaintext highlighter-rouge">enso-shapely</code></li>
+  <li><code class="language-plaintext highlighter-rouge">enso-prelude</code></li>
+  <li><code class="language-plaintext highlighter-rouge">enso-data</code></li>
+  <li><code class="language-plaintext highlighter-rouge">enso-optics</code></li>
+  <li><code class="language-plaintext highlighter-rouge">enso-logger</code></li>
+  <li><code class="language-plaintext highlighter-rouge">enso-automata</code></li>
+  <li><code class="language-plaintext highlighter-rouge">enso-lazy-reader</code></li>
+</ol>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Record the release order here.</li>
+  </ul>
+</blockquote>
+
+<h3 id="tag-naming">Tag Naming</h3>
+
+<p>Releases are made for the individual libraries in this repository and are made
+available on <a href="https://crates.io">crates.io</a>. Each release must correspond to a
+<em>tag</em> in the repository using the following format: <code class="language-plaintext highlighter-rouge">libname-version</code> where:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">libname</code> is the name of the library (as it is imported).</li>
+  <li><code class="language-plaintext highlighter-rouge">version</code> is the version string using the <a href="https://semver.org/">semver</a>
+version scheme.</li>
 </ul>
 
                         
                         
                           
                             
-                            <a href="https://github.com/enso-org/enso-org.github.io/tree/sources/docs/rust-libs/flexer/README.md">Open this doc on GitHub</a>
+                            
+                            
+                            
+                            
+                            <a href="https://github.com/enso-org/rust-lib/blob/main/docs/release-policy.md">Open this doc on GitHub</a>
                           
                         
 
@@ -881,15 +982,11 @@ search.start();
     </div>
 </div>
 
-                    <a href="/docsrust-libsflexerREADME.md" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation docsrust-libsflexerREADME.md">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
+                <a href="/docs/rust-lib/SECURITY.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Security Policy">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
 
-                
-                    <a href="/docs/rust-libs/flexer/flexer.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Flexer">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
                 
             
             </div>
@@ -974,13 +1071,13 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "docs/rust-libs/flexer/README.md",
+        "path": "docs/rust-lib/release-policy.md",
         "mtime": "",
         "type": "markdown"
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-10-31 22:24:19 +0000"
+        "time": "2020-10-31 23:14:14 +0000"
     },
     "basePath": "",
     "book": {
