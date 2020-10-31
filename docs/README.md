@@ -9,5 +9,6 @@ order: 0
 # Enso Developer Documentation
 This site contains the documentation for the two major sub-projects of Enso, the engine, and the IDE.
 
-- [Engine](./enso) 
-- [IDE](./ide) 
+- [Engine](./enso)
+- [IDE](./ide)
+- [Rust-Libs](./rust-lib)

@@ -6,3 +6,7 @@
 	path = _submodules/ide
 	url = https://github.com/enso-org/ide
 	branch = main
+[submodule "_submodules/rust-lib"]
+	path = _submodules/rust-lib
+	url = https://github.com/enso-org/rust-lib
+	branch = main
