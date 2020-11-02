@@ -753,7 +753,7 @@ search.start();
 common to multiple sub-components of the protocol.</p>
 
 <p>For information on the design and architecture of the protocol, as well as its
-transport formats, please look <a href="./protocol-architecture">here</a>.</p>
+transport formats, please look <a href="/docs/enso/language-server/protocol-architecture.html">here</a>.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
@@ -764,6 +764,16 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#path"><code class="language-plaintext highlighter-rouge">Path</code></a></li>
       <li><a href="#ipwithsocket"><code class="language-plaintext highlighter-rouge">IPWithSocket</code></a></li>
       <li><a href="#ensouuid"><code class="language-plaintext highlighter-rouge">EnsoUUID</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#common-errors">Common Errors</a>
+    <ul>
+      <li><a href="#parseerror"><code class="language-plaintext highlighter-rouge">ParseError</code></a></li>
+      <li><a href="#invalidrequest"><code class="language-plaintext highlighter-rouge">InvalidRequest</code></a></li>
+      <li><a href="#methodnotfound"><code class="language-plaintext highlighter-rouge">MethodNotFound</code></a></li>
+      <li><a href="#invalidparams"><code class="language-plaintext highlighter-rouge">InvalidParams</code></a></li>
+      <li><a href="#serviceerror"><code class="language-plaintext highlighter-rouge">ServiceError</code></a></li>
+      <li><a href="#notimplementederror"><code class="language-plaintext highlighter-rouge">NotImplementedError</code></a></li>
     </ul>
   </li>
 </ul>
@@ -864,6 +874,72 @@ struct EnsoUUID {
 
 }
 </code></pre>
+
+<h2 id="common-errors">Common Errors</h2>
+
+<h3 id="parseerror"><code class="language-plaintext highlighter-rouge">ParseError</code></h3>
+
+<p>Signals that the message failed to parse.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="o">-</span><span class="mi">32700</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Parse error</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="invalidrequest"><code class="language-plaintext highlighter-rouge">InvalidRequest</code></h3>
+
+<p>Signals that the request is invalid.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="o">-</span><span class="mi">32600</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Invalid Request</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="methodnotfound"><code class="language-plaintext highlighter-rouge">MethodNotFound</code></h3>
+
+<p>Signals that the requested method is not supported.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="o">-</span><span class="mi">32601</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Method not found</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="invalidparams"><code class="language-plaintext highlighter-rouge">InvalidParams</code></h3>
+
+<p>Signals that the parameters provided for the requested method were invalid.</p>
+
+<p>This may indicate that the type or format of one of the parameters is different
+than expected.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="o">-</span><span class="mi">32602</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Invalid params</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="serviceerror"><code class="language-plaintext highlighter-rouge">ServiceError</code></h3>
+
+<p>Signals a generic service error.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Service error</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="notimplementederror"><code class="language-plaintext highlighter-rouge">NotImplementedError</code></h3>
+
+<p>Signals that the requested method is supported, but it is has not been
+implemented yet.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">The requested method is not implemented</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
                         
                         
@@ -1106,7 +1182,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-10-31 23:14:14 +0000"
+        "time": "2020-11-02 08:59:31 +0000"
     },
     "basePath": "",
     "book": {

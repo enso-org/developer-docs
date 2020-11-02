@@ -755,7 +755,7 @@ pertain to the project manager component. Please familiarise yourself with the
 document.</p>
 
 <p>For information on the design and architecture of the protocol, as well as its
-transport formats, please look <a href="./protocol-architecture">here</a>.</p>
+transport formats, please look <a href="/docs/enso/language-server/protocol-architecture.html">here</a>.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
@@ -763,6 +763,9 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
   <li><a href="#types">Types</a>
     <ul>
       <li><a href="#projectmetadata"><code class="language-plaintext highlighter-rouge">ProjectMetadata</code></a></li>
+      <li><a href="#missingcomponentaction"><code class="language-plaintext highlighter-rouge">MissingComponentAction</code></a></li>
+      <li><a href="#progressunit"><code class="language-plaintext highlighter-rouge">ProgressUnit</code></a></li>
+      <li><a href="#engineversion"><code class="language-plaintext highlighter-rouge">EngineVersion</code></a></li>
     </ul>
   </li>
   <li><a href="#project-management-operations">Project Management Operations</a>
@@ -776,18 +779,54 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#projectlistsample"><code class="language-plaintext highlighter-rouge">project/listSample</code></a></li>
     </ul>
   </li>
-  <li><a href="#language-server-management">Language Server Management</a></li>
-  <li><a href="#errors">Errors</a>
+  <li><a href="#action-progress-reporting">Action Progress Reporting</a>
     <ul>
+      <li><a href="#taskstarted"><code class="language-plaintext highlighter-rouge">task/started</code></a></li>
+      <li><a href="#taskprogress-update"><code class="language-plaintext highlighter-rouge">task/progress-update</code></a></li>
+      <li><a href="#taskfinished"><code class="language-plaintext highlighter-rouge">task/finished</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#components-management">Components Management</a>
+    <ul>
+      <li><a href="#enginelist-installed"><code class="language-plaintext highlighter-rouge">engine/list-installed</code></a></li>
+      <li><a href="#enginelist-available"><code class="language-plaintext highlighter-rouge">engine/list-available</code></a></li>
+      <li><a href="#engineinstall"><code class="language-plaintext highlighter-rouge">engine/install</code></a></li>
+      <li><a href="#engineuninstall"><code class="language-plaintext highlighter-rouge">engine/uninstall</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#configuration-management">Configuration Management</a>
+    <ul>
+      <li><a href="#global-configget"><code class="language-plaintext highlighter-rouge">global-config/get</code></a></li>
+      <li><a href="#global-configset"><code class="language-plaintext highlighter-rouge">global-config/set</code></a></li>
+      <li><a href="#global-configdelete"><code class="language-plaintext highlighter-rouge">global-config/delete</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#logging-service">Logging Service</a>
+    <ul>
+      <li><a href="#logging-serviceget-endpoint"><code class="language-plaintext highlighter-rouge">logging-service/get-endpoint</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#language-server-management">Language Server Management</a></li>
+  <li><a href="#errors-15">Errors</a>
+    <ul>
+      <li><a href="#missingcomponenterror"><code class="language-plaintext highlighter-rouge">MissingComponentError</code></a></li>
+      <li><a href="#brokencomponenterror"><code class="language-plaintext highlighter-rouge">BrokenComponentError</code></a></li>
+      <li><a href="#projectmanagerupgraderequired"><code class="language-plaintext highlighter-rouge">ProjectManagerUpgradeRequired</code></a></li>
+      <li><a href="#componentinstallationerror"><code class="language-plaintext highlighter-rouge">ComponentInstallationError</code></a></li>
+      <li><a href="#componentuninstallationerror"><code class="language-plaintext highlighter-rouge">ComponentUninstallationError</code></a></li>
+      <li><a href="#componentrepositoryunavailable"><code class="language-plaintext highlighter-rouge">ComponentRepositoryUnavailable</code></a></li>
       <li><a href="#projectnamevalidationerror"><code class="language-plaintext highlighter-rouge">ProjectNameValidationError</code></a></li>
       <li><a href="#projectdatastoreerror"><code class="language-plaintext highlighter-rouge">ProjectDataStoreError</code></a></li>
       <li><a href="#projectexistserror"><code class="language-plaintext highlighter-rouge">ProjectExistsError</code></a></li>
       <li><a href="#projectnotfounderror"><code class="language-plaintext highlighter-rouge">ProjectNotFoundError</code></a></li>
       <li><a href="#projectopenerror"><code class="language-plaintext highlighter-rouge">ProjectOpenError</code></a></li>
-      <li><a href="#projectcloseerror"><code class="language-plaintext highlighter-rouge">ProjectCloseError</code></a></li>
       <li><a href="#projectnotopenerror"><code class="language-plaintext highlighter-rouge">ProjectNotOpenError</code></a></li>
       <li><a href="#projectopenbyotherpeerserror"><code class="language-plaintext highlighter-rouge">ProjectOpenByOtherPeersError</code></a></li>
       <li><a href="#cannotremoveopenprojecterror"><code class="language-plaintext highlighter-rouge">CannotRemoveOpenProjectError</code></a></li>
+      <li><a href="#projectcloseerror"><code class="language-plaintext highlighter-rouge">ProjectCloseError</code></a></li>
+      <li><a href="#languageservererror"><code class="language-plaintext highlighter-rouge">LanguageServerError</code></a></li>
+      <li><a href="#globalconfigurationaccesserror"><code class="language-plaintext highlighter-rouge">GlobalConfigurationAccessError</code></a></li>
+      <li><a href="#loggingserviceunavailable"><code class="language-plaintext highlighter-rouge">LoggingServiceUnavailable</code></a></li>
     </ul>
   </li>
 </ul>
@@ -812,6 +851,48 @@ protocol messages. These are specified here.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
+<h3 id="missingcomponentaction"><code class="language-plaintext highlighter-rouge">MissingComponentAction</code></h3>
+
+<p>This type specifies what action should be taken if a component required to
+complete an operation is missing.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Fail</code> will make the operation fail if any components are missing.</li>
+  <li><code class="language-plaintext highlighter-rouge">Install</code> will try to install any missing components, unless they are marked
+as broken.</li>
+  <li><code class="language-plaintext highlighter-rouge">ForceInstallBroken</code> will try to install all missing components, even if some
+of them are marked as broken.</li>
+</ul>
+
+<h4 id="format-1">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">MissingComponentAction</span> <span class="o">=</span> <span class="nx">Fail</span> <span class="o">|</span> <span class="nx">Install</span> <span class="o">|</span> <span class="nx">ForceInstallBroken</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="progressunit"><code class="language-plaintext highlighter-rouge">ProgressUnit</code></h3>
+
+<p>This type specifies the unit of progress updates related to a task.</p>
+
+<h4 id="format-2">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">ProgressUnit</span> <span class="o">=</span> <span class="nx">Bytes</span> <span class="o">|</span> <span class="nx">Other</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="engineversion"><code class="language-plaintext highlighter-rouge">EngineVersion</code></h3>
+
+<p>This type represents an installed or available engine version.</p>
+
+<h4 id="format-3">Format</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">EngineVersion</span> <span class="p">{</span>
+  <span class="cm">/** Semver string of engine version. */</span>
+  <span class="nl">version</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="cm">/** Specifies if that version is marked as broken. */</span>
+  <span class="nl">markedAsBroken</span><span class="p">:</span> <span class="nx">bool</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
 <h2 id="project-management-operations">Project Management Operations</h2>
 
 <p>The primary responsibility of the project managers is to allow users to manage
@@ -822,6 +903,15 @@ their projects.</p>
 <p>This message requests that the project manager open a specified project. This
 operation also includes spawning an instance of the language server open on the
 specified project.</p>
+
+<p>To open a project, an engine version that is specified in project settings needs
+to be installed. If <code class="language-plaintext highlighter-rouge">missingComponentAction</code> is set to <code class="language-plaintext highlighter-rouge">install</code> or
+<code class="language-plaintext highlighter-rouge">force-install-broken</code>, this action will install any missing components,
+otherwise, an error will be reported if a component is missing. A typical usage
+scenario may consist of first trying to open the project without installing
+missing components. If that fails with the <code class="language-plaintext highlighter-rouge">MissingComponentError</code>, the client
+can ask the user if they want to install the missing components and re-attempt
+the action.</p>
 
 <ul>
   <li><strong>Type:</strong> Request</li>
@@ -834,6 +924,13 @@ specified project.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectOpenRequest</span> <span class="p">{</span>
   <span class="nl">projectId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * Specifies how to handle missing components.
+   *
+   * If not provided, defaults to `fail`.
+   */</span>
+  <span class="nl">missingComponentAction</span><span class="p">?:</span> <span class="nx">MissingComponentAction</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -853,6 +950,17 @@ doesn’t exist.</li>
   <li><a href="#projectdatastoreerror"><code class="language-plaintext highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
 underlying data store.</li>
   <li><a href="#projectopenerror"><code class="language-plaintext highlighter-rouge">ProjectOpenError</code></a> to signal failures during server boot.</li>
+  <li><a href="#missingcomponenterror"><code class="language-plaintext highlighter-rouge">MissingComponentError</code></a> to signal that the component
+required to open the project was missing (only in case
+<code class="language-plaintext highlighter-rouge">missingComponentAction</code> was set to <code class="language-plaintext highlighter-rouge">fail</code>).</li>
+  <li><a href="#brokencomponenterror"><code class="language-plaintext highlighter-rouge">BrokenComponentError</code></a> to signal that the component
+required to open the project was being installed but is marked as broken (only
+in case <code class="language-plaintext highlighter-rouge">missingComponentAction</code> was set to <code class="language-plaintext highlighter-rouge">install</code>).</li>
+  <li><a href="#componentinstallationerror"><code class="language-plaintext highlighter-rouge">ComponentInstallationError</code></a> to signal that the
+installation of a missing component has failed.</li>
+  <li><a href="#projectmanagerupgraderequired"><code class="language-plaintext highlighter-rouge">ProjectManagerUpgradeRequired</code></a> to signal
+that the requested engine version requires a more recent project manager, so
+an upgrade has to be performed before continuing.</li>
 </ul>
 
 <h3 id="projectclose"><code class="language-plaintext highlighter-rouge">project/close</code></h3>
@@ -933,6 +1041,10 @@ underlying data store.</li>
 
 <p>This message requests the creation of a new project.</p>
 
+<p>To create a project, an engine version associated with it needs to be installed.
+Depending on <code class="language-plaintext highlighter-rouge">missingComponentAction</code>, any components required to complete the
+operation are missing will be installed or a failure will be reported.</p>
+
 <ul>
   <li><strong>Type:</strong> Request</li>
   <li><strong>Direction:</strong> Client -&gt; Server</li>
@@ -943,7 +1055,26 @@ underlying data store.</li>
 <h4 id="parameters-3">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectCreateRequest</span> <span class="p">{</span>
+  <span class="cm">/** Name of the project to create. */</span>
   <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * Enso Engine version to use for the project.
+   *
+   * Possible values are:
+   * - a semver version string identifying an Enso engine version,
+   * - `default` to use the current default.
+   *
+   * The field is optional - if it is missing, it is treated as `default`.
+   */</span>
+  <span class="nl">version</span><span class="p">?:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * Specifies how to handle missing components.
+   *
+   * If not provided, defaults to `fail`.
+   */</span>
+  <span class="nl">missingComponentAction</span><span class="p">?:</span> <span class="nx">MissingComponentAction</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -963,6 +1094,17 @@ validation failures.</li>
 underlying data store.</li>
   <li><a href="#projectexistserror"><code class="language-plaintext highlighter-rouge">ProjectExistsError</code></a> to signal that the project already
 exists.</li>
+  <li><a href="#missingcomponenterror"><code class="language-plaintext highlighter-rouge">MissingComponentError</code></a> to signal that the component
+required to create the project was missing (only in case
+<code class="language-plaintext highlighter-rouge">missingComponentAction</code> was set to <code class="language-plaintext highlighter-rouge">fail</code>).</li>
+  <li><a href="#brokencomponenterror"><code class="language-plaintext highlighter-rouge">BrokenComponentError</code></a> to signal that the component
+required to create the project was being installed but is marked as broken
+(only in case <code class="language-plaintext highlighter-rouge">missingComponentAction</code> was set to <code class="language-plaintext highlighter-rouge">install</code>).</li>
+  <li><a href="#componentinstallationerror"><code class="language-plaintext highlighter-rouge">ComponentInstallationError</code></a> to signal that the
+installation of a missing component has failed.</li>
+  <li><a href="#projectmanagerupgraderequired"><code class="language-plaintext highlighter-rouge">ProjectManagerUpgradeRequired</code></a> to signal
+that the requested engine version requires a more recent project manager, so
+an upgrade has to be performed before continuing.</li>
 </ul>
 
 <h3 id="projectrename"><code class="language-plaintext highlighter-rouge">project/rename</code></h3>
@@ -998,7 +1140,8 @@ validation failures.</li>
 underlying data store.</li>
   <li><a href="#projectexistserror"><code class="language-plaintext highlighter-rouge">ProjectExistsError</code></a> to signal that the project with
 the provided name already exists.</li>
-  <li><a href="#serviceerror"><code class="language-plaintext highlighter-rouge">ServiceError</code></a> to signal that the the operation timed out.</li>
+  <li><a href="/docs/enso/language-server/protocol-common.html#serviceerror"><code class="language-plaintext highlighter-rouge">ServiceError</code></a> to signal that the the
+operation timed out.</li>
   <li><a href="#languageservererror"><code class="language-plaintext highlighter-rouge">LanguageServerError</code></a> to signal generic language
 server failures.</li>
 </ul>
@@ -1067,25 +1210,504 @@ the project cannot be removed, because is open by at least one user.</li>
 
 <p>TBC</p>
 
+<h2 id="action-progress-reporting">Action Progress Reporting</h2>
+
+<p>Some actions, especially those related to installation of new components may
+take a long time (for example because big packages need to be downloaded).</p>
+
+<p>The protocol includes notifications tied to such actions that can be used to
+display progress bars.</p>
+
+<p>Each task has a lifecycle of being initialized with a <code class="language-plaintext highlighter-rouge">task/started</code>
+notification (which contains a UUID that identifies that task), being updated
+with <code class="language-plaintext highlighter-rouge">task/progress-update</code> and finalized with <code class="language-plaintext highlighter-rouge">task/finished</code>. <code class="language-plaintext highlighter-rouge">task/finished</code>
+may include an error (but please note that regardless of the task-related error,
+the error will also be reported for the original request associated with the
+task, for example as <code class="language-plaintext highlighter-rouge">ComponentInstallationError</code> returned for the
+<code class="language-plaintext highlighter-rouge">project/open</code> request that triggered the installation).</p>
+
+<p>Tasks are sent while an operation is being processed and a single operation may
+consist of several (sub)tasks.</p>
+
+<p>For example, when opening a project the flow may be following:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">project/open</code> request sent to the server</li>
+  <li>notification <code class="language-plaintext highlighter-rouge">task/started</code> (downloading the archive)</li>
+  <li>multiple notifications <code class="language-plaintext highlighter-rouge">task/progress-update</code> related to that task</li>
+  <li>notification <code class="language-plaintext highlighter-rouge">task/finished</code></li>
+  <li>notification <code class="language-plaintext highlighter-rouge">task/started</code> (extracting the archive)</li>
+  <li>multiple notifications <code class="language-plaintext highlighter-rouge">task/progress-update</code> related to that task</li>
+  <li>notification <code class="language-plaintext highlighter-rouge">task/finished</code></li>
+  <li>reply to the original <code class="language-plaintext highlighter-rouge">project/open</code> request</li>
+</ul>
+
+<p>All task progress updates happen within the response/request flow (up to a
+possible reordering of messages).</p>
+
+<h3 id="taskstarted"><code class="language-plaintext highlighter-rouge">task/started</code></h3>
+
+<p>Indicates that a long running task has been started.</p>
+
+<p>Currently only used when components are being installed to show installation
+progress.</p>
+
+<ul>
+  <li><strong>Type:</strong> Notification</li>
+  <li><strong>Direction:</strong> Server -&gt; Client</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-7">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">TaskStartNotification</span> <span class="p">{</span>
+  <span class="cm">/**
+   * Unique identifier of the task, used to correlate progress updates and the
+   * finished notification.
+   */</span>
+  <span class="nl">taskId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * Name of the operation this task is related to, for example
+   * `project/open`.
+   */</span>
+  <span class="nl">relatedOperation</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="cm">/** Unit in which progress of this task is measured. */</span>
+  <span class="nl">unit</span><span class="p">:</span> <span class="nx">ProgressUnit</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * Indicates total expected progress.
+   *
+   * May be missing, as it is not always known, for example when downloading a
+   * file of unknown size or waiting on a lock.
+   */</span>
+  <span class="nl">total</span><span class="p">?:</span> <span class="nx">Int</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="taskprogress-update"><code class="language-plaintext highlighter-rouge">task/progress-update</code></h3>
+
+<p>Indicates a progress update for a specific task.</p>
+
+<ul>
+  <li><strong>Type:</strong> Notification</li>
+  <li><strong>Direction:</strong> Server -&gt; Client</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-8">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">TaskUpdateNotification</span> <span class="p">{</span>
+  <span class="nl">taskId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+
+  <span class="cm">/** Optional message explaining current status of the task. */</span>
+  <span class="nl">message</span><span class="p">?:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="cm">/** Indicates amount of progress, for example: count of processed bytes. */</span>
+  <span class="nl">done</span><span class="p">:</span> <span class="nx">Int</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="taskfinished"><code class="language-plaintext highlighter-rouge">task/finished</code></h3>
+
+<p>Indicates that a task has been finished, either successfully or with an error.</p>
+
+<ul>
+  <li><strong>Type:</strong> Notification</li>
+  <li><strong>Direction:</strong> Server -&gt; Client</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-9">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">TaskFinishedNotification</span> <span class="p">{</span>
+  <span class="nl">taskId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+
+  <span class="cm">/** Optional message informing about task completion. */</span>
+  <span class="nl">message</span><span class="p">?:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="cm">/** Specifies if the task succeeded or failed. */</span>
+  <span class="nl">success</span><span class="p">:</span> <span class="nx">bool</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="components-management">Components Management</h2>
+
+<h3 id="enginelist-installed"><code class="language-plaintext highlighter-rouge">engine/list-installed</code></h3>
+
+<p>Lists engine versions currently installed.</p>
+
+<p>Please note that the broken marks associated with each engine currently
+represent the state at the moment of installation. As of now, if the broken mark
+has been added later, it is not updated automatically.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-10">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="result-7">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">EngineVersionListResponse</span> <span class="p">{</span>
+  <span class="cm">/** List of installed engines. */</span>
+  <span class="nl">versions</span><span class="p">:</span> <span class="p">[</span><span class="nx">EngineVersion</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-7">Errors</h4>
+
+<p>TBC</p>
+
+<h3 id="enginelist-available"><code class="language-plaintext highlighter-rouge">engine/list-available</code></h3>
+
+<p>Queries the repository to list all engine versions that are available to be
+installed.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-11">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="result-8">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">EngineVersionListResponse</span> <span class="p">{</span>
+  <span class="cm">/** List of available engines. */</span>
+  <span class="nl">versions</span><span class="p">:</span> <span class="p">[</span><span class="nx">EngineVersion</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-8">Errors</h4>
+
+<ul>
+  <li><a href="#componentrepositoryunavailable"><code class="language-plaintext highlighter-rouge">ComponentRepositoryUnavailable</code></a> to signal
+that the component repository could not be reached.</li>
+</ul>
+
+<h3 id="engineinstall"><code class="language-plaintext highlighter-rouge">engine/install</code></h3>
+
+<p>Requests to install the specified engine version. If that version is already
+installed, does nothing.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-12">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">EngineInstallRequest</span> <span class="p">{</span>
+  <span class="cm">/** Semver string of engine version that should be installed. */</span>
+  <span class="nl">version</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * Specifies whether the engine should be installed even if it is marked as
+   * broken.
+   *
+   * If not provided, defaults to `false`.
+   */</span>
+  <span class="nl">forceInstallBroken</span><span class="p">?:</span> <span class="nx">bool</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-9">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="errors-9">Errors</h4>
+
+<ul>
+  <li><a href="#brokencomponenterror"><code class="language-plaintext highlighter-rouge">BrokenComponentError</code></a> to signal that the requested
+engine version is marked as broken (only in case <code class="language-plaintext highlighter-rouge">forceInstallBroken</code> was set
+to <code class="language-plaintext highlighter-rouge">false</code>).</li>
+  <li><a href="#componentinstallationerror"><code class="language-plaintext highlighter-rouge">ComponentInstallationError</code></a> to signal that the
+installation of a missing component has failed.</li>
+  <li><a href="#projectmanagerupgraderequired"><code class="language-plaintext highlighter-rouge">ProjectManagerUpgradeRequired</code></a> to signal
+that the requested engine version requires a more recent project manager, so
+an upgrade has to be performed before continuing.</li>
+</ul>
+
+<h3 id="engineuninstall"><code class="language-plaintext highlighter-rouge">engine/uninstall</code></h3>
+
+<p>Requests to uninstall the specified engine version.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-13">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">EngineUninstallRequest</span> <span class="p">{</span>
+  <span class="cm">/** Semver string of engine version that should be uninstalled. */</span>
+  <span class="nl">version</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-10">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="errors-10">Errors</h4>
+
+<ul>
+  <li><a href="#componentuninstallationerror"><code class="language-plaintext highlighter-rouge">ComponentUninstallationError</code></a> to signal that
+the component could not have been uninstalled.</li>
+</ul>
+
+<h2 id="configuration-management">Configuration Management</h2>
+
+<h3 id="global-configget"><code class="language-plaintext highlighter-rouge">global-config/get</code></h3>
+
+<p>Gets a value from the global config.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-14">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">GlobalConfigGetRequest</span> <span class="p">{</span>
+  <span class="nl">key</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-11">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">GlobalConfigGetResponse</span> <span class="p">{</span>
+  <span class="cm">/**
+   * The value set in the config.
+   *
+   * The field may be missing if the requested value is not set in the config.
+   */</span>
+  <span class="nl">value</span><span class="p">?:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-11">Errors</h4>
+
+<ul>
+  <li><a href="#globalconfigurationaccesserror"><code class="language-plaintext highlighter-rouge">GlobalConfigurationAccessError</code></a> to signal
+that the configuration file could not be accessed.</li>
+</ul>
+
+<h3 id="global-configset"><code class="language-plaintext highlighter-rouge">global-config/set</code></h3>
+
+<p>Sets a value in the global config.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-15">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">GlobalConfigSetRequest</span> <span class="p">{</span>
+  <span class="nl">key</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">value</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-12">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="errors-12">Errors</h4>
+
+<ul>
+  <li><a href="#globalconfigurationaccesserror"><code class="language-plaintext highlighter-rouge">GlobalConfigurationAccessError</code></a> to signal
+that the configuration file could not be accessed.</li>
+</ul>
+
+<h3 id="global-configdelete"><code class="language-plaintext highlighter-rouge">global-config/delete</code></h3>
+
+<p>Deletes a value from the global config, or does nothing if it did not exist.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-16">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">GlobalConfigDeleteRequest</span> <span class="p">{</span>
+  <span class="nl">key</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-13">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="errors-13">Errors</h4>
+
+<ul>
+  <li><a href="#globalconfigurationaccesserror"><code class="language-plaintext highlighter-rouge">GlobalConfigurationAccessError</code></a> to signal
+that the configuration file could not be accessed.</li>
+</ul>
+
+<h2 id="logging-service">Logging Service</h2>
+
+<h3 id="logging-serviceget-endpoint"><code class="language-plaintext highlighter-rouge">logging-service/get-endpoint</code></h3>
+
+<p>Requests the endpoint for connecting to the logging service.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-17">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="result-14">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">LoggingServiceEndpointResponse</span> <span class="p">{</span>
+  <span class="nl">uri</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-14">Errors</h4>
+
+<ul>
+  <li><a href="#loggingserviceunavailable"><code class="language-plaintext highlighter-rouge">LoggingServiceUnavailable</code></a> to signal that the
+logging service is unavailable.</li>
+</ul>
+
 <h2 id="language-server-management">Language Server Management</h2>
 
 <p>The project manager is also responsible for managing the language server. This
 means that it needs to be able to spawn the process, but also tell the process
 when to shut down.</p>
 
-<blockquote>
-  <p>The actionables for this section are:</p>
+<p>A language server process is spawned within the <code class="language-plaintext highlighter-rouge">project/open</code> call. That call
+returns endpoints that the client can use to connect to the language server.
+When <code class="language-plaintext highlighter-rouge">project/close</code> is called, the language server is shutdown. Moreover,
+between these two calls, the project manager sends heartbeat messages to the
+language server to check if it is still running. In case that it has crashed, a
+restart is attempted.</p>
 
-  <ul>
-    <li>Fill it in when we have more of an idea about exactly how this spawning
-relationship is going to work.</li>
-  </ul>
-</blockquote>
-
-<h2 id="errors-7">Errors</h2>
+<h2 id="errors-15">Errors</h2>
 
 <p>The project manager component has its own set of errors. This section is not a
 complete specification and will be updated as new errors are added.</p>
+
+<p>Besides the required <code class="language-plaintext highlighter-rouge">code</code> and <code class="language-plaintext highlighter-rouge">message</code> fields, the errors may have a <code class="language-plaintext highlighter-rouge">data</code>
+field which can store additional error-specific payload.</p>
+
+<h3 id="missingcomponenterror"><code class="language-plaintext highlighter-rouge">MissingComponentError</code></h3>
+
+<p>Signals that a component required to complete the action was missing, but the
+action did not ask for it to be automatically installed.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4020</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Engine 1.2.3 is required to complete the action but it is not installed.</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="brokencomponenterror"><code class="language-plaintext highlighter-rouge">BrokenComponentError</code></h3>
+
+<p>Signals that a component that was being installed is marked as broken, but the
+option to forcibly install broken components was not set.</p>
+
+<p>This error may handled by warning the user about the broken version or
+suggesting to upgrade the project and asking to confirm using the broken
+version. If the user wants to ignore the warning, the operation can be
+reattempted with the option to forcibly install broken components.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4021</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Engine 1.2.3 is marked as broken.</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="projectmanagerupgraderequired"><code class="language-plaintext highlighter-rouge">ProjectManagerUpgradeRequired</code></h3>
+
+<p>Signals that installation of a missing compoment has been attempted, but the
+required engine version requires a newer version of project manager than what is
+currently running.</p>
+
+<p>This error type includes the optional <code class="language-plaintext highlighter-rouge">data</code> field which is an object with a
+field <code class="language-plaintext highlighter-rouge">minimumRequiredVersion</code> that is a semver string of the project manager
+version that is required to complete the related action.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4022</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Project manager 1.2.3 is required to install the requested engine. Please upgrade.</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">data</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">minimumRequiredVersion</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">1.2.3</span><span class="dl">"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="componentinstallationerror"><code class="language-plaintext highlighter-rouge">ComponentInstallationError</code></h3>
+
+<p>Signals that installation of a missing component has been attempted but it has
+failed.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4023</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">A problem occurred when trying to find the release: Cannot find release `enso-1.2.3-not-published`.</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="componentuninstallationerror"><code class="language-plaintext highlighter-rouge">ComponentUninstallationError</code></h3>
+
+<p>Signals that uninstallation of a component has failed.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4024</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">The requested engine version is not installed.</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="componentrepositoryunavailable"><code class="language-plaintext highlighter-rouge">ComponentRepositoryUnavailable</code></h3>
+
+<p>Signals that the repository is unavailable and could not be queried (usually
+caused by lack of internet connection).</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4025</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Could not connect to github.com</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <h3 id="projectnamevalidationerror"><code class="language-plaintext highlighter-rouge">ProjectNameValidationError</code></h3>
 
@@ -1184,6 +1806,26 @@ complete specification and will be updated as new errors are added.</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
   <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4010</span><span class="p">,</span>
   <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">The language server is unresponsive</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="globalconfigurationaccesserror"><code class="language-plaintext highlighter-rouge">GlobalConfigurationAccessError</code></h3>
+
+<p>Signals that the global configuration file could not be accessed or parsed.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4011</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">The global configuration file is malformed.</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="loggingserviceunavailable"><code class="language-plaintext highlighter-rouge">LoggingServiceUnavailable</code></h3>
+
+<p>Signals that the logging service is not available.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4012</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">The logging service has failed to boot.</span><span class="dl">"</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -1428,7 +2070,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-10-31 23:14:14 +0000"
+        "time": "2020-11-02 08:59:31 +0000"
     },
     "basePath": "",
     "book": {
