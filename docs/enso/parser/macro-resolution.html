@@ -809,54 +809,288 @@ search.start();
                     <section class="normal markdown-section">
                         <h1 id="macro-resolution">Macro Resolution</h1>
 
-<p>Macro resolution is the process of taking the structured token stream from the
-<a href="/docs/enso/parser/lexer.html">lexer</a>, and resolving it into the <a href="/docs/enso/parser/ast.html">ast</a> through the
-process of resolving macros. This process produces a chunked AST stream,
-including spacing-unaware elements.</p>
+<p>The Enso macro system is responsible for translating the structured token stream
+from the <a href="/docs/enso/parser/lexer.html">lexer</a> and resolving it into the output <a href="/docs/enso/parser/ast.html">ast</a>
+that represents the Enso language.</p>
 
-<!-- MarkdownTOC levels="2,3" autolink="true" -->
+<p>The macro system is of <em>key</em> importance to the operation of Enso, providing the
+IDE with detailed information on how users can interact with each and every
+portion of the syntax. This has myriad benefits over a traditional parser,
+allowing the IDE to handle all portions of the language’s syntax in a seamless
+way; the <a href="#macro-matchers">macro matchers</a> describe the Enso syntax in a way
+that allows the IDE to extract information about extension points and other
+crucial metadata.</p>
+
+<p>Nevertheless, the macro system <em>also</em> serves as the language’s parser,
+implementing a sophisticated resolution algorithm that is able to turn the token
+stream into the language AST.</p>
+
+<p>Furthermore, the macro system can be extended in future to allow <em>users</em> to
+define their own hygienic macros in Enso itself. This will allow them to
+manipulate their programs syntactically using <em>exactly</em> the same mechanism as
+used in the Enso parser itself.</p>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" indent="  " -->
 
 <ul>
-  <li><a href="#functionality">Functionality</a></li>
-  <li><a href="#errors-during-macro-resolution">Errors During Macro Resolution</a></li>
+  <li><a href="#resolving-macros">Resolving Macros</a>
+    <ul>
+      <li><a href="#macro-segments">Macro Segments</a></li>
+      <li><a href="#matching">Matching</a></li>
+    </ul>
+  </li>
+  <li><a href="#macro-matchers">Macro Matchers</a>
+    <ul>
+      <li><a href="#relative-precedence-matchers">Relative Precedence Matchers</a></li>
+      <li><a href="#named-macros">Named Macros</a></li>
+    </ul>
+  </li>
+  <li><a href="#macro-resolution-errors">Macro Resolution Errors</a>
+    <ul>
+      <li><a href="#macro-errors-as-parser-errors">Macro Errors as Parser Errors</a></li>
+    </ul>
+  </li>
+  <li><a href="#user-defined-macros">User-Defined Macros</a></li>
 </ul>
 
 <!-- /MarkdownTOC -->
 
-<h2 id="functionality">Functionality</h2>
+<h2 id="resolving-macros">Resolving Macros</h2>
 
-<p>The current functionality of the macro resolver is as follows:</p>
+<p>Conceptually, the macro resolution process builds a tree out of the user-defined
+macros, segmenting the token-space based on the types of tokens expected by the
+various definitions. Resolution then proceeds to walk the tree, pruning the
+possible cases until either:</p>
+
+<ol>
+  <li>An unambiguous resolution is found.</li>
+  <li>An ambiguous resolution is found and an error emitted.</li>
+</ol>
+
+<p>Resolution then recurses, continuing to apply the macro resolution process
+against the non-matchable segments in the macro.</p>
+
+<p>Consider, for example, the macros defined as follows:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="n">if_then</span>      <span class="o">=</span> <span class="s">"if"</span> <span class="o">&gt;&gt;</span> <span class="nn">Matcher</span><span class="p">::</span><span class="n">Expr</span> <span class="o">&gt;&gt;</span> <span class="s">"then"</span> <span class="o">&gt;&gt;</span> <span class="nn">Matcher</span><span class="p">::</span><span class="n">Expr</span>
+<span class="k">let</span> <span class="n">if_then_else</span> <span class="o">=</span> <span class="s">"if"</span> <span class="o">&gt;&gt;</span> <span class="nn">Matcher</span><span class="p">::</span><span class="n">Expr</span> <span class="o">&gt;&gt;</span> <span class="s">"then"</span> <span class="o">&gt;&gt;</span> <span class="nn">Matcher</span><span class="p">::</span><span class="n">Expr</span> <span class="o">&gt;&gt;</span> <span class="s">"else"</span> <span class="o">&gt;&gt;</span> <span class="nn">Matcher</span><span class="p">::</span><span class="n">Expr</span>
+</code></pre></div></div>
+
+<p>These generate a tree as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                       ┌──────┐
+                       │ "if" │
+                       └──────┘
+                           │
+                           ├─────────────────┐
+                           ▼                 ▼
+                   ┌───────────────┐     ┌───────┐
+                   │ Matcher::Expr │     │ Other │
+                   └───────────────┘     └───────┘
+                           │                 │
+                           │                 │
+                           ▼                 ▼
+                       ┌──────┐          ┌──────┐
+                       │"then"│          │ Fail │
+                       └──────┘          └──────┘
+                           │
+                           ├─────────────────┐
+                           ▼                 ▼
+                   ┌───────────────┐     ┌───────┐
+                   │ Matcher::Expr │     │ Other │
+                   └───────────────┘     └───────┘
+                           │                 │
+       ┌───────────────────┤                 │
+       ▼                   ▼                 ▼
+  ┌─────────┐          ┌──────┐          ┌──────┐
+  │ Succeed │          │"else"│          │ Fail │
+  └─────────┘          └──────┘          └──────┘
+                           │
+                           ├─────────────────┐
+                           ▼                 ▼
+                   ┌───────────────┐     ┌───────┐
+                   │ Matcher::Expr │     │ Other │
+                   └───────────────┘     └───────┘
+                           │                 │
+                           │                 │
+                           ▼                 ▼
+                      ┌─────────┐        ┌──────┐
+                      │ Succeed │        │ Fail │
+                      └─────────┘        └──────┘
+</code></pre></div></div>
+
+<p>Within each of the patterns, the macro resolution continues recursively, thus
+allowing the macros to match nested uses of themselves (e.g.
+<code class="language-plaintext highlighter-rouge">if a then if b then c</code>).</p>
+
+<p>In reality, this is not how it <em>actually</em> takes place. Applying one macro to
+completion and then starting again on all remaining segments provides abysmal
+complexity. As a result, the process instead operates on a <em>stack</em> of resolution
+contexts, performing its resolution in a linear scan over the token stream.</p>
+
+<h3 id="macro-segments">Macro Segments</h3>
+
+<p>Macros are described in terms of <em>segments</em>. A segment consists of three main
+components:</p>
+
+<ol>
+  <li>An optional <em>preceding section</em> that uses <a href="#macro-matchers">matchers</a> to
+describe what they match until encountering the <em>literal</em> in 2. This can
+only occur with the first segment.</li>
+  <li>A <em>literal</em> that must be matched for that segment to apply.</li>
+  <li>An optional associated <a href="#macro-matchers">matcher</a> that consumes certain
+<em>types</em> of token.</li>
+</ol>
+
+<p>Segments determine how a given macro matches on the input token stream, and are
+used to generate the tree for performing resolution.</p>
+
+<h3 id="matching">Matching</h3>
+
+<p>When a match occurs, the resultant segments are passed to a function that can
+perform some action based on those segments. This function is responsible for
+manipulating the output of the macro resolver, and hence manipulates the AST.</p>
+
+<p>As the function may assert <em>additional</em> properties on the match not able to be
+ascertained by the segment definitions themselves,</p>
+
+<h2 id="macro-matchers">Macro Matchers</h2>
+
+<p>The matchers describe the <em>kinds</em> of tokens that can be reasoned about within a
+macro definition. These fall across a set of categories as follows.</p>
+
+<p>The boundary matchers are:</p>
 
 <ul>
-  <li>TBC</li>
+  <li><code class="language-plaintext highlighter-rouge">Start</code>: Matches the start of the line.</li>
+  <li><code class="language-plaintext highlighter-rouge">End</code>: Matches the end of the line.</li>
 </ul>
 
-<p>The current overview of the macro resolution process can be found in the scala
-<a href="../../lib/syntax/specialization/shared/src/main/scala/org/enso/syntax/text/Parser.scala">implementation</a>.</p>
+<p>Structural matchers:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Nothing</code>: Never matches on any token.</li>
+  <li><code class="language-plaintext highlighter-rouge">Any</code>: Matches on any token. This may become a family of tokens (e.g.
+<code class="language-plaintext highlighter-rouge">AnyExpr</code>), and so on, for performance.</li>
+  <li><code class="language-plaintext highlighter-rouge">Seq</code>: Matches on the contained matches in sequence.</li>
+  <li><code class="language-plaintext highlighter-rouge">Or</code>: Matches on one of the contained matches.</li>
+  <li><code class="language-plaintext highlighter-rouge">Many</code>: Matches on multiple of the given match.</li>
+  <li><code class="language-plaintext highlighter-rouge">Except</code>: Matches on everything but the given pattern.</li>
+</ul>
+
+<p>Meta matchers:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Build</code>: Performs AST resolution on the match, but this must become implicit.</li>
+  <li><code class="language-plaintext highlighter-rouge">Err</code>: Allows ascribing a user-defined error to the failure of the contained
+matcher.</li>
+  <li><code class="language-plaintext highlighter-rouge">Tag</code>: Does nothing, but attaches string metadata to the result. This is very
+useful for syntax highlighting.</li>
+  <li><code class="language-plaintext highlighter-rouge">Exact</code>: Matches on an explicit AST.</li>
+</ul>
+
+<p>Identifier matchers:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Referent</code>: Matches on a referent identifier.</li>
+  <li><code class="language-plaintext highlighter-rouge">Variable</code>: Matches on a variable identifier.</li>
+  <li><code class="language-plaintext highlighter-rouge">External</code>: Matches on an external identifier.</li>
+  <li><code class="language-plaintext highlighter-rouge">Blank</code>: Matches the blank identifier (<code class="language-plaintext highlighter-rouge">_</code>).</li>
+  <li><code class="language-plaintext highlighter-rouge">Operator</code>: Matches on an operator identifier.</li>
+  <li><code class="language-plaintext highlighter-rouge">Modifier</code>: Matches on a modifier identifier.</li>
+  <li><code class="language-plaintext highlighter-rouge">Annotation</code>: Matches on an annotation identifier.</li>
+</ul>
+
+<p>Literal matchers:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Number</code>: Matches on a literal number.</li>
+  <li><code class="language-plaintext highlighter-rouge">Text</code>: Any text literal.</li>
+  <li><code class="language-plaintext highlighter-rouge">TextLine</code>: Matches a single-line textual literal.</li>
+  <li><code class="language-plaintext highlighter-rouge">TextInlineBlock</code>: Matches an inline-block textual literal.</li>
+  <li><code class="language-plaintext highlighter-rouge">TextBlock</code>: Matches a block text literal.</li>
+</ul>
+
+<p>Comment matchers:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">DisableComment</code>: Matches a standard disable comment.</li>
+  <li><code class="language-plaintext highlighter-rouge">DocComment</code>: Matches an Enso doc comment.</li>
+</ul>
+
+<p>Structural matchers:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Block</code>: Matches an Enso block.</li>
+</ul>
+
+<p>Error matchers:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">DanglingBase</code>: Matches an erroneous base for a number literal.</li>
+  <li><code class="language-plaintext highlighter-rouge">TextError</code>: Matches tokens representing error states during textual lexing.</li>
+  <li><code class="language-plaintext highlighter-rouge">InvalidSuffix</code>: Matches an erroneous suffix token.</li>
+  <li><code class="language-plaintext highlighter-rouge">Unrecognized</code>: Matches an unrecognised token.</li>
+</ul>
+
+<p>In addition, it is highly likely that some of these will be combined into
+aggregate matchers that match one of many kinds of token.</p>
+
+<h3 id="relative-precedence-matchers">Relative Precedence Matchers</h3>
+
+<p>Where relevant, the matchers above may take an optional “maximum precedence” of
+operator that they may match. This effectively serves to implement differing
+precedences on either side of a literal operator being implemented via a macro,
+and is important for correctly resolving the function arrow <code class="language-plaintext highlighter-rouge">-&gt;</code>.</p>
+
+<h3 id="named-macros">Named Macros</h3>
+
+<p>In addition to the basic matcher described above, we also need a <code class="language-plaintext highlighter-rouge">Named</code>,
+matcher. The intent behind this matcher is that it allows you to refer to
+existing macro definitions by name, and also provides for better error messages.</p>
+
+<p>By convention, we aim for these names to be treated as qualified, based on the
+package in which they’re declared. This convention should be followed for the
+built-in macros as well, even if they can’t be overridden, as they may appear in
+error messages.</p>
+
+<h2 id="macro-resolution-errors">Macro Resolution Errors</h2>
+
+<p>Due to the incredibly structured nature of the resolver it is quite possible for
+the macro system to produce very detailed errors when resolution fails. This is
+because it knows the path it took to get to the failure, and the expected tokens
+or kinds of tokens at the failure site.</p>
+
+<p>In addition, the resolver allows users to define their own errors through the
+use of the <code class="language-plaintext highlighter-rouge">Err</code> matcher mentioned <a href="#macro-matchers">above</a>.</p>
+
+<h3 id="macro-errors-as-parser-errors">Macro Errors as Parser Errors</h3>
+
+<p>The wealth of information in a failed macro resolution brings the necessary
+tools for the compiler to produce informative and detailed parsing errors.</p>
 
 <blockquote>
   <p>The actionables for this section are:</p>
 
   <ul>
-    <li>Discuss how the space-unaware AST should be handled as it is produced by
-macros.</li>
-    <li>Handle precedence for operators properly within macro resolution (e.g.
-<code class="language-plaintext highlighter-rouge">x : a -&gt; b : a -&gt; c</code> should parse with the correct precedence).</li>
-    <li>Create a detailed design for how macro resolution should work.</li>
+    <li>Determine how we ensure provision of failure information to the engine in a
+useful format.</li>
   </ul>
 </blockquote>
 
-<h2 id="errors-during-macro-resolution">Errors During Macro Resolution</h2>
+<h2 id="user-defined-macros">User-Defined Macros</h2>
 
-<p>It is very important that, during macro resolution, the resolver produces
-descriptive errors for error conditions in the macro resolver.</p>
+<p>In the future we want to provide an Enso-level syntax that allows the user to
+define syntactic macros for their programs, similar to how Rust exposes the
+<code class="language-plaintext highlighter-rouge">macro_rules!</code> construct.</p>
 
 <blockquote>
   <p>The actionables for this section are:</p>
 
   <ul>
-    <li>Determine how best to provide detailed and specific errors from within the
-macro resolution engine.</li>
+    <li>Determine what this should look like in surface Enso.</li>
+    <li>Determine exactly how the round-trip mechanic between the runtime and parser
+should function.</li>
   </ul>
 </blockquote>
 
@@ -1101,7 +1335,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-11-02 21:00:35 +0000"
+        "time": "2020-11-03 10:08:58 +0000"
     },
     "basePath": "",
     "book": {
