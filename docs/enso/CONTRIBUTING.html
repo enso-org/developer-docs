@@ -1053,10 +1053,18 @@ inside the <code class="language-plaintext highlighter-rouge">runner</code> subp
 
 <p>This will produce an executable <code class="language-plaintext highlighter-rouge">runner.jar</code> fat jar and a <code class="language-plaintext highlighter-rouge">runtime.jar</code> fat jar
 in the repository root. The <code class="language-plaintext highlighter-rouge">runner.jar</code> depends only on the <code class="language-plaintext highlighter-rouge">runtime.jar</code> and a
-vanilla GraalVM distribution. To run it, use:</p>
+vanilla GraalVM distribution.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">JAVA_HOME</span><span class="o">=</span>&lt;PATH_TO_GRAAL_HOME&gt; ./runner.jar &lt;CLI_ARGS&gt;
+<h4 id="building-the-project-manager-fat-jar">Building the Project Manager Fat Jar</h4>
+
+<p>In order to build a fat jar with the Project Manager component, run the
+<code class="language-plaintext highlighter-rouge">assembly</code> task on the <code class="language-plaintext highlighter-rouge">project-manager</code> subproject:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt <span class="s2">"project-manager/assembly"</span>
 </code></pre></div></div>
+
+<p>This will produce a <code class="language-plaintext highlighter-rouge">project-manager</code> fat jar and a <code class="language-plaintext highlighter-rouge">runtime.jar</code> fat jar in the
+repository root.</p>
 
 <h4 id="building-the-launcher-native-binary">Building the Launcher Native Binary</h4>
 
@@ -1225,8 +1233,38 @@ interpreter. It can be run using the sbt <code class="language-plaintext highlig
 and provides a rudimentary command-line interface to the basic capabilities of
 the interpreter.</p>
 
-<p>Detailed information on the flags it supports can be obtained by executing
-<code class="language-plaintext highlighter-rouge">run --help</code>, but the primary functionality is as follows:</p>
+<p>Enso should be launched using the <code class="language-plaintext highlighter-rouge">distribution/bin</code> scripts.</p>
+
+<h4 id="interpreter">Interpreter</h4>
+
+<p>Interpreter is started with the <code class="language-plaintext highlighter-rouge">distribution/bin/enso</code> script and requires
+<code class="language-plaintext highlighter-rouge">runner.jar</code> and <code class="language-plaintext highlighter-rouge">runtime.jar</code> (see
+<a href="#building-the-interpreter-cli-fat-jar">Building the Interperter CLI Fat Jar</a>)
+to be built and copied (or linked) to the <code class="language-plaintext highlighter-rouge">distribution/component</code> directory.</p>
+
+<h5 id="bash">Bash</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># build runtime.jar and runner.jar</span>
+sbt engine-runner/assembly
+<span class="c"># link or copy jars to the distributiong</span>
+<span class="nb">mkdir</span> <span class="nt">-p</span> distribution/component
+<span class="nb">cd </span>distribution/component
+<span class="nb">ln</span> <span class="nt">-s</span> ../../runtime.jar <span class="nb">.</span>
+<span class="nb">ln</span> <span class="nt">-s</span> ../../runner.jar <span class="nb">.</span>
+</code></pre></div></div>
+
+<h5 id="powershell">PowerShell</h5>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># build runtime.jar and runner.jar</span><span class="w">
+</span><span class="nf">sbt.bat</span><span class="w"> </span><span class="nx">engine-runner/assembly</span><span class="w">
+</span><span class="c"># copy jars to the distributiong</span><span class="w">
+</span><span class="nf">mkdir</span><span class="w"> </span><span class="nt">-p</span><span class="w"> </span><span class="o">.</span><span class="nx">\distribution\component</span><span class="w">
+</span><span class="nf">cp</span><span class="w"> </span><span class="o">.</span><span class="nx">\runtime.jar</span><span class="w"> </span><span class="o">.</span><span class="nx">\distribution\component\</span><span class="w">
+</span><span class="nf">cp</span><span class="w"> </span><span class="o">.</span><span class="nx">\runner.jar</span><span class="w"> </span><span class="o">.</span><span class="nx">\distribution\component\</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Detailed information on the flags it supports is shown by the <code class="language-plaintext highlighter-rouge">--help</code> flag, but
+the primary functionality is as follows:</p>
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">--new PATH</code>: Creates a new Enso project at the location spcified by <code class="language-plaintext highlighter-rouge">PATH</code>.</li>
@@ -1234,6 +1272,63 @@ the interpreter.</p>
 In this case, <code class="language-plaintext highlighter-rouge">PATH</code> must point to either a standalone Enso file or an Enso
 project.</li>
 </ul>
+
+<h5 id="bash-1">Bash</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>distribution/bin/enso <span class="nt">--new</span> ~/Hello
+distribution/bin/enso <span class="nt">--run</span> ~/Hello
+Hello, World!
+</code></pre></div></div>
+
+<h5 id="powershell-1">PowerShell</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>distribution/bin/enso.bat <span class="nt">--new</span> ~/Hello
+distribution/bin/enso.bat <span class="nt">--run</span> ~/Hello
+Hello, World!
+</code></pre></div></div>
+
+<h4 id="project-manager">Project Manager</h4>
+
+<p>Project manager is required to run the
+<a href="https://github.com/enso-org/ide">Enso IDE</a>. It is started with the
+<code class="language-plaintext highlighter-rouge">distribution/bin/project-manager</code> script and requires <code class="language-plaintext highlighter-rouge">runtime.jar</code> and
+<code class="language-plaintext highlighter-rouge">project-manager.jar</code> (see
+<a href="#building-the-project-manager-fat-jar">Building the Project Manager Fat Jar</a>)
+to be built and copied (or linked) to the <code class="language-plaintext highlighter-rouge">distribution/component</code> directory.</p>
+
+<h5 id="bash-2">Bash</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># build project-manager.jar and runtime.jar</span>
+sbt project-manager/assembly
+<span class="c"># link or copy jars to the distribution</span>
+<span class="nb">mkdir</span> <span class="nt">-p</span> distribution/component
+<span class="nb">cd </span>distribution/component
+<span class="nb">ln</span> <span class="nt">-s</span> ../../runtime.jar <span class="nb">.</span>
+<span class="nb">ln</span> <span class="nt">-s</span> ../../project-manager.jar <span class="nb">.</span>
+</code></pre></div></div>
+
+<h5 id="powershell-2">PowerShell</h5>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># build project-manager.jar and runtime.jar</span><span class="w">
+</span><span class="nf">sbt.bat</span><span class="w"> </span><span class="nx">project-manager/assembly</span><span class="w">
+</span><span class="c"># copy jars to the distribution</span><span class="w">
+</span><span class="nf">mkdir</span><span class="w"> </span><span class="nt">-p</span><span class="w"> </span><span class="o">.</span><span class="nx">\distribution\component</span><span class="w">
+</span><span class="nf">cp</span><span class="w"> </span><span class="o">.</span><span class="nx">\runtime.jar</span><span class="w"> </span><span class="o">.</span><span class="nx">\distribution\component\</span><span class="w">
+</span><span class="nf">cp</span><span class="w"> </span><span class="o">.</span><span class="nx">\project-manager.jar</span><span class="w"> </span><span class="o">.</span><span class="nx">\distribution\component\</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Detailed information on the flags it supports is shown by the <code class="language-plaintext highlighter-rouge">--help</code> flag. To
+run the Project Manager, execute the following script:</p>
+
+<h5 id="bash-3">Bash</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>distribution/bin/project-manager
+</code></pre></div></div>
+
+<h5 id="powershell-3">PowerShell</h5>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">distribution/bin/project-manager.bat</span><span class="w">
+</span></code></pre></div></div>
 
 <h4 id="language-server-mode">Language Server Mode</h4>
 
@@ -1611,7 +1706,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-11-03 10:08:58 +0000"
+        "time": "2020-11-05 18:09:36 +0000"
     },
     "basePath": "",
     "book": {
