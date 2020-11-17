@@ -1283,7 +1283,7 @@ progress.</p>
    * May be missing, as it is not always known, for example when downloading a
    * file of unknown size or waiting on a lock.
    */</span>
-  <span class="nl">total</span><span class="p">?:</span> <span class="nx">Int</span><span class="p">;</span>
+  <span class="nl">total</span><span class="p">?:</span> <span class="nx">Long</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -1307,7 +1307,7 @@ progress.</p>
   <span class="nl">message</span><span class="p">?:</span> <span class="nb">String</span><span class="p">;</span>
 
   <span class="cm">/** Indicates amount of progress, for example: count of processed bytes. */</span>
-  <span class="nl">done</span><span class="p">:</span> <span class="nx">Int</span><span class="p">;</span>
+  <span class="nl">done</span><span class="p">:</span> <span class="nx">Long</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -1335,7 +1335,7 @@ progress.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h2 id="components-management">Components Management</h2>
+<h2 id="runtime-version-management">Runtime Version Management</h2>
 
 <h3 id="enginelist-installed"><code class="language-plaintext highlighter-rouge">engine/list-installed</code></h3>
 
@@ -1404,7 +1404,7 @@ that the component repository could not be reached.</li>
 <h3 id="engineinstall"><code class="language-plaintext highlighter-rouge">engine/install</code></h3>
 
 <p>Requests to install the specified engine version. If that version is already
-installed, does nothing.</p>
+installed, it has no effect.</p>
 
 <ul>
   <li><strong>Type:</strong> Request</li>
@@ -1450,6 +1450,8 @@ an upgrade has to be performed before continuing.</li>
 <h3 id="engineuninstall"><code class="language-plaintext highlighter-rouge">engine/uninstall</code></h3>
 
 <p>Requests to uninstall the specified engine version.</p>
+
+<p>If that version was not installed, it has no effect.</p>
 
 <ul>
   <li><strong>Type:</strong> Request</li>
@@ -2070,7 +2072,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-11-10 11:51:48 +0000"
+        "time": "2020-11-17 19:40:42 +0000"
     },
     "basePath": "",
     "book": {
