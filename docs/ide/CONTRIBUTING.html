@@ -812,12 +812,17 @@ however current binaries can be obtained from the project’s CI
 <p><br /></p>
 
 <h2 id="working-with-sources">Working with sources</h2>
-<p>Please note that you should not use a code auto-formatter in this codebase.
+<p>Please note that you should not use <code class="language-plaintext highlighter-rouge">cargo fmt</code> on this code base.
 Please read the following documents to learn more about reasons behind this
 decision and the recommended code style guide. Be sure to carefully read the
 <a href="/docs/ide/contributing/style-guide.html">Rust style guide 1</a>
 and the <a href="https://dev.enso.org/docs/style-guide/rust.html">Rust style guide 2</a>
 before contributing to the codebase.</p>
+
+<p>We do, however, use <a href="https://prettier.io/"><code class="language-plaintext highlighter-rouge">prettier</code></a> for the JavaScript files in our code base. 
+If you have not installed it already you can do so via <code class="language-plaintext highlighter-rouge">npm install prettier</code>. To use it manually 
+via command line run <code class="language-plaintext highlighter-rouge">prettier --write</code> to all JavaScript files in the project. Alternatively, 
+there are plugins for many IDEs available to do this for you.</p>
 
 <h3 id="setting-up-engine-services">Setting up Engine Services</h3>
 <p>IDE requires a service named Project Manager to be running in the background
@@ -1177,7 +1182,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-11-17 19:44:30 +0000"
+        "time": "2020-11-26 13:53:48 +0000"
     },
     "basePath": "",
     "book": {
