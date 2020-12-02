@@ -830,6 +830,7 @@ transport formats, please look <a href="/docs/enso/language-server/protocol-arch
       <li><a href="#projectcloseerror"><code class="language-plaintext highlighter-rouge">ProjectCloseError</code></a></li>
       <li><a href="#languageservererror"><code class="language-plaintext highlighter-rouge">LanguageServerError</code></a></li>
       <li><a href="#globalconfigurationaccesserror"><code class="language-plaintext highlighter-rouge">GlobalConfigurationAccessError</code></a></li>
+      <li><a href="#projectcreateerror"><code class="language-plaintext highlighter-rouge">ProjectCreateError</code></a></li>
       <li><a href="#loggingserviceunavailable"><code class="language-plaintext highlighter-rouge">LoggingServiceUnavailable</code></a></li>
     </ul>
   </li>
@@ -909,8 +910,8 @@ operation also includes spawning an instance of the language server open on the
 specified project.</p>
 
 <p>To open a project, an engine version that is specified in project settings needs
-to be installed. If <code class="language-plaintext highlighter-rouge">missingComponentAction</code> is set to <code class="language-plaintext highlighter-rouge">install</code> or
-<code class="language-plaintext highlighter-rouge">force-install-broken</code>, this action will install any missing components,
+to be installed. If <code class="language-plaintext highlighter-rouge">missingComponentAction</code> is set to <code class="language-plaintext highlighter-rouge">Install</code> or
+<code class="language-plaintext highlighter-rouge">ForceInstallBroken</code>, this action will install any missing components,
 otherwise, an error will be reported if a component is missing. A typical usage
 scenario may consist of first trying to open the project without installing
 missing components. If that fails with the <code class="language-plaintext highlighter-rouge">MissingComponentError</code>, the client
@@ -932,7 +933,7 @@ the action.</p>
   <span class="cm">/**
    * Specifies how to handle missing components.
    *
-   * If not provided, defaults to `fail`.
+   * If not provided, defaults to `Fail`.
    */</span>
   <span class="nl">missingComponentAction</span><span class="p">?:</span> <span class="nx">MissingComponentAction</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1076,7 +1077,7 @@ operation are missing will be installed or a failure will be reported.</p>
   <span class="cm">/**
    * Specifies how to handle missing components.
    *
-   * If not provided, defaults to `fail`.
+   * If not provided, defaults to `Fail`.
    */</span>
   <span class="nl">missingComponentAction</span><span class="p">?:</span> <span class="nx">MissingComponentAction</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1825,12 +1826,22 @@ caused by lack of internet connection).</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
+<h3 id="projectcreateerror"><code class="language-plaintext highlighter-rouge">ProjectCreateError</code></h3>
+
+<p>Signals that an error occurred when creating the project.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4012</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Could not create the project.</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
 <h3 id="loggingserviceunavailable"><code class="language-plaintext highlighter-rouge">LoggingServiceUnavailable</code></h3>
 
 <p>Signals that the logging service is not available.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
-  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4012</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">4013</span><span class="p">,</span>
   <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">The logging service has failed to boot.</span><span class="dl">"</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -2076,7 +2087,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-11-30 11:39:38 +0000"
+        "time": "2020-12-02 15:57:56 +0000"
     },
     "basePath": "",
     "book": {
