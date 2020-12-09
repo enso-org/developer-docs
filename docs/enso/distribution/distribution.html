@@ -935,6 +935,18 @@ value, depending on the system:</p>
       <td><code class="language-plaintext highlighter-rouge">$HOME/.local/bin</code></td>
       <td><code class="language-plaintext highlighter-rouge">%LocalAppData%/enso/bin</code></td>
     </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ENSO_RUNTIME_DIRECTORY</code></td>
+      <td><code class="language-plaintext highlighter-rouge">$XDG_RUNTIME_DIR/enso/</code> or if its missing, <code class="language-plaintext highlighter-rouge">ENSO_DATA_DIRECTORY</code></td>
+      <td><code class="language-plaintext highlighter-rouge">ENSO_DATA_DIRECTORY</code></td>
+      <td><code class="language-plaintext highlighter-rouge">%LocalAppData%/enso</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ENSO_LOG_DIRECTORY</code></td>
+      <td><code class="language-plaintext highlighter-rouge">$XDG_CACHE_HOME/enso</code> or if its missing, <code class="language-plaintext highlighter-rouge">ENSO_DATA_DIRECTORY/log</code></td>
+      <td><code class="language-plaintext highlighter-rouge">$HOME/Library/Logs/org.enso/</code></td>
+      <td><code class="language-plaintext highlighter-rouge">%LocalAppData%/enso/log</code></td>
+    </tr>
   </tbody>
 </table>
 
@@ -1270,7 +1282,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-12-09 12:54:15 +0000"
+        "time": "2020-12-09 13:59:28 +0000"
     },
     "basePath": "",
     "book": {

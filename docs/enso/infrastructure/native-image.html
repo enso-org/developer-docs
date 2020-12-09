@@ -789,6 +789,12 @@ Native Image is used for building the Launcher.</p>
   </li>
   <li><a href="#static-builds">Static Builds</a></li>
   <li><a href="#no-cross-compilation">No Cross-Compilation</a></li>
+  <li><a href="#configuration">Configuration</a>
+    <ul>
+      <li><a href="#launcher-configuration">Launcher Configuration</a></li>
+      <li><a href="#project-manager-configuration">Project Manager Configuration</a></li>
+    </ul>
+  </li>
 </ul>
 
 <!-- /MarkdownTOC -->
@@ -852,8 +858,8 @@ to fail with <code class="language-plaintext highlighter-rouge">java.lang.ClassN
 Image build so that it can include the missing constructors.</p>
 
 <p>This can be done manually by creating a file <code class="language-plaintext highlighter-rouge">reflect-config.json</code>. The build
-task looks for the configuration files in a directory called
-<code class="language-plaintext highlighter-rouge">native-image-config</code> inside the root of the compiled sub-project.</p>
+task looks for the configuration files in every subdirectory of
+<code class="language-plaintext highlighter-rouge">META-INF/native-image</code> on the project classpath.</p>
 
 <p>Creating the configuration manually may be tedious and error-prone, so GraalVM
 includes
@@ -872,7 +878,7 @@ and run it with the following command:</p>
 
 <p>For example, to update settings for the Launcher:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-agentlib</span>:native-image-agent<span class="o">=</span>config-merge-dir<span class="o">=</span>engine/launcher/native-image-config <span class="nt">-jar</span> launcher.jar &lt;arguments&gt;
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-agentlib</span>:native-image-agent<span class="o">=</span>config-merge-dir<span class="o">=</span>engine/launcher/src/main/resources/META-INF/native-image/org/enso/launcher <span class="nt">-jar</span> launcher.jar &lt;arguments&gt;
 </code></pre></div></div>
 
 <p>The command may need to be re-run with different arguments to ensure that all
@@ -889,6 +895,11 @@ to maintain separate configs for each platform. Currently, the
 accesses may have to be gathered manually. For some types of accesses it may be
 possible to force the Windows-specific code paths to run on Linux and gather
 these accesses semi-automatically.</p>
+
+<p>After updating the Native Image configuration, make sure to clean it by running</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd tools/native-image-config-cleanup &amp;&amp; npm install &amp;&amp; npm start
+</code></pre></div></div>
 
 <h3 id="launcher-configuration">Launcher Configuration</h3>
 
@@ -924,6 +935,27 @@ created that gathers workarounds required to be able to build native images
 using Akka, so it is enough to just add it as a dependency. It does not handle
 other reflective accesses that are related to Akka, because the ones that are
 needed are gathered automatically using the tool described above.</p>
+
+<h3 id="project-manager-configuration">Project Manager Configuration</h3>
+
+<p>Configuring the Native Image for the Project Manager goes similarly as with the
+launcher. You need to build the JAR with <code class="language-plaintext highlighter-rouge">project-manager/assembly</code> and execute
+the test scenarios by starting it with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -agentlib:native-image-agent=config-merge-dir=lib/scala/project-manager/src/main/resources/META-INF/native-image/org/enso/projectmanager -jar project-manager.jar
+</code></pre></div></div>
+
+<p>For now it seems that it is enough to start the Project Manager and connect an
+IDE to it to trace all relevant reflection paths. You can try interacting with
+it a bit more, for example, rename a project or install a new engine version, to
+be sure all scenarios are covered.</p>
+
+<p>Remember to run the cleanup script as described above, as tracing the Project
+Manager seems to find recursive accesses of some ephemeral-like classes named
+<code class="language-plaintext highlighter-rouge">Foo/0x00001234...</code>. This classes are not accessible when building the Native
+Image and they lead to warnings. For now no clues have been found that ignoring
+these classes would impact the native build, it seems that they can be ignored
+safely.</p>
 
                         
                         
@@ -1166,7 +1198,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-12-09 12:54:15 +0000"
+        "time": "2020-12-09 13:59:28 +0000"
     },
     "basePath": "",
     "book": {
