@@ -778,6 +778,7 @@ transport formats, please look <a href="/docs/enso/language-server/protocol-arch
       <li><a href="#invalidparams"><code class="language-plaintext highlighter-rouge">InvalidParams</code></a></li>
       <li><a href="#serviceerror"><code class="language-plaintext highlighter-rouge">ServiceError</code></a></li>
       <li><a href="#notimplementederror"><code class="language-plaintext highlighter-rouge">NotImplementedError</code></a></li>
+      <li><a href="#requesttimeouterror"><code class="language-plaintext highlighter-rouge">RequestTimeoutError</code></a></li>
     </ul>
   </li>
 </ul>
@@ -942,6 +943,16 @@ implemented yet.</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
   <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
   <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">The requested method is not implemented</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="requesttimeouterror"><code class="language-plaintext highlighter-rouge">RequestTimeoutError</code></h3>
+
+<p>Signals that request exceeded the waiting time.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Request timeout</span><span class="dl">"</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -1186,7 +1197,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-12-07 10:01:59 +0000"
+        "time": "2020-12-09 12:54:15 +0000"
     },
     "basePath": "",
     "book": {
