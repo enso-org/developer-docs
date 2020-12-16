@@ -238,18 +238,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/">
                     
@@ -259,6 +247,18 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -899,11 +899,18 @@ root of an Enso version package. It has at least the following fields:</p>
 <ul>
   <li><code class="language-plaintext highlighter-rouge">minimum-launcher-version</code> - specifies the minimum version of the launcher
 that should be used with this release of Enso,</li>
+  <li><code class="language-plaintext highlighter-rouge">minimum-project-manager-version</code> - specifies the minimum version of the
+project manager that should be used with this release of Enso; currently it is
+the same as the launcher version but this may change in the future,</li>
   <li><code class="language-plaintext highlighter-rouge">graal-vm-version</code> - specifies the exact version of GraalVM that should be
 used with this release of Enso,</li>
   <li><code class="language-plaintext highlighter-rouge">graal-java-version</code> - as GraalVM versions may have different variants for
 different Java versions, this specifies which variant to use.</li>
 </ul>
+
+<p>The minimum launcher and project manager versions are kept as separate fields,
+because at some point the same runtime version management logic may be
+associated with different versions of these components.</p>
 
 <p>It can also contain the following additional fields:</p>
 
@@ -925,8 +932,7 @@ manifest to preserve that information.</li>
 <p>For example:</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">minimum-launcher-version</span><span class="pi">:</span> <span class="s">0.0.1</span>
-<span class="na">graal-vm-version</span><span class="pi">:</span> <span class="s">20.2.0</span>
-<span class="na">graal-java-version</span><span class="pi">:</span> <span class="m">11</span>
+<span class="na">minimum-project-manager-version</span><span class="pi">:</span> <span class="s">0.0.1</span>
 <span class="na">jvm-options</span><span class="pi">:</span>
   <span class="pi">-</span> <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">-Dpolyglot.engine.IterativePartialEscape=true"</span>
   <span class="pi">-</span> <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">-Dtruffle.class.path.append=$enginePackagePath</span><span class="se">\\</span><span class="s">component</span><span class="se">\\</span><span class="s">runtime.jar"</span>
@@ -935,6 +941,8 @@ manifest to preserve that information.</li>
     <span class="na">os</span><span class="pi">:</span> <span class="s2">"</span><span class="s">linux"</span>
   <span class="pi">-</span> <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">-Dtruffle.class.path.append=$enginePackagePath/component/runtime.jar"</span>
     <span class="na">os</span><span class="pi">:</span> <span class="s2">"</span><span class="s">macos"</span>
+<span class="na">graal-vm-version</span><span class="pi">:</span> <span class="s">20.2.0</span>
+<span class="na">graal-java-version</span><span class="pi">:</span> <span class="m">11</span>
 </code></pre></div></div>
 
 <p>The <code class="language-plaintext highlighter-rouge">minimum-launcher-version</code> should be updated whenever a new version of Enso
@@ -1386,7 +1394,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-12-15 08:51:01 +0000"
+        "time": "2020-12-16 11:35:34 +0000"
     },
     "basePath": "",
     "book": {
