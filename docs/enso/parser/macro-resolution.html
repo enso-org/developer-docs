@@ -855,6 +855,12 @@ used in the Enso parser itself.</p>
     </ul>
   </li>
   <li><a href="#user-defined-macros">User-Defined Macros</a></li>
+  <li><a href="#benchmarking">Benchmarking</a>
+    <ul>
+      <li><a href="#running-a-subset-of-the-benchmarks">Running a Subset of the Benchmarks</a></li>
+      <li><a href="#changing-the-macro-resolver">Changing the Macro Resolver</a></li>
+    </ul>
+  </li>
 </ul>
 
 <!-- /MarkdownTOC -->
@@ -1098,6 +1104,62 @@ should function.</li>
   </ul>
 </blockquote>
 
+<h2 id="benchmarking">Benchmarking</h2>
+
+<p>All components of the macro resolver are accompanied by comprehensive benchmarks
+in order to protect the performance-crucial code against regressions. These
+benchmarks are written using
+<a href="https://github.com/bheisler/criterion.rs">criterion.rs</a>, and cover all of the
+performance critical functionality of the macro resolver.</p>
+
+<p><strong>Baseline Commit:</strong> TBC (use the latest for now)</p>
+
+<p>The benchmarking process for the macro resolver is as follows:</p>
+
+<ol>
+  <li>Check out the current <em>baseline commit</em>, listed above.</li>
+  <li>In each of the benchmark files, change the configuration line reading
+<code class="language-plaintext highlighter-rouge">.retain_baseline</code> to <code class="language-plaintext highlighter-rouge">.save_baseline</code>. This will save the current baseline
+(taken on your machine).</li>
+  <li>In <code class="language-plaintext highlighter-rouge">lexer_bench_sources.rs</code> change the line that reads <code class="language-plaintext highlighter-rouge">.retain_baseline</code> to
+instead read <code class="language-plaintext highlighter-rouge">.save_baseline</code>. This will save the current baseline (taken on
+your machine).</li>
+  <li>Run the benchmarks using <code class="language-plaintext highlighter-rouge">cargo bench</code>.</li>
+  <li>Once the baseline run has completed, change the above-mentioned lines back to
+<code class="language-plaintext highlighter-rouge">.retain_baseline</code>. This will disable overwriting the saved baseline, and
+will perform its regression reporting against it.</li>
+  <li>Make your changes.</li>
+  <li>Run the benchmark suite again. It will report any performance regressions in
+the benchmark report, measured against your saved baseline.</li>
+</ol>
+
+<p>Unfortunately, the use of time-based benchmarks means that we can’t commit the
+baseline to the repository. There is far too much variance between machines for
+this to be useful.</p>
+
+<h3 id="running-a-subset-of-the-benchmarks">Running a Subset of the Benchmarks</h3>
+
+<p>The benchmarks are very comprehensive, testing all performance-critical paths of
+the macro resolver. However, it can often be useful to run a subset of these.</p>
+
+<p>There are two main tuning points for this:</p>
+
+<ol>
+  <li>The <em>sizes</em> of inputs being executed on, where relevant.</li>
+  <li>The benchmarks being executed.</li>
+</ol>
+
+<p>While it is <em>possible</em> to tune the benchmarking config to decrease benchmarking
+time, this is not recommended. The current settings are tuned to provide
+reliable results.</p>
+
+<h3 id="changing-the-macro-resolver">Changing the Macro Resolver</h3>
+
+<p>When changing the macro resolver the <em>full</em> benchmark suite must be run against
+the current baseline before the changes can be merged. This suite run must use
+the provided settings for the benchmarking library, and should be performed
+using the process described above.</p>
+
                         
                         
                           
@@ -1339,7 +1401,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-12-16 11:35:34 +0000"
+        "time": "2020-12-18 14:26:31 +0000"
     },
     "basePath": "",
     "book": {
