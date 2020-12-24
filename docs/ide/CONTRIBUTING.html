@@ -874,9 +874,9 @@ Run <code class="language-plaintext highlighter-rouge">node ./run watch</code> t
 utility which will build the project on every change. Open 
 <code class="language-plaintext highlighter-rouge">http://localhost:8080</code> (the port may vary and will be reported in the
 terminal if <code class="language-plaintext highlighter-rouge">8080</code> was already in use) to run the application, or
-<code class="language-plaintext highlighter-rouge">http://localhost:8080/debug</code> to open example demo scenes. Please remember
-to disable the cache in your browser during the development! By default,
-the script disables heavyweight optimizations to provide interactive
+<code class="language-plaintext highlighter-rouge">http://localhost:8080/?entry</code> to open example demo scenes list. Please 
+remember to disable the cache in your browser during the development! By 
+default, the script disables heavyweight optimizations to provide interactive
 development experience. The scripts are thin wrappers for
 <a href="https://github.com/rustwasm/wasm-pack">wasm-pack</a> and accept the same
 <a href="https://rustwasm.github.io/wasm-pack/book/commands/build.html">command line arguments</a>.</p>
@@ -886,8 +886,8 @@ development experience. The scripts are thin wrappers for
 In order to compile in a production mode (enable all optimizations, strip
 WASM debug symbols, minimize the output binaries, etc.), run 
 <code class="language-plaintext highlighter-rouge">node ./run build</code>. To create platform-specific packages and installers use
-<code class="language-plaintext highlighter-rouge">node ./run dist</code> instead. The final packages will be located at
-<code class="language-plaintext highlighter-rouge">app/dist/native</code>.</p>
+<code class="language-plaintext highlighter-rouge">node ./run dist</code> instead. The final executables will be located at
+<code class="language-plaintext highlighter-rouge">dist/client/$PLATFORM</code>.</p>
   </li>
   <li>
     <p><strong>Selective mode</strong>
@@ -903,6 +903,19 @@ were defined or re-exported by that crate. In particular, the <code class="langu
 exposes the <code class="language-plaintext highlighter-rouge">entry_point_ide</code> function, so you have to compile it to test
 your code in the Enso IDE.</p>
   </li>
+</ul>
+
+<h3 id="using-ide-as-a-library">Using IDE as a library.</h3>
+<p>In case you want to use the IDE as a library, for example to embed it into 
+another website, you need to first build it using <code class="language-plaintext highlighter-rouge">node ./run {built,dist}</code> and 
+find the necessary artifacts located at <code class="language-plaintext highlighter-rouge">dist/content</code>. Especially, the 
+<code class="language-plaintext highlighter-rouge">dist/content/index.js</code> defines a function <code class="language-plaintext highlighter-rouge">window.enso.main(cfg)</code> which you
+can use to run the IDE. Currently, the configuration argument can contain the
+following options:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">entry</code> - the entry point, one of predefined scenes. Set it to empty string to
+see the list of possible entry points.</li>
+  <li><code class="language-plaintext highlighter-rouge">project</code> - the project name to open after loading the IDE.</li>
 </ul>
 
 <h3 id="testing-linting-and-validation">Testing, Linting, and Validation</h3>
@@ -1190,7 +1203,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-12-21 22:32:08 +0000"
+        "time": "2020-12-24 04:38:57 +0000"
     },
     "basePath": "",
     "book": {
