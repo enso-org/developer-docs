@@ -869,7 +869,7 @@ Release branches obey the following rules:</p>
   <li>A release branch must contain <em>tags</em> corresponding to released versions of
 Enso. Once a release has been made, no further changes may be made to that
 release.</li>
-  <li>A tagged release must contain a <code class="language-plaintext highlighter-rouge">CHANGELOG</code> file that describes the changes
+  <li>A tagged release must contain a <code class="language-plaintext highlighter-rouge">RELEASES.md</code> file that describes the changes
 contained in that release.</li>
 </ul>
 
@@ -883,9 +883,10 @@ branch of the repository.</p>
 <ol>
   <li>If no release branch exists for the current major version, one should be
 created.</li>
-  <li>Release notes should be made up to date.</li>
-  <li>A commit representing the release should be tagged, and the tag pushed to
-GitHub.</li>
+  <li>Release notes should be made up to date in <code class="language-plaintext highlighter-rouge">RELEASES.md</code> and committed to
+the release branch.</li>
+  <li>A commit representing the release should be tagged on the release branch,
+and the tag pushed to GitHub.</li>
   <li>CI will create a draft release for this tag, as well as build and upload the
 appropriate artefacts.</li>
   <li>The release notes for the version being released should be copied into the
@@ -894,6 +895,8 @@ release body on GitHub.</li>
 team.</li>
   <li>Once approval has been gained from these members, the release may be made
 official.</li>
+  <li>Push a commit to <code class="language-plaintext highlighter-rouge">main</code> bumping the version number and ensuring that it
+remains a <code class="language-plaintext highlighter-rouge">SNAPSHOT</code> version.</li>
 </ol>
 
 <h3 id="tag-naming">Tag Naming</h3>
@@ -903,6 +906,9 @@ semver string (see <a href="#versioning">versioning</a>) representing the versio
 released.</p>
 
 <h3 id="manifest-files">Manifest Files</h3>
+
+<p>Manifest files are used to describe metadata about various releases for use by
+the Enso tooling.</p>
 
 <h4 id="engine-manifest">Engine Manifest</h4>
 
@@ -1076,7 +1082,8 @@ persisting the broken mark to Se has succeeded and re-run it if necessary.</stro
 <h3 id="release-notes">Release Notes</h3>
 
 <p>Release notes should contain a summary of the changes made between the last
-release and the current release. They should follow the template given below:</p>
+release and the current release. They should follow the template given below,
+and are contained in the <code class="language-plaintext highlighter-rouge">RELEASES.md</code> file in the repository root.</p>
 
 <div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Enso x.y.z (YYYY-MM-DD)</span>
 
@@ -1084,17 +1091,13 @@ release and the current release. They should follow the template given below:</p
 <span class="p">
 -</span> A list of language-level changes.
 
-<span class="gu">## Type System</span>
-<span class="p">
--</span> A list of type-system changes.
-
-<span class="gu">## Interpreter</span>
+<span class="gu">## Interpreter/Runtime</span>
 <span class="p">
 -</span> A list of changes to the Enso interpreter.
 
-<span class="gu">## Runtime</span>
+<span class="gu">## Type System</span>
 <span class="p">
--</span> A list of changes to the Enso runtime.
+-</span> A list of type-system changes.
 
 <span class="gu">## Tooling</span>
 <span class="p">
@@ -1121,7 +1124,7 @@ release and the current release. They should follow the template given below:</p
 <p>If there are no changes for a section, the section should contain a bullet point
 that reads “Nothing”.</p>
 
-<p>The changelog file is an ongoing record of changes, and may diverge between
+<p>The releases file is an ongoing record of changes, and may diverge between
 <code class="language-plaintext highlighter-rouge">main</code> and the various release branches.</p>
 
 <h2 id="version-support">Version Support</h2>
@@ -1408,7 +1411,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2020-12-30 03:38:50 +0000"
+        "time": "2021-01-05 14:15:17 +0000"
     },
     "basePath": "",
     "book": {
