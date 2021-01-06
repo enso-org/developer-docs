@@ -765,24 +765,42 @@ search.start();
                     <section class="normal markdown-section">
                         <h1 id="getting-enso">Getting Enso</h1>
 
-<p>Enso packages can currently be obtained from the per-commit CI builds. See
-<a href="https://github.com/enso-org/enso/actions?query=workflow%3A%22Engine+CI%22+branch%3Amain">the build workflow on GitHub Actions</a>,
-which should show a list of recent CI builds. The workflow of interest is
-<code class="language-plaintext highlighter-rouge">Engine CI</code>. You can navigate to the most recent build, which will display a
-list of attached artifacts. The artifact of interest is <code class="language-plaintext highlighter-rouge">enso-engine-&lt;version&gt;</code>
-(currently <code class="language-plaintext highlighter-rouge">enso-engine-0.2.0-SNAPSHOT</code>).</p>
+<p>Enso packages are best obtained from the
+<a href="https://github.com/enso-org/enso/releases">releases</a> page of the repository.
+Each release has an “Assets” section at the bottom. You can click on this to
+view the list of artifacts from which you can download the most appropriate
+version.</p>
+
+<p>These assets contain bundles that include the Enso launcher, an engine version,
+and GraalVM, allowing you to get up and running immediately. Alternatively, you
+can download just the launcher, which will handle downloading and installing the
+required components for you.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
 <ul>
-  <li><a href="#dependencies">Dependencies</a></li>
-  <li><a href="#running-enso">Running Enso</a></li>
-  <li><a href="#troubleshooting">Troubleshooting</a></li>
+  <li><a href="#nightly-builds">Nightly Builds</a>
+    <ul>
+      <li><a href="#dependencies">Dependencies</a></li>
+      <li><a href="#running-enso">Running Enso</a></li>
+      <li><a href="#troubleshooting">Troubleshooting</a></li>
+    </ul>
+  </li>
 </ul>
 
 <!-- /MarkdownTOC -->
 
-<h2 id="dependencies">Dependencies</h2>
+<h2 id="nightly-builds">Nightly Builds</h2>
+
+<p>In addition to the official releases, we provide nightly snapshots built on our
+CI. These can be obtained from
+<a href="https://github.com/enso-org/enso/actions?query=workflow%3A%22Engine+CI%22+branch%3Amain">the build workflow on GitHub Actions</a>,
+which should show a list of recent CI builds. The workflow of interest is
+<code class="language-plaintext highlighter-rouge">Engine CI</code>. You can navigate to the most recent build, which will display a
+list of attached artifacts. The artifact of interest is <code class="language-plaintext highlighter-rouge">enso-engine-&lt;version&gt;</code>
+(currently <code class="language-plaintext highlighter-rouge">enso-engine-0.2.1-SNAPSHOT</code>).</p>
+
+<h3 id="dependencies">Dependencies</h3>
 
 <p>The Enso distribution requires to be run with the appropriate version of
 GraalVM. You can get the Community Edition pre-built distributions from
@@ -795,15 +813,15 @@ is <code class="language-plaintext highlighter-rouge">20.2.0</code>, and it must
 <p>Before running the Enso packages, make sure that the <code class="language-plaintext highlighter-rouge">JAVA_HOME</code> environment
 variable points to the correct home location of the Graal distribution.</p>
 
-<h2 id="running-enso">Running Enso</h2>
+<h3 id="running-enso">Running Enso</h3>
 
-<p>The distribution contains the Enso CLI. It allows to create and run Enso
+<p>The nightly distribution contains the Enso CLI. It allows to create and run Enso
 projects from the command line. To launch the Enso CLI, run the <code class="language-plaintext highlighter-rouge">bin/enso</code>
 script (Linux and MacOS) or the <code class="language-plaintext highlighter-rouge">bin/enso.bat</code> script (Windows).</p>
 
 <p>Again, it is necessary for you to set the <code class="language-plaintext highlighter-rouge">JAVA_HOME</code> variable correctly.</p>
 
-<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="troubleshooting">Troubleshooting</h3>
 
 <p>This section lists the most common failures and their probable causes.</p>
 
@@ -1064,7 +1082,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-01-05 14:15:17 +0000"
+        "time": "2021-01-06 08:58:03 +0000"
     },
     "basePath": "",
     "book": {

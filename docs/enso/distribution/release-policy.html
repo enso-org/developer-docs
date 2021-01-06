@@ -885,10 +885,13 @@ branch of the repository.</p>
 created.</li>
   <li>Release notes should be made up to date in <code class="language-plaintext highlighter-rouge">RELEASES.md</code> and committed to
 the release branch.</li>
+  <li>Ensure that the project version is set to the version that you want to
+release.</li>
   <li>A commit representing the release should be tagged on the release branch,
-and the tag pushed to GitHub.</li>
+and the tag pushed to GitHub. The tag should have a description that
+consists of the release notes for that tag, replacing hashes with <code class="language-plaintext highlighter-rouge">=</code>.</li>
   <li>CI will create a draft release for this tag, as well as build and upload the
-appropriate artefacts.</li>
+appropriate artefacts. <strong>Do not</strong> create a release for your tag manually.</li>
   <li>The release notes for the version being released should be copied into the
 release body on GitHub.</li>
   <li>The release must be verified by two members of the engine team, and the QA
@@ -1121,8 +1124,7 @@ and are contained in the <code class="language-plaintext highlighter-rouge">RELE
   significant improvements to the internals of Enso and related tools.
 </code></pre></div></div>
 
-<p>If there are no changes for a section, the section should contain a bullet point
-that reads “Nothing”.</p>
+<p>If there are no changes for a section, the section may be removed.</p>
 
 <p>The releases file is an ongoing record of changes, and may diverge between
 <code class="language-plaintext highlighter-rouge">main</code> and the various release branches.</p>
@@ -1411,7 +1413,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-01-05 14:15:17 +0000"
+        "time": "2021-01-06 08:58:03 +0000"
     },
     "basePath": "",
     "book": {
