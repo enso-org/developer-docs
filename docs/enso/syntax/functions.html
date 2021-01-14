@@ -867,7 +867,7 @@ arguments.</p>
   <li><a href="#lambdas">Lambdas</a></li>
   <li><a href="#defining-functions">Defining Functions</a></li>
   <li><a href="#methods">Methods</a></li>
-  <li><a href="#universal-call-syntax">Universal Call Syntax</a></li>
+  <li><a href="#calling-functions-and-methods">Calling Functions and Methods</a></li>
   <li><a href="#code-blocks">Code Blocks</a></li>
   <li><a href="#operators">Operators</a>
     <ul>
@@ -1004,27 +1004,18 @@ the type of the <code class="language-plaintext highlighter-rouge">this</code> a
 defining a method (e.g. they use the <code class="language-plaintext highlighter-rouge">Type.name</code> syntax), it is implicitly added
 to the start of the argument list.</p>
 
-<h2 id="universal-call-syntax">Universal Call Syntax</h2>
+<h2 id="calling-functions-and-methods">Calling Functions and Methods</h2>
 
-<p>Calling a function or method is, in general, as simple as applying it to some
-arguments. However, as Enso supports both methods and functions, it is very
-important that users do not have to think about which of the two they are using
-when calling it. To that end, Enso supports what is known as Uniform Call Syntax
-(UCS).</p>
+<p>Enso makes the distinction between functions and methods. Methods are entities
+that are dispatched <em>dynamically</em> and looked up at runtime, while functions are
+defined locally and are looked up at compile time. In order to provide good
+diagnostics, we distinguish between how functions and methods are called.</p>
 
 <ul>
-  <li>Where the syntax for calling methods differs from the syntax for calling
-functions, there are needless constraints on writing generic code.</li>
-  <li>This is a needless constraint as both notations have their advantages.</li>
-  <li>Enso has two notations, but one unified semantics.</li>
+  <li>To call a function <code class="language-plaintext highlighter-rouge">f</code> on arguments <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code>, we write <code class="language-plaintext highlighter-rouge">f a b</code>.</li>
+  <li>To call a method <code class="language-plaintext highlighter-rouge">f</code> defined on a type <code class="language-plaintext highlighter-rouge">A</code> (value <code class="language-plaintext highlighter-rouge">a</code>, here) on argument <code class="language-plaintext highlighter-rouge">b</code>,
+we write <code class="language-plaintext highlighter-rouge">a.f b</code>.</li>
 </ul>
-
-<p>The rules for the uniform syntax call translation in Enso are as follows:</p>
-
-<ol>
-  <li>For an expression <code class="language-plaintext highlighter-rouge">t.fn &lt;args&gt;</code>, this is equivalent to <code class="language-plaintext highlighter-rouge">fn t &lt;args&gt;</code>.</li>
-  <li>For an expression <code class="language-plaintext highlighter-rouge">fn t &lt;args&gt;</code>, this is equivalent to <code class="language-plaintext highlighter-rouge">t.fn &lt;args&gt;</code>.</li>
-</ol>
 
 <h2 id="code-blocks">Code Blocks</h2>
 
@@ -1152,17 +1143,14 @@ allows for writing <em>far</em> cleaner code than other functional languages. Th
 best demonstrated by example. Consider the following code:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list</span>       <span class="o">=</span> <span class="mi">1</span> <span class="o">..</span> <span class="mi">100</span>
-<span class="n">randomList</span> <span class="o">=</span> <span class="n">each</span> <span class="n">random</span> <span class="n">list</span>
-<span class="n">headOfList</span> <span class="o">=</span> <span class="n">take</span> <span class="mi">10</span> <span class="n">randomList</span>
-<span class="n">result</span>     <span class="o">=</span> <span class="n">sort</span> <span class="n">headOfList</span>
+<span class="n">randomList</span> <span class="o">=</span> <span class="n">list</span> <span class="p">.</span> <span class="nf">each</span> <span class="n">random</span>
+<span class="n">headOfList</span> <span class="o">=</span> <span class="n">randomList</span> <span class="p">.</span> <span class="nf">take</span> <span class="mi">10</span>
+<span class="n">result</span>     <span class="o">=</span> <span class="n">headOfList</span> <span class="p">.</span> <span class="nf">sort</span>
 </code></pre></div></div>
 
-<p>This could easily be refactored to the following one-liner, and then transformed
-using UCS to an expression that reads left to right:</p>
+<p>This could easily be refactored to the following one-liner:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">result</span> <span class="o">=</span> <span class="n">sort</span> <span class="p">(</span><span class="n">take</span> <span class="mi">10</span> <span class="p">(</span><span class="n">each</span> <span class="n">random</span> <span class="p">(</span><span class="mi">1</span> <span class="o">..</span> <span class="mi">100</span><span class="p">)))</span>
-
-<span class="n">result</span> <span class="o">=</span> <span class="p">(((</span><span class="mi">1</span> <span class="o">..</span> <span class="mi">100</span><span class="p">).</span><span class="nf">each</span> <span class="n">random</span><span class="p">).</span><span class="nf">take</span> <span class="mi">10</span><span class="p">).</span><span class="nf">sort</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">result</span> <span class="o">=</span> <span class="p">(((</span><span class="mi">1</span> <span class="o">..</span> <span class="mi">100</span><span class="p">).</span><span class="nf">each</span> <span class="n">random</span><span class="p">).</span><span class="nf">take</span> <span class="mi">10</span><span class="p">).</span><span class="nf">sort</span>
 </code></pre></div></div>
 
 <p>This is still quite noisy, however, so using the whitespace-sensitive operator
@@ -1450,7 +1438,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-01-14 15:32:28 +0000"
+        "time": "2021-01-14 20:54:15 +0000"
     },
     "basePath": "",
     "book": {
