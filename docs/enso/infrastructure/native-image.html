@@ -274,6 +274,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/infrastructure/">
                     
@@ -283,10 +287,6 @@ search.start();
                             
                         </a>
                     </li>
-                
-            
-            
-            
                 
             
             
@@ -949,10 +949,11 @@ the test scenarios by starting it with:</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -agentlib:native-image-agent=config-merge-dir=lib/scala/project-manager/src/main/resources/META-INF/native-image/org/enso/projectmanager -jar project-manager.jar
 </code></pre></div></div>
 
-<p>For now it seems that it is enough to start the Project Manager and connect an
-IDE to it to trace all relevant reflection paths. You can try interacting with
-it a bit more, for example, rename a project or install a new engine version, to
-be sure all scenarios are covered.</p>
+<p>To trace relevant reflection paths, the primary scenario is to start the Project
+Manager and connect an IDE to it. Since the Project Manager is able to install
+engine versions, similar steps should be taken to force it to extract a zip
+archive, as described in <a href="#launcher-configuration">Launcher Configuration</a>
+above. If necessary, other scenarios, like project renaming may be covered.</p>
 
 <p>Remember to run the cleanup script as described above, as tracing the Project
 Manager seems to find recursive accesses of some ephemeral-like classes named
@@ -1202,7 +1203,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-01-06 08:58:03 +0000"
+        "time": "2021-01-14 10:50:57 +0000"
     },
     "basePath": "",
     "book": {
