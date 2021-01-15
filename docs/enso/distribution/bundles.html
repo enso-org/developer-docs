@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Local Repository · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Distribution Bundles · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/gitbook/style.css">
 <link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -30,7 +30,7 @@
         
 
         
-            <link rel="prev" href="/docs/enso/distribution/licenses.html" />
+            <link rel="prev" href="/docs/enso/distribution/standard-libraries.html" />
         
 
         
@@ -612,20 +612,6 @@ search.start();
             
             
                 
-                    
-                    <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/fallback-launcher-release-infrastructure.html">
-                    
-                        <a href="/docs/enso/distribution/fallback-launcher-release-infrastructure.html">
-                            
-                                Fallback Launcher Release Infrastructure
-                            
-                        </a>
-                    </li>
-                
-            
-            
-            
-                
             
             
             
@@ -661,26 +647,14 @@ search.start();
             
                 
                     
-                    <li class="chapter active" data-level="1.2" data-path="/docs/enso/distribution/local-repository.html">
+                    <li class="chapter" data-level="1.1" data-path="/docs/enso/distribution/fallback-launcher-release-infrastructure.html">
                     
-                        <a href="/docs/enso/distribution/local-repository.html">
+                        <a href="/docs/enso/distribution/fallback-launcher-release-infrastructure.html">
                             
-                                Local Repository
+                                Fallback Launcher Release Infrastructure
                             
                         </a>
                     </li>
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
                 
             
             
@@ -731,6 +705,32 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/enso/distribution/bundles.html">
+                    
+                        <a href="/docs/enso/distribution/bundles.html">
+                            
+                                Distribution Bundles
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
                 
             
             
@@ -798,7 +798,7 @@ search.start();
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >Local Repository</a>
+                <a href="." >Distribution Bundles</a>
             
         </h1>
     </div>
@@ -807,106 +807,70 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <h1 id="local-repository">Local Repository</h1>
+                        <h1 id="bundles">Bundles</h1>
 
-<p>A <code class="language-plaintext highlighter-rouge">LocalReleaseProvider</code> is implemented that allows to install components from
-local (offline) repositories. This functionality can be used to allow installing
-bundled components.</p>
+<p>This document describes how the distributions are bundled to provide releases
+that work out-of-the box, allowing to use the latest engine without downloading
+any additional dependencies.</p>
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
 <ul>
-  <li><a href="#local-repository-structure">Local Repository Structure</a>
-    <ul>
-      <li><a href="#general-repository-structure">General Repository Structure</a></li>
-      <li><a href="#engine-repository-structure">Engine Repository Structure</a></li>
-      <li><a href="#graalvm-repository-structure">GraalVM Repository Structure</a></li>
-    </ul>
-  </li>
-  <li><a href="#usage-in-project-manager">Usage in Project Manager</a></li>
+  <li><a href="#project-manager-bundle">Project Manager Bundle</a></li>
+  <li><a href="#launcher-bundles">Launcher Bundles</a></li>
 </ul>
 
 <!-- /MarkdownTOC -->
 
-<h2 id="local-repository-structure">Local Repository Structure</h2>
+<h2 id="project-manager-bundle">Project Manager Bundle</h2>
 
-<p>This section explains how a local repository has to be structured in order to
-work with <code class="language-plaintext highlighter-rouge">LocalReleaseProvider</code>.</p>
+<p>The Project Manager is distributed with latest engine version and its
+corresponding Graal runtime to avoid having to download them at first startup.</p>
 
-<h3 id="general-repository-structure">General Repository Structure</h3>
+<p>The bundled components are placed in their respective subdirectories (not as
+packages, but extracted and ready to use) and a bundle marker file called
+<code class="language-plaintext highlighter-rouge">.enso.bundle</code> must be placed next to these directories so that the Project
+Manager can detect the bundle.</p>
 
-<p>In general a local repository should be a separate directory that contains only
-directories corresponding to releases of a single component. Repositories for
-separate components should be kept separately. For each provided release it
-should contain a directory called after the release’s tag. That directory of
-each release should just contain assets associated with that release.</p>
+<p>The <code class="language-plaintext highlighter-rouge">project-manager</code> executable looks for the <code class="language-plaintext highlighter-rouge">.enso.bundle</code> marker in the
+parent directory of the directory that it is, itself, located in. So overall,
+the bundle should have the following structure (the actual engine and Graal
+versions may of course differ):</p>
 
-<h3 id="engine-repository-structure">Engine Repository Structure</h3>
-
-<p>The engine repository contains a directory <code class="language-plaintext highlighter-rouge">enso-&lt;VERSION&gt;</code> for each release
-that resembles the GitHub release structure. The directory for each release
-should contain a <code class="language-plaintext highlighter-rouge">manifest.yaml</code> file and the package. As separate bundles are
-created for each operating system, only the package for the desired operating
-system is required (normally releases contain packages for all supported
-systems). It’s naming scheme is the same as in GitHub releases, that is
-<code class="language-plaintext highlighter-rouge">enso-engine-&lt;VERSION&gt;-&lt;OS&gt;-&lt;ARCH&gt;.{zip|tar.gz}</code>. The extension is <code class="language-plaintext highlighter-rouge">zip</code> for
-Windows and <code class="language-plaintext highlighter-rouge">tar.gz</code> for other platforms. Currently, the only supported <code class="language-plaintext highlighter-rouge">ARCH</code>
-is <code class="language-plaintext highlighter-rouge">amd64</code>. The <code class="language-plaintext highlighter-rouge">OS</code> can be one of <code class="language-plaintext highlighter-rouge">windows</code>, <code class="language-plaintext highlighter-rouge">linux</code>, <code class="language-plaintext highlighter-rouge">macos</code>.</p>
-
-<p>For example, a local engine repository could look like this:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>localengine
-└── enso-0.1.2-rc.9
-    ├── enso-engine-0.1.2-rc.9-linux-amd64.tar.gz
-    └── manifest.yaml
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>enso
+├── bin
+│   └── project-manager
+├── dist
+│   └── 0.2.1-SNAPSHOT
+├── other-project-manager-files
+└── runtime
+    └── graalvm-ce-java11-20.2.0
 </code></pre></div></div>
 
-<h3 id="graalvm-repository-structure">GraalVM Repository Structure</h3>
+<p>If the bundle is detected, the additional <code class="language-plaintext highlighter-rouge">dist</code> and <code class="language-plaintext highlighter-rouge">runtime</code> directories are
+added as secondary search paths for components. Thus, the <code class="language-plaintext highlighter-rouge">project-manager</code> can
+use both components present in the default
+<a href="/docs/enso/distribution/distribution.html#installed-enso-distribution-layout">installed location</a> or
+those from the bundle. In a situation that the same component were to be
+available both in the installed location and the bundle, the installed location
+is preferred. New components are installed in the installed location, never next
+to the bundles.</p>
 
-<p>The GraalVM repository contains a directory <code class="language-plaintext highlighter-rouge">vm-&lt;VERSION&gt;</code> for each release.
-Inside of that directory, a package should be included (again as in case of the
-engine, only the package for the current operating system is required). The
-package name should be
-<code class="language-plaintext highlighter-rouge">graalvm-ce-java&lt;JAVA_VERSION&gt;-&lt;OS&gt;-&lt;ARCH&gt;-&lt;VERSION&gt;.{zip|tar.gz}</code>. The
-extension is <code class="language-plaintext highlighter-rouge">zip</code> on Windows and <code class="language-plaintext highlighter-rouge">tar.gz</code> on other platforms. The <code class="language-plaintext highlighter-rouge">ARCH</code> should
-be the same as for the engine. The <code class="language-plaintext highlighter-rouge">OS</code> can be one of <code class="language-plaintext highlighter-rouge">windows</code>, <code class="language-plaintext highlighter-rouge">linux</code>,
-<code class="language-plaintext highlighter-rouge">darwin</code>. <strong>Note that the MacOS package has different naming scheme for GraalVM
-than it has for the engine</strong>.</p>
+<p>In fact, it is possible for the bundle directory to be read-only (which may be
+the case for example if the Project Manager bundle is packaged as part of IDE’s
+AppImage package). In such situation, it will be impossible to uninstall the
+bundled components and a relevant error message will be returned.</p>
 
-<p>For example, a local GraalVM repository can look like this:</p>
+<h2 id="launcher-bundles">Launcher Bundles</h2>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>localruntime
-└── vm-20.2.0
-    └── graalvm-ce-java11-linux-amd64-20.2.0.tar.gz
-</code></pre></div></div>
+<p>Bundles are also distributed for the launcher, but these are implemented using a
+different mechanism.</p>
 
-<h2 id="usage-in-project-manager">Usage in Project Manager</h2>
-
-<p>Command line options can be used to enable the local repositories in the project
-manager. <code class="language-plaintext highlighter-rouge">--local-engine-repository</code> sets the path to the engine repository and
-<code class="language-plaintext highlighter-rouge">--local-graal-repository</code> sets the path to the GraalVM repository. The provided
-paths should be absolute to be sure that they are resolved correctly.</p>
-
-<p>For example, starting the project manager as written below will first look for
-engines and GraalVM runtimes in the provided local repositories (but if they are
-not found, online repository will be used as fallback, if it is available).</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./project-manager <span class="nt">--local-engine-repository</span> /a/b/bundle/engines <span class="nt">--local-graal-repository</span> /a/b/bundle/graalvm
-</code></pre></div></div>
-
-<p>For the above command to work properly, the directory <code class="language-plaintext highlighter-rouge">/a/b/bundle/</code> may have
-the following structure:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle
-├── other files (project-manager binary etc.)
-├── engines
-│   └── enso-0.1.2-rc.9
-│       ├── enso-engine-0.1.2-rc.9-linux-amd64.tar.gz
-│       └── manifest.yaml
-└── graalvm
-    └── vm-20.2.0
-        └── graalvm-ce-java11-linux-amd64-20.2.0.tar.gz
-</code></pre></div></div>
+<p>Since the launcher can run in
+<a href="/docs/enso/distribution/distribution.html#portable-enso-distribution-layout">portable mode</a>, the bundled
+engine and runtime are simply included within its portable package. They can
+then be used from within this portable package or
+<a href="/docs/enso/distribution/distribution.html#installing-from-a-portable-distribution">installed</a>.</p>
 
                         
                         
@@ -916,7 +880,7 @@ the following structure:</p>
                             
                             
                             
-                            <a href="https://github.com/enso-org/enso/blob/main/docs/distribution/local-repository.md">Open this doc on GitHub</a>
+                            <a href="https://github.com/enso-org/enso/blob/main/docs/distribution/bundles.md">Open this doc on GitHub</a>
                           
                         
 
@@ -1050,7 +1014,7 @@ search.start();
     </div>
 </div>
 
-                <a href="/docs/enso/distribution/licenses.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Licenses">
+                <a href="/docs/enso/distribution/standard-libraries.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Standard Libraries">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -1139,13 +1103,13 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "docs/enso/distribution/local-repository.md",
+        "path": "docs/enso/distribution/bundles.md",
         "mtime": "",
         "type": "markdown"
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-01-14 20:54:15 +0000"
+        "time": "2021-01-15 15:27:57 +0000"
     },
     "basePath": "",
     "book": {
