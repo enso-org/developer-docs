@@ -777,6 +777,7 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#stackitem"><code class="language-plaintext highlighter-rouge">StackItem</code></a></li>
       <li><a href="#methodpointer"><code class="language-plaintext highlighter-rouge">MethodPointer</code></a></li>
       <li><a href="#expressionvalueupdate"><code class="language-plaintext highlighter-rouge">ExpressionValueUpdate</code></a></li>
+      <li><a href="#profilinginfo"><code class="language-plaintext highlighter-rouge">ProfilingInfo</code></a></li>
       <li><a href="#visualisationconfiguration"><code class="language-plaintext highlighter-rouge">VisualisationConfiguration</code></a></li>
       <li><a href="#suggestionentryargument"><code class="language-plaintext highlighter-rouge">SuggestionEntryArgument</code></a></li>
       <li><a href="#suggestionentry"><code class="language-plaintext highlighter-rouge">SuggestionEntry</code></a></li>
@@ -827,8 +828,8 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#executioncontextcanmodify"><code class="language-plaintext highlighter-rouge">executionContext/canModify</code></a></li>
       <li><a href="#executioncontextreceivesupdates"><code class="language-plaintext highlighter-rouge">executionContext/receivesUpdates</code></a></li>
       <li><a href="#searchreceivessuggestionsdatabaseupdates"><code class="language-plaintext highlighter-rouge">search/receivesSuggestionsDatabaseUpdates</code></a></li>
-      <li><a href="#enables-4">Enables</a></li>
-      <li><a href="#disables-4">Disables</a></li>
+      <li><a href="#enables">Enables</a></li>
+      <li><a href="#disables">Disables</a></li>
     </ul>
   </li>
   <li><a href="#file-management-operations">File Management Operations</a>
@@ -910,10 +911,10 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#searchimport"><code class="language-plaintext highlighter-rouge">search/import</code></a></li>
     </ul>
   </li>
-  <li><a href="#input-output-operations">Input/Output Operations</a>
+  <li><a href="#inputoutput-operations">Input/Output Operations</a>
     <ul>
-      <li><a href="#ioredirectstdardoutput"><code class="language-plaintext highlighter-rouge">io/redirectStandardOutput</code></a></li>
-      <li><a href="#iosuppressstdardoutput"><code class="language-plaintext highlighter-rouge">io/suppressStandardOutput</code></a></li>
+      <li><a href="#ioredirectstandardoutput"><code class="language-plaintext highlighter-rouge">io/redirectStandardOutput</code></a></li>
+      <li><a href="#iosuppressstandardoutput"><code class="language-plaintext highlighter-rouge">io/suppressStandardOutput</code></a></li>
       <li><a href="#iostandardoutputappended"><code class="language-plaintext highlighter-rouge">io/standardOutputAppended</code></a></li>
       <li><a href="#ioredirectstandarderror"><code class="language-plaintext highlighter-rouge">io/redirectStandardError</code></a></li>
       <li><a href="#iosuppressstandarderror"><code class="language-plaintext highlighter-rouge">io/suppressStandardError</code></a></li>
@@ -922,13 +923,13 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#iowaitingforstandardinput"><code class="language-plaintext highlighter-rouge">io/waitingForStandardInput</code></a></li>
     </ul>
   </li>
-  <li><a href="#errors-57">Errors</a>
+  <li><a href="#errors">Errors</a>
     <ul>
       <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a></li>
       <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a></li>
       <li><a href="#contentrootnotfounderror"><code class="language-plaintext highlighter-rouge">ContentRootNotFoundError</code></a></li>
       <li><a href="#filenotfound"><code class="language-plaintext highlighter-rouge">FileNotFound</code></a></li>
-      <li><a href="#fileexists"><code class="language-plaintext highlighter-rouge">FileExists</code></a></li>
+      <li><a href="#fileexists-1"><code class="language-plaintext highlighter-rouge">FileExists</code></a></li>
       <li><a href="#operationtimeouterror"><code class="language-plaintext highlighter-rouge">OperationTimeoutError</code></a></li>
       <li><a href="#notdirectory"><code class="language-plaintext highlighter-rouge">NotDirectory</code></a></li>
       <li><a href="#stackitemnotfounderror"><code class="language-plaintext highlighter-rouge">StackItemNotFoundError</code></a></li>
@@ -949,6 +950,7 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a></li>
       <li><a href="#projectnotfounderror"><code class="language-plaintext highlighter-rouge">ProjectNotFoundError</code></a></li>
       <li><a href="#modulenamenotresolvederror"><code class="language-plaintext highlighter-rouge">ModuleNameNotResolvedError</code></a></li>
+      <li><a href="#suggestionnotfounderror"><code class="language-plaintext highlighter-rouge">SuggestionNotFoundError</code></a></li>
     </ul>
   </li>
 </ul>
@@ -1017,6 +1019,8 @@ type, <code class="language-plaintext highlighter-rouge">this</code> will be sub
 
 <h3 id="expressionvalueupdate"><code class="language-plaintext highlighter-rouge">ExpressionValueUpdate</code></h3>
 
+<p>Metadata on an updated expression.</p>
+
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ExpressionValueUpdate</span> <span class="p">{</span>
   <span class="cm">/** The id of updated expression */</span>
   <span class="nl">expressionId</span><span class="p">:</span> <span class="nx">ExpressionId</span><span class="p">;</span>
@@ -1026,6 +1030,31 @@ type, <code class="language-plaintext highlighter-rouge">this</code> will be sub
 
   <span class="cm">/** The updated pointer to the method call */</span>
   <span class="nl">methodPointer</span><span class="p">?:</span> <span class="nx">SuggestionId</span><span class="p">;</span>
+
+  <span class="cm">/** Profiling information for the expression */</span>
+  <span class="nl">profilingInfo</span><span class="p">:</span> <span class="nx">ProfilingInfo</span><span class="p">[];</span>
+
+  <span class="cm">/** Whether the expression value came from the cache or not */</span>
+  <span class="nl">fromCache</span><span class="p">:</span> <span class="nx">bool</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Currently, the <code class="language-plaintext highlighter-rouge">profilingInfo</code> array is guaranteed to contain at least the
+<code class="language-plaintext highlighter-rouge">ExecutionTime</code> information.</p>
+
+<h3 id="profilinginfo"><code class="language-plaintext highlighter-rouge">ProfilingInfo</code></h3>
+
+<p>Profiling information on an executed expression. It is implemented as a union as
+additional types of information will be added in the future.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">ProfilingInfo</span> <span class="o">=</span> <span class="nx">ExecutionTime</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Where:</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ExecutionTime</span> <span class="p">{</span>
+  <span class="cm">/** The time elapsed during the expression's evaluation, in nanoseconds */</span>
+  <span class="nl">nanoTime</span><span class="p">:</span> <span class="nb">Number</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -4689,7 +4718,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-01-15 15:27:57 +0000"
+        "time": "2021-01-19 10:42:47 +0000"
     },
     "basePath": "",
     "book": {
