@@ -778,6 +778,7 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#methodpointer"><code class="language-plaintext highlighter-rouge">MethodPointer</code></a></li>
       <li><a href="#expressionvalueupdate"><code class="language-plaintext highlighter-rouge">ExpressionValueUpdate</code></a></li>
       <li><a href="#expressionupdate"><code class="language-plaintext highlighter-rouge">ExpressionUpdate</code></a></li>
+      <li><a href="#expressionupdatepayload"><code class="language-plaintext highlighter-rouge">ExpressionUpdatePayload</code></a></li>
       <li><a href="#profilinginfo"><code class="language-plaintext highlighter-rouge">ProfilingInfo</code></a></li>
       <li><a href="#visualisationconfiguration"><code class="language-plaintext highlighter-rouge">VisualisationConfiguration</code></a></li>
       <li><a href="#suggestionentryargument"><code class="language-plaintext highlighter-rouge">SuggestionEntryArgument</code></a></li>
@@ -1062,12 +1063,9 @@ additional types of information will be added in the future.</p>
 
 <h3 id="expressionupdate"><code class="language-plaintext highlighter-rouge">ExpressionUpdate</code></h3>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">ExpressionUpdate</span> <span class="o">=</span> <span class="nx">Computed</span> <span class="o">|</span> <span class="nx">Failed</span> <span class="o">|</span> <span class="nx">Poisoned</span><span class="p">;</span>
+<p>An update about the computed expression.</p>
 
-<span class="cm">/**
- * An update about computed expression.
- */</span>
-<span class="kr">interface</span> <span class="nx">Computed</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ExpressionUpdate</span> <span class="p">{</span>
   <span class="cm">/**
    * The id of updated expression.
    */</span>
@@ -1082,36 +1080,69 @@ additional types of information will be added in the future.</p>
    * The updated pointer to the method call.
    */</span>
   <span class="nl">methodPointer</span><span class="p">?:</span> <span class="nx">SuggestionId</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * Profiling information about the expression.
+   */</span>
+  <span class="nl">profilingInfo</span><span class="p">:</span> <span class="nx">ProfilingInfo</span><span class="p">[];</span>
+
+  <span class="cm">/**
+   * Wether or not the expression's value came from the cache.
+   */</span>
+  <span class="nl">fromCache</span><span class="p">:</span> <span class="nx">bool</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * An extra information about the computed value.
+   */</span>
+  <span class="nl">payload</span><span class="p">:</span> <span class="nx">ExpressionUpdatePayload</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="expressionupdatepayload"><code class="language-plaintext highlighter-rouge">ExpressionUpdatePayload</code></h3>
+
+<p>An information about the computed value.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">ExpressionUpdatePayload</span> <span class="o">=</span> <span class="nx">Value</span> <span class="o">|</span> <span class="nx">DatafalowError</span> <span class="o">|</span> <span class="nx">RuntimeError</span> <span class="o">|</span> <span class="nx">Poisoned</span><span class="p">;</span>
+
+<span class="cm">/**
+ * An empty payload. Indicates that the expression was computed to a value.
+ */</span>
+<span class="kr">interface</span> <span class="nx">Value</span> <span class="p">{}</span>
+
+<span class="cm">/**
+ * Indicates that the expression was computed to an error.
+ */</span>
+<span class="kr">interface</span> <span class="nx">DataflowError</span> <span class="p">{</span>
+  <span class="cm">/**
+   * The list of expressions leading to the root error.
+   */</span>
+  <span class="nl">trace</span><span class="p">:</span> <span class="nx">ExpressionId</span><span class="p">[];</span>
 <span class="p">}</span>
 
 <span class="cm">/**
- * An update about failed expression.
+ * Indicates that the expression failed with the runtime exception.
  */</span>
-<span class="kr">interface</span> <span class="nx">Failed</span> <span class="p">{</span>
-  <span class="cm">/**
-   * The id of updated expression.
-   */</span>
-  <span class="nl">expressionId</span><span class="p">:</span> <span class="nx">ExpressionId</span><span class="p">;</span>
-
+<span class="kr">interface</span> <span class="nx">RuntimeError</span> <span class="p">{</span>
   <span class="cm">/**
    * The error message.
    */</span>
   <span class="nl">message</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The stack trace.
+   */</span>
+  <span class="nl">trace</span><span class="p">:</span> <span class="nx">ExpressionId</span><span class="p">[];</span>
 <span class="p">}</span>
 
 <span class="cm">/**
- * An update about expression not executed due to the failed dependency.
+ * Indicates that the expression was not computed due to a dependency,
+ * that failed with the runtime exception.
  */</span>
 <span class="kr">interface</span> <span class="nx">Poisoned</span> <span class="p">{</span>
   <span class="cm">/**
-   * The id of updated expression.
+   * The list of expressions leading to the root expression that failed.
    */</span>
-  <span class="nl">expressionId</span><span class="p">:</span> <span class="nx">ExpressionId</span><span class="p">;</span>
-
-  <span class="cm">/**
-   * The failed expression that prevents the execution of this expression.
-   */</span>
-  <span class="nl">failedExpressionId</span><span class="p">:</span> <span class="nx">ExpressionId</span><span class="p">;</span>
+  <span class="nl">trace</span><span class="p">:</span> <span class="nx">ExpressionId</span><span class="p">[];</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -1647,6 +1678,11 @@ non-empty location (as the head of the stack will point to the builtin element).
    * The location of the diagnostic object in a file.
    */</span>
   <span class="nl">location</span><span class="p">?:</span> <span class="nx">Range</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The id of related expression.
+   */</span>
+  <span class="nl">expressionId</span><span class="p">?:</span> <span class="nx">ExpressionId</span><span class="p">;</span>
 
   <span class="cm">/**
    * The stack trace.
@@ -4802,7 +4838,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-01-22 16:41:01 +0000"
+        "time": "2021-01-25 14:42:28 +0000"
     },
     "basePath": "",
     "book": {
