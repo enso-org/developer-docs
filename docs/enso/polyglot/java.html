@@ -830,9 +830,12 @@ the following:</p>
 sure that they are available.</li>
   <li>Create java-compatible object entities that dynamically look up and dispatch
 both static methods on classes (by name), and methods on objects (by name).
-This includes the constructor.</li>
+This includes the constructor and field reads.</li>
   <li>This invocation syntax is integrated into Enso as variadic methods, allowing
 us to deal with the inter-language impedance mismatch.</li>
+  <li>Due to different semantics of Java calls, currying and over-applying functions
+are necessarily disabled for such calls, instead expecting the exact arguments
+list to be passed.</li>
 </ul>
 
 <p>An example can be found below:</p>
@@ -840,9 +843,9 @@ us to deal with the inter-language impedance mismatch.</li>
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">polyglot</span> <span class="n">java</span> <span class="n">import</span> <span class="n">com</span><span class="p">.</span><span class="nf">example</span><span class="o">.</span><span class="no">MyClass</span> <span class="n">as</span> <span class="no">MyClassJava</span>
 
 <span class="n">main</span> <span class="o">=</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="no">MyClassJava</span><span class="p">.</span><span class="nf">foo</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-    <span class="n">inst</span> <span class="o">=</span> <span class="no">MyClassJava</span><span class="p">.</span><span class="nf">new</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span>
-    <span class="n">bar</span> <span class="o">=</span> <span class="n">inst</span><span class="p">.</span><span class="nf">methodName</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="no">MyClassJava</span><span class="p">.</span><span class="nf">foo</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+    <span class="n">inst</span> <span class="o">=</span> <span class="no">MyClassJava</span><span class="p">.</span><span class="nf">new</span> <span class="n">a</span> <span class="n">b</span> <span class="n">c</span>
+    <span class="n">bar</span> <span class="o">=</span> <span class="n">inst</span><span class="p">.</span><span class="nf">methodName</span> <span class="n">x</span> <span class="n">y</span>
 </code></pre></div></div>
 
 <blockquote>
@@ -1090,7 +1093,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-02-01 11:02:07 +0000"
+        "time": "2021-02-01 14:57:29 +0000"
     },
     "basePath": "",
     "book": {
