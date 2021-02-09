@@ -862,9 +862,26 @@ protocol messages. These are specified here.</p>
 <h4 id="format">Format</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectMetadata</span> <span class="p">{</span>
+  <span class="cm">/**
+   * The name of the project.
+   */</span>
   <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The project id.
+   */</span>
   <span class="nl">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
-  <span class="nl">lastOpened</span><span class="p">:</span> <span class="nx">UTCDateTime</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * Enso Engine version to use for the project, represented by a semver version
+   * string.
+   */</span>
+  <span class="nl">engineVersion</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The last opened datetime.
+   */</span>
+  <span class="nl">lastOpened</span><span class="p">?:</span> <span class="nx">UTCDateTime</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -954,7 +971,20 @@ the action.</p>
 <h4 id="result">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectOpenResult</span> <span class="p">{</span>
+  <span class="cm">/**
+   * The version of the started language server represented by a semver version
+   * string.
+   */</span>
+  <span class="nl">engineVersion</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The endpoint used for JSON-RPC protocol.
+   */</span>
   <span class="nl">languageServerJsonAddress</span><span class="p">:</span> <span class="nx">IPWithSocket</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The endpoint used for binary protocol.
+   */</span>
   <span class="nl">languageServerBinaryAddress</span><span class="p">:</span> <span class="nx">IPWithSocket</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -1052,6 +1082,8 @@ list of projects is sorted by the open time.</p>
 <ul>
   <li><a href="#projectdatastoreerror"><code class="language-plaintext highlighter-rouge">ProjectDataStoreError</code></a> to signal problems with
 underlying data store.</li>
+  <li><a href="#globalconfigurationaccesserror"><code class="language-plaintext highlighter-rouge">GlobalConfigurationAccessError</code></a> to signal
+that the global configuration file could not be accessed or parsed.</li>
 </ul>
 
 <h3 id="projectcreate"><code class="language-plaintext highlighter-rouge">project/create</code></h3>
@@ -2099,7 +2131,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-02-09 09:09:16 +0000"
+        "time": "2021-02-09 10:56:39 +0000"
     },
     "basePath": "",
     "book": {
