@@ -248,6 +248,20 @@ search.start();
             
             
                 
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/ide/CHANGELOG_TEMPLATE.html">
+                    
+                        <a href="/docs/ide/CHANGELOG_TEMPLATE.html">
+                            
+                                CHANGELOG_TEMPLATE.md
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
             
             
             
@@ -970,6 +984,64 @@ Please be sure to fix all errors reported by <code class="language-plaintext hig
 creating a pull request to this repository.</li>
 </ul>
 
+<h3 id="development-branches">Development Branches</h3>
+<p>The following branches are used to develop the product:</p>
+
+<ul>
+  <li>
+    <p><strong>wip/[initials]/[feature]</strong><br />
+Feature branches. These are temporary branches used by the team to develop a particular feature.</p>
+  </li>
+  <li>
+    <p><strong>develop</strong><br />
+Contains the most recent changes to the product. After successful review, the feature branches are 
+merged here. Each commit to this branch will result in a nightly build of the product accessible
+as CI artifacts.</p>
+  </li>
+  <li>
+    <p><strong>unstable</strong><br />
+Contains only those commits which can be considered unstable product releases. Each commit to this
+branch will result in an unstable release of the product and will be published on GitHub as a 
+pre-release. The build version and build description will be automatically fetched from the newest 
+<code class="language-plaintext highlighter-rouge">CHANGELOG.md</code> entry and will fail if the version will not be of the form 
+<code class="language-plaintext highlighter-rouge">[major].[minor].[patch]-[sfx]</code>, where <code class="language-plaintext highlighter-rouge">[sfx]</code> is one of <code class="language-plaintext highlighter-rouge">alpha.[n]</code>, <code class="language-plaintext highlighter-rouge">beta.[n]</code>, or <code class="language-plaintext highlighter-rouge">rc.[n]</code>, 
+where <code class="language-plaintext highlighter-rouge">[n]</code> is an unstable build number.</p>
+  </li>
+  <li>
+    <p><strong>stable</strong>
+Contains only those commits which can be considered stable product releases. Each commit to this
+branch will result in a stable release of the product and will be published on GitHub as a 
+release. The build version and build description will be automatically fetched from the newest 
+<code class="language-plaintext highlighter-rouge">CHANGELOG.md</code> entry and will fail if the version will not be of the form 
+<code class="language-plaintext highlighter-rouge">[major].[minor].[patch]</code>.</p>
+  </li>
+</ul>
+
+<h3 id="forcing-ci-builds">Forcing CI builds</h3>
+<p>By default, CI would not build artifacts from <code class="language-plaintext highlighter-rouge">wip</code> and <code class="language-plaintext highlighter-rouge">develop</code> branches in order to save time and
+resources. If you want the artifacts to be build for your commit, simply add <code class="language-plaintext highlighter-rouge">[ci build]</code> anywhere 
+in your commit message.</p>
+
+<h3 id="skipping-changelogmd-change-assertions">Skipping CHANGELOG.md change assertions</h3>
+<p>By default, CI would fail if the <code class="language-plaintext highlighter-rouge">CHANGELOG.md</code> file does not need to be updated. However, sometimes 
+there are PRs that does not change anything significant in the final product. You can then simply 
+add <code class="language-plaintext highlighter-rouge">[ci no changelog needed]</code> anywhere in your commit message to skip this assertion.</p>
+
+<h3 id="publishing-results">Publishing Results</h3>
+<p>All new changes should be proposed in the form of Pull Requests (PRs) to this repository. Each PR
+should contain changes to documentation and <code class="language-plaintext highlighter-rouge">CHANGELOG.md</code> if applicable.</p>
+
+<h2 id="changelog">Changelog</h2>
+<p>Please remember to update the <code class="language-plaintext highlighter-rouge">CHANGELOG.md</code> on every new bug fix or feature implementation. Please 
+note that <code class="language-plaintext highlighter-rouge">CHANGELOG.md</code> is used to establish the current product version (the <code class="language-plaintext highlighter-rouge">run</code> script extracts 
+it from the newest changelog entry). Thus, be sure to always increase the newest version in the 
+changelog after a release, otherwise CI will fail. Please use the <code class="language-plaintext highlighter-rouge">docs/CHANGELOG_TEMPLATE.md</code> as 
+the template to create new changelog entries. Please note, that there is a special syntax for 
+defining features of the upcoming release. The newest changelog entry can have a title 
+“Next Release”. In such a case, the build version will be <code class="language-plaintext highlighter-rouge">0.0.0</code> and CI would fail when trying to
+publish it as a release.</p>
+
+
                         
                         
                           
@@ -1207,7 +1279,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-02-01 14:57:29 +0000"
+        "time": "2021-02-09 09:09:16 +0000"
     },
     "basePath": "",
     "book": {

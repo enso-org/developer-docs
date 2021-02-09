@@ -272,6 +272,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/language-server/">
                     
@@ -1102,7 +1106,7 @@ additional types of information will be added in the future.</p>
 
 <p>An information about the computed value.</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">ExpressionUpdatePayload</span> <span class="o">=</span> <span class="nx">Value</span> <span class="o">|</span> <span class="nx">DatafalowError</span> <span class="o">|</span> <span class="nx">RuntimeError</span> <span class="o">|</span> <span class="nx">Poisoned</span><span class="p">;</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">ExpressionUpdatePayload</span> <span class="o">=</span> <span class="nx">Value</span> <span class="o">|</span> <span class="nx">DatafalowError</span> <span class="o">|</span> <span class="nx">Panic</span><span class="p">;</span>
 
 <span class="cm">/**
  * An empty payload. Indicates that the expression was computed to a value.
@@ -1122,7 +1126,7 @@ additional types of information will be added in the future.</p>
 <span class="cm">/**
  * Indicates that the expression failed with the runtime exception.
  */</span>
-<span class="kr">interface</span> <span class="nx">RuntimeError</span> <span class="p">{</span>
+<span class="kr">interface</span> <span class="nx">Panic</span> <span class="p">{</span>
   <span class="cm">/**
    * The error message.
    */</span>
@@ -1130,17 +1134,6 @@ additional types of information will be added in the future.</p>
 
   <span class="cm">/**
    * The stack trace.
-   */</span>
-  <span class="nl">trace</span><span class="p">:</span> <span class="nx">ExpressionId</span><span class="p">[];</span>
-<span class="p">}</span>
-
-<span class="cm">/**
- * Indicates that the expression was not computed due to a dependency,
- * that failed with the runtime exception.
- */</span>
-<span class="kr">interface</span> <span class="nx">Poisoned</span> <span class="p">{</span>
-  <span class="cm">/**
-   * The list of expressions leading to the root expression that failed.
    */</span>
   <span class="nl">trace</span><span class="p">:</span> <span class="nx">ExpressionId</span><span class="p">[];</span>
 <span class="p">}</span>
@@ -4838,7 +4831,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-02-01 14:57:29 +0000"
+        "time": "2021-02-09 09:09:16 +0000"
     },
     "basePath": "",
     "book": {

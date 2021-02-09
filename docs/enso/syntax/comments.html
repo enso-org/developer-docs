@@ -252,6 +252,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/syntax/">
                     
@@ -959,18 +963,19 @@ mistakes will be highlighted to the user.</p>
 state. The documentation syntax supports the following tags:</p>
 
 <ul>
+  <li><code class="language-plaintext highlighter-rouge">ADDED</code>: Used to describe when a given construct was added to the library.</li>
+  <li><code class="language-plaintext highlighter-rouge">ADVANCED</code>: Items that are <em>not</em> private, but are for power users.</li>
   <li><code class="language-plaintext highlighter-rouge">DEPRECATED</code>: Used for constructs that should no longer be used and that may
 be removed in the future.</li>
   <li><code class="language-plaintext highlighter-rouge">MODIFIED</code>: Used for constructs that have had their behaviour change after a
 certain version of the library.</li>
-  <li><code class="language-plaintext highlighter-rouge">ADDED</code>: Used to describe when a given construct was added to the library.</li>
-  <li><code class="language-plaintext highlighter-rouge">UPCOMING</code>: Used to describe constructs that will be added in future versions
-of the library.</li>
+  <li><code class="language-plaintext highlighter-rouge">PRIVATE</code>: Used to describe constructs that are private in the language.</li>
   <li><code class="language-plaintext highlighter-rouge">REMOVED</code>: Used to describe constructs that have been removed and are no
 longer functional.</li>
-  <li><code class="language-plaintext highlighter-rouge">PRIVATE</code>: Used to describe constructs that are private in the language.</li>
-  <li><code class="language-plaintext highlighter-rouge">ADVANCED</code>: Items that are <em>not</em> private, but are for power users.</li>
   <li><code class="language-plaintext highlighter-rouge">TEXT_ONLY</code>: Items that do not apply to the graphical mode.</li>
+  <li><code class="language-plaintext highlighter-rouge">UNSTABLE</code>: Used for items that are not yet considered stable.</li>
+  <li><code class="language-plaintext highlighter-rouge">UPCOMING</code>: Used to describe constructs that will be added in future versions
+of the library.</li>
 </ul>
 
 <p>Tags are added at the <em>top</em> of the documentation block, and may also be
@@ -1316,7 +1321,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-02-01 14:57:29 +0000"
+        "time": "2021-02-09 09:09:16 +0000"
     },
     "basePath": "",
     "book": {
