@@ -1189,6 +1189,31 @@ Java Format for formatting Java code. For more information see the relevant
 <a href="/docs/enso/style-guide/">Style Guides</a>.</li>
 </ol>
 
+<p>Depending on the version of GraalVM with which you are working, you may be
+required to add the following flags to the per-module overrides for IntelliJ’s
+java compiler in order for it to not show spurious errors. This is because some
+versions of GraalVM export their own closed version of <code class="language-plaintext highlighter-rouge">com.oracle.truffle.api</code>
+that IntelliJ picks up preferentially to the version we use for development. You
+can find these options in
+<code class="language-plaintext highlighter-rouge">Preferences -&gt; Build, Execution, Deployment -&gt; Compiler -&gt; Java Compiler</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--add-exports org.graalvm.truffle/com.oracle.truffle.api=ALL-UNNAMED
+--add-exports org.graalvm.truffle/com.oracle.truffle.api.debug=ALL-UNNAMED
+--add-exports org.graalvm.truffle/com.oracle.truffle.api.dsl=ALL-UNNAMED
+--add-exports org.graalvm.truffle/com.oracle.truffle.api.exception=ALL-UNNAMED
+--add-exports org.graalvm.truffle/com.oracle.truffle.api.frame=ALL-UNNAMED
+--add-exports org.graalvm.truffle/com.oracle.truffle.api.instrumentation=ALL-UNNAMED
+--add-exports org.graalvm.truffle/com.oracle.truffle.api.interop=ALL-UNNAMED
+--add-exports org.graalvm.truffle/com.oracle.truffle.api.io=ALL-UNNAMED
+--add-exports org.graalvm.truffle/com.oracle.truffle.api.library=ALL-UNNAMED
+--add-exports org.graalvm.truffle/com.oracle.truffle.api.memory=ALL-UNNAMED
+--add-exports org.graalvm.truffle/com.oracle.truffle.api.nodes=ALL-UNNAMED
+--add-exports org.graalvm.truffle/com.oracle.truffle.api.object=ALL-UNNAMED
+--add-exports org.graalvm.truffle/com.oracle.truffle.api.profiles=ALL-UNNAMED
+--add-exports org.graalvm.truffle/com.oracle.truffle.api.source=ALL-UNNAMED
+--add-exports org.graalvm.truffle/com.oracle.truffle.api.utilities=ALL-UNNAMED
+</code></pre></div></div>
+
 <p>However, as mentioned in the <a href="#troubleshooting">Troubleshooting</a> section below,
 the forked nature of execution in the SBT shell means that we can’t trivially
 make use of the IntelliJ debugger. In order to get debugging working, you will
@@ -1715,7 +1740,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-02-15 22:03:05 +0000"
+        "time": "2021-02-22 13:34:16 +0000"
     },
     "basePath": "",
     "book": {
