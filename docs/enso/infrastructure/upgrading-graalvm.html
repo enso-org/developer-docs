@@ -622,10 +622,6 @@ search.start();
             
             
                 
-            
-            
-            
-                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/enso/infrastructure/logging.html">
                     
@@ -635,6 +631,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -807,6 +807,23 @@ package) may help.</li>
     </ul>
   </li>
 </ol>
+
+<h2 id="upgrading-the-build">Upgrading the Build</h2>
+
+<p>If you are upgrading the <em>build</em> to a new GraalVM version, you additionally need
+to perform the following tasks:</p>
+
+<ul>
+  <li>Change the expected GraalVM version in the <a href="../../build.sbt"><code class="language-plaintext highlighter-rouge">build.sbt</code></a>
+configuration. This is both a version number and (if it is changed), the
+associated version of Java.</li>
+  <li>Change the expected GraalVM version in the
+<a href="../../.github/workflows/scala.yml"><code class="language-plaintext highlighter-rouge">scala.yml</code></a> and
+<a href="../../.github/workflows/release.yml"><code class="language-plaintext highlighter-rouge">release.yml</code></a> workflows.</li>
+  <li>Change the base image in the <a href="../../tools/ci/docker/Dockerfile"><code class="language-plaintext highlighter-rouge">Dockerfile</code></a>
+to contain the correct GraalVM version.</li>
+  <li>Ensure that all deprecations have been handled.</li>
+</ul>
 
                         
                         
@@ -1049,7 +1066,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-02-22 13:34:16 +0000"
+        "time": "2021-02-23 14:13:37 +0000"
     },
     "basePath": "",
     "book": {
