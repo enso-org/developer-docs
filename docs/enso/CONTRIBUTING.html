@@ -1102,6 +1102,35 @@ run:</p>
 <code class="language-plaintext highlighter-rouge">sbt / test</code>. To test the Rust components you can run <code class="language-plaintext highlighter-rouge">cargo test</code>. Finally, you
 can run the WASM tests for the rust components by using <code class="language-plaintext highlighter-rouge">./run --test-wasm</code>.</p>
 
+<h4 id="testing-enso-libraries">Testing Enso Libraries</h4>
+
+<p>To test the libraries that are shipped with Enso you need to first build the
+engine, the easiest way to do so is to run <code class="language-plaintext highlighter-rouge">sbt buildEngineDistribution</code>. That
+will create a distribution in the directory <code class="language-plaintext highlighter-rouge">built-distribution</code>. The engine
+runner that can be used for running the tests is located at
+<code class="language-plaintext highlighter-rouge">built-distribution/enso-engine-&lt;VERSION&gt;-linux-amd64/enso-&lt;VERSION&gt;/bin/enso</code>
+(or <code class="language-plaintext highlighter-rouge">enso.bat</code> for Windows).</p>
+
+<p>To run the tests you can run the following commands (where <code class="language-plaintext highlighter-rouge">enso</code> refers to the
+built runner executable as explained above):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>enso <span class="nt">--run</span> <span class="nb">test</span>/Tests <span class="c"># for the Base library</span>
+enso <span class="nt">--run</span> <span class="nb">test</span>/Geo_Tests
+enso <span class="nt">--run</span> <span class="nb">test</span>/Table_Tests
+enso <span class="nt">--run</span> <span class="nb">test</span>/Database_Tests
+</code></pre></div></div>
+
+<p>The Database tests will by default only test the SQLite backend, to test other
+backends see <a href="../test/Database_Tests/README.md"><code class="language-plaintext highlighter-rouge">test/Database_Tests/README.md</code></a>
+for information on how to configure them.</p>
+
+<p>The Base tests rely in a few places on the system language. On Linux you can set
+the <code class="language-plaintext highlighter-rouge">LANG</code> environment variable to <code class="language-plaintext highlighter-rouge">C</code> to make sure that the language is
+configured correctly and run the tests as following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">LANG</span><span class="o">=</span>C enso <span class="nt">--run</span> <span class="nb">test</span>/Tests
+</code></pre></div></div>
+
 <h4 id="passing-debug-options">Passing Debug Options</h4>
 
 <p>GraalVM provides some useful debugging options, including the ability to output
@@ -1740,7 +1769,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-03-16 12:46:34 +0000"
+        "time": "2021-03-16 16:54:02 +0000"
     },
     "basePath": "",
     "book": {
