@@ -840,11 +840,11 @@ these libraries, as well as notes on how they should be used.</p>
 <p><code class="language-plaintext highlighter-rouge">Base</code> is the core library of Enso. It contains core types and data structures,
 as well as basic functionality for interacting with the outside world. It can be
 found in
-<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Base"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Base</code></a>.</p>
+<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Standard/src"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Standard/src/</code></a>.</p>
 
 <p><code class="language-plaintext highlighter-rouge">Base</code> is intended to be imported unqualified at the top of the file:
-<code class="language-plaintext highlighter-rouge">from Base import all</code>. Items not included in this unqualified import are
-considered to be more specialist or internal, and should be intentionally
+<code class="language-plaintext highlighter-rouge">from Standard.Base import all</code>. Items not included in this unqualified import
+are considered to be more specialist or internal, and should be intentionally
 imported by users.</p>
 
 <h3 id="builtins">Builtins</h3>
@@ -1208,7 +1208,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-03-10 10:10:54 +0000"
+        "time": "2021-03-16 12:46:34 +0000"
     },
     "basePath": "",
     "book": {
