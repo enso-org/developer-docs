@@ -991,6 +991,28 @@ details.</p>
 visualization content. Users are free to modify the DOM element, including
 adding other elements as its children.</p>
       </li>
+      <li>
+        <h4 id="field-theme">Field <code class="language-plaintext highlighter-rouge">theme</code></h4>
+        <p>The IDE’s current color theme. Exposes the following methods.</p>
+        <ul>
+          <li>
+            <h5 id="method-getcolorfortype">Method <code class="language-plaintext highlighter-rouge">getColorForType</code></h5>
+            <p>Takes a qualified type name and returns the color that is used in the GUI to represent that
+type.</p>
+          </li>
+          <li>
+            <h5 id="method-getforegroundcolorfortype">Method <code class="language-plaintext highlighter-rouge">getForegroundColorForType</code></h5>
+            <p>Takes a qualified type name and returns the color that should be used for foreground elements
+(e.g. text) that are shown on top of the background color returned by <code class="language-plaintext highlighter-rouge">getColorForType</code>.</p>
+          </li>
+          <li>
+            <h5 id="method-get">Method <code class="language-plaintext highlighter-rouge">get</code></h5>
+            <p>Takes a style sheet path as string and returns the corresponding value from the theme. For
+example, <code class="language-plaintext highlighter-rouge">get("graph_editor.node.error.panic")</code> returns the orange color that is used to mark
+nodes in an error state.</p>
+          </li>
+        </ul>
+      </li>
     </ul>
   </li>
   <li>
@@ -1321,7 +1343,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-03-23 10:21:35 +0000"
+        "time": "2021-03-24 18:09:51 +0000"
     },
     "basePath": "",
     "book": {
