@@ -997,19 +997,20 @@ adding other elements as its children.</p>
         <ul>
           <li>
             <h5 id="method-getcolorfortype">Method <code class="language-plaintext highlighter-rouge">getColorForType</code></h5>
-            <p>Takes a qualified type name and returns the color that is used in the GUI to represent that
-type.</p>
+            <p>Takes a qualified type name and returns the color that is used in the GUI
+to represent that type.</p>
           </li>
           <li>
             <h5 id="method-getforegroundcolorfortype">Method <code class="language-plaintext highlighter-rouge">getForegroundColorForType</code></h5>
-            <p>Takes a qualified type name and returns the color that should be used for foreground elements
-(e.g. text) that are shown on top of the background color returned by <code class="language-plaintext highlighter-rouge">getColorForType</code>.</p>
+            <p>Takes a qualified type name and returns the color that should be used for
+foreground elements (e.g. text) that are shown on top of the background
+color returned by <code class="language-plaintext highlighter-rouge">getColorForType</code>.</p>
           </li>
           <li>
             <h5 id="method-get">Method <code class="language-plaintext highlighter-rouge">get</code></h5>
-            <p>Takes a style sheet path as string and returns the corresponding value from the theme. For
-example, <code class="language-plaintext highlighter-rouge">get("graph_editor.node.error.panic")</code> returns the orange color that is used to mark
-nodes in an error state.</p>
+            <p>Takes a style sheet path as string and returns the corresponding value
+from the theme. For example, <code class="language-plaintext highlighter-rouge">get("graph_editor.node.error.panic")</code>
+returns the orange color that is used to mark nodes in an error state.</p>
           </li>
         </ul>
       </li>
@@ -1105,6 +1106,65 @@ data types have defined conversion to JSON by default. If the visualization
 input is defined as JSON input, the binary stream will be converted to JSON by
 the GUI engine before passing to visualization. It is up to the visualization
 author to handle the textual or binary form.</p>
+
+<h2 id="builtin-visualizations">Builtin Visualizations</h2>
+
+<p>IDE comes with a set of predefined visualizations, including charts.</p>
+
+<h3 id="dataframes-support">Dataframes Support</h3>
+
+<p>Some of the predefined visualizations have some special support for <code class="language-plaintext highlighter-rouge">Table</code> from
+Enso Dataframes library.</p>
+
+<h4 id="histogram">Histogram</h4>
+
+<p>When using <code class="language-plaintext highlighter-rouge">Histogram</code> visualization on a <code class="language-plaintext highlighter-rouge">Table</code> value it will first look for a
+column named <code class="language-plaintext highlighter-rouge">value</code>. If present, it will be used as a data source. Otherwise,
+<code class="language-plaintext highlighter-rouge">Histogram</code> will use the first numerical column.</p>
+
+<h4 id="scatter-plot">Scatter Plot</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">Scatter Plot</code> visualization has several properties for each point. If a
+column of a matching name is present in the <code class="language-plaintext highlighter-rouge">Table</code> it will be used.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">x</code> — position on horizontal axis. If not present, the index column will be
+used. If there is no index set, the row indices will be used. If this column
+has a missing value, the point will be omitted.</li>
+  <li><code class="language-plaintext highlighter-rouge">y</code> — position on vertical axis. If not present, first numerical column of
+unrecognized name will be used. If not present, first numerical column will be
+used. If this column has a missing value, the point will be omitted.</li>
+  <li><code class="language-plaintext highlighter-rouge">color</code> — color of the point. The default color is <code class="language-plaintext highlighter-rouge">black</code> and will be used if
+column is not present or for its missing values. <code class="language-plaintext highlighter-rouge">color</code> should be a <code class="language-plaintext highlighter-rouge">Text</code>
+column with elements being in a
+<a href="https://www.w3schools.com/cssref/css_colors_legal.asp">CSS colors format</a>:
+    <ul>
+      <li>Hexadecimal formats, like <code class="language-plaintext highlighter-rouge">#RGB</code>, <code class="language-plaintext highlighter-rouge">#RRGGBB</code> and <code class="language-plaintext highlighter-rouge">#RRGGBBAA</code>.</li>
+      <li>RGB function-like syntax, e.g. <code class="language-plaintext highlighter-rouge">rgb(255,0,128)</code> or <code class="language-plaintext highlighter-rouge">rgba(255,0,128,0.5)</code>.</li>
+      <li>HSL function-like syntax, e.g. <code class="language-plaintext highlighter-rouge">hsl(120, 100%, 50%)</code> or
+<code class="language-plaintext highlighter-rouge">hsla(120, 100%, 50%, 0.3)</code>.</li>
+      <li>name of one of
+<a href="https://www.w3schools.com/colors/colors_names.asp">predefined colors</a>, e.g.
+<code class="language-plaintext highlighter-rouge">red</code> or <code class="language-plaintext highlighter-rouge">SteelBlue</code>.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">label</code> — text to be displayed next to the point.</li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">shape</code> — shape of the point. Supported shapes are:</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">cross</code>;</li>
+      <li><code class="language-plaintext highlighter-rouge">diamond</code>;</li>
+      <li><code class="language-plaintext highlighter-rouge">square</code>;</li>
+      <li><code class="language-plaintext highlighter-rouge">star</code>;</li>
+      <li><code class="language-plaintext highlighter-rouge">triangle</code>.</li>
+    </ul>
+
+    <p>The default shape is a circle.</p>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">size</code> — size of the point as a (possible floating point) number. Default size
+of the point is <code class="language-plaintext highlighter-rouge">1.0</code>.</li>
+</ul>
 
                         
                         
@@ -1343,7 +1403,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-03-29 15:32:28 +0000"
+        "time": "2021-03-30 07:37:47 +0000"
     },
     "basePath": "",
     "book": {
