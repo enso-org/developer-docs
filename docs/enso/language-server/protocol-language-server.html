@@ -780,7 +780,6 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#contextid"><code class="language-plaintext highlighter-rouge">ContextId</code></a></li>
       <li><a href="#stackitem"><code class="language-plaintext highlighter-rouge">StackItem</code></a></li>
       <li><a href="#methodpointer"><code class="language-plaintext highlighter-rouge">MethodPointer</code></a></li>
-      <li><a href="#expressionvalueupdate"><code class="language-plaintext highlighter-rouge">ExpressionValueUpdate</code></a></li>
       <li><a href="#expressionupdate"><code class="language-plaintext highlighter-rouge">ExpressionUpdate</code></a></li>
       <li><a href="#expressionupdatepayload"><code class="language-plaintext highlighter-rouge">ExpressionUpdatePayload</code></a></li>
       <li><a href="#profilinginfo"><code class="language-plaintext highlighter-rouge">ProfilingInfo</code></a></li>
@@ -897,7 +896,6 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#executioncontextpush"><code class="language-plaintext highlighter-rouge">executionContext/push</code></a></li>
       <li><a href="#executioncontextpop"><code class="language-plaintext highlighter-rouge">executionContext/pop</code></a></li>
       <li><a href="#executioncontextrecompute"><code class="language-plaintext highlighter-rouge">executionContext/recompute</code></a></li>
-      <li><a href="#executioncontextexpressionvaluescomputed"><code class="language-plaintext highlighter-rouge">executionContext/expressionValuesComputed</code></a></li>
       <li><a href="#executioncontextexpressionupdates"><code class="language-plaintext highlighter-rouge">executionContext/expressionUpdates</code></a></li>
       <li><a href="#executioncontextexecutionfailed"><code class="language-plaintext highlighter-rouge">executionContext/executionFailed</code></a></li>
       <li><a href="#executioncontextexecutionstatus"><code class="language-plaintext highlighter-rouge">executionContext/executionStatus</code></a></li>
@@ -1024,31 +1022,6 @@ type, <code class="language-plaintext highlighter-rouge">this</code> will be sub
   <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
-
-<h3 id="expressionvalueupdate"><code class="language-plaintext highlighter-rouge">ExpressionValueUpdate</code></h3>
-
-<p>Metadata on an updated expression.</p>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ExpressionValueUpdate</span> <span class="p">{</span>
-  <span class="cm">/** The id of updated expression */</span>
-  <span class="nl">expressionId</span><span class="p">:</span> <span class="nx">ExpressionId</span><span class="p">;</span>
-
-  <span class="cm">/** The updated type of the expression */</span>
-  <span class="nl">type</span><span class="p">?:</span> <span class="nb">String</span><span class="p">;</span>
-
-  <span class="cm">/** The updated pointer to the method call */</span>
-  <span class="nl">methodPointer</span><span class="p">?:</span> <span class="nx">SuggestionId</span><span class="p">;</span>
-
-  <span class="cm">/** Profiling information for the expression */</span>
-  <span class="nl">profilingInfo</span><span class="p">:</span> <span class="nx">ProfilingInfo</span><span class="p">[];</span>
-
-  <span class="cm">/** Whether the expression value came from the cache or not */</span>
-  <span class="nl">fromCache</span><span class="p">:</span> <span class="nx">bool</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>Currently, the <code class="language-plaintext highlighter-rouge">profilingInfo</code> array is guaranteed to contain at least the
-<code class="language-plaintext highlighter-rouge">ExecutionTime</code> information.</p>
 
 <h3 id="profilinginfo"><code class="language-plaintext highlighter-rouge">ProfilingInfo</code></h3>
 
@@ -1415,6 +1388,16 @@ additional types of information will be added in the future.</p>
    * The list of argument updates.
    */</span>
   <span class="nl">arguments</span><span class="p">?:</span> <span class="nx">SuggestionArgumentUpdate</span><span class="p">[];</span>
+
+  <span class="cm">/**
+   * The module name to update.
+   */</span>
+  <span class="nl">module</span><span class="p">?:</span> <span class="nx">FieldUpdate</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The self type to update.
+   */</span>
+  <span class="nl">selfType</span><span class="p">?:</span> <span class="nx">FieldUpdate</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span><span class="p">;</span>
 
   <span class="cm">/**
    * The return type to update.
@@ -2102,7 +2085,6 @@ given execution context.</p>
 <h4 id="enables-3">Enables</h4>
 
 <ul>
-  <li><a href="#executioncontextexpressionvaluescomputed"><code class="language-plaintext highlighter-rouge">executionContext/expressionValuesComputed</code></a></li>
   <li><a href="#executioncontextexpressionupdates"><code class="language-plaintext highlighter-rouge">executionContext/expressionUpdates</code></a></li>
   <li><a href="#executioncontextexecutionfailed"><code class="language-plaintext highlighter-rouge">executionContext/executionFailed</code></a></li>
   <li><a href="#executioncontextexecutionstatus"><code class="language-plaintext highlighter-rouge">executionContext/executionStatus</code></a></li>
@@ -3495,30 +3477,6 @@ May include a list of expressions for which caches should be invalidated.</p>
 empty stack.</li>
 </ul>
 
-<h3 id="executioncontextexpressionvaluescomputed"><code class="language-plaintext highlighter-rouge">executionContext/expressionValuesComputed</code></h3>
-
-<p>Sent from the server to the client to inform about new information for certain
-expressions becoming available.</p>
-
-<ul>
-  <li><strong>Type:</strong> Notification</li>
-  <li><strong>Direction:</strong> Server -&gt; Client</li>
-  <li><strong>Connection:</strong> Protocol</li>
-  <li><strong>Visibility:</strong> Public</li>
-</ul>
-
-<h4 id="parameters-39">Parameters</h4>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
-  <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
-  <span class="nl">updates</span><span class="p">:</span> <span class="p">[</span><span class="nx">ExpressionValueUpdate</span><span class="p">];</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h4 id="errors-40">Errors</h4>
-
-<p>None</p>
-
 <h3 id="executioncontextexpressionupdates"><code class="language-plaintext highlighter-rouge">executionContext/expressionUpdates</code></h3>
 
 <p>Sent from the server to the client to inform about new information for certain
@@ -3533,7 +3491,7 @@ in future versions.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-40">Parameters</h4>
+<h4 id="parameters-39">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
@@ -3541,7 +3499,7 @@ in future versions.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-41">Errors</h4>
+<h4 id="errors-40">Errors</h4>
 
 <p>None</p>
 
@@ -3564,7 +3522,7 @@ stack, an error location a method or a module when issuing a
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-41">Parameters</h4>
+<h4 id="parameters-40">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="cm">/**
@@ -3584,7 +3542,7 @@ stack, an error location a method or a module when issuing a
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-42">Errors</h4>
+<h4 id="errors-41">Errors</h4>
 
 <p>None</p>
 
@@ -3599,7 +3557,7 @@ stack, an error location a method or a module when issuing a
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-42">Parameters</h4>
+<h4 id="parameters-41">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="cm">/**
@@ -3614,7 +3572,7 @@ stack, an error location a method or a module when issuing a
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-43">Errors</h4>
+<h4 id="errors-42">Errors</h4>
 
 <p>None</p>
 
@@ -3630,7 +3588,7 @@ preprocessed by some arbitrary Enso code, to a given node in the program.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-43">Parameters</h4>
+<h4 id="parameters-42">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">AttachVisualisationRequest</span> <span class="p">{</span>
   <span class="nl">visualisationId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
@@ -3644,7 +3602,7 @@ preprocessed by some arbitrary Enso code, to a given node in the program.</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-44">Errors</h4>
+<h4 id="errors-43">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3669,7 +3627,7 @@ evaluated.</li>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-44">Parameters</h4>
+<h4 id="parameters-43">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">DetachVisualisationRequest</span> <span class="p">{</span>
   <span class="nl">executionContextId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
@@ -3683,7 +3641,7 @@ evaluated.</li>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-45">Errors</h4>
+<h4 id="errors-44">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3706,7 +3664,7 @@ visualisation.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-45">Parameters</h4>
+<h4 id="parameters-44">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ModifyVisualisationRequest</span> <span class="p">{</span>
   <span class="nl">visualisationId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
@@ -3719,7 +3677,7 @@ visualisation.</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-46">Errors</h4>
+<h4 id="errors-45">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3751,7 +3709,7 @@ client.</p>
 pre-serialized before being inserted into this message. As far as this level of
 transport is concerned, it is just a binary blob.</p>
 
-<h4 id="parameters-46">Parameters</h4>
+<h4 id="parameters-45">Parameters</h4>
 
 <pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
 
@@ -3783,7 +3741,7 @@ table VisualisationUpdate {
 root_type VisualisationUpdate;
 </code></pre>
 
-<h4 id="errors-47">Errors</h4>
+<h4 id="errors-46">Errors</h4>
 
 <p>N/A</p>
 
@@ -3924,7 +3882,7 @@ a key-value storage with <a href="#suggestionentry"><code class="language-plaint
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-47">Parameters</h4>
+<h4 id="parameters-46">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -3939,7 +3897,7 @@ a key-value storage with <a href="#suggestionentry"><code class="language-plaint
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-48">Errors</h4>
+<h4 id="errors-47">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -3960,7 +3918,7 @@ version.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-48">Parameters</h4>
+<h4 id="parameters-47">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -3970,7 +3928,7 @@ version.</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-49">Errors</h4>
+<h4 id="errors-48">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -3989,7 +3947,7 @@ database.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-49">Parameters</h4>
+<h4 id="parameters-48">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -4002,7 +3960,7 @@ database.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-50">Errors</h4>
+<h4 id="errors-49">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -4023,7 +3981,7 @@ database.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-50">Parameters</h4>
+<h4 id="parameters-49">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">updates</span><span class="p">:</span> <span class="p">[</span><span class="nx">SuggestionsDatabaseUpdate</span><span class="p">];</span>
@@ -4031,7 +3989,7 @@ database.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-51">Errors</h4>
+<h4 id="errors-50">Errors</h4>
 
 <p>None</p>
 
@@ -4046,7 +4004,7 @@ database.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-51">Parameters</h4>
+<h4 id="parameters-50">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="c1">// The edited file</span>
@@ -4073,7 +4031,7 @@ the type match.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-52">Errors</h4>
+<h4 id="errors-51">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -4096,7 +4054,7 @@ import.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-52">Parameters</h4>
+<h4 id="parameters-51">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="cm">/**
@@ -4127,7 +4085,7 @@ import.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-53">Errors</h4>
+<h4 id="errors-52">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -4156,7 +4114,7 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-53">Parameters</h4>
+<h4 id="parameters-52">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -4166,7 +4124,7 @@ client about new output data by emitting <code class="language-plaintext highlig
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-54">Errors</h4>
+<h4 id="errors-53">Errors</h4>
 
 <p>N/A</p>
 
@@ -4181,7 +4139,7 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-54">Parameters</h4>
+<h4 id="parameters-53">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -4191,7 +4149,7 @@ client about new output data by emitting <code class="language-plaintext highlig
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-55">Errors</h4>
+<h4 id="errors-54">Errors</h4>
 
 <p>N/A</p>
 
@@ -4207,7 +4165,7 @@ for the standard output.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-55">Parameters</h4>
+<h4 id="parameters-54">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">output</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -4227,7 +4185,7 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-56">Parameters</h4>
+<h4 id="parameters-55">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -4237,7 +4195,7 @@ client about new output data by emitting <code class="language-plaintext highlig
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-56">Errors</h4>
+<h4 id="errors-55">Errors</h4>
 
 <p>N/A</p>
 
@@ -4252,7 +4210,7 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-57">Parameters</h4>
+<h4 id="parameters-56">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -4262,7 +4220,7 @@ client about new output data by emitting <code class="language-plaintext highlig
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-57">Errors</h4>
+<h4 id="errors-56">Errors</h4>
 
 <p>N/A</p>
 
@@ -4278,7 +4236,7 @@ for the standard error.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-58">Parameters</h4>
+<h4 id="parameters-57">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">output</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -4296,7 +4254,7 @@ for the standard error.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-59">Parameters</h4>
+<h4 id="parameters-58">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">input</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -4309,7 +4267,7 @@ for the standard error.</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-58">Errors</h4>
+<h4 id="errors-57">Errors</h4>
 
 <p>N/A</p>
 
@@ -4326,12 +4284,12 @@ standard input.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-60">Parameters</h4>
+<h4 id="parameters-59">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h2 id="errors-59">Errors</h2>
+<h2 id="errors-58">Errors</h2>
 
 <p>The language server component also has its own set of errors. This section is
 not a complete specification and will be updated as new errors are added.</p>
@@ -4847,7 +4805,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-04-01 07:48:49 +0000"
+        "time": "2021-04-06 11:24:19 +0000"
     },
     "basePath": "",
     "book": {
