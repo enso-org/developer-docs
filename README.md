@@ -32,6 +32,8 @@ To add new documentation:
 
 ## Deploying to enso.org
 
+The docs are deployed to enso.org via GitHub Actions.
+
 ## Attribution & License
 
 This site uses the [Gitbook](https://github.com/sighingnow/jekyll-gitbook) Jekyll theme, by [sighingnow](https://github.com/sighingnow).
