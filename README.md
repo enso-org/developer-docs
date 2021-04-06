@@ -32,7 +32,7 @@ To add new documentation:
 
 ## Deploying to enso.org
 
-The docs are deployed to enso.org via GitHub Actions.
+The docs are deployed to enso.org via the `docs-publish.yml` GitHub Action. 
 
 ## Attribution & License
 
