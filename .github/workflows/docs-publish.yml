@@ -71,3 +71,15 @@ jobs:
           # if the repo you are deploying to is <username>.github.io, uncomment the line below.
           # if you are including the line below, make sure your source files are NOT in the master branch:
           publish_branch: master
+
+      - name: Copy to website
+        uses: andstor/copycat-action@v3
+        with:
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          src_path: /.
+          src_branch: master
+          dst_path: /docs/developer
+          dst_branch: gh-pages
+          dst_owner: enso-org
+          dst_repo_name: website
+          clean: true
