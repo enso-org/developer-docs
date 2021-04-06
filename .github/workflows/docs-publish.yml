@@ -75,7 +75,7 @@ jobs:
       - name: Copy to website
         uses: andstor/copycat-action@v3
         with:
-          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          personal_token: ${{ secrets.ENSO_PAT }}
           src_path: /.
           src_branch: master
           dst_path: /docs/developer
