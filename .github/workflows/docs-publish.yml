@@ -81,5 +81,5 @@ jobs:
           dst_path: /docs/developer
           dst_branch: gh-pages
           dst_owner: enso-org
-          dst_repo_name: website
+          dst_repo_name: website-test
           clean: true
