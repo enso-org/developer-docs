@@ -1,9 +1,9 @@
 repository:
   # See https://github.com/probot/settings for all available settings.
 
-  name: luna.github.io
+  name: developer-docs
   description: The developer documentation for the Enso compiler, runtime, and IDE.
-  homepage: https://dev.enso.org
+  homepage: https://enso.org/docs/developer
   topics: gh-pages, jekyll, static, developer-documentation, documentation-site
 
   private: false
