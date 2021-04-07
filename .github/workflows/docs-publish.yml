@@ -4,11 +4,6 @@ on:
   push:
     branches:
       - sources
-      # - source
-      # It is highly recommended that you only run this action on push to a 
-        # specific branch, eg. master or source (if on *.github.io repo)
-    paths-ignore:
-      - '.github/**'
 jobs:
   jekyll:
     runs-on: ubuntu-16.04 # can change this to ubuntu-latest if you prefer
@@ -78,7 +73,7 @@ jobs:
           personal_token: ${{ secrets.CI_PAT }}
           src_path: /.
           src_branch: master
-          dst_path: /docs/developer/
+          dst_path: /docs/developer/.
           dst_branch: gh-pages
           dst_owner: enso-org
           dst_repo_name: website
