@@ -78,7 +78,7 @@ jobs:
           personal_token: ${{ secrets.CI_PAT }}
           src_path: /.
           src_branch: master
-          dst_path: /docs/developer
+          dst_path: /docs/developer/
           dst_branch: gh-pages
           dst_owner: enso-org
           dst_repo_name: website
