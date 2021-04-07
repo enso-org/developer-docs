@@ -32,7 +32,7 @@ To add new documentation:
 
 ## Deploying to enso.org
 
-The docs are deployed to enso.org via the `docs-publish.yml` GitHub Action. They get put in the `docs/developer` subfolder of the `gh-pages` branch.
+The docs are deployed to enso.org via the `docs-publish.yml` GitHub Action. They get put in the `docs/developer` subfolder of the `gh-pages` branch. This gets deployed alongside the other enso docs pages.
 
 ## Attribution & License
 
