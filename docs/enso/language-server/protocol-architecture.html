@@ -3,18 +3,18 @@
     <head><meta charset="UTF-8">
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>The Enso Protocol · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
-"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/gitbook/style.css">
-<link rel="stylesheet" href="/gitbook/gitbook-plugin-fontsettings/website.css">
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/docs/developer/gitbook/style.css">
+<link rel="stylesheet" href="/docs/developer/gitbook/gitbook-plugin-fontsettings/website.css">
 <!-- <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css"> -->
 
-<link rel="stylesheet" href="/gitbook/rouge-highlight-colorful.css">
+<link rel="stylesheet" href="/docs/developer/gitbook/rouge-highlight-colorful.css">
 
 <meta name="HandheldFriendly" content="true"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/gitbook/images/apple-touch-icon-precomposed-152.png">
-<link rel="shortcut icon" href="/gitbook/images/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/docs/developer/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="/docs/developer/gitbook/images/favicon.ico" type="image/x-icon">
         
 
         
@@ -30,11 +30,11 @@
         
 
         
-            <link rel="prev" href="/docs/enso/language-server/" />
+            <link rel="prev" href="/docs/developer/docs/enso/language-server/" />
         
 
         
-            <link rel="next" href="/docs/enso/language-server/protocol-common.html" />
+            <link rel="next" href="/docs/developer/docs/enso/language-server/protocol-common.html" />
         
     </head>
     <body>
@@ -69,7 +69,7 @@ var hitTemplate = function(hit) {
     date = moment.unix(hit.date).format('MMM D, YYYY');
   }
 
-  let url = `${hit.url}#${hit.anchor}`;
+  let url = `/docs/developer${hit.url}#${hit.anchor}`;
 
   var title = hit._highlightResult.title.value;
 
@@ -160,9 +160,9 @@ search.start();
     <nav role="navigation">
         <ul class="summary">
             
-            <li class="chapter" data-level="1.1" data-path="/">
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/">
             
-                <a href="/">
+                <a href="/docs/developer/">
                     Home
                 </a>
             </li>
@@ -178,8 +178,8 @@ search.start();
             
         
             
-            <li class="chapter" data-level="1.1" data-path="/docs/enso/language-server ">
-                    <a href="/docs/enso/language-server">
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/docs/enso/language-server ">
+                    <a href="/docs/developer/docs/enso/language-server">
                         Go back
                     </a>
                 </li>
@@ -263,9 +263,9 @@ search.start();
             
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/enso/language-server/">
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/docs/enso/language-server/">
                     
-                        <a href="/docs/enso/language-server/">
+                        <a href="/docs/developer/docs/enso/language-server/">
                             
                                 Language Server
                             
@@ -361,9 +361,9 @@ search.start();
             
                 
                     
-                    <li class="chapter active" data-level="1.2" data-path="/docs/enso/language-server/protocol-architecture.html">
+                    <li class="chapter active" data-level="1.2" data-path="/docs/developer/docs/enso/language-server/protocol-architecture.html">
                     
-                        <a href="/docs/enso/language-server/protocol-architecture.html">
+                        <a href="/docs/developer/docs/enso/language-server/protocol-architecture.html">
                             
                                 The Enso Protocol
                             
@@ -431,9 +431,9 @@ search.start();
             
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/enso/language-server/protocol-common.html">
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/docs/enso/language-server/protocol-common.html">
                     
-                        <a href="/docs/enso/language-server/protocol-common.html">
+                        <a href="/docs/developer/docs/enso/language-server/protocol-common.html">
                             
                                 Enso Protocol Common Message Specification
                             
@@ -481,9 +481,9 @@ search.start();
             
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/enso/language-server/protocol-project-manager.html">
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/docs/enso/language-server/protocol-project-manager.html">
                     
-                        <a href="/docs/enso/language-server/protocol-project-manager.html">
+                        <a href="/docs/developer/docs/enso/language-server/protocol-project-manager.html">
                             
                                 Enso Protocol Project Manager Message Specification
                             
@@ -535,9 +535,9 @@ search.start();
             
                 
                     
-                    <li class="chapter" data-level="1.1" data-path="/docs/enso/language-server/protocol-language-server.html">
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/docs/enso/language-server/protocol-language-server.html">
                     
-                        <a href="/docs/enso/language-server/protocol-language-server.html">
+                        <a href="/docs/developer/docs/enso/language-server/protocol-language-server.html">
                             
                                 Enso Protocol Language Server Message Specification
                             
@@ -778,7 +778,7 @@ or locally on a user’s machine.</p>
 Enso protocol.</p>
 
 <p>For a detailed specification of all of the messages that make up the protocol,
-please see <a href="/docs/enso/language-server/">the protocol message specifications</a>.</p>
+please see <a href="/docs/developer/docs/enso/language-server/">the protocol message specifications</a>.</p>
 
 <!-- MarkdownTOC levels="2,3,4" autolink="true" -->
 
@@ -1520,11 +1520,11 @@ be used to identify the client while it is connected.</li>
   <li><strong>Protocol Connection Initialisation:</strong> The client performs the init for the
 textual protocol connection, passing its client identifier as it does so.
 See
-<a href="/docs/enso/language-server/protocol-language-server.html#sessioninitprotocolconnection"><code class="language-plaintext highlighter-rouge">session/initProtocolConnection</code></a>
+<a href="/docs/developer/docs/enso/language-server/protocol-language-server.html#sessioninitprotocolconnection"><code class="language-plaintext highlighter-rouge">session/initProtocolConnection</code></a>
 for more information.</li>
   <li><strong>Data Connection Initialisation:</strong> The client performs the init for the
 data connection, passing its client identifier as it does so. See
-<a href="/docs/enso/language-server/protocol-language-server.html#sessioninitdataconnection"><code class="language-plaintext highlighter-rouge">session/initDataConnection</code></a>
+<a href="/docs/developer/docs/enso/language-server/protocol-language-server.html#sessioninitdataconnection"><code class="language-plaintext highlighter-rouge">session/initDataConnection</code></a>
 below more information.</li>
 </ol>
 
@@ -1591,7 +1591,7 @@ var hitTemplate = function(hit) {
     date = moment.unix(hit.date).format('MMM D, YYYY');
   }
 
-  let url = `${hit.url}#${hit.anchor}`;
+  let url = `/docs/developer${hit.url}#${hit.anchor}`;
 
   var title = hit._highlightResult.title.value;
 
@@ -1684,13 +1684,13 @@ search.start();
     </div>
 </div>
 
-                <a href="/docs/enso/language-server/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Language Server">
+                <a href="/docs/developer/docs/enso/language-server/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Language Server">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
 
                 
-                    <a href="/docs/enso/language-server/protocol-common.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Enso Protocol Common Message Specification">
+                    <a href="/docs/developer/docs/enso/language-server/protocol-common.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Enso Protocol Common Message Specification">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -1783,19 +1783,19 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-04-07 18:31:00 +0000"
+        "time": "2021-04-07 18:36:19 +0000"
     },
-    "basePath": "",
+    "basePath": "/docs/developer",
     "book": {
         "language": ""
     }
 });
             });
             </script>
-        </div><script src="/gitbook/gitbook.js"></script>
-<script src="/gitbook/theme.js"></script>
+        </div><script src="/docs/developer/gitbook/gitbook.js"></script>
+<script src="/docs/developer/gitbook/theme.js"></script>
 
-<script src="/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+<script src="/docs/developer/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
 
 <!-- <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
 <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
