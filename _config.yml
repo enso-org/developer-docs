@@ -9,8 +9,8 @@ description: >
 version:          1.0
 gitbook_version:  3.2.3
 
-url:              'https://enso.org/docs/developer'
-baseurl:          ''
+url:              'https://enso.org/'
+baseurl:          '/docs/developer'
 rss:              RSS
 
 # markdown render engine.
