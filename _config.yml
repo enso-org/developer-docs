@@ -9,7 +9,7 @@ description: >
 version:          1.0
 gitbook_version:  3.2.3
 
-url:              'https://dev.enso.org'
+url:              'https://enso.org/docs/developer'
 baseurl:          ''
 rss:              RSS
 
