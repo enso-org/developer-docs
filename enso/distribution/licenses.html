@@ -1,0 +1,1456 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Licenses · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/docs/developer/gitbook/style.css">
+<link rel="stylesheet" href="/docs/developer/gitbook/gitbook-plugin-fontsettings/website.css">
+<!-- <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css"> -->
+
+<link rel="stylesheet" href="/docs/developer/gitbook/rouge-highlight-colorful.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/docs/developer/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="/docs/developer/gitbook/images/favicon.ico" type="image/x-icon">
+        
+
+        
+        
+
+
+        
+        
+        
+
+        
+        
+        
+
+        
+            <link rel="prev" href="/docs/developer/enso/distribution/launcher-cli.html" />
+        
+
+        
+            <link rel="next" href="/docs/developer/enso/distribution/fallback-launcher-release-infrastructure.html" />
+        
+    </head>
+    <body>
+        
+        <div class="book"><div class="book-summary">
+    <div id="search-searchbar">
+    </div>
+    <div class="post-list" id="search-hits">
+        
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+var search = instantsearch({
+  appId: '3PBI3MMCBE',
+  apiKey: '55d673c313b717b7386df8c9418588d4',
+  indexName: 'jekyll',
+  searchFunction(helper) {
+    var container = document.querySelector('#search-hits');
+    container.style.display = helper.state.query === '' ? 'none' : '';
+
+    helper.search();
+  }
+});
+
+var hitTemplate = function(hit) {
+  let date = '';
+  if (hit.date) {
+    date = moment.unix(hit.date).format('MMM D, YYYY');
+  }
+
+  let url = `/docs/developer${hit.url}#${hit.anchor}`;
+
+  var title = hit._highlightResult.title.value;
+
+  var content = hit._highlightResult.html.value;
+
+  return `
+    <li class="post-item chapter">
+      <a href="${url}" class="post-link">${title}</a>
+      <div class="post-snippet">${content}</div>
+    </li>
+  `;
+}
+
+
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-searchbar',
+    placeholder: 'Search the docs',
+    poweredBy: true // This is required if you're on the free Community plan
+  })
+);
+
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '#search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+search.start();
+</script>
+
+<style>
+.ais-search-box {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.post-item {
+  margin-bottom: 30px;
+}
+.post-link .ais-Highlight {
+  color: #111;
+  font-style: normal;
+  text-decoration: underline;
+}
+.post-breadcrumbs {
+  color: #424242;
+  display: block;
+}
+.post-breadcrumb {
+  font-size: 18px;
+  color: #424242;
+}
+.post-breadcrumb .ais-Highlight {
+  font-weight: bold;
+  font-style: normal;
+}
+.post-snippet .ais-Highlight {
+  color: #2a7ae2;
+  font-style: normal;
+  font-weight: bold;
+}
+.post-snippet img {
+  display: none;
+}
+
+.post-list {
+    list-style:none;
+    margin:0;
+    padding: 10px 15px;
+    -webkit-transition:top .5s ease;
+    -moz-transition:top .5s ease;
+    -o-transition:top .5s ease;
+    transition:top .5s ease
+}
+
+#search-hits::after {
+    content: '';
+    display: block;
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: rgba(0,0,0,.07);
+}
+</style>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/">
+            
+                <a href="/docs/developer/">
+                    Home
+                </a>
+            </li>
+
+            <li class="divider"></li>
+            
+            
+            
+            
+            
+
+            
+            
+        
+            
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution ">
+                    <a href="/docs/developer/enso/distribution">
+                        Go back
+                    </a>
+                </li>
+                <li class="divider"></li>
+            
+                
+             
+            
+            
+            
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/">
+                    
+                        <a href="/docs/developer/enso/distribution/">
+                            
+                                Enso Distribution
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/distribution.html">
+                    
+                        <a href="/docs/developer/enso/distribution/distribution.html">
+                            
+                                The Enso Distribution
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/packaging.html">
+                    
+                        <a href="/docs/developer/enso/distribution/packaging.html">
+                            
+                                Enso Libraries Packaging
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/release-policy.html">
+                    
+                        <a href="/docs/developer/enso/distribution/release-policy.html">
+                            
+                                Release Policy
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/launcher.html">
+                    
+                        <a href="/docs/developer/enso/distribution/launcher.html">
+                            
+                                Enso Launcher
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/launcher-cli.html">
+                    
+                        <a href="/docs/developer/enso/distribution/launcher-cli.html">
+                            
+                                Enso Launcher CLI
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/developer/enso/distribution/licenses.html">
+                    
+                        <a href="/docs/developer/enso/distribution/licenses.html">
+                            
+                                Licenses
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/fallback-launcher-release-infrastructure.html">
+                    
+                        <a href="/docs/developer/enso/distribution/fallback-launcher-release-infrastructure.html">
+                            
+                                Fallback Launcher Release Infrastructure
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/standard-libraries.html">
+                    
+                        <a href="/docs/developer/enso/distribution/standard-libraries.html">
+                            
+                                Standard Libraries
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/bundles.html">
+                    
+                        <a href="/docs/developer/enso/distribution/bundles.html">
+                            
+                                Distribution Bundles
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+
+            
+        
+        </ul>
+    </nav>
+</div>
+<div class="book-body"><div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            
+                <a href="." >Licenses</a>
+            
+        </h1>
+    </div>
+    <div class="page-wrapper" tabindex="-1" role="main">
+        <div class="page-inner">
+            <div id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+                        <h1 id="licenses">Licenses</h1>
+
+<p>When distributing Enso, we include code from many dependencies that are used
+within it. We need to ensure that we comply with the licenses of the
+dependencies that we distribute with Enso.</p>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#gathering-used-dependencies">Gathering Used Dependencies</a>
+    <ul>
+      <li><a href="#sbt">SBT</a></li>
+      <li><a href="#rust">Rust</a></li>
+    </ul>
+  </li>
+  <li><a href="#preparing-the-distribution">Preparing the Distribution</a>
+    <ul>
+      <li><a href="#review">Review</a></li>
+    </ul>
+  </li>
+  <li><a href="#standard-library">Standard Library</a></li>
+  <li><a href="#bundles">Bundles</a></li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="gathering-used-dependencies">Gathering Used Dependencies</h2>
+
+<p>As a first step, we need to gather a list of which dependencies are used in the
+distributed artifacts.</p>
+
+<h3 id="sbt">SBT</h3>
+
+<p>We use a <code class="language-plaintext highlighter-rouge">GatherLicenses</code> task that uses the <code class="language-plaintext highlighter-rouge">sbt-license-report</code> and other
+sources to gather copyright information related to the used dependencies.</p>
+
+<p>To configure the task, <code class="language-plaintext highlighter-rouge">GatherLicenses.distributions</code> should be set with
+sequence of distributions. Each distribution describes one component that is
+distributed separately and should include all references to all projects that
+are included as part of its distribution. Currently, we have the <code class="language-plaintext highlighter-rouge">launcher</code>
+distribution that consists of one <code class="language-plaintext highlighter-rouge">launcher</code> component and the <code class="language-plaintext highlighter-rouge">engine</code>
+distribution which includes <code class="language-plaintext highlighter-rouge">runtime</code>, <code class="language-plaintext highlighter-rouge">engine-runner</code> and <code class="language-plaintext highlighter-rouge">project-manager</code>.</p>
+
+<p>Another relevant setting is <code class="language-plaintext highlighter-rouge">GatherLicenses.licenseConfigurations</code> which defines
+which <code class="language-plaintext highlighter-rouge">ivy</code> configurations are considered to search for dependencies. Currently
+it is set to only consider <code class="language-plaintext highlighter-rouge">compile</code> dependencies, as dependencies for
+<code class="language-plaintext highlighter-rouge">provided</code>, <code class="language-plaintext highlighter-rouge">test</code> or <code class="language-plaintext highlighter-rouge">benchmark</code> are not distributed and there are no
+<code class="language-plaintext highlighter-rouge">assembly</code>-specific dependencies.</p>
+
+<p><code class="language-plaintext highlighter-rouge">GatherLicenses.configurationRoot</code> specifies where the review tool will look for
+the files specifying review state and <code class="language-plaintext highlighter-rouge">GatherLicenses.distributionRoot</code>
+specifies where the final notice packages should be generated.</p>
+
+<p>To run the automated license gathering task, run <code class="language-plaintext highlighter-rouge">enso/gatherLicenses</code> in SBT.
+This will create a report and packages which are described in the
+<a href="#preparing-the-distribution">next section</a>.</p>
+
+<h3 id="rust">Rust</h3>
+
+<p>We do not distribute any Rust-based artifacts in this repository.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>When the parser is rewritten to Rust and is distributed within the
+artifacts, this section should be revisited to describe a scheme of
+gathering dependencies used in the Rust projects.</li>
+    <li>It would be good to re-use the SBT task as much as possible, possibly by
+creating a frontend for it using <code class="language-plaintext highlighter-rouge">cargo-license</code>.</li>
+  </ul>
+</blockquote>
+
+<h2 id="preparing-the-distribution">Preparing the Distribution</h2>
+
+<p>When a new dependency is added, the <code class="language-plaintext highlighter-rouge">enso/gatherLicenses</code> should be re-run to
+generate the updated report.</p>
+
+<p>The report can be opened in review mode by launching a server located in
+<code class="language-plaintext highlighter-rouge">tools/legal-review-helper</code> by running <code class="language-plaintext highlighter-rouge">npm start</code> in that directory.
+Alternatively, <code class="language-plaintext highlighter-rouge">enso/openLegalReviewReport</code> can be used instead to automatically
+open the report in review-mode after generating it (but it requires <code class="language-plaintext highlighter-rouge">npm</code> to be
+visible on the system PATH in SBT).</p>
+
+<p>The report will show what license the dependencies use and include any copyright
+notices and files found within each dependency.</p>
+
+<p>Each copyright notice and file should be reviewed to decide if it should be kept
+or ignored. If a notice is automatically detected in a wrong way, it should be
+ignored and a fixed one should be added manually. The review process is
+described in detail in the <a href="#review">next section</a>.</p>
+
+<p>Each new type of license has to be reviewed to ensure that it is compatible with
+our distribution and usage scheme. Licenses are reviewed per-distribution, as
+for example the binary distribution of the launcher may impose different
+requirements than distribution of the engine as JARs.</p>
+
+<p>If an indirect dependency is found with a problematic license, the
+<code class="language-plaintext highlighter-rouge">analyzeDependency</code> command may prove helpful. Running <code class="language-plaintext highlighter-rouge">analyzeDependency &lt;arg&gt;</code>
+will search for all dependencies containing <code class="language-plaintext highlighter-rouge">&lt;arg&gt;</code> in their name and list in
+which projects they show up and which packages depend on them directly. This
+latter functionality can be used to track down the direct dependency that
+brought the indirect one.</p>
+
+<p>After the review is done, the <code class="language-plaintext highlighter-rouge">enso/gatherLicenses</code> should be re-run again to
+generate the updated packages that are included in the distribution. Before a PR
+is merged, it should be ensure that there are no warnings in the generation. The
+packages are located in separate subdirectories of the <code class="language-plaintext highlighter-rouge">distribution</code> directory
+for each artifact.</p>
+
+<p>The CI can check if the legal review is up-to-date by running
+<code class="language-plaintext highlighter-rouge">sbt enso / verifyLegalReview</code>. This task will fail if any dependencies have
+changed making parts of the review obsolete or if the review contains any
+warnings.</p>
+
+<h3 id="review">Review</h3>
+
+<p>The review can be performed manually by modifying the settings inside of the
+<code class="language-plaintext highlighter-rouge">tools/legal-review</code> directory or it can be partially automated.</p>
+
+<h4 id="review-process">Review Process</h4>
+
+<blockquote>
+  <p>The updates performed using the web script are remembered locally, so they
+<strong>will not show up after the refresh</strong>. If you ever need to open the edit mode
+after closing its window, you should re-generate the report using
+<code class="language-plaintext highlighter-rouge">enso/gatherLicenses</code> or just open it using <code class="language-plaintext highlighter-rouge">enso/openLegalReviewReport</code> which
+will refresh it automatically.</p>
+</blockquote>
+
+<ol>
+  <li>Open the review in edit mode using the helper script.
+    <ul>
+      <li>You can type <code class="language-plaintext highlighter-rouge">enso / openLegalReviewReport</code> if you have <code class="language-plaintext highlighter-rouge">npm</code> in your PATH
+as visible from SBT.</li>
+      <li>Or you can just run <code class="language-plaintext highlighter-rouge">npm start</code> (and <code class="language-plaintext highlighter-rouge">npm install</code> if needed) in the
+<code class="language-plaintext highlighter-rouge">tools/legal-review-helper</code> directory.</li>
+    </ul>
+  </li>
+  <li>For each package listed in the review for a given distribution:
+    <ol>
+      <li>Review licenses
+        <ul>
+          <li>Make sure that the component’s license is accepted - that we know that
+its license type is compatible with our distribution scheme.</li>
+          <li>When a license is accepted, a file should be added in the
+<code class="language-plaintext highlighter-rouge">reviewed-licenses</code> directory, with name as indicated in the report. The
+file should contain a single line that is the path (relative to
+repository root) to the default license file for that license type which
+should be included in the distribution.
+            <ul>
+              <li>The license may have been already accepted if it is the same license
+as earlier dependencies for the same artifact.</li>
+            </ul>
+          </li>
+          <li>Check if any license-like files have been automatically found in the
+attached files. If an attached file contains (case-insensitive)
+‘license’ or ‘licence’ in its name, the review tool will compare it with
+the default license file.
+            <ul>
+              <li>To trigger this comparison, the license must have been already
+reviewed when the report was being generated, so you may consider
+re-running the report after reviewing the license types to get this
+information.</li>
+              <li>If an attached file is exactly the same as the license file, it can be
+safely ignored.</li>
+              <li>If an attached file differs from the default license file, it should
+be carefully checked.
+                <ul>
+                  <li>Most of the time, that file should be marked as kept and the default
+license ignored.</li>
+                  <li>To ignore the default license, create a file <code class="language-plaintext highlighter-rouge">custom-license</code> inside
+the directory belonging to the relevant package containing a single
+line indicating the filename of the custom license that is included
+in attached files.</li>
+                </ul>
+              </li>
+              <li>Sometimes the dependency does contain files called <code class="language-plaintext highlighter-rouge">LICENSE</code> or
+similar which are additional licenses or which just contain an URL of
+an actual license. In that case we may want to keep these files but
+still point to the default license file. To indicate this intention,
+create an empty file called <code class="language-plaintext highlighter-rouge">default-and-custom-license</code>.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Review which files to include
+        <ul>
+          <li>You can click on a filename to display its contents.</li>
+          <li>We want to include any NOTICE files that contain copyright notices or
+credits.</li>
+          <li>False-positives (unrelated files) or duplicates may be ignored.</li>
+        </ul>
+      </li>
+      <li>Review copyright notices
+        <ul>
+          <li>You may click on a copyright line to display context (surrounding text)
+and in which files it was found.</li>
+          <li>We want to include most of the notices, as it is better to include
+duplicates rather than skip something important.</li>
+          <li>But we need to ignore false-positives, for example code that contains
+the word ‘copyright’ in it and was falsely classified.</li>
+          <li>You may click ‘Keep’ to add the displayed copyright line to the
+copyright notice or if there is exactly one context associated with the
+line, you can click ‘Keep as context’ to add this whole context to the
+notice.</li>
+          <li>If you cannot keep a notice with context because it appears in multiple
+contexts or need to slightly modify it, the standard approach is to
+‘Ignore’ that notice and add the correct one manually, as described
+below.</li>
+        </ul>
+      </li>
+      <li>Add missing information
+        <ul>
+          <li>You can manually add additional copyright notices by adding them to a
+file <code class="language-plaintext highlighter-rouge">copyright-add</code> inside the directory belonging to the relevant
+package.</li>
+          <li>You can manually add additional files by adding them into a subdirectory
+called <code class="language-plaintext highlighter-rouge">files-add</code> located in the directory belonging to the relevant
+package.</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li>Add any additional information:
+    <ul>
+      <li>You can add additional files by adding them into a subdirectory called
+<code class="language-plaintext highlighter-rouge">files-add</code> in the root directory of distribution configuration.</li>
+      <li>You can create a custom notice header that will replace the default one, by
+creating a file called <code class="language-plaintext highlighter-rouge">notice-header</code>.</li>
+    </ul>
+  </li>
+  <li>After you are done, re-run <code class="language-plaintext highlighter-rouge">enso/gatherLicenses</code> to generate the updated
+packages.
+    <ul>
+      <li>Ensure that there are no more warnings, and if there are any go back to fix
+the issues.</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="additional-manual-considerations">Additional Manual Considerations</h4>
+
+<p>The Scala Library notice contains the following mention:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>This software includes projects with other licenses -- see `doc/LICENSE.md`.
+</code></pre></div></div>
+
+<p>The licenses contained in the <code class="language-plaintext highlighter-rouge">doc</code> directory in Scala’s GitHub are most likely
+relevant for the Scala Compiler and not the Standard Library that is relevant
+for us, but we include them for safety. When switching to a newer Scala version,
+these files should be updated if there were any changes to them.</p>
+
+<p>Moreover <code class="language-plaintext highlighter-rouge">NOTICE</code> files for <code class="language-plaintext highlighter-rouge">scala-parser-combinators</code> and <code class="language-plaintext highlighter-rouge">scala-java8-compat</code>
+have been manually copied from their GitHub repositories. They should also be
+updated as necessary.</p>
+
+<p>Additionally, the Linux version of the launcher is statically linked with the
+<code class="language-plaintext highlighter-rouge">musl</code> implementation of libc which also uses <code class="language-plaintext highlighter-rouge">zlib</code>, so these two components
+are also added and described manually. If they are ever updated, the notices
+should be revisited.</p>
+
+<p><code class="language-plaintext highlighter-rouge">CREDITS</code> for modules <code class="language-plaintext highlighter-rouge">com.fasterxml.jackson</code> mentioned in their NOTICES were
+manually scraped from GitHub where possible.</p>
+
+<p>Missing licenses were manually added for some dependencies - these are
+dependencies whose legal-review configurations contains a license file in
+<code class="language-plaintext highlighter-rouge">files-add</code>. They may need to be manually updated when updating.</p>
+
+<h4 id="warnings">Warnings</h4>
+
+<p>All warnings should be carefully reviewed and most of them will fail the CI.
+However, there are some warnings that may be ignored.</p>
+
+<p>Below we list the warnings that show up currently and their explanations:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Could not find sources for com.google.guava # listenablefuture # 9999.0-empty-to-avoid-conflict-with-guava</code>
+    <ul>
+      <li>This warning is due to the fact that this is a dummy artifact that does not
+contain any sources. We added a special note in its legal config that refers
+to the original <code class="language-plaintext highlighter-rouge">guava</code> module, so the warning can be safely discarded.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">Found a source .../.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/modules/scala-collection-compat_2.13/2.1.1/scala-collection-compat_2.13-2.1.1-sources.jar that does not belong to any known dependencies, perhaps the algorithm needs updating?</code>
+    <ul>
+      <li>This is a bit unexpected - the engine does depend on
+<code class="language-plaintext highlighter-rouge">scala-collection-compat # 2.0.0</code> (used by <code class="language-plaintext highlighter-rouge">slick</code>), but here for some
+reason we find sources for version <code class="language-plaintext highlighter-rouge">2.1.1</code> (the sources for <code class="language-plaintext highlighter-rouge">2.0.0</code> are
+available too). We could not figure out this issue for now, but it is not a
+problem for the legal review, because the engine distribution does include
+all necessary information for the version it actually uses (<code class="language-plaintext highlighter-rouge">2.0.0</code>).</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="updating-dependencies">Updating Dependencies</h4>
+
+<p>As described above, some information has been gathered manually and as such it
+should be verified if it is up-to-date when a dependency is updated.</p>
+
+<p>Moreover, when a dependency version is changed, its directory name will change,
+making old legal review settings obsolete. But many of these settings may be
+still relevant. So to take advantage of that, the old directory should be
+manually renamed to the new name and any obsolete files or copyrights should be
+removed from the settings (they will be indicated by the tool as warnings).</p>
+
+<p>Some Scala dependencies include the current Scala minor version in their names.
+When upgrading to a newer Scala release, these names will become outdated, but a
+lot of this configuration may still be relevant. The same trick should be used
+as above - the old directories should be renamed accordingly to fit the new
+Scala version. Given that this affects a lot of dependencies, a special tool
+could be written that will automatically rename all the directories (but it can
+also be achieved using shell commands).</p>
+
+<h4 id="review-configuration">Review Configuration</h4>
+
+<p>The review state is driven by configuration files located in
+<code class="language-plaintext highlighter-rouge">tools/legal-review</code>. This directory contains separate subdirectories for each
+artifact.</p>
+
+<p>The subdirectory for each artifact may contain the following entries:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">notice-header</code> - contains the header that will start the main generated
+NOTICE</li>
+  <li><code class="language-plaintext highlighter-rouge">files-add</code> - directory that may contain additional files that should be added
+to the notice package</li>
+  <li><code class="language-plaintext highlighter-rouge">reviewed-licenses</code> - directory that may contain files for reviewed licenses;
+the files should be named with the normalized license name and they should
+contain a path to that license’s file (the path should be relative to the
+repository root)</li>
+  <li><code class="language-plaintext highlighter-rouge">.report.state</code> - an automatically generated file that can be used to check if
+the report is up-to-date</li>
+  <li>and for each dependency, a subdirectory named as its <code class="language-plaintext highlighter-rouge">packageName</code> with
+following entries:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">files-add</code> - directory that may contain additional files that should be
+added to the subdirectory for this package</li>
+      <li><code class="language-plaintext highlighter-rouge">files-keep</code> - a file containing names of files found in the package sources
+that should be included in the package</li>
+      <li><code class="language-plaintext highlighter-rouge">files-ignore</code> - a file containing names of files found in the package
+sources that should not be included</li>
+      <li><code class="language-plaintext highlighter-rouge">custom-license</code> - a file that indicates that the dependency should not
+point to the default license, but it should contain a custom one within its
+files; it should contain a single line with this custom license’s filename</li>
+      <li><code class="language-plaintext highlighter-rouge">default-and-custom-license</code> - a file that indicates that the dependency
+should point to the default license, but it also contains additional
+license-like files that should be kept too; it disables checking if the
+attached license-like files are equal to the default license or not, so it
+should be used very carefully; at most one of <code class="language-plaintext highlighter-rouge">default-and-custom-license</code>
+and <code class="language-plaintext highlighter-rouge">custom-license</code> should exist for each dependency</li>
+      <li><code class="language-plaintext highlighter-rouge">copyright-keep</code> - copyright lines that should be included in the notice
+summary for the package</li>
+      <li><code class="language-plaintext highlighter-rouge">copyright-keep-context</code> - copyright lines that should be included
+(alongside with their context) in the notice summary for the package</li>
+      <li><code class="language-plaintext highlighter-rouge">copyright-ignore</code> - copyright lines that should not be included in the
+notice summary for the package</li>
+      <li><code class="language-plaintext highlighter-rouge">copyright-add</code> - a single file whose contents will be added to the notice
+summary for the package</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Manually adding files and copyright, modifying the notice header and marking
+licenses as reviewed has to be done manually. But deciding if a file or
+copyright notice should be kept or ignored can be done much quicker using the
+GUI launched by <code class="language-plaintext highlighter-rouge">enso/openLegalReviewReport</code>. The GUI is a very simple one - it
+assumes that the report is up to date and uses the server to modify the
+configuration. The configuration changes are not refreshed automatically -
+instead if the webpage is refreshed after modifications it may contain stale
+information - to get up-to-date information, <code class="language-plaintext highlighter-rouge">enso/openLegalReviewReport</code> or
+<code class="language-plaintext highlighter-rouge">enso/gatherLicenses</code> has to be re-run.</p>
+
+<h2 id="standard-library">Standard Library</h2>
+
+<p>The dependencies of standard library are built using Maven, so they have to be
+handled separately. Currently there are not many of them so this is handled
+manually. If that becomes a problem, they could be attached to the frontend of
+the <code class="language-plaintext highlighter-rouge">GatherLicenses</code> task.</p>
+
+<p>The third-party licenses for Java extensions of the standard library are
+gathered in the <code class="language-plaintext highlighter-rouge">third-party-licenses</code> directory in the <code class="language-plaintext highlighter-rouge">Base</code> library. The
+gathering process is partially-automatic, triggered by the <code class="language-plaintext highlighter-rouge">package</code> goal of the
+associated Maven configuration file. However when another dependency is added to
+the standard library, its licenses should be reviewed before merging the PR.</p>
+
+<h2 id="bundles">Bundles</h2>
+
+<p>Beside the launcher and engine components, the distributed bundles also contain
+a distribution of GraalVM CE. This distribution however contains its own licence
+and notices within itself, so no further action should be necessary in that
+regard.</p>
+
+                        
+                        
+
+                    </section>
+                </div>
+
+                 <!--<div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+var search = instantsearch({
+  appId: '3PBI3MMCBE',
+  apiKey: '55d673c313b717b7386df8c9418588d4',
+  indexName: 'jekyll',
+  searchFunction(helper) {
+    var container = document.querySelector('#search-hits');
+    container.style.display = helper.state.query === '' ? 'none' : '';
+
+    helper.search();
+  }
+});
+
+var hitTemplate = function(hit) {
+  let date = '';
+  if (hit.date) {
+    date = moment.unix(hit.date).format('MMM D, YYYY');
+  }
+
+  let url = `/docs/developer${hit.url}#${hit.anchor}`;
+
+  var title = hit._highlightResult.title.value;
+
+  var content = hit._highlightResult.html.value;
+
+  return `
+    <li class="post-item chapter">
+      <a href="${url}" class="post-link">${title}</a>
+      <div class="post-snippet">${content}</div>
+    </li>
+  `;
+}
+
+
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-searchbar',
+    placeholder: 'Search the docs',
+    poweredBy: true // This is required if you're on the free Community plan
+  })
+);
+
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '#search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+search.start();
+</script>
+
+<style>
+.ais-search-box {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.post-item {
+  margin-bottom: 30px;
+}
+.post-link .ais-Highlight {
+  color: #111;
+  font-style: normal;
+  text-decoration: underline;
+}
+.post-breadcrumbs {
+  color: #424242;
+  display: block;
+}
+.post-breadcrumb {
+  font-size: 18px;
+  color: #424242;
+}
+.post-breadcrumb .ais-Highlight {
+  font-weight: bold;
+  font-style: normal;
+}
+.post-snippet .ais-Highlight {
+  color: #2a7ae2;
+  font-style: normal;
+  font-weight: bold;
+}
+.post-snippet img {
+  display: none;
+}
+
+.post-list {
+    list-style:none;
+    margin:0;
+    padding: 10px 15px;
+    -webkit-transition:top .5s ease;
+    -moz-transition:top .5s ease;
+    -o-transition:top .5s ease;
+    transition:top .5s ease
+}
+
+#search-hits::after {
+    content: '';
+    display: block;
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: rgba(0,0,0,.07);
+}
+</style>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+                <a href="/docs/developer/enso/distribution/launcher-cli.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Launcher CLI">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+
+                
+                    <a href="/docs/developer/enso/distribution/fallback-launcher-release-infrastructure.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Fallback Launcher Release Infrastructure">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},
+            "sharing": {
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+                "facebook": true,
+                "google": false,
+                "instapaper": false,
+                "twitter": true,
+                "vk": false,
+                "weibo": false
+            },
+            "theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            }
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "Enso Developer Documentation",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "enso/distribution/licenses.md",
+        "mtime": "",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.3",
+        "time": "2021-04-12 08:24:21 +0000"
+    },
+    "basePath": "/docs/developer",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/docs/developer/gitbook/gitbook.js"></script>
+<script src="/docs/developer/gitbook/theme.js"></script>
+
+<script src="/docs/developer/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+
+<!-- <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script> --></body>
+</html>

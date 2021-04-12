@@ -1,0 +1,1344 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Rust Style Guide · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/docs/developer/gitbook/style.css">
+<link rel="stylesheet" href="/docs/developer/gitbook/gitbook-plugin-fontsettings/website.css">
+<!-- <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css"> -->
+
+<link rel="stylesheet" href="/docs/developer/gitbook/rouge-highlight-colorful.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/docs/developer/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="/docs/developer/gitbook/images/favicon.ico" type="image/x-icon">
+        
+
+        
+        
+
+
+        
+        
+        
+
+        
+        
+        
+
+        
+            <link rel="prev" href="/docs/developer/ide/contributing" />
+        
+
+        
+    </head>
+    <body>
+        
+        <div class="book"><div class="book-summary">
+    <div id="search-searchbar">
+    </div>
+    <div class="post-list" id="search-hits">
+        
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+var search = instantsearch({
+  appId: '3PBI3MMCBE',
+  apiKey: '55d673c313b717b7386df8c9418588d4',
+  indexName: 'jekyll',
+  searchFunction(helper) {
+    var container = document.querySelector('#search-hits');
+    container.style.display = helper.state.query === '' ? 'none' : '';
+
+    helper.search();
+  }
+});
+
+var hitTemplate = function(hit) {
+  let date = '';
+  if (hit.date) {
+    date = moment.unix(hit.date).format('MMM D, YYYY');
+  }
+
+  let url = `/docs/developer${hit.url}#${hit.anchor}`;
+
+  var title = hit._highlightResult.title.value;
+
+  var content = hit._highlightResult.html.value;
+
+  return `
+    <li class="post-item chapter">
+      <a href="${url}" class="post-link">${title}</a>
+      <div class="post-snippet">${content}</div>
+    </li>
+  `;
+}
+
+
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-searchbar',
+    placeholder: 'Search the docs',
+    poweredBy: true // This is required if you're on the free Community plan
+  })
+);
+
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '#search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+search.start();
+</script>
+
+<style>
+.ais-search-box {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.post-item {
+  margin-bottom: 30px;
+}
+.post-link .ais-Highlight {
+  color: #111;
+  font-style: normal;
+  text-decoration: underline;
+}
+.post-breadcrumbs {
+  color: #424242;
+  display: block;
+}
+.post-breadcrumb {
+  font-size: 18px;
+  color: #424242;
+}
+.post-breadcrumb .ais-Highlight {
+  font-weight: bold;
+  font-style: normal;
+}
+.post-snippet .ais-Highlight {
+  color: #2a7ae2;
+  font-style: normal;
+  font-weight: bold;
+}
+.post-snippet img {
+  display: none;
+}
+
+.post-list {
+    list-style:none;
+    margin:0;
+    padding: 10px 15px;
+    -webkit-transition:top .5s ease;
+    -moz-transition:top .5s ease;
+    -o-transition:top .5s ease;
+    transition:top .5s ease
+}
+
+#search-hits::after {
+    content: '';
+    display: block;
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: rgba(0,0,0,.07);
+}
+</style>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/">
+            
+                <a href="/docs/developer/">
+                    Home
+                </a>
+            </li>
+
+            <li class="divider"></li>
+            
+            
+            
+            
+            
+
+            
+            
+        
+            
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/ide/contributing ">
+                    <a href="/docs/developer/ide/contributing">
+                        Go back
+                    </a>
+                </li>
+                <li class="divider"></li>
+            
+                
+             
+            
+            
+            
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/ide/contributing/">
+                    
+                        <a href="/docs/developer/ide/contributing/">
+                            
+                                Contributing
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/ide/contributing/process.html">
+                    
+                        <a href="/docs/developer/ide/contributing/process.html">
+                            
+                                Team Process
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/developer/ide/contributing/style-guide.html">
+                    
+                        <a href="/docs/developer/ide/contributing/style-guide.html">
+                            
+                                Rust Style Guide
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/ide/contributing/repository-structure.html">
+                    
+                        <a href="/docs/developer/ide/contributing/repository-structure.html">
+                            
+                                repository-structure.md
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+
+            
+        
+        </ul>
+    </nav>
+</div>
+<div class="book-body"><div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            
+                <a href="." >Rust Style Guide</a>
+            
+        </h1>
+    </div>
+    <div class="page-wrapper" tabindex="-1" role="main">
+        <div class="page-inner">
+            <div id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+                        <h1 id="rust-style-guide">Rust Style Guide</h1>
+
+<h2 id="motivation---why-not-rely-on-a-formatting-tool-for-code-style">Motivation - why not rely on a formatting tool for code style?</h2>
+
+<p>The code style is way more than just formatting. In many cases formatting can be
+automated. According to rustfmt docs: “formatting code is a mostly mechanical
+task which takes both time and mental effort. By using an automatic formatting
+tool, a programmer is relieved of this task and can concentrate on more
+important things.”. While in many cases it is true, if the code author does not
+take extra effort to make his code pretty by refactoring long lines to
+variables, moving code to specific modules, or sections, the formatting tool
+will result in code that is hard to read and hard to write. Thus, it is
+important to take time to write code in such way that we can be proud of its
+quality.</p>
+
+<p>Because <code class="language-plaintext highlighter-rouge">rustfmt</code> does not support many of our requirements, we have created a
+guide to describe how to format Rust code in this project. Please read it
+carefully. We hope that in the future, some of the things described below will
+be possible while using <code class="language-plaintext highlighter-rouge">rustfmt</code> (and we encourage you to contribute there!),
+however, even if it happens, many parts of this guide will still be valid and
+will need to be handled manually.</p>
+
+<h2 id="styling-rules">Styling rules</h2>
+
+<h3 id="code-width">Code width</h3>
+<p>Each line in a source file should have max 80 chars of text (including 
+comments).</p>
+
+<h3 id="imports">Imports</h3>
+<p>Imports should be divided into 4 groups separated by blank lines. Items in the
+groups should be sorted alphabetically.</p>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Group 1: sub-module definitions.</span>
+<span class="c">// Group 2: prelude-like imports.</span>
+<span class="c">// Group 3: local-crate imports.</span>
+<span class="c">// Group 4: external imports.</span>
+</code></pre></div></div>
+
+<p>For example:</p>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pub</span> <span class="k">mod</span> <span class="n">display_object</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nn">crate</span><span class="p">::</span><span class="nn">prelude</span><span class="p">::</span><span class="o">*</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nn">crate</span><span class="p">::</span><span class="n">closure</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">crate</span><span class="p">::</span><span class="nn">data</span><span class="p">::</span><span class="nn">opt_vec</span><span class="p">::</span><span class="n">OptVec</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">crate</span><span class="p">::</span><span class="nn">data</span><span class="p">::</span><span class="n">dirty</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">crate</span><span class="p">::</span><span class="nn">system</span><span class="p">::</span><span class="nn">web</span><span class="p">::</span><span class="n">group</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nn">nalgebra</span><span class="p">::</span><span class="n">Matrix4</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">nalgebra</span><span class="p">::</span><span class="n">Vector3</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="sections">Sections</h3>
+
+<p>Source files should be divided into sections. Section headers should be placed
+before each new “concept” defined in a file. By “concept” we normally mean a
+structure with related implementations. In case related implementations use some
+helper structs with very small implementations, these helper structs may be
+defined in the same section. Moreover, the code in each section should be
+divided into sub-sections, grouping related definitions. At least one section
+should be defined in a file (if there is at least one struct definition as
+well). For example:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// =================</span>
+<span class="c">// === AxisOrder ===</span>
+<span class="c">// =================</span>
+
+<span class="c">/// Defines the order in which particular axis coordinates are processed. Used</span>
+<span class="c">/// for example to define the rotation order in `DisplayObject`.</span>
+<span class="k">pub</span> <span class="k">enum</span> <span class="n">AxisOrder</span> <span class="p">{</span><span class="n">XYZ</span><span class="p">,</span><span class="n">XZY</span><span class="p">,</span><span class="n">YXZ</span><span class="p">,</span><span class="n">YZX</span><span class="p">,</span><span class="n">ZXY</span><span class="p">,</span><span class="n">ZYX</span><span class="p">}</span>
+
+<span class="k">impl</span> <span class="n">Default</span> <span class="k">for</span> <span class="n">AxisOrder</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="nf">default</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="n">Self</span> <span class="p">{</span><span class="nn">Self</span><span class="p">::</span><span class="n">XYZ</span><span class="p">}</span>
+<span class="p">}</span>
+
+
+
+<span class="c">// =================</span>
+<span class="c">// === Transform ===</span>
+<span class="c">// =================</span>
+
+<span class="c">/// Defines the order in which transformations (scale, rotate, translate) are</span>
+<span class="c">/// applied to a particular object.</span>
+<span class="k">pub</span> <span class="k">enum</span> <span class="n">TransformOrder</span> <span class="p">{</span>
+    <span class="n">ScaleRotateTranslate</span><span class="p">,</span>
+    <span class="n">ScaleTranslateRotate</span><span class="p">,</span>
+    <span class="n">RotateScaleTranslate</span><span class="p">,</span>
+    <span class="n">RotateTranslateScale</span><span class="p">,</span>
+    <span class="n">TranslateRotateScale</span><span class="p">,</span>
+    <span class="n">TranslateScaleRotate</span>
+<span class="p">}</span>
+
+<span class="k">impl</span> <span class="n">Default</span> <span class="k">for</span> <span class="n">TransformOrder</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="nf">default</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="n">Self</span> <span class="p">{</span> <span class="nn">Self</span><span class="p">::</span><span class="n">ScaleRotateTranslate</span> <span class="p">}</span>
+<span class="p">}</span>
+
+
+
+<span class="c">// =============================</span>
+<span class="c">// === HierarchicalTransform ===</span>
+<span class="c">// =============================</span>
+
+<span class="k">pub</span> <span class="k">struct</span> <span class="n">HierarchicalTransform</span><span class="o">&lt;</span><span class="n">OnChange</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="n">transform</span>        <span class="p">:</span> <span class="n">Transform</span><span class="p">,</span>
+    <span class="n">transform_matrix</span> <span class="p">:</span> <span class="n">Matrix4</span><span class="o">&lt;</span><span class="nb">f32</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">origin</span>           <span class="p">:</span> <span class="n">Matrix4</span><span class="o">&lt;</span><span class="nb">f32</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">matrix</span>           <span class="p">:</span> <span class="n">Matrix4</span><span class="o">&lt;</span><span class="nb">f32</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="k">pub</span> <span class="n">dirty</span>        <span class="p">:</span> <span class="nn">dirty</span><span class="p">::</span><span class="n">SharedBool</span><span class="o">&lt;</span><span class="n">OnChange</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="k">pub</span> <span class="n">logger</span>       <span class="p">:</span> <span class="n">Logger</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">impl</span><span class="o">&lt;</span><span class="n">OnChange</span><span class="o">&gt;</span> <span class="n">HierarchicalTransform</span><span class="o">&lt;</span><span class="n">OnChange</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">pub</span> <span class="k">fn</span> <span class="nf">new</span><span class="p">(</span><span class="n">logger</span><span class="p">:</span><span class="n">Logger</span><span class="p">,</span> <span class="n">on_change</span><span class="p">:</span><span class="n">OnChange</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Self</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="n">logger_dirty</span>     <span class="o">=</span> <span class="n">logger</span><span class="nf">.sub</span><span class="p">(</span><span class="s">"dirty"</span><span class="p">);</span>
+        <span class="k">let</span> <span class="n">transform</span>        <span class="o">=</span> <span class="nf">default</span><span class="p">();</span>
+        <span class="k">let</span> <span class="n">transform_matrix</span> <span class="o">=</span> <span class="nn">Matrix4</span><span class="p">::</span><span class="nf">identity</span><span class="p">();</span>
+        <span class="k">let</span> <span class="n">origin</span>           <span class="o">=</span> <span class="nn">Matrix4</span><span class="p">::</span><span class="nf">identity</span><span class="p">();</span>
+        <span class="k">let</span> <span class="n">matrix</span>           <span class="o">=</span> <span class="nn">Matrix4</span><span class="p">::</span><span class="nf">identity</span><span class="p">();</span>
+        <span class="k">let</span> <span class="n">dirty</span>            <span class="o">=</span> <span class="nn">dirty</span><span class="p">::</span><span class="nn">SharedBool</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="n">logger_dirty</span><span class="p">,</span><span class="n">on_change</span><span class="p">);</span>
+        <span class="n">Self</span> <span class="p">{</span><span class="n">transform</span><span class="p">,</span><span class="n">transform_matrix</span><span class="p">,</span><span class="n">origin</span><span class="p">,</span><span class="n">matrix</span><span class="p">,</span><span class="n">dirty</span><span class="p">,</span><span class="n">logger</span><span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="c">// === Getters ===</span>
+
+<span class="k">impl</span><span class="o">&lt;</span><span class="n">OnChange</span><span class="o">&gt;</span> <span class="n">HierarchicalTransform</span><span class="o">&lt;</span><span class="n">OnChange</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">pub</span> <span class="k">fn</span> <span class="nf">position</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="o">&amp;</span><span class="n">Vector3</span><span class="o">&lt;</span><span class="nb">f32</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="o">&amp;</span><span class="k">self</span><span class="py">.transform.position</span>
+    <span class="p">}</span>
+
+    <span class="k">pub</span> <span class="k">fn</span> <span class="nf">rotation</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="o">&amp;</span><span class="n">Vector3</span><span class="o">&lt;</span><span class="nb">f32</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="o">&amp;</span><span class="k">self</span><span class="py">.transform.rotation</span>
+    <span class="p">}</span>
+
+    <span class="o">...</span>
+<span class="p">}</span>
+
+
+<span class="c">// === Setters ===</span>
+
+<span class="k">impl</span><span class="o">&lt;</span><span class="n">OnChange</span><span class="p">:</span><span class="n">Callback0</span><span class="o">&gt;</span> <span class="n">HierarchicalTransform</span><span class="o">&lt;</span><span class="n">OnChange</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">pub</span> <span class="k">fn</span> <span class="nf">position_mut</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">Vector3</span><span class="o">&lt;</span><span class="nb">f32</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="k">self</span><span class="py">.dirty</span><span class="nf">.set</span><span class="p">();</span>
+        <span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="py">.transform.position</span>
+    <span class="p">}</span>
+
+    <span class="k">pub</span> <span class="k">fn</span> <span class="nf">rotation_mut</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">Vector3</span><span class="o">&lt;</span><span class="nb">f32</span><span class="o">&gt;</span> <span class="p">{</span>
+        <span class="k">self</span><span class="py">.dirty</span><span class="nf">.set</span><span class="p">();</span>
+        <span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="py">.transform.rotation</span>
+    <span class="p">}</span>
+
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="vertical-spacing">Vertical spacing</h3>
+<p>We use the following amount of vertical spacing:</p>
+<ul>
+  <li>3 blank lines after imports.</li>
+  <li>3 blank lines before each section.</li>
+  <li>2 blank lines before each sub-section.</li>
+  <li>1 blank line after each section / sub-section.</li>
+  <li>1 blank line before functions / structures / impls.</li>
+  <li>1 blank line at the end of the file.</li>
+</ul>
+
+<p>Please note that vertical spacing overlaps. For example, if there is a section
+after imports, the total number of blank lines is 3, not 6.</p>
+
+<h3 id="multiline-expressions">Multiline Expressions</h3>
+<p>Most (preferably all) expressions should be single line. Multiline expressions
+are hard to read and introduce noise in the code. Often, it is also an indicator
+of code that is not properly refactored. Try to refactor parts of multiline
+expressions to well-named variables, and divide them to several single-line
+expressions.</p>
+
+<p>Example of poorly formatted code:</p>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pub</span> <span class="k">fn</span> <span class="nf">new</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="n">Self</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">shape_dirty</span> <span class="o">=</span> <span class="nn">ShapeDirty</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="n">logger</span><span class="nf">.sub</span><span class="p">(</span><span class="s">"shape_dirty"</span><span class="p">),</span>
+        <span class="n">on_dirty</span><span class="nf">.clone</span><span class="p">());</span>
+    <span class="k">let</span> <span class="n">dirty_flag</span> <span class="o">=</span> <span class="nn">MeshRegistryDirty</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="n">logger</span><span class="nf">.sub</span><span class="p">(</span><span class="s">"mesh_registry_dirty"</span><span class="p">),</span>
+        <span class="n">on_dirty</span><span class="p">);</span>
+    <span class="n">Self</span> <span class="p">{</span> <span class="n">dirty_flag</span><span class="p">,</span> <span class="n">dirty_flag</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Example of properly formatted code:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pub</span> <span class="k">fn</span> <span class="nf">new</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="n">Self</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">sub_logger</span>  <span class="o">=</span> <span class="n">logger</span><span class="nf">.sub</span><span class="p">(</span><span class="s">"shape_dirty"</span><span class="p">);</span>
+    <span class="k">let</span> <span class="n">shape_dirty</span> <span class="o">=</span> <span class="nn">ShapeDirty</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="n">sub_logger</span><span class="p">,</span><span class="n">on_dirty</span><span class="nf">.clone</span><span class="p">());</span>
+    <span class="k">let</span> <span class="n">sub_logger</span>  <span class="o">=</span> <span class="n">logger</span><span class="nf">.sub</span><span class="p">(</span><span class="s">"mesh_registry_dirty"</span><span class="p">);</span>
+    <span class="k">let</span> <span class="n">dirty_flag</span>  <span class="o">=</span> <span class="nn">MeshRegistryDirty</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="n">sub_logger</span><span class="p">,</span><span class="n">on_dirty</span><span class="p">);</span>
+    <span class="n">Self</span> <span class="p">{</span><span class="n">shape_dirty</span><span class="p">,</span><span class="n">dirty_flag</span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="vertical-alignment">Vertical alignment</h3>
+
+<p>The following elements should be aligned vertically in subsequent lines:</p>
+<ul>
+  <li>assignment operators (<code class="language-plaintext highlighter-rouge">=</code>),</li>
+  <li>type operators (<code class="language-plaintext highlighter-rouge">:</code>),</li>
+  <li>match arrows (<code class="language-plaintext highlighter-rouge">=&gt;</code>),</li>
+  <li>similar parameters or types.</li>
+</ul>
+
+<p>Examples:</p>
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">impl</span> <span class="n">Printer</span> <span class="k">for</span> <span class="n">GlobalVarStorage</span> <span class="p">{</span>
+    <span class="k">fn</span> <span class="nf">print</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">builder</span><span class="p">:</span><span class="o">&amp;</span><span class="k">mut</span> <span class="n">Builder</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">match</span> <span class="k">self</span> <span class="p">{</span>
+            <span class="nn">Self</span><span class="p">::</span><span class="n">ConstStorage</span>      <span class="k">=&gt;</span> <span class="nd">build!</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span><span class="s">"const"</span><span class="p">),</span>
+            <span class="nn">Self</span><span class="p">::</span><span class="n">UniformStorage</span>    <span class="k">=&gt;</span> <span class="nd">build!</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span><span class="s">"uniform"</span><span class="p">),</span>
+            <span class="nn">Self</span><span class="p">::</span><span class="nf">InStorage</span>  <span class="p">(</span><span class="n">qual</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="nd">build!</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span><span class="s">"in"</span> <span class="p">,</span><span class="n">qual</span><span class="p">),</span>
+            <span class="nn">Self</span><span class="p">::</span><span class="nf">OutStorage</span> <span class="p">(</span><span class="n">qual</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="nd">build!</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span><span class="s">"out"</span><span class="p">,</span><span class="n">qual</span><span class="p">),</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="spaces">Spaces</h3>
+<ul>
+  <li>Type operator is not spaced: <code class="language-plaintext highlighter-rouge">fn test(foo:String, bar:Int) { ... }</code>.</li>
+  <li>Commas between complex expressions (including arg list) are spaced.</li>
+  <li>Commas between simple elements are not spaced: <code class="language-plaintext highlighter-rouge">Result&lt;Self,Error&gt;</code>.</li>
+  <li>Arguments to functions are not spaced: <code class="language-plaintext highlighter-rouge">build(builder,"out",qual)</code>.</li>
+  <li>Operators are always spaced: <code class="language-plaintext highlighter-rouge">let foo = a + b * c;</code>.</li>
+</ul>
+
+<h3 id="function-definitions">Function definitions</h3>
+<p>The following examples show proper function styles:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pub</span> <span class="k">fn</span> <span class="n">new</span><span class="o">&lt;</span><span class="n">Dom</span><span class="p">:</span><span class="n">Str</span><span class="o">&gt;</span><span class="p">(</span><span class="n">dom</span><span class="p">:</span><span class="n">Dom</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span><span class="n">Logger</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Result</span><span class="o">&lt;</span><span class="n">Self</span><span class="p">,</span><span class="n">Error</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pub</span> <span class="k">fn</span> <span class="n">new</span><span class="o">&lt;</span><span class="n">Dom</span><span class="p">:</span><span class="n">Str</span><span class="o">&gt;</span><span class="p">(</span><span class="n">dom</span><span class="p">:</span><span class="n">Dom</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span><span class="n">Logger</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Result</span><span class="o">&lt;</span><span class="n">Self</span><span class="p">,</span><span class="n">Error</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pub</span> <span class="k">fn</span> <span class="n">new</span><span class="o">&lt;</span><span class="n">Dom</span><span class="p">:</span><span class="n">Str</span><span class="o">&gt;</span>
+<span class="p">(</span><span class="n">dom</span><span class="p">:</span><span class="n">Dom</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span><span class="n">Logger</span><span class="p">,</span> <span class="n">on_dirty</span><span class="p">:</span><span class="n">OnDirty</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Result</span><span class="o">&lt;</span><span class="n">Self</span><span class="p">,</span><span class="n">Error</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pub</span> <span class="k">fn</span> <span class="n">new</span><span class="o">&lt;</span><span class="n">Dom</span><span class="p">:</span><span class="n">Str</span><span class="o">&gt;</span>
+<span class="p">(</span><span class="n">dom</span><span class="p">:</span><span class="n">Dom</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span><span class="n">Logger</span><span class="p">,</span> <span class="n">on_dirty</span><span class="p">:</span><span class="n">OnDirty</span><span class="p">,</span> <span class="n">on_remove</span><span class="p">:</span><span class="n">OnRemove</span><span class="p">)</span> 
+<span class="k">-&gt;</span> <span class="n">Result</span><span class="o">&lt;</span><span class="n">Self</span><span class="p">,</span><span class="n">Error</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pub</span> <span class="k">fn</span> <span class="n">new</span><span class="o">&lt;</span><span class="n">Dom</span><span class="p">:</span><span class="n">Str</span><span class="o">&gt;</span>
+<span class="p">(</span> <span class="n">dom</span>        <span class="p">:</span> <span class="n">Dom</span>
+<span class="p">,</span> <span class="n">logger</span>     <span class="p">:</span> <span class="n">Logger</span>
+<span class="p">,</span> <span class="n">on_dirty</span>   <span class="p">:</span> <span class="n">OnDirty</span>
+<span class="p">,</span> <span class="n">on_remove</span>  <span class="p">:</span> <span class="n">OnRemove</span>
+<span class="p">,</span> <span class="n">on_replace</span> <span class="p">:</span> <span class="n">OnReplace</span>
+<span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Result</span><span class="o">&lt;</span><span class="n">Self</span><span class="p">,</span><span class="n">Error</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Long <code class="language-plaintext highlighter-rouge">where</code> clauses are formatted this way:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pub</span> <span class="k">fn</span> <span class="n">new</span><span class="o">&lt;</span><span class="n">D</span><span class="p">,</span><span class="n">L</span><span class="o">&gt;</span><span class="p">(</span><span class="n">dom</span><span class="p">:</span><span class="n">D</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span><span class="n">L</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Result</span><span class="o">&lt;</span><span class="n">Self</span><span class="p">,</span><span class="n">Error</span><span class="o">&gt;</span> 
+<span class="k">where</span> <span class="n">D</span><span class="p">:</span><span class="n">AsRef</span><span class="o">&lt;</span><span class="nb">str</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">L</span><span class="p">:</span><span class="n">IsLogger</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Or, in case they are really long, this way:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">pub</span> <span class="k">fn</span> <span class="n">new</span><span class="o">&lt;</span><span class="n">D</span><span class="p">,</span><span class="n">L</span><span class="o">&gt;</span><span class="p">(</span><span class="n">dom</span><span class="p">:</span><span class="n">D</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span><span class="n">L</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Result</span><span class="o">&lt;</span><span class="n">Self</span><span class="p">,</span><span class="n">Error</span><span class="o">&gt;</span> 
+<span class="k">where</span> <span class="n">D</span><span class="p">:</span><span class="n">AsRef</span><span class="o">&lt;</span><span class="nb">str</span><span class="o">&gt;</span>
+      <span class="n">L</span><span class="p">:</span><span class="n">IsLogger</span> 
+      <span class="o">...</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="impl-definitions">Impl definitions</h3>
+<p>Sometimes when browsing code it is hard to understand where the header of 
+an impl declaration is. Thus, the following style allows to find it easier. 
+The <code class="language-plaintext highlighter-rouge">where</code> block should be placed after a linebreak.
+All of the following are correct:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// No constraints</span>
+<span class="k">impl</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">Printer</span> <span class="k">for</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Some constraints</span>
+<span class="k">impl</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span><span class="n">Printer</span><span class="o">&gt;</span> 
+<span class="n">Printer</span> <span class="k">for</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Constraints in where block</span>
+<span class="k">impl</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">Printer</span> <span class="k">for</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> 
+<span class="k">where</span> <span class="n">T</span><span class="p">:</span> <span class="n">Printer</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="getters-and-setters">Getters and Setters</h3>
+<p>Getters do not have the <code class="language-plaintext highlighter-rouge">get_</code> prefix, while setters do. If a setter is 
+provided (method with the <code class="language-plaintext highlighter-rouge">set_</code> prefix), a <code class="language-plaintext highlighter-rouge">mut</code> accessor should be 
+provided as well. The correct way of defining getters and setters is 
+presented below:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">fn</span> <span class="nf">field</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="o">&amp;</span><span class="n">Type</span> <span class="p">{</span> 
+    <span class="o">&amp;</span><span class="k">self</span><span class="py">.field</span> 
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="nf">field_mut</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">Type</span> <span class="p">{</span> 
+    <span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="py">.field</span> 
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="nf">set_field</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span><span class="n">Type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">*</span><span class="k">self</span><span class="py">.field_mut</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="trait-exporting">Trait exporting</h3>
+<p>All names should be designed to be used in a qualified fashion. However, this makes one situation 
+tricky. In order to use methods defined in a trait, it has to be in scope. Consider a trait
+<code class="language-plaintext highlighter-rouge">display::Object</code>. We want to use it as function bound like <code class="language-plaintext highlighter-rouge">fn test&lt;T:display::Object&gt;(t:T) {...}</code>,
+and we also want to use methods defined in this trait (so it has to be in scope). In such a case, 
+<code class="language-plaintext highlighter-rouge">Clippy</code> warns that <code class="language-plaintext highlighter-rouge">display::Object</code> is unnecessary qualification and could be replaced simply by
+<code class="language-plaintext highlighter-rouge">Object</code>, which is not what we want. Thus, in order to export traits, please always rename them
+using the following convention:</p>
+
+<div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/// Common traits.</span>
+<span class="k">pub</span> <span class="k">mod</span> <span class="n">traits</span> <span class="p">{</span>
+    <span class="c">// Read the Rust Style Guide to learn more about the used naming.</span>
+    <span class="k">pub</span> <span class="k">use</span> <span class="nn">super</span><span class="p">::</span><span class="n">Object</span>    <span class="k">as</span> <span class="n">TRAIT_Object</span><span class="p">;</span>
+    <span class="k">pub</span> <span class="k">use</span> <span class="nn">super</span><span class="p">::</span><span class="n">ObjectOps</span> <span class="k">as</span> <span class="n">TRAIT_ObjectOps</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Having such a definition, we can import traits to scope using <code class="language-plaintext highlighter-rouge">use display::object::traits::*</code>, and
+we would not have any warning about unnecessary qualification anymore.</p>
+
+                        
+                        
+
+                    </section>
+                </div>
+
+                 <!--<div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+var search = instantsearch({
+  appId: '3PBI3MMCBE',
+  apiKey: '55d673c313b717b7386df8c9418588d4',
+  indexName: 'jekyll',
+  searchFunction(helper) {
+    var container = document.querySelector('#search-hits');
+    container.style.display = helper.state.query === '' ? 'none' : '';
+
+    helper.search();
+  }
+});
+
+var hitTemplate = function(hit) {
+  let date = '';
+  if (hit.date) {
+    date = moment.unix(hit.date).format('MMM D, YYYY');
+  }
+
+  let url = `/docs/developer${hit.url}#${hit.anchor}`;
+
+  var title = hit._highlightResult.title.value;
+
+  var content = hit._highlightResult.html.value;
+
+  return `
+    <li class="post-item chapter">
+      <a href="${url}" class="post-link">${title}</a>
+      <div class="post-snippet">${content}</div>
+    </li>
+  `;
+}
+
+
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-searchbar',
+    placeholder: 'Search the docs',
+    poweredBy: true // This is required if you're on the free Community plan
+  })
+);
+
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '#search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+search.start();
+</script>
+
+<style>
+.ais-search-box {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.post-item {
+  margin-bottom: 30px;
+}
+.post-link .ais-Highlight {
+  color: #111;
+  font-style: normal;
+  text-decoration: underline;
+}
+.post-breadcrumbs {
+  color: #424242;
+  display: block;
+}
+.post-breadcrumb {
+  font-size: 18px;
+  color: #424242;
+}
+.post-breadcrumb .ais-Highlight {
+  font-weight: bold;
+  font-style: normal;
+}
+.post-snippet .ais-Highlight {
+  color: #2a7ae2;
+  font-style: normal;
+  font-weight: bold;
+}
+.post-snippet img {
+  display: none;
+}
+
+.post-list {
+    list-style:none;
+    margin:0;
+    padding: 10px 15px;
+    -webkit-transition:top .5s ease;
+    -moz-transition:top .5s ease;
+    -o-transition:top .5s ease;
+    transition:top .5s ease
+}
+
+#search-hits::after {
+    content: '';
+    display: block;
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: rgba(0,0,0,.07);
+}
+</style>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+                    <a href="/docs/developer/idecontributingstyle-guide.md" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation idecontributingstyle-guide.md">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},
+            "sharing": {
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+                "facebook": true,
+                "google": false,
+                "instapaper": false,
+                "twitter": true,
+                "vk": false,
+                "weibo": false
+            },
+            "theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            }
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "Enso Developer Documentation",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "ide/contributing/style-guide.md",
+        "mtime": "",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.3",
+        "time": "2021-04-12 08:24:21 +0000"
+    },
+    "basePath": "/docs/developer",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/docs/developer/gitbook/gitbook.js"></script>
+<script src="/docs/developer/gitbook/theme.js"></script>
+
+<script src="/docs/developer/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+
+<!-- <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script> --></body>
+</html>

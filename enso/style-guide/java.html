@@ -1,0 +1,1428 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Java Style Guide · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/docs/developer/gitbook/style.css">
+<link rel="stylesheet" href="/docs/developer/gitbook/gitbook-plugin-fontsettings/website.css">
+<!-- <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css"> -->
+
+<link rel="stylesheet" href="/docs/developer/gitbook/rouge-highlight-colorful.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/docs/developer/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="/docs/developer/gitbook/images/favicon.ico" type="image/x-icon">
+        
+
+        
+        
+
+
+        
+        
+        
+
+        
+        
+        
+
+        
+            <link rel="prev" href="/docs/developer/enso/style-guide/scala.html" />
+        
+
+        
+            <link rel="next" href="/docs/developer/enso/style-guide/rust.html" />
+        
+    </head>
+    <body>
+        
+        <div class="book"><div class="book-summary">
+    <div id="search-searchbar">
+    </div>
+    <div class="post-list" id="search-hits">
+        
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+var search = instantsearch({
+  appId: '3PBI3MMCBE',
+  apiKey: '55d673c313b717b7386df8c9418588d4',
+  indexName: 'jekyll',
+  searchFunction(helper) {
+    var container = document.querySelector('#search-hits');
+    container.style.display = helper.state.query === '' ? 'none' : '';
+
+    helper.search();
+  }
+});
+
+var hitTemplate = function(hit) {
+  let date = '';
+  if (hit.date) {
+    date = moment.unix(hit.date).format('MMM D, YYYY');
+  }
+
+  let url = `/docs/developer${hit.url}#${hit.anchor}`;
+
+  var title = hit._highlightResult.title.value;
+
+  var content = hit._highlightResult.html.value;
+
+  return `
+    <li class="post-item chapter">
+      <a href="${url}" class="post-link">${title}</a>
+      <div class="post-snippet">${content}</div>
+    </li>
+  `;
+}
+
+
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-searchbar',
+    placeholder: 'Search the docs',
+    poweredBy: true // This is required if you're on the free Community plan
+  })
+);
+
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '#search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+search.start();
+</script>
+
+<style>
+.ais-search-box {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.post-item {
+  margin-bottom: 30px;
+}
+.post-link .ais-Highlight {
+  color: #111;
+  font-style: normal;
+  text-decoration: underline;
+}
+.post-breadcrumbs {
+  color: #424242;
+  display: block;
+}
+.post-breadcrumb {
+  font-size: 18px;
+  color: #424242;
+}
+.post-breadcrumb .ais-Highlight {
+  font-weight: bold;
+  font-style: normal;
+}
+.post-snippet .ais-Highlight {
+  color: #2a7ae2;
+  font-style: normal;
+  font-weight: bold;
+}
+.post-snippet img {
+  display: none;
+}
+
+.post-list {
+    list-style:none;
+    margin:0;
+    padding: 10px 15px;
+    -webkit-transition:top .5s ease;
+    -moz-transition:top .5s ease;
+    -o-transition:top .5s ease;
+    transition:top .5s ease
+}
+
+#search-hits::after {
+    content: '';
+    display: block;
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: rgba(0,0,0,.07);
+}
+</style>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/">
+            
+                <a href="/docs/developer/">
+                    Home
+                </a>
+            </li>
+
+            <li class="divider"></li>
+            
+            
+            
+            
+            
+
+            
+            
+        
+            
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/style-guide ">
+                    <a href="/docs/developer/enso/style-guide">
+                        Go back
+                    </a>
+                </li>
+                <li class="divider"></li>
+            
+                
+             
+            
+            
+            
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/style-guide/">
+                    
+                        <a href="/docs/developer/enso/style-guide/">
+                            
+                                Enso Developer Style Guides
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/style-guide/scala.html">
+                    
+                        <a href="/docs/developer/enso/style-guide/scala.html">
+                            
+                                Scala Style Guide
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/developer/enso/style-guide/java.html">
+                    
+                        <a href="/docs/developer/enso/style-guide/java.html">
+                            
+                                Java Style Guide
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/style-guide/rust.html">
+                    
+                        <a href="/docs/developer/enso/style-guide/rust.html">
+                            
+                                Rust Style Guide
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/style-guide/haskell.html">
+                    
+                        <a href="/docs/developer/enso/style-guide/haskell.html">
+                            
+                                Haskell Style Guide
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/style-guide/markdown.html">
+                    
+                        <a href="/docs/developer/enso/style-guide/markdown.html">
+                            
+                                Markdown Style Guide
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/style-guide/yaml.html">
+                    
+                        <a href="/docs/developer/enso/style-guide/yaml.html">
+                            
+                                YAML Style Guide
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+
+            
+        
+        </ul>
+    </nav>
+</div>
+<div class="book-body"><div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            
+                <a href="." >Java Style Guide</a>
+            
+        </h1>
+    </div>
+    <div class="page-wrapper" tabindex="-1" role="main">
+        <div class="page-inner">
+            <div id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+                        <h1 id="java-style-guide">Java Style Guide</h1>
+
+<p>Like many style guides, this Java style guide exists for two primary reasons.
+The first is to provide guidelines that result in a consistent code style across
+all of the Enso codebases, while the second is to guide people towards a style
+that is expressive while still easy to read and understand.</p>
+
+<p>In general, it aims to create a set of ‘zero-thought’ rules in order to ease the
+programmer burden; there is usually only <em>one way</em> to lay out code correctly.</p>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#code-formatting">Code Formatting</a>
+    <ul>
+      <li><a href="#naming">Naming</a></li>
+    </ul>
+  </li>
+  <li><a href="#package-structure-and-naming">Package Structure and Naming</a>
+    <ul>
+      <li><a href="#the-public-api">The Public API</a></li>
+    </ul>
+  </li>
+  <li><a href="#commenting">Commenting</a>
+    <ul>
+      <li><a href="#documentation-comments">Documentation Comments</a></li>
+      <li><a href="#source-notes">Source Notes</a></li>
+      <li><a href="#todo-comments">TODO Comments</a></li>
+      <li><a href="#other-comment-usage">Other Comment Usage</a></li>
+    </ul>
+  </li>
+  <li><a href="#program-design">Program Design</a>
+    <ul>
+      <li><a href="#code-complexity">Code Complexity</a></li>
+      <li><a href="#testing-and-benchmarking">Testing and Benchmarking</a></li>
+      <li><a href="#warnings-and-lints">Warnings, and Lints</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="code-formatting">Code Formatting</h2>
+
+<p>This section explains the rules for visually laying out your code. They provide
+a robust set of guidelines for creating a consistent visual to the code.</p>
+
+<p>Primary code formatting is done using the
+<a href="https://github.com/google/google-java-format">Google Java Format</a> tool, which
+enforces a clear and consistent style. This is a zero configuration tool, and
+hence there is no project-level configuration for this tool. It should be used
+for all new Java projects.</p>
+
+<p>All files must be formatted using this tool before being committed, and this
+should be set up as either a precommit hook, or using an integration in your
+IDE.</p>
+
+<h3 id="naming">Naming</h3>
+
+<p>Enso has some fairly simple general naming conventions, though the sections
+below may provide more rules for use in specific cases.</p>
+
+<ul>
+  <li>Types are written using <code class="language-plaintext highlighter-rouge">UpperCamelCase</code>.</li>
+  <li>Variables and function names are written using <code class="language-plaintext highlighter-rouge">camelCase</code>.</li>
+  <li>If a name contains an initialism or acronym, all parts of that initialism
+should be of the same case: <code class="language-plaintext highlighter-rouge">httpRequest</code> or <code class="language-plaintext highlighter-rouge">makeHTTPRequest</code>.</li>
+  <li>Short variable names such as <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code> should only be used in contexts where
+there is no other appropriate name, and should <em>never</em> be used to refer to
+temporary data in a function.</li>
+  <li>Names should be descriptive, even if this makes them longer.</li>
+  <li>Naming should use American English spelling.</li>
+</ul>
+
+<h2 id="package-structure-and-naming">Package Structure and Naming</h2>
+
+<p>Enso follows the
+<a href="https://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html">Java convention for naming packages</a>:
+package name components may contain only lower case characters and, if
+necessary, an underscore character. All Enso package names should be prefixed
+with <code class="language-plaintext highlighter-rouge">org.enso</code>. For example, the package for implementation of <code class="language-plaintext highlighter-rouge">File Manager</code>
+project should be named <code class="language-plaintext highlighter-rouge">org.enso.filemanager</code>.</p>
+
+<p>When the name of the file in the package is the same as the final component of
+the package name, the file should be moved one level up. For examples, if
+<code class="language-plaintext highlighter-rouge">File Manager</code> project contains <code class="language-plaintext highlighter-rouge">FileManager.java</code> file, then the file should be
+placed directly in the <code class="language-plaintext highlighter-rouge">org.enso</code> package instead of <code class="language-plaintext highlighter-rouge">org.enso.filemanager</code>.
+This is to avoid repetitious constructs like <code class="language-plaintext highlighter-rouge">org.enso.filemanager.FileManager</code>.</p>
+
+<h3 id="the-public-api">The Public API</h3>
+
+<p>In order to produce as flexible a codebase as possible, we tend not to make use
+of access modifiers in our code (<code class="language-plaintext highlighter-rouge">protected</code>, <code class="language-plaintext highlighter-rouge">private</code>, and so on). Instead, we
+use the concept of <code class="language-plaintext highlighter-rouge">Internal</code> modules to separate public from private.</p>
+
+<p>If you are writing code in a package <code class="language-plaintext highlighter-rouge">X.Y.MyType</code> and would like to signal that
+a particular construct (e.g. a function) is for internal use in that package,
+you should create a <code class="language-plaintext highlighter-rouge">X.Y.MyType.Internal</code> package. You can then write the
+relevant language construct in that package instead of the source package.</p>
+
+<h4 id="using-access-modifiers">Using Access Modifiers</h4>
+
+<p>There are, however, a few notable exceptions to the above:</p>
+
+<ul>
+  <li><strong>Safety:</strong> Privacy modifiers (e.g. <code class="language-plaintext highlighter-rouge">private</code> and <code class="language-plaintext highlighter-rouge">protected</code>) should be used
+to enforce an API contract around safety.</li>
+  <li><strong>Reducing Overhead:</strong> As the <code class="language-plaintext highlighter-rouge">Internal</code> module is a separate module, there
+can (under some circumstances) be some overhead for its use. If you are
+writing code on a performance-critical path, you may instead make use of
+access modifiers.</li>
+  <li><strong>Enabling Optimisations:</strong> The JVM is capable of performing optimisations by
+making use of visibility information (e.g. in the interpreter). If you are
+writing performance-critical code, you may use access modifiers to provide the
+JVM with additional information.</li>
+</ul>
+
+<h2 id="commenting">Commenting</h2>
+
+<p>Comments in code are a tricky area to get right as we have found that comments
+often expire quickly, and in absence of a way to validate them, remain incorrect
+for long periods of time. In order to best deal with this problem, we make the
+keeping of comments up-to-date into an integral part of our programming practice
+while also limiting the types and kinds of comments we allow.</p>
+
+<p>Comments across the Enso codebases fall into three main types:</p>
+
+<ul>
+  <li><strong>Documentation Comments:</strong> API documentation for all language constructs that
+can have it (classes, methods, and so on).</li>
+  <li><strong>Source Notes:</strong> Detailed explorations of design reasoning that avoid
+cluttering the code itself.</li>
+  <li><strong>Tasks:</strong> Things that need doing or fixing in the codebase.</li>
+</ul>
+
+<p>When we write comments, we try to follow one general guideline. A comment should
+explain <em>what</em> and <em>why</em>, without mentioning <em>how</em>. The <em>how</em> should be
+self-explanatory from reading the code, and if you find that it is not, that is
+a sign that the code in question needs refactoring.</p>
+
+<p>Code should be written in such a way that it guides you over what it does, and
+comments should not be used as a crutch for badly-designed code.</p>
+
+<h3 id="documentation-comments">Documentation Comments</h3>
+
+<p>One of the primary forms of comment that we allow across the Enso codebases is
+the doc comment. We use these comments to document the public API of a module,
+as defined in <a href="#the-public-api">The Public API</a>. For constructs that <em>are</em> part
+of the public API, the following should be documented:</p>
+
+<ol>
+  <li><strong>Top-Level Type Definitions:</strong> All type definitions must be accompanied by a
+doc comment. This includes nested classes.</li>
+  <li><strong>Functions:</strong> Function documentation should provide at-a-glance intuition
+for how to use that function.</li>
+</ol>
+
+<p>Documentation comments are intended for consumption by the users of the API, and
+are written using the standard JavaDoc syntax. Doc comments should contain:</p>
+
+<ol>
+  <li><strong>Summary:</strong> A one-line summary of the construct’s behaviour. This should be
+a valid sentence with ‘this X’ (where X = class, method, etc) prepended to
+it.</li>
+  <li><strong>Description (Optional):</strong> Any useful information that would be necessary
+for a consumer of the API to know (that is not encoded in the types). This
+should be written in grammatically correct English.</li>
+  <li><strong>Parameters and Returns:</strong> The return value must always be described. If the
+parameters are <em>all</em> obvious from their names, you must omit the <code class="language-plaintext highlighter-rouge">@param</code>
+annotations. If one or more parameters require explanation (for things not
+expressed in their name or type), then all parameters must be annotated.</li>
+</ol>
+
+<p>An example of a valid set of doc comments is provided below:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Contains an implementation of a span tree.
+ *
+ * This tree implementation provides O(log(n)) average and worst-case complexity
+ * for insertion, lookup and
+ *
+ * @param &lt;T&gt; the type of the tree's elements
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpanTree</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="nc">Tree</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{</span>
+
+  <span class="cm">/** Constructs an empty tree. */</span>
+  <span class="kd">public</span> <span class="nf">Tree</span><span class="o">()</span> <span class="o">{}</span>
+
+  <span class="cm">/**
+   * Inserts the provided element into the span tree.
+   *
+   * The complexity of insertion is O(log(n)) in both the average and worst
+   * cases.
+   *
+   * @param element the element to be inserted into the tree
+   */</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">insert</span><span class="o">(</span><span class="no">T</span> <span class="n">element</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kd">class</span> <span class="nc">Node</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="source-notes">Source Notes</h3>
+
+<p>Source Notes is a mechanism for moving detailed design information about a piece
+of code out of the code itself. In doing so, it retains the key information
+about the design while not impeding the flow of the code. They are used in the
+following circumstances:</p>
+
+<ul>
+  <li><strong>Design Information:</strong> Documentation about <em>why</em> something was written in a
+particular fashion, as well as information on the process that led to it being
+done this way.</li>
+  <li><strong>Explaining Complexity:</strong> If an implementation uses complex constructs or any
+elements that are non-obvious, these should be explained as part of a source
+note.</li>
+  <li><strong>Knowledge Provenance:</strong> Explaining where some knowledge (e.g. a mathematical
+formula or an algorithm) was obtained from. It is also useful to accompany
+these by some commentary on <em>why</em> the choice was made.</li>
+  <li><strong>Safety:</strong> Any unsafe usage of a function must be accompanied by a source
+note that explains what makes this particular usage safe.</li>
+</ul>
+
+<p>Source notes are detailed comments that, like all comments, explain both the
+<em>what</em> and the <em>why</em> of the code being described. In very rare cases, it may
+include some <em>how</em>, but only to refer to why a particular method was chosen to
+achieve the goals in question.</p>
+
+<p>A source note comment is broken into two parts:</p>
+
+<ol>
+  <li><strong>Referrer:</strong> This is a small comment left at the point where the explanation
+is relevant. It takes the following form: <code class="language-plaintext highlighter-rouge">// Note [Note Name]</code>, where
+<code class="language-plaintext highlighter-rouge">Note Name</code> is a unique identifier across the codebase. These names should be
+descriptive, and make sure you search for it before using it, in case it is
+already in use.</li>
+  <li><strong>Source Note:</strong> This is the comment itself, which is a large block comment
+placed after the first function in which it is referred to in the module. It
+uses the java block-comment syntax <code class="language-plaintext highlighter-rouge">/* ... */</code>, and the first line names the
+note using the same referrer as above: <code class="language-plaintext highlighter-rouge">/* Note [Note Name]</code>. The name(s) in
+the note are underlined using a string of the <code class="language-plaintext highlighter-rouge">~</code> (tilde) character.</li>
+</ol>
+
+<p>A source note may contain sections within it where necessary. These are titled
+using the following syntax: <code class="language-plaintext highlighter-rouge">== Note [Note Name (Section Name)]</code>, and can be
+referred to from a referrer much as the main source note can be.</p>
+
+<p>Sometimes it is necessary to reference a source note in another module, but this
+should never be done in-line. Instead, a piece of code should reference a source
+note in the same module that references the other note while providing
+additional context to that reference.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">{</span>
+<span class="kd">public</span> <span class="nc">SimplM</span><span class="o">&lt;</span><span class="nc">SimplEnv</span><span class="o">,</span> <span class="nc">OutExpr</span><span class="o">&gt;</span> <span class="nf">prepRHS</span><span class="o">(</span><span class="nc">SimplEnv</span> <span class="n">env</span><span class="o">,</span> <span class="nc">OutExpr</span> <span class="n">outExpr</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kt">var</span> <span class="n">ty1</span> <span class="o">=</span> <span class="n">coercionKind</span><span class="o">(</span><span class="n">env</span><span class="o">);</span> <span class="c1">// Note [Float Coercions]</span>
+
+  <span class="k">if</span> <span class="o">(!</span><span class="n">isUnliftedType</span><span class="o">(</span><span class="n">ty1</span><span class="o">))</span> <span class="o">{</span>
+    <span class="kt">var</span> <span class="n">newTy1</span> <span class="o">=</span> <span class="n">convertTy</span><span class="o">(</span><span class="n">ty1</span><span class="o">)</span> <span class="c1">// Note [Float Coercions (Unlifted)]</span>
+
+    <span class="o">...</span><span class="na">more</span> <span class="n">code</span> <span class="n">defining</span> <span class="n">prepRHS</span><span class="o">...</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="cm">/* Note [Float Coercions]
+ * ~~~~~~~~~~~~~~~~~~~~~~
+ * When we find the binding
+ *     x = cast(e, co)
+ * we'd like to transform it to
+ *         x' = e
+ *         x = cast(x, co) // A trivial binding
+ * There's a chance that e will be a constructor application or function, or
+ * something like that, so moving the coercion to the usage site may well cancel
+ * the coercions and lead to further optimisation.
+ *         ...more stuff about coercion floating...
+ *
+ * Note [Float Coercions (Unlifted)]
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *      ...explanations of floating for unlifted types...
+ */</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>A source note like this is useful whenever you have design decisions to explain,
+but can also be used for:</p>
+
+<ul>
+  <li><strong>Formulae and Algorithms:</strong> If your code makes use of a mathematical formula,
+or algorithm, it should note where the design element came from, preferably
+with a link.</li>
+  <li><strong>Safety:</strong> Sometimes it is necessary to use an unsafe API in a context where
+it is trivially made safe. You should always use a source note to explain why
+its usage is safe in this context.</li>
+</ul>
+
+<h3 id="todo-comments">TODO Comments</h3>
+
+<p>We follow a simple convention for <code class="language-plaintext highlighter-rouge">TODO</code> comments in our codebases:</p>
+
+<ul>
+  <li>The line starts with <code class="language-plaintext highlighter-rouge">TODO</code> or <code class="language-plaintext highlighter-rouge">FIXME</code>.</li>
+  <li>It is then followed by the author’s initials <code class="language-plaintext highlighter-rouge">[ARA]</code>, or for multiple people
+<code class="language-plaintext highlighter-rouge">[ARA, MK]</code>, in square brackets.</li>
+  <li>It is then followed by an explanation of what needs to be done.</li>
+</ul>
+
+<p>For example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">{</span>
+<span class="c1">// TODO [ARA] This is a bit of a kludge. Instead of X it should to Y, accounting</span>
+<span class="c1">// for the fact that Z.</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="other-comment-usage">Other Comment Usage</h3>
+
+<p>There are, of course, a few other situations where commenting is very useful:</p>
+
+<ul>
+  <li><strong>Commenting Out:</strong> You may comment out code while developing it, but if you
+commit any commented out code, it should be accompanied by an explanation of
+why said code can’t just be deleted.</li>
+  <li><strong>Bugs:</strong> You can use comments to indicate bugs in our code, as well as
+third-party bugs. In both cases, the comment should link to the issue tracker
+where the bug has been reported.</li>
+</ul>
+
+<h2 id="program-design">Program Design</h2>
+
+<p>Any good style guide goes beyond purely stylistic rules, and also talks about
+design styles to use in code.</p>
+
+<h3 id="code-complexity">Code Complexity</h3>
+
+<p>While we often have to write complex functionality, we want to ensure that the
+code itself is kept as simple and easy to read as possible. To do this, please
+use the following rules:</p>
+
+<ul>
+  <li>Write single-line expressions wherever possible, rather than writing one
+complex chunk of code.</li>
+  <li>Separate intermediate results out to their own variables with appropriate
+names. Even if they are temporaries, giving them a name is a great aid to code
+comprehension.</li>
+</ul>
+
+<h3 id="testing-and-benchmarking">Testing and Benchmarking</h3>
+
+<p>New code should always be accompanied by tests. These can be unit, integration,
+or some combination of the two, and they should always aim to test the new code
+in a rigorous fashion.</p>
+
+<ul>
+  <li>We tend to use ScalaTest, but also make use of ScalaCheck for property-based
+testing.</li>
+  <li>Tests should be declared in the project configuration so they can be trivially
+run.</li>
+  <li>A test file should be named after the module it tests.</li>
+</ul>
+
+<p>Any performance-critical code should also be accompanied by a set of benchmarks.
+These are intended to allow us to catch performance regressions as the code
+evolves, but also ensure that we have some idea of the code’s performance in
+general.</p>
+
+<ul>
+  <li>We use JMH for our benchmarks.</li>
+  <li>We measure time, but also memory usage and CPU time where possible.</li>
+  <li>Where relevant, benchmarks may set thresholds which, when surpassed, cause the
+benchmark to fail. These thresholds should be set for a release build, and not
+for a development build.</li>
+</ul>
+
+<p><em>Do not benchmark a development build</em> as the data you get will often be
+entirely useless.</p>
+
+<h3 id="warnings-and-lints">Warnings, and Lints</h3>
+
+<p>In general, we aim for a codebase that is free of warnings and lints, and we do
+this using the following ideas.</p>
+
+<h4 id="warnings">Warnings</h4>
+
+<p>New code should introduce no new warnings onto main. You may build with warnings
+on your own branch, but the code that is submitted as part of a PR should not
+introduce new warnings. You should also endeavour to fix any warnings that you
+come across during development.</p>
+
+<p>Sometimes it is impossible to fix a warning (often in situations involving the
+use of macros or code-generation). In such cases, you are allowed to suppress
+the warning locally, but this must be accompanied by a source note explaining
+why you are doing so.</p>
+
+                        
+                        
+
+                    </section>
+                </div>
+
+                 <!--<div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+var search = instantsearch({
+  appId: '3PBI3MMCBE',
+  apiKey: '55d673c313b717b7386df8c9418588d4',
+  indexName: 'jekyll',
+  searchFunction(helper) {
+    var container = document.querySelector('#search-hits');
+    container.style.display = helper.state.query === '' ? 'none' : '';
+
+    helper.search();
+  }
+});
+
+var hitTemplate = function(hit) {
+  let date = '';
+  if (hit.date) {
+    date = moment.unix(hit.date).format('MMM D, YYYY');
+  }
+
+  let url = `/docs/developer${hit.url}#${hit.anchor}`;
+
+  var title = hit._highlightResult.title.value;
+
+  var content = hit._highlightResult.html.value;
+
+  return `
+    <li class="post-item chapter">
+      <a href="${url}" class="post-link">${title}</a>
+      <div class="post-snippet">${content}</div>
+    </li>
+  `;
+}
+
+
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-searchbar',
+    placeholder: 'Search the docs',
+    poweredBy: true // This is required if you're on the free Community plan
+  })
+);
+
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '#search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+search.start();
+</script>
+
+<style>
+.ais-search-box {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.post-item {
+  margin-bottom: 30px;
+}
+.post-link .ais-Highlight {
+  color: #111;
+  font-style: normal;
+  text-decoration: underline;
+}
+.post-breadcrumbs {
+  color: #424242;
+  display: block;
+}
+.post-breadcrumb {
+  font-size: 18px;
+  color: #424242;
+}
+.post-breadcrumb .ais-Highlight {
+  font-weight: bold;
+  font-style: normal;
+}
+.post-snippet .ais-Highlight {
+  color: #2a7ae2;
+  font-style: normal;
+  font-weight: bold;
+}
+.post-snippet img {
+  display: none;
+}
+
+.post-list {
+    list-style:none;
+    margin:0;
+    padding: 10px 15px;
+    -webkit-transition:top .5s ease;
+    -moz-transition:top .5s ease;
+    -o-transition:top .5s ease;
+    transition:top .5s ease
+}
+
+#search-hits::after {
+    content: '';
+    display: block;
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: rgba(0,0,0,.07);
+}
+</style>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+                <a href="/docs/developer/enso/style-guide/scala.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Scala Style Guide">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+
+                
+                    <a href="/docs/developer/enso/style-guide/rust.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Rust Style Guide">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},
+            "sharing": {
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+                "facebook": true,
+                "google": false,
+                "instapaper": false,
+                "twitter": true,
+                "vk": false,
+                "weibo": false
+            },
+            "theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            }
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "Enso Developer Documentation",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "enso/style-guide/java.md",
+        "mtime": "",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.3",
+        "time": "2021-04-12 08:24:21 +0000"
+    },
+    "basePath": "/docs/developer",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/docs/developer/gitbook/gitbook.js"></script>
+<script src="/docs/developer/gitbook/theme.js"></script>
+
+<script src="/docs/developer/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+
+<!-- <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script> --></body>
+</html>

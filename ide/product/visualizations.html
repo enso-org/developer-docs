@@ -1,0 +1,1411 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Visualization Workflow · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/docs/developer/gitbook/style.css">
+<link rel="stylesheet" href="/docs/developer/gitbook/gitbook-plugin-fontsettings/website.css">
+<!-- <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css"> -->
+
+<link rel="stylesheet" href="/docs/developer/gitbook/rouge-highlight-colorful.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/docs/developer/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="/docs/developer/gitbook/images/favicon.ico" type="image/x-icon">
+        
+
+        
+        
+
+
+        
+        
+        
+
+        
+        
+        
+
+        
+            <link rel="prev" href="/docs/developer/ide/product" />
+        
+
+        
+    </head>
+    <body>
+        
+        <div class="book"><div class="book-summary">
+    <div id="search-searchbar">
+    </div>
+    <div class="post-list" id="search-hits">
+        
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+var search = instantsearch({
+  appId: '3PBI3MMCBE',
+  apiKey: '55d673c313b717b7386df8c9418588d4',
+  indexName: 'jekyll',
+  searchFunction(helper) {
+    var container = document.querySelector('#search-hits');
+    container.style.display = helper.state.query === '' ? 'none' : '';
+
+    helper.search();
+  }
+});
+
+var hitTemplate = function(hit) {
+  let date = '';
+  if (hit.date) {
+    date = moment.unix(hit.date).format('MMM D, YYYY');
+  }
+
+  let url = `/docs/developer${hit.url}#${hit.anchor}`;
+
+  var title = hit._highlightResult.title.value;
+
+  var content = hit._highlightResult.html.value;
+
+  return `
+    <li class="post-item chapter">
+      <a href="${url}" class="post-link">${title}</a>
+      <div class="post-snippet">${content}</div>
+    </li>
+  `;
+}
+
+
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-searchbar',
+    placeholder: 'Search the docs',
+    poweredBy: true // This is required if you're on the free Community plan
+  })
+);
+
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '#search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+search.start();
+</script>
+
+<style>
+.ais-search-box {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.post-item {
+  margin-bottom: 30px;
+}
+.post-link .ais-Highlight {
+  color: #111;
+  font-style: normal;
+  text-decoration: underline;
+}
+.post-breadcrumbs {
+  color: #424242;
+  display: block;
+}
+.post-breadcrumb {
+  font-size: 18px;
+  color: #424242;
+}
+.post-breadcrumb .ais-Highlight {
+  font-weight: bold;
+  font-style: normal;
+}
+.post-snippet .ais-Highlight {
+  color: #2a7ae2;
+  font-style: normal;
+  font-weight: bold;
+}
+.post-snippet img {
+  display: none;
+}
+
+.post-list {
+    list-style:none;
+    margin:0;
+    padding: 10px 15px;
+    -webkit-transition:top .5s ease;
+    -moz-transition:top .5s ease;
+    -o-transition:top .5s ease;
+    transition:top .5s ease
+}
+
+#search-hits::after {
+    content: '';
+    display: block;
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: rgba(0,0,0,.07);
+}
+</style>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/">
+            
+                <a href="/docs/developer/">
+                    Home
+                </a>
+            </li>
+
+            <li class="divider"></li>
+            
+            
+            
+            
+            
+
+            
+            
+        
+            
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/ide/product ">
+                    <a href="/docs/developer/ide/product">
+                        Go back
+                    </a>
+                </li>
+                <li class="divider"></li>
+            
+                
+             
+            
+            
+            
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/ide/product/">
+                    
+                        <a href="/docs/developer/ide/product/">
+                            
+                                Product Documentation
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/ide/product/searcher.html">
+                    
+                        <a href="/docs/developer/ide/product/searcher.html">
+                            
+                                Searcher Panel In Graph Editor
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/ide/product/shortcuts.html">
+                    
+                        <a href="/docs/developer/ide/product/shortcuts.html">
+                            
+                                Shortcuts
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/developer/ide/product/visualizations.html">
+                    
+                        <a href="/docs/developer/ide/product/visualizations.html">
+                            
+                                Visualization Workflow
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+
+            
+        
+        </ul>
+    </nav>
+</div>
+<div class="book-body"><div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            
+                <a href="." >Visualization Workflow</a>
+            
+        </h1>
+    </div>
+    <div class="page-wrapper" tabindex="-1" role="main">
+        <div class="page-inner">
+            <div id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+                        <h1 id="visualization-workflow">Visualization Workflow</h1>
+
+<h2 id="purpose-of-visualizations">Purpose of visualizations</h2>
+
+<p>Visualizations have two main purposes:</p>
+
+<ul>
+  <li>
+    <p><strong>Display results of nodes</strong><br />
+Each node can be assigned with one or more visualization. After a node
+computes its new value, the visualization shows it in an understandable way to
+the user. Please note that a single node can be assigned with multiple
+visualizations at the same time. For example, a node might want to display a
+map of locations, and their list at the same time next to each other.</p>
+  </li>
+  <li>
+    <p><strong>Provide interactive way to generate new data</strong><br />
+In a widget mode (described in detail later), visualizations provide users
+with an interactive GUI to define data. For example, a map visualization can
+both display locations, as well as allowing the user to pick locations by
+clicking with a mouse. Similarly, the histogram can both display a list of
+numbers, and can be manually draw with the mouse producing such a list.
+Several numbers can be visualized as a table of sliders, which can also be
+used to interactively generate a table of numbers. Image visualizations can
+behave like an image editor, etc.</p>
+  </li>
+</ul>
+
+<h2 id="visualization-display-forms">Visualization Display Forms</h2>
+
+<p>Visualizations can be displayed in the following ways:</p>
+
+<ul>
+  <li>
+    <p><strong>Attached to nodes</strong> In this mode, visualizations display the most recent
+result of the node. They behave like an integrated part of the node. Whenever
+you move the node, the visualization moves as well. This mode can be toggled
+by tapping the spacebar.</p>
+  </li>
+  <li>
+    <p><strong>Fullscreen</strong><br />
+Visualization attached to node can grow (animate) to ocupy full IDE visual
+space. This mode can be triggered on the recently selected node (in case many
+nodes are selected, the last selected node will be used) by either pressing
+keeping the spacebar pressed for longer than approx 0.5s, or by tapping it
+twice. In the former case, the visualization shrinks to each original form
+whenever we release space, in the later, whenever we press space again.</p>
+  </li>
+  <li>
+    <p><strong>Detached</strong><br />
+Visualizations attached to nodes can be detached, scaled, and placed freely
+across the visual canvas (we might introduce a special place where you can put
+such visualizations). This is useful when defining dashboards or reports. We
+also plan to provide a notebook-like experience where you can write text mixed
+with visualizations (including widgets for an interactive experience).</p>
+  </li>
+  <li>
+    <p><strong>Widgets</strong><br />
+In this mode visualizations behave like nodes but do not display expressions.
+They have one input and one output port. If the input port is connected, the
+visualization displays its value and passes its to the output port. In case it
+is not connected, the visualization becomes an interactive widget allowing the
+user to specify data. For example, a map visualization will allow the user to
+manually pick locations. After each change, the new locations will be sent to
+the output port. Under the hood, widgets are represented as nodes and their
+code lines are assigned with a dedicated “visualization” metadata.
+Visualizations generate expressions always in the form of <code class="language-plaintext highlighter-rouge">name = data</code>, where
+data is a hardcoded data produced from the visualization. For example, when
+user clicks the map to define locations, the data could be a string literal
+containing locations encoded in JSON.</p>
+  </li>
+</ul>
+
+<h3 id="choosing-a-visualization-type">Choosing a Visualization Type.</h3>
+
+<p>When a new data is provided to a visualization, the visualization registry
+searches for all visualizations that match it (see visualization registry to
+learn more). For example, when a data of type <code class="language-plaintext highlighter-rouge">[Int]</code> (list of ints) is
+produced, all visualizations which matches <code class="language-plaintext highlighter-rouge">[Int]</code>, like <code class="language-plaintext highlighter-rouge">[Int]</code>, <code class="language-plaintext highlighter-rouge">[a]</code>, or <code class="language-plaintext highlighter-rouge">a</code>
+will be found. Each type can be associated with a default visualization. For
+example, <code class="language-plaintext highlighter-rouge">[Int]</code> might define that its default visualization is a plot. If no
+default visualization is defined, a JSON visualization is used. Each
+visualization has a drop-down menu allowinh the user switching to another
+visualization type.</p>
+
+<h3 id="active-visualizations">Active Visualizations</h3>
+
+<p>When visualizations are displayed on the stage, they are not active by default,
+which means, they do not capture keyboard shortcuts. Visualization becomes
+active when user clicks it. Visualizations are deactivated by clicking in the
+background of the node editor. When a visualization is active, all other
+elements should be slightly dimmed, or the visualization should get a selection
+border (to be defined). Active visualizations capture all keyboard shortcuts,
+but the space bar presses. Fullscreen visualizations are considered active by
+default.</p>
+
+<h2 id="html-and-native-visualizations">HTML and Native Visualizations</h2>
+
+<p>There are two main types of visualizations - Html and Native. The later uses the
+BaseGL shape API to draw on the screen. We prefer the later as it integrates
+tightly with our framework and allows for much better performance. However,
+there is already many visualizations in HTML/JS and we need to provide support
+for them as well. HTML visualizations are required to be displayed in dedicated
+div elements. This has several consequences. Firstly, the browser needs to
+layout them, taking into account the current camera view, etc. It is costly.
+Refreshing CSS3D styles of 100 visualizations can absolutely kill the
+interactive performance. On the other hand, refreshing the position of 10k
+Native visualizations is almost free. Secondly, they need to be handled by our
+engine in such way that we can interact with them. For that purpose, the current
+Scene implementation defines three layers - top HTML layer, middle WebGL layer,
+and bottom HTML layer. The HTML visualizations are created and displayed on the
+bottom layer by default. Whenever an HTML visualization gets active, it should
+be moved to the top layer.</p>
+
+<h2 id="visualization-registry">Visualization Registry</h2>
+
+<p>Visualizations are user-defined. Enso ships with a set of predefined
+visualizations, but they are in no way different than user-defined, they are
+just defined for you. Visualizations can be defined either as HTML or native
+visualization and can be defined in JS or WASM (or any language that compiles to
+one of these). Visualizations are stored on disk on the server-side and are
+provided to the GUI by the server. Users can upload their custom visualizations
+as well. Each visualization is registered in the visualization map. The map maps
+an Enso type to a set of visualizations defined for that type. The type might be
+very generic, like <code class="language-plaintext highlighter-rouge">[a]</code> (which in Enso terms means list of any elements).</p>
+
+<h2 id="defining-a-visualization">Defining a Visualization</h2>
+
+<p>Currently only JavaScript visualizations can be defined. Support for native
+visualizations is planned.</p>
+
+<h3 id="defining-a-javascript-visualization">Defining a JavaScript Visualization</h3>
+
+<p>JavaScript visualizations are defined by placing <code class="language-plaintext highlighter-rouge">*.js</code> files in the
+<code class="language-plaintext highlighter-rouge">visualization</code> subfolder in the project’s root directory. As IDE currently
+allows only editing <code class="language-plaintext highlighter-rouge">Main.enso</code> file, users have to create <code class="language-plaintext highlighter-rouge">.js</code> file manually,
+editing it outside IDE.</p>
+
+<h2 id="custom-javascript-visualization-example">Custom JavaScript Visualization Example</h2>
+
+<p>Every visualization must reside in the <code class="language-plaintext highlighter-rouge">visualization</code> folder of the user’s
+project. For instance:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>└─ Project_Name
+   ├─ src
+   │  └─ Main.enso
+   └─ visualization
+      └─ bubble.js
+</code></pre></div></div>
+
+<p>Visualizations can be defined as a JavaScript function which returns a class of
+a shape specified below. Consider the following sample definition:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hi, this definition is being registered now!</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="k">return</span> <span class="kd">class</span> <span class="nx">BubbleVisualization</span> <span class="kd">extends</span> <span class="nx">Visualization</span> <span class="p">{</span>
+  <span class="kd">static</span> <span class="nx">inputType</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Any</span><span class="dl">"</span><span class="p">;</span>
+
+  <span class="nx">onDataReceived</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">xmlns</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">http://www.w3.org/2000/svg</span><span class="dl">"</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">lastChild</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kd">const</span> <span class="nx">width</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">getAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">width</span><span class="dl">"</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">height</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">getAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">height</span><span class="dl">"</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">svgElem</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElementNS</span><span class="p">(</span><span class="nx">xmlns</span><span class="p">,</span> <span class="dl">"</span><span class="s2">svg</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">svgElem</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">vis-svg</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">svgElem</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">viewBox</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">0 0 </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">width</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">height</span><span class="p">);</span>
+    <span class="nx">svgElem</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">width</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">100%</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">svgElem</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">height</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">100%</span><span class="dl">"</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">svgElem</span><span class="p">);</span>
+    <span class="nx">data</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">bubble</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElementNS</span><span class="p">(</span><span class="nx">xmlns</span><span class="p">,</span> <span class="dl">"</span><span class="s2">circle</span><span class="dl">"</span><span class="p">);</span>
+      <span class="nx">bubble</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">stroke</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">black</span><span class="dl">"</span><span class="p">);</span>
+      <span class="nx">bubble</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">fill</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">red</span><span class="dl">"</span><span class="p">);</span>
+      <span class="nx">bubble</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">r</span><span class="dl">"</span><span class="p">,</span> <span class="nx">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+      <span class="nx">bubble</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">cx</span><span class="dl">"</span><span class="p">,</span> <span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+      <span class="nx">bubble</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">cy</span><span class="dl">"</span><span class="p">,</span> <span class="nx">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+      <span class="nx">svgElem</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">bubble</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">setSize</span><span class="p">(</span><span class="nx">size</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">width</span><span class="dl">"</span><span class="p">,</span> <span class="nx">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">setAttributeNS</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">"</span><span class="s2">height</span><span class="dl">"</span><span class="p">,</span> <span class="nx">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>In particular:</p>
+
+<ul>
+  <li>
+    <h3 id="required-source-code">[Required] Source code</h3>
+
+    <p>Visualization definition has to be a valid body of JavaScript function which
+returns a class definition. Instances of that class will be considered
+separate visualizations. You are allowed to use global variables / global
+state across visualizations of the same type, but you are highly advised not
+to do so.</p>
+  </li>
+  <li>
+    <h3 id="required-visualization-superclass">[Required] <code class="language-plaintext highlighter-rouge">Visualization</code> superclass</h3>
+
+    <p>The class returned by the definition function should extend the predefined
+<code class="language-plaintext highlighter-rouge">Visualization</code> class. Classes which do not extend it, will not be registered
+as visualizations. The superclass defines a default constructor and a set of
+utilities:</p>
+
+    <ul>
+      <li>
+        <h4 id="method-setpreprocessorcodecode">Method <code class="language-plaintext highlighter-rouge">setPreprocessorCode(code)</code></h4>
+        <p>Set an Enso code which will be evaluated on the server-side before sending
+data to visualization. If not called, a default unspecified code is used
+that will provide some JSON representation of the value. See
+<a href="#lazy-visualizations">Lazy visualizations</a> section for details.</p>
+      </li>
+      <li>
+        <h4 id="method-setpreprocessormodulemodule">Method <code class="language-plaintext highlighter-rouge">setPreprocessorModule(module)</code></h4>
+        <p>Define in which module’s context the preprocessor code should be evaluated.
+If not called, the <code class="language-plaintext highlighter-rouge">Main</code> module of the project that defines visualization
+will be used. See <a href="#lazy-visualizations">Lazy visualizations</a> section for
+details.</p>
+      </li>
+      <li>
+        <h4 id="method-setpreprocessorcodemode">Method <code class="language-plaintext highlighter-rouge">setPreprocessor(code,mode)</code></h4>
+        <p>Set both code and its module context at once. If both need to be updated,
+using this method can save an update processing and needless evaluation.
+Note that using both <code class="language-plaintext highlighter-rouge">setPreprocessorCode</code> and <code class="language-plaintext highlighter-rouge">setPreprocessorModule</code> from
+the visualization’s custom constructor will not cause any unnecessary
+updates, as the preprocessor is applied only after visualization is fully
+constructed. See <a href="#lazy-visualizations">Lazy visualizations</a> section for
+details.</p>
+      </li>
+      <li>
+        <h4 id="field-dom">Field <code class="language-plaintext highlighter-rouge">dom</code></h4>
+        <p>It is initialized in the constructor to the DOM symbol used to host the
+visualization content. Users are free to modify the DOM element, including
+adding other elements as its children.</p>
+      </li>
+      <li>
+        <h4 id="field-theme">Field <code class="language-plaintext highlighter-rouge">theme</code></h4>
+        <p>The IDE’s current color theme. Exposes the following methods.</p>
+        <ul>
+          <li>
+            <h5 id="method-getcolorfortype">Method <code class="language-plaintext highlighter-rouge">getColorForType</code></h5>
+            <p>Takes a qualified type name and returns the color that is used in the GUI
+to represent that type.</p>
+          </li>
+          <li>
+            <h5 id="method-getforegroundcolorfortype">Method <code class="language-plaintext highlighter-rouge">getForegroundColorForType</code></h5>
+            <p>Takes a qualified type name and returns the color that should be used for
+foreground elements (e.g. text) that are shown on top of the background
+color returned by <code class="language-plaintext highlighter-rouge">getColorForType</code>.</p>
+          </li>
+          <li>
+            <h5 id="method-get">Method <code class="language-plaintext highlighter-rouge">get</code></h5>
+            <p>Takes a style sheet path as string and returns the corresponding value
+from the theme. For example, <code class="language-plaintext highlighter-rouge">get("graph_editor.node.error.panic")</code>
+returns the orange color that is used to mark nodes in an error state.</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <h3 id="optional-field-label">[Optional] Field <code class="language-plaintext highlighter-rouge">label</code></h3>
+
+    <p>The static field <code class="language-plaintext highlighter-rouge">label</code> is an user-facing name used to identify the
+visualization. You are not allowed to define several visualizations of the
+same name in the same Enso library. In case the field is missing, the name
+will be inferred from the class name by splitting the camel-case name into
+chunks and converting them to lowercase string.</p>
+  </li>
+  <li>
+    <h3 id="optional-field-inputtype">[Optional] Field <code class="language-plaintext highlighter-rouge">inputType</code></h3>
+
+    <p>The static field <code class="language-plaintext highlighter-rouge">inputType</code> is used to determine which Enso data types this
+visualization can be used for. Its value should be a valid Enso type, like
+<code class="language-plaintext highlighter-rouge">"String | Int"</code>. In case the field is an empty string or it is missing, it
+will default to <code class="language-plaintext highlighter-rouge">"Any"</code>, which is a type containing all other types. It is a
+rare case when you want to define a visualization which is able to work with
+just any data type, so you are highly advised to provide the type definition.</p>
+  </li>
+  <li>
+    <h3 id="optional-field-inputformat">[Optional] Field <code class="language-plaintext highlighter-rouge">inputFormat</code></h3>
+
+    <p>The static field <code class="language-plaintext highlighter-rouge">inputFormat</code> is used to determine what format the data
+should be provided to the <code class="language-plaintext highlighter-rouge">onDataReceived</code> function. Currently, the only valid
+option is “json”, but it will be possible to set it to “binary” in the future.
+In the later case, it is up to the visualization author to manage the binary
+stream received from the server.</p>
+  </li>
+  <li>
+    <h3 id="optional-constructor">[Optional] Constructor</h3>
+
+    <p>The visualization will be instantiated by providing the constructor with a
+configuration object. The shape of the configuration object is not part of the
+public API and can change between releases of this library. You have to pass
+it unchanged to the superclass constructor.</p>
+  </li>
+  <li>
+    <h3 id="optional-function-ondatareceived">[Optional] Function <code class="language-plaintext highlighter-rouge">onDataReceived</code></h3>
+
+    <p>The <code class="language-plaintext highlighter-rouge">onDataReceived(data)</code> method is called on every new data chunk received
+from the server. Note that the visualization will receive the “full data” if
+you are not using the <code class="language-plaintext highlighter-rouge">setPreprocessor</code> method.</p>
+  </li>
+  <li>
+    <h3 id="optional-function-setsize">[Optional] Function <code class="language-plaintext highlighter-rouge">setSize</code></h3>
+
+    <p>The <code class="language-plaintext highlighter-rouge">setSize(size)</code> method is called on every size change of the
+visualization. You should not draw outside of the provided area, however, if
+you do so, it will be clipped to the provided area automatically. The <code class="language-plaintext highlighter-rouge">size</code>
+parameter contains two fields <code class="language-plaintext highlighter-rouge">width</code> and <code class="language-plaintext highlighter-rouge">height</code> expressed in pixels.</p>
+  </li>
+</ul>
+
+<h2 id="sending-data-to-visualizations">Sending Data to Visualizations</h2>
+
+<h3 id="lazy-visualizations">Lazy Visualizations</h3>
+
+<p>Very important information is how visualization architecture works to make them
+interactive and fast. Whenever new data is computed by the compiler and
+visualization is attached to it, it is sent to GUI to be displayed. However,
+sending huge chunks of data will kill the performance. When defining a
+visualization user is capable of defining a chunk of Enso code (as a string).
+This code is part of the visualization definition and is stored server-side.
+Visualizations are allowed to change the code at runtime (in JavaScript
+visualization you may use the <code class="language-plaintext highlighter-rouge">setPreprocessor</code> method). This code defines an
+Enso function, which will be run by the compiler on data the visualization is
+attached to. Only the results of this code will be sent to the GUI. In the case
+of the JSON input format, the result of the call should be a valid JSON string.
+The code will be evaluated in the context of the <code class="language-plaintext highlighter-rouge">Main</code> module in the project
+where visualization is defined - you may use any symbol defined or imported in
+that module.</p>
+
+<p>For example, imagine you want to display a heatmap of 10 million points on a
+map, and these points change rapidly. Sending such an amount of information via
+WebSocket could be too much, and you (as the visualization author) might decide
+that the visualization image should be generated on the server, and your
+visualization is meant only to display the resulting image. In such a scenario,
+you can define in your visualization an Enso function which will compute the the
+image on the server!</p>
+
+<h3 id="binary-and-text-json-formats">Binary and Text (JSON) Formats</h3>
+
+<p>Each visualization can choose whether it supports either binary or JSON input.
+The input format defaults to JSON. The data from the server is always sent to
+GUI in a binary channel, however, when JSON format is selected, it is first
+converted to JSON representation on the server side. We can assume that all Enso
+data types have defined conversion to JSON by default. If the visualization
+input is defined as JSON input, the binary stream will be converted to JSON by
+the GUI engine before passing to visualization. It is up to the visualization
+author to handle the textual or binary form.</p>
+
+<h2 id="builtin-visualizations">Builtin Visualizations</h2>
+
+<p>IDE comes with a set of predefined visualizations, including charts.</p>
+
+<h3 id="dataframes-support">Dataframes Support</h3>
+
+<p>Some of the predefined visualizations have some special support for <code class="language-plaintext highlighter-rouge">Table</code> from
+Enso Dataframes library.</p>
+
+<h4 id="histogram">Histogram</h4>
+
+<p>When using <code class="language-plaintext highlighter-rouge">Histogram</code> visualization on a <code class="language-plaintext highlighter-rouge">Table</code> value it will first look for a
+column named <code class="language-plaintext highlighter-rouge">value</code>. If present, it will be used as a data source. Otherwise,
+<code class="language-plaintext highlighter-rouge">Histogram</code> will use the first numerical column.</p>
+
+<h4 id="scatter-plot">Scatter Plot</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">Scatter Plot</code> visualization has several properties for each point. If a
+column of a matching name is present in the <code class="language-plaintext highlighter-rouge">Table</code> it will be used.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">x</code> — position on horizontal axis. If not present, the index column will be
+used. If there is no index set, the row indices will be used. If this column
+has a missing value, the point will be omitted.</li>
+  <li><code class="language-plaintext highlighter-rouge">y</code> — position on vertical axis. If not present, first numerical column of
+unrecognized name will be used. If not present, first numerical column will be
+used. If this column has a missing value, the point will be omitted.</li>
+  <li><code class="language-plaintext highlighter-rouge">color</code> — color of the point. The default color is <code class="language-plaintext highlighter-rouge">black</code> and will be used if
+column is not present or for its missing values. <code class="language-plaintext highlighter-rouge">color</code> should be a <code class="language-plaintext highlighter-rouge">Text</code>
+column with elements being in a
+<a href="https://www.w3schools.com/cssref/css_colors_legal.asp">CSS colors format</a>:
+    <ul>
+      <li>Hexadecimal formats, like <code class="language-plaintext highlighter-rouge">#RGB</code>, <code class="language-plaintext highlighter-rouge">#RRGGBB</code> and <code class="language-plaintext highlighter-rouge">#RRGGBBAA</code>.</li>
+      <li>RGB function-like syntax, e.g. <code class="language-plaintext highlighter-rouge">rgb(255,0,128)</code> or <code class="language-plaintext highlighter-rouge">rgba(255,0,128,0.5)</code>.</li>
+      <li>HSL function-like syntax, e.g. <code class="language-plaintext highlighter-rouge">hsl(120, 100%, 50%)</code> or
+<code class="language-plaintext highlighter-rouge">hsla(120, 100%, 50%, 0.3)</code>.</li>
+      <li>name of one of
+<a href="https://www.w3schools.com/colors/colors_names.asp">predefined colors</a>, e.g.
+<code class="language-plaintext highlighter-rouge">red</code> or <code class="language-plaintext highlighter-rouge">SteelBlue</code>.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">label</code> — text to be displayed next to the point.</li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">shape</code> — shape of the point. Supported shapes are:</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">cross</code>;</li>
+      <li><code class="language-plaintext highlighter-rouge">diamond</code>;</li>
+      <li><code class="language-plaintext highlighter-rouge">square</code>;</li>
+      <li><code class="language-plaintext highlighter-rouge">star</code>;</li>
+      <li><code class="language-plaintext highlighter-rouge">triangle</code>.</li>
+    </ul>
+
+    <p>The default shape is a circle.</p>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">size</code> — size of the point as a (possible floating point) number. Default size
+of the point is <code class="language-plaintext highlighter-rouge">1.0</code>.</li>
+</ul>
+
+                        
+                        
+
+                    </section>
+                </div>
+
+                 <!--<div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+var search = instantsearch({
+  appId: '3PBI3MMCBE',
+  apiKey: '55d673c313b717b7386df8c9418588d4',
+  indexName: 'jekyll',
+  searchFunction(helper) {
+    var container = document.querySelector('#search-hits');
+    container.style.display = helper.state.query === '' ? 'none' : '';
+
+    helper.search();
+  }
+});
+
+var hitTemplate = function(hit) {
+  let date = '';
+  if (hit.date) {
+    date = moment.unix(hit.date).format('MMM D, YYYY');
+  }
+
+  let url = `/docs/developer${hit.url}#${hit.anchor}`;
+
+  var title = hit._highlightResult.title.value;
+
+  var content = hit._highlightResult.html.value;
+
+  return `
+    <li class="post-item chapter">
+      <a href="${url}" class="post-link">${title}</a>
+      <div class="post-snippet">${content}</div>
+    </li>
+  `;
+}
+
+
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-searchbar',
+    placeholder: 'Search the docs',
+    poweredBy: true // This is required if you're on the free Community plan
+  })
+);
+
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '#search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+search.start();
+</script>
+
+<style>
+.ais-search-box {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.post-item {
+  margin-bottom: 30px;
+}
+.post-link .ais-Highlight {
+  color: #111;
+  font-style: normal;
+  text-decoration: underline;
+}
+.post-breadcrumbs {
+  color: #424242;
+  display: block;
+}
+.post-breadcrumb {
+  font-size: 18px;
+  color: #424242;
+}
+.post-breadcrumb .ais-Highlight {
+  font-weight: bold;
+  font-style: normal;
+}
+.post-snippet .ais-Highlight {
+  color: #2a7ae2;
+  font-style: normal;
+  font-weight: bold;
+}
+.post-snippet img {
+  display: none;
+}
+
+.post-list {
+    list-style:none;
+    margin:0;
+    padding: 10px 15px;
+    -webkit-transition:top .5s ease;
+    -moz-transition:top .5s ease;
+    -o-transition:top .5s ease;
+    transition:top .5s ease
+}
+
+#search-hits::after {
+    content: '';
+    display: block;
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: rgba(0,0,0,.07);
+}
+</style>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+                    <a href="/docs/developer/ideproductvisualizations.md" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation ideproductvisualizations.md">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},
+            "sharing": {
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+                "facebook": true,
+                "google": false,
+                "instapaper": false,
+                "twitter": true,
+                "vk": false,
+                "weibo": false
+            },
+            "theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            }
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "Enso Developer Documentation",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "ide/product/visualizations.md",
+        "mtime": "",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.3",
+        "time": "2021-04-12 08:24:21 +0000"
+    },
+    "basePath": "/docs/developer",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/docs/developer/gitbook/gitbook.js"></script>
+<script src="/docs/developer/gitbook/theme.js"></script>
+
+<script src="/docs/developer/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+
+<!-- <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script> --></body>
+</html>

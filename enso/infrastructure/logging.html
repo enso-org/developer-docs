@@ -1,0 +1,1298 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Logging Service · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/docs/developer/gitbook/style.css">
+<link rel="stylesheet" href="/docs/developer/gitbook/gitbook-plugin-fontsettings/website.css">
+<!-- <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css"> -->
+
+<link rel="stylesheet" href="/docs/developer/gitbook/rouge-highlight-colorful.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/docs/developer/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="/docs/developer/gitbook/images/favicon.ico" type="image/x-icon">
+        
+
+        
+        
+
+
+        
+        
+        
+
+        
+        
+        
+
+        
+            <link rel="prev" href="/docs/developer/enso/infrastructure/upgrading-graalvm.html" />
+        
+
+        
+    </head>
+    <body>
+        
+        <div class="book"><div class="book-summary">
+    <div id="search-searchbar">
+    </div>
+    <div class="post-list" id="search-hits">
+        
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+var search = instantsearch({
+  appId: '3PBI3MMCBE',
+  apiKey: '55d673c313b717b7386df8c9418588d4',
+  indexName: 'jekyll',
+  searchFunction(helper) {
+    var container = document.querySelector('#search-hits');
+    container.style.display = helper.state.query === '' ? 'none' : '';
+
+    helper.search();
+  }
+});
+
+var hitTemplate = function(hit) {
+  let date = '';
+  if (hit.date) {
+    date = moment.unix(hit.date).format('MMM D, YYYY');
+  }
+
+  let url = `/docs/developer${hit.url}#${hit.anchor}`;
+
+  var title = hit._highlightResult.title.value;
+
+  var content = hit._highlightResult.html.value;
+
+  return `
+    <li class="post-item chapter">
+      <a href="${url}" class="post-link">${title}</a>
+      <div class="post-snippet">${content}</div>
+    </li>
+  `;
+}
+
+
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-searchbar',
+    placeholder: 'Search the docs',
+    poweredBy: true // This is required if you're on the free Community plan
+  })
+);
+
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '#search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+search.start();
+</script>
+
+<style>
+.ais-search-box {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.post-item {
+  margin-bottom: 30px;
+}
+.post-link .ais-Highlight {
+  color: #111;
+  font-style: normal;
+  text-decoration: underline;
+}
+.post-breadcrumbs {
+  color: #424242;
+  display: block;
+}
+.post-breadcrumb {
+  font-size: 18px;
+  color: #424242;
+}
+.post-breadcrumb .ais-Highlight {
+  font-weight: bold;
+  font-style: normal;
+}
+.post-snippet .ais-Highlight {
+  color: #2a7ae2;
+  font-style: normal;
+  font-weight: bold;
+}
+.post-snippet img {
+  display: none;
+}
+
+.post-list {
+    list-style:none;
+    margin:0;
+    padding: 10px 15px;
+    -webkit-transition:top .5s ease;
+    -moz-transition:top .5s ease;
+    -o-transition:top .5s ease;
+    transition:top .5s ease
+}
+
+#search-hits::after {
+    content: '';
+    display: block;
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: rgba(0,0,0,.07);
+}
+</style>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/">
+            
+                <a href="/docs/developer/">
+                    Home
+                </a>
+            </li>
+
+            <li class="divider"></li>
+            
+            
+            
+            
+            
+
+            
+            
+        
+            
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/infrastructure ">
+                    <a href="/docs/developer/enso/infrastructure">
+                        Go back
+                    </a>
+                </li>
+                <li class="divider"></li>
+            
+                
+             
+            
+            
+            
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/infrastructure/">
+                    
+                        <a href="/docs/developer/enso/infrastructure/">
+                            
+                                Infrastructure
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/infrastructure/sbt.html">
+                    
+                        <a href="/docs/developer/enso/infrastructure/sbt.html">
+                            
+                                Build Tools
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/infrastructure/java-11.html">
+                    
+                        <a href="/docs/developer/enso/infrastructure/java-11.html">
+                            
+                                Java 11
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/infrastructure/native-image.html">
+                    
+                        <a href="/docs/developer/enso/infrastructure/native-image.html">
+                            
+                                Native Image
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/infrastructure/rust.html">
+                    
+                        <a href="/docs/developer/enso/infrastructure/rust.html">
+                            
+                                Rust
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/infrastructure/upgrading-graalvm.html">
+                    
+                        <a href="/docs/developer/enso/infrastructure/upgrading-graalvm.html">
+                            
+                                Upgrading GraalVM
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/developer/enso/infrastructure/logging.html">
+                    
+                        <a href="/docs/developer/enso/infrastructure/logging.html">
+                            
+                                Logging Service
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+
+            
+        
+        </ul>
+    </nav>
+</div>
+<div class="book-body"><div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            
+                <a href="." >Logging Service</a>
+            
+        </h1>
+    </div>
+    <div class="page-wrapper" tabindex="-1" role="main">
+        <div class="page-inner">
+            <div id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+                        <h1 id="logging">Logging</h1>
+
+<p>The Enso project features a centralised logging service to allow for the
+aggregation of logs from multiple components. This service can be started with
+one of the main components, allowing other components connect to it. The service
+aggregates all logs in one place for easier analysis of the interaction between
+components.</p>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#protocol">Protocol</a>
+    <ul>
+      <li><a href="#types">Types</a></li>
+      <li><a href="#messages">Messages</a></li>
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+  </li>
+  <li><a href="#jvm-architecture">JVM Architecture</a>
+    <ul>
+      <li><a href="#slf4j-interface">SLF4J Interface</a></li>
+      <li><a href="#setting-up-logging">Setting Up Logging</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="protocol">Protocol</h2>
+
+<p>The service relies on a WebSocket connection to a specified endpoint that
+exchanges JSON-encoded text messages. The communication is uni-directional - the
+only messages are log messages that are sent from a connected client to the
+server that aggregates the logs.</p>
+
+<h3 id="types">Types</h3>
+
+<h5 id="loglevel"><code class="language-plaintext highlighter-rouge">LogLevel</code></h5>
+
+<p>The log level encoded as a number. Possible values are:</p>
+
+<ul>
+  <li>0 - indicating <code class="language-plaintext highlighter-rouge">ERROR</code> level,</li>
+  <li>1 - indicating <code class="language-plaintext highlighter-rouge">WARN</code> level,</li>
+  <li>2 - indicating <code class="language-plaintext highlighter-rouge">INFO</code> level,</li>
+  <li>3 - indicating <code class="language-plaintext highlighter-rouge">DEBUG</code> level,</li>
+  <li>4 - indicating <code class="language-plaintext highlighter-rouge">TRACE</code> level.</li>
+</ul>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">LogLevel</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">|</span> <span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span> <span class="o">|</span> <span class="mi">3</span> <span class="o">|</span> <span class="mi">4</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h5 id="utctime"><code class="language-plaintext highlighter-rouge">UTCTime</code></h5>
+
+<p>Message timestamp encoded as milliseconds elapsed from the UNIX epoch, i.e.
+1970-01-01T00:00:00Z.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">UTCTime</span> <span class="o">=</span> <span class="nx">number</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h5 id="exception"><code class="language-plaintext highlighter-rouge">Exception</code></h5>
+
+<p>Encodes an exception that is related to a log message.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">cause</code> field may be omitted if the exception does not have another
+exception as its cause.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Exception</span> <span class="p">{</span>
+  <span class="c1">// Name of the exception. In Java this can be the qualified classname.</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="c1">// Message associated with the exception. May be empty.</span>
+  <span class="nl">message</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="c1">// A stack trace indicating code location where the exception has originated</span>
+  <span class="c1">// from. May be empty if unavailable.</span>
+  <span class="nl">trace</span><span class="p">:</span> <span class="p">[</span><span class="nx">TraceElement</span><span class="p">];</span>
+  <span class="c1">// Optional, another exception that caused this one.</span>
+  <span class="nl">cause</span><span class="p">?:</span> <span class="nx">Exception</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h5 id="traceelement"><code class="language-plaintext highlighter-rouge">TraceElement</code></h5>
+
+<p>Represents a single element of exception’s stacktrace.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">TraceElement</span> <span class="p">{</span>
+  <span class="c1">// Name of the stack location. For example, in Java this can be a qualified</span>
+  <span class="c1">// method name.</span>
+  <span class="nl">element</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="c1">// Code location of the element.</span>
+  <span class="nl">location</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In Java, the location is usually a filename and line number locating the code
+that corresponds to the indicated stack location, for example <code class="language-plaintext highlighter-rouge">Main.java:123</code>.
+Native methods may be handled differently, as well as code from different
+languages, for example Enso also includes the columns - <code class="language-plaintext highlighter-rouge">Test.enso:4:3-19</code>.</p>
+
+<h3 id="messages">Messages</h3>
+
+<p>Currently, the service supports only one message type - <code class="language-plaintext highlighter-rouge">LogMessage</code>, messages
+not conforming to this format will be ignored. The first non-conforming message
+for each connection will emit a warning.</p>
+
+<h4 id="logmessage"><code class="language-plaintext highlighter-rouge">LogMessage</code></h4>
+
+<p>Describes the log message that the server should report and does not expect any
+response.</p>
+
+<h5 id="parameters">Parameters</h5>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="c1">// Log level associated with the message.</span>
+  <span class="nl">level</span><span class="p">:</span> <span class="nx">LogLevel</span><span class="p">;</span>
+  <span class="c1">// Timestamp indicating when the message was sent.</span>
+  <span class="nl">time</span><span class="p">:</span> <span class="nx">UTCTime</span><span class="p">;</span>
+  <span class="c1">// An identifier of a log group - the group should indicate which component</span>
+  <span class="c1">// the message originated from and any (possibly nested) context.</span>
+  <span class="nl">group</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="c1">// The actual log message.</span>
+  <span class="nl">message</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="c1">// Optional exception associated with the message.</span>
+  <span class="nl">exception</span><span class="p">?:</span> <span class="nx">Exception</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">exception</code> field may be omitted if there is no exception associated with
+the message.</p>
+
+<p>In general, the <code class="language-plaintext highlighter-rouge">group</code> name can be arbitrary, but it is often the quallified
+name of the class that the log message originates from and it is sometimes
+extended with additional nested context, for example:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">org.enso.launcher.cli.Main</code></li>
+  <li><code class="language-plaintext highlighter-rouge">org.enso.compiler.pass.analyse.AliasAnalysis.analyseType</code></li>
+</ul>
+
+<h3 id="examples">Examples</h3>
+
+<p>For example, an error message with an attached exception may look like this (the
+class names are made up):</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"level"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1600864353151</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org.enso.launcher.Main"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Failed to load a configuration file."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"exception"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org.enso.componentmanager.config.ConfigurationLoaderFailure"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Configuration file does not exist."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"trace"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org.enso.componentmanager.config.ConfigurationLoader.load"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ConfigurationLoader.scala:123"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org.enso.launcher.Main"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Main.scala:42"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"cause"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"java.io.FileNotFoundException"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"config.yaml (No such file or directory)"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"trace"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Another example could be an info message (without attached exceptions):</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"level"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1600864353151</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org.enso.launcher.Main"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Configuration file loaded successfully."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="jvm-architecture">JVM Architecture</h2>
+
+<p>A default implementation of both a client and server for the logger service are
+provided for the JVM.</p>
+
+<h3 id="slf4j-interface">SLF4J Interface</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">logging-service</code> provides a class <code class="language-plaintext highlighter-rouge">org.enso.loggingservice.WSLogger</code> which
+implements the <code class="language-plaintext highlighter-rouge">org.slf4j.Logger</code> interface, so it is compatible with all code
+using SLF4J logging. When the <code class="language-plaintext highlighter-rouge">logging-service</code> is added to a project, it
+automatically binds its logger instance as the SLF4J backend. So from the
+perspective of the user, all that they have to do is use SLF4J compliant logging
+in the application.</p>
+
+<p>One can use the <code class="language-plaintext highlighter-rouge">org.slf4j.LoggerFactory</code> directly, but for Scala code, it is
+much better to use the <code class="language-plaintext highlighter-rouge">com.typesafe.scalalogging.Logger</code> which wraps the SLF4J
+logger with macros that compute the log messages only if the given logging level
+is enabled, and allows much prettier initialisation. Additionally, the
+<code class="language-plaintext highlighter-rouge">logging-service</code> provides syntactic sugar for working with nested logging
+contexts.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>package foo
+import com.typesafe.scalalogging.Logger
+import org.enso.logger.LoggerSyntax
+
+class Foo {
+  private val logger = Logger[Foo]
+
+  def bar(): Unit = {
+    logger.info("Hello world") // Logs `Hello world` from context `foo.Foo`.
+    baz()
+  }
+
+  def baz(): Unit = {
+    val bazLogger = logger.enter("baz")
+    bazLogger.warn("Inner") // Logs `Inner` from context `foo.Foo.baz`
+  }
+}
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">enter</code> extension method follows the convention that each level of context
+nesting is separated by <code class="language-plaintext highlighter-rouge">.</code>, much like package names. The root context is
+usually the qualified name of the relevant class, but other components are free
+to use other conventions if needed.</p>
+
+<h3 id="setting-up-logging">Setting Up Logging</h3>
+
+<p>The logger described above must know where it should send its logs, and this is
+handled by the <code class="language-plaintext highlighter-rouge">LoggingServiceManager</code>. It allows to configure the logging
+location, log level and setup the logging service in one of three different
+modes:</p>
+
+<ul>
+  <li><em>Server mode</em>, that will listen on a given port, gather both local and remote
+logs and print them to stderr and to a file.</li>
+  <li><em>Client mode</em>, that will connect to a specified server and send all of its
+logs there. It will not print anything.</li>
+  <li><em>Fallback mode</em>, that will just write the logs to stderr (and optionally) a
+file, without setting up any services or connections.</li>
+</ul>
+
+<p>This logging mode initialization cannot usually happen at the time of static
+initialization, since the connection details may depend on CLI arguments or
+other configuration which may not be accessed immediately. To help with this,
+the logger will buffer any log messages that are issued before the
+initialization has happened and send them as soon as the service is initialized.</p>
+
+<p>In a rare situation where the service would not be initialized at all, a
+shutdown hook is added that will print the pending log messages before exiting.
+Some of the messages may be dropped, however, if more messages are buffered than
+the buffer can hold.</p>
+
+<h3 id="logging-in-tests">Logging in Tests</h3>
+
+<p>The Logging Service provides several utilities for managing logs inside of
+tests.</p>
+
+<p>The primary method for setting log-level for all tests in a project is by
+creating a <code class="language-plaintext highlighter-rouge">logging.properties</code> file in <code class="language-plaintext highlighter-rouge">resources</code> of the <code class="language-plaintext highlighter-rouge">test</code> target.
+Currently only one property is supported - <code class="language-plaintext highlighter-rouge">test-log-level</code> which should be set
+to a log level name (possible values are: <code class="language-plaintext highlighter-rouge">off</code>, <code class="language-plaintext highlighter-rouge">error</code>, <code class="language-plaintext highlighter-rouge">warning</code>, <code class="language-plaintext highlighter-rouge">info</code>,
+<code class="language-plaintext highlighter-rouge">debug</code>, <code class="language-plaintext highlighter-rouge">trace</code>). If this property is set to any value, the default logging
+queue is replaced with a special test queue which handles the log messages
+depending on status of the service. If a service has been set up, it just
+forwards them (so tests can easily override the log handling). However if it has
+not been set up, the enabled log messages are printed to STDERR and the rest is
+dropped.</p>
+
+<p>Another useful tool is <code class="language-plaintext highlighter-rouge">TestLogger.gatherLogs</code> - a function that wraps an action
+and will return a sequence of logs reported when performing that action. It can
+be used to verify logs of an action inside of a test.</p>
+
+                        
+                        
+
+                    </section>
+                </div>
+
+                 <!--<div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+var search = instantsearch({
+  appId: '3PBI3MMCBE',
+  apiKey: '55d673c313b717b7386df8c9418588d4',
+  indexName: 'jekyll',
+  searchFunction(helper) {
+    var container = document.querySelector('#search-hits');
+    container.style.display = helper.state.query === '' ? 'none' : '';
+
+    helper.search();
+  }
+});
+
+var hitTemplate = function(hit) {
+  let date = '';
+  if (hit.date) {
+    date = moment.unix(hit.date).format('MMM D, YYYY');
+  }
+
+  let url = `/docs/developer${hit.url}#${hit.anchor}`;
+
+  var title = hit._highlightResult.title.value;
+
+  var content = hit._highlightResult.html.value;
+
+  return `
+    <li class="post-item chapter">
+      <a href="${url}" class="post-link">${title}</a>
+      <div class="post-snippet">${content}</div>
+    </li>
+  `;
+}
+
+
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-searchbar',
+    placeholder: 'Search the docs',
+    poweredBy: true // This is required if you're on the free Community plan
+  })
+);
+
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '#search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+search.start();
+</script>
+
+<style>
+.ais-search-box {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.post-item {
+  margin-bottom: 30px;
+}
+.post-link .ais-Highlight {
+  color: #111;
+  font-style: normal;
+  text-decoration: underline;
+}
+.post-breadcrumbs {
+  color: #424242;
+  display: block;
+}
+.post-breadcrumb {
+  font-size: 18px;
+  color: #424242;
+}
+.post-breadcrumb .ais-Highlight {
+  font-weight: bold;
+  font-style: normal;
+}
+.post-snippet .ais-Highlight {
+  color: #2a7ae2;
+  font-style: normal;
+  font-weight: bold;
+}
+.post-snippet img {
+  display: none;
+}
+
+.post-list {
+    list-style:none;
+    margin:0;
+    padding: 10px 15px;
+    -webkit-transition:top .5s ease;
+    -moz-transition:top .5s ease;
+    -o-transition:top .5s ease;
+    transition:top .5s ease
+}
+
+#search-hits::after {
+    content: '';
+    display: block;
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: rgba(0,0,0,.07);
+}
+</style>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+                <a href="/docs/developer/enso/infrastructure/upgrading-graalvm.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Upgrading GraalVM">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+
+                
+            
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},
+            "sharing": {
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+                "facebook": true,
+                "google": false,
+                "instapaper": false,
+                "twitter": true,
+                "vk": false,
+                "weibo": false
+            },
+            "theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            }
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "Enso Developer Documentation",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "enso/infrastructure/logging.md",
+        "mtime": "",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.3",
+        "time": "2021-04-12 08:24:21 +0000"
+    },
+    "basePath": "/docs/developer",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/docs/developer/gitbook/gitbook.js"></script>
+<script src="/docs/developer/gitbook/theme.js"></script>
+
+<script src="/docs/developer/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+
+<!-- <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script> --></body>
+</html>

@@ -1,0 +1,1379 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso Launcher · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/docs/developer/gitbook/style.css">
+<link rel="stylesheet" href="/docs/developer/gitbook/gitbook-plugin-fontsettings/website.css">
+<!-- <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css"> -->
+
+<link rel="stylesheet" href="/docs/developer/gitbook/rouge-highlight-colorful.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/docs/developer/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="/docs/developer/gitbook/images/favicon.ico" type="image/x-icon">
+        
+
+        
+        
+
+
+        
+        
+        
+
+        
+        
+        
+
+        
+            <link rel="prev" href="/docs/developer/enso/distribution/release-policy.html" />
+        
+
+        
+            <link rel="next" href="/docs/developer/enso/distribution/launcher-cli.html" />
+        
+    </head>
+    <body>
+        
+        <div class="book"><div class="book-summary">
+    <div id="search-searchbar">
+    </div>
+    <div class="post-list" id="search-hits">
+        
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+var search = instantsearch({
+  appId: '3PBI3MMCBE',
+  apiKey: '55d673c313b717b7386df8c9418588d4',
+  indexName: 'jekyll',
+  searchFunction(helper) {
+    var container = document.querySelector('#search-hits');
+    container.style.display = helper.state.query === '' ? 'none' : '';
+
+    helper.search();
+  }
+});
+
+var hitTemplate = function(hit) {
+  let date = '';
+  if (hit.date) {
+    date = moment.unix(hit.date).format('MMM D, YYYY');
+  }
+
+  let url = `/docs/developer${hit.url}#${hit.anchor}`;
+
+  var title = hit._highlightResult.title.value;
+
+  var content = hit._highlightResult.html.value;
+
+  return `
+    <li class="post-item chapter">
+      <a href="${url}" class="post-link">${title}</a>
+      <div class="post-snippet">${content}</div>
+    </li>
+  `;
+}
+
+
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-searchbar',
+    placeholder: 'Search the docs',
+    poweredBy: true // This is required if you're on the free Community plan
+  })
+);
+
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '#search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+search.start();
+</script>
+
+<style>
+.ais-search-box {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.post-item {
+  margin-bottom: 30px;
+}
+.post-link .ais-Highlight {
+  color: #111;
+  font-style: normal;
+  text-decoration: underline;
+}
+.post-breadcrumbs {
+  color: #424242;
+  display: block;
+}
+.post-breadcrumb {
+  font-size: 18px;
+  color: #424242;
+}
+.post-breadcrumb .ais-Highlight {
+  font-weight: bold;
+  font-style: normal;
+}
+.post-snippet .ais-Highlight {
+  color: #2a7ae2;
+  font-style: normal;
+  font-weight: bold;
+}
+.post-snippet img {
+  display: none;
+}
+
+.post-list {
+    list-style:none;
+    margin:0;
+    padding: 10px 15px;
+    -webkit-transition:top .5s ease;
+    -moz-transition:top .5s ease;
+    -o-transition:top .5s ease;
+    transition:top .5s ease
+}
+
+#search-hits::after {
+    content: '';
+    display: block;
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: rgba(0,0,0,.07);
+}
+</style>
+    <nav role="navigation">
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/">
+            
+                <a href="/docs/developer/">
+                    Home
+                </a>
+            </li>
+
+            <li class="divider"></li>
+            
+            
+            
+            
+            
+
+            
+            
+        
+            
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution ">
+                    <a href="/docs/developer/enso/distribution">
+                        Go back
+                    </a>
+                </li>
+                <li class="divider"></li>
+            
+                
+             
+            
+            
+            
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/">
+                    
+                        <a href="/docs/developer/enso/distribution/">
+                            
+                                Enso Distribution
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/distribution.html">
+                    
+                        <a href="/docs/developer/enso/distribution/distribution.html">
+                            
+                                The Enso Distribution
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/packaging.html">
+                    
+                        <a href="/docs/developer/enso/distribution/packaging.html">
+                            
+                                Enso Libraries Packaging
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/release-policy.html">
+                    
+                        <a href="/docs/developer/enso/distribution/release-policy.html">
+                            
+                                Release Policy
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/developer/enso/distribution/launcher.html">
+                    
+                        <a href="/docs/developer/enso/distribution/launcher.html">
+                            
+                                Enso Launcher
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/launcher-cli.html">
+                    
+                        <a href="/docs/developer/enso/distribution/launcher-cli.html">
+                            
+                                Enso Launcher CLI
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/licenses.html">
+                    
+                        <a href="/docs/developer/enso/distribution/licenses.html">
+                            
+                                Licenses
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/fallback-launcher-release-infrastructure.html">
+                    
+                        <a href="/docs/developer/enso/distribution/fallback-launcher-release-infrastructure.html">
+                            
+                                Fallback Launcher Release Infrastructure
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/standard-libraries.html">
+                    
+                        <a href="/docs/developer/enso/distribution/standard-libraries.html">
+                            
+                                Standard Libraries
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/bundles.html">
+                    
+                        <a href="/docs/developer/enso/distribution/bundles.html">
+                            
+                                Distribution Bundles
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+
+            
+        
+        </ul>
+    </nav>
+</div>
+<div class="book-body"><div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            
+                <a href="." >Enso Launcher</a>
+            
+        </h1>
+    </div>
+    <div class="page-wrapper" tabindex="-1" role="main">
+        <div class="page-inner">
+            <div id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+                        <h1 id="enso-launcher">Enso Launcher</h1>
+
+<p>The launcher is used to run Enso commands (like the REPL, language server etc.)
+and seamlessly manage Enso versions. This document describes it’s features. Its
+command-line interface is described in the <a href="/docs/developer/enso/distribution/launcher-cli.html">CLI</a> document.</p>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
+
+<ul>
+  <li><a href="#launcher-distribution">Launcher Distribution</a>
+    <ul>
+      <li><a href="#using-multiple-launcher-versions-side-by-side">Using Multiple Launcher Versions Side-By-Side</a></li>
+      <li><a href="#detecting-portable-distribution">Detecting Portable Distribution</a></li>
+    </ul>
+  </li>
+  <li><a href="#launcher-build">Launcher Build</a>
+    <ul>
+      <li><a href="#portability">Portability</a></li>
+    </ul>
+  </li>
+  <li><a href="#project-management">Project Management</a>
+    <ul>
+      <li><a href="#creating-a-project">Creating a Project</a></li>
+      <li><a href="#per-project-enso-version">Per-Project Enso Version</a></li>
+      <li><a href="#project-configuration">Project Configuration</a></li>
+    </ul>
+  </li>
+  <li><a href="#enso-and-graal-version-management">Enso and Graal Version Management</a>
+    <ul>
+      <li><a href="#graalvm-override">GraalVM Override</a></li>
+      <li><a href="#downloading-enso-releases">Downloading Enso Releases</a></li>
+      <li><a href="#downloading-graalvm-releases">Downloading GraalVM Releases</a></li>
+    </ul>
+  </li>
+  <li><a href="#running-enso-components">Running Enso Components</a>
+    <ul>
+      <li><a href="#running-plugins">Running Plugins</a></li>
+    </ul>
+  </li>
+  <li><a href="#global-user-configuration">Global User Configuration</a></li>
+  <li><a href="#updating-the-launcher">Updating the Launcher</a>
+    <ul>
+      <li><a href="#minimal-required-launcher-version">Minimal Required Launcher Version</a></li>
+      <li><a href="#step-by-step-upgrade">Step-by-Step Upgrade</a></li>
+      <li><a href="#downloading-launcher-releases">Downloading Launcher Releases</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- /MarkdownTOC -->
+
+<h2 id="launcher-distribution">Launcher Distribution</h2>
+
+<p>The launcher is distributed as a native binary for each platform (Windows,
+Linux, macOS). It is distributed in a ZIP archive as described in
+<a href="/docs/developer/enso/distribution/distribution.html#enso-distribution-layout">Enso Distribution Layout</a> in two
+flavors - as packages containing just the launcher binary that can then download
+and install desired versions of the engine and as bundles that already contain
+the latest version of Enso engine and Graal runtime corresponding to it.</p>
+
+<h3 id="using-multiple-launcher-versions-side-by-side">Using Multiple Launcher Versions Side-By-Side</h3>
+
+<p>Multiple portable distributions of the launcher can be used side-by-side. To use
+multiple installed distributions, some tricks are necessary - before launching a
+different version, the environment variables <code class="language-plaintext highlighter-rouge">ENSO_DATA_DIRECTORY</code>,
+<code class="language-plaintext highlighter-rouge">ENSO_CONFIG_DIRECTORY</code> and <code class="language-plaintext highlighter-rouge">ENSO_BIN_DIRECTORY</code> have to be set to directories
+corresponding to that version.</p>
+
+<h3 id="detecting-portable-distribution">Detecting Portable Distribution</h3>
+
+<p>As described in
+<a href="/docs/developer/enso/distribution/distribution.html#enso-distribution-layout">Enso Distribution Layout</a>, the
+launcher can either be run in a portable distribution or installed locally. The
+launcher must detect if its run as the portable or installed distribution. When
+run, the launcher checks if it is placed in a directory called <code class="language-plaintext highlighter-rouge">bin</code> and checks
+the parent directory for a file called <code class="language-plaintext highlighter-rouge">.enso.portable</code>. If such file is found,
+the launcher runs in portable mode. Otherwise, it runs in installed mode.</p>
+
+<h2 id="launcher-build">Launcher Build</h2>
+
+<p>The launcher is built using
+<a href="https://www.graalvm.org/docs/reference-manual/native-image/">GraalVM Native Image</a>
+which compiles the JVM code into a native binary ahead of time, resulting in a
+small and fast launching executable.</p>
+
+<h3 id="portability">Portability</h3>
+
+<p>On Linux, it is possible to statically link all libraries required by the Native
+Image, thus ensuring portability between Linux distributions.</p>
+
+<p>On Windows and macOS, it is not possible to statically link against system
+libraries, but this should not hinder portability as the system libraries are
+generally compatible between distribution versions on these platforms.
+Non-system dependencies are included in the binary on these platforms as well.</p>
+
+<h2 id="project-management">Project Management</h2>
+
+<p>The launcher provides basic project management utilities for the command-line
+user.</p>
+
+<h3 id="creating-a-project">Creating a Project</h3>
+
+<p>It allows to create an empty project in a specified directory with the basic
+configuration based on user’s config.</p>
+
+<h3 id="per-project-enso-version">Per-Project Enso Version</h3>
+
+<p>Project configuration must specify the exact Enso version that should be used
+inside that project. The launcher automatically detects if it is in a project
+(by traversing the directory structure). The current project can also be
+specified by the <code class="language-plaintext highlighter-rouge">--path</code> parameter. All components launched inside a project
+use the version specified in the project configuration, or outside a project,
+the default version.</p>
+
+<blockquote>
+  <p>The actionables for this section are:</p>
+
+  <ul>
+    <li>Decide how to support inexact project bounds (like <code class="language-plaintext highlighter-rouge">&gt;=3.1, &lt;4</code> - when should
+the launcher check for new versions) and resolvers.</li>
+    <li>Decide how to support nightly builds.</li>
+  </ul>
+</blockquote>
+
+<h2 id="enso-and-graal-version-management">Enso and Graal Version Management</h2>
+
+<p>The launcher automatically manages required Enso versions. When running inside a
+project, if the version specified in project configuration is not installed, it
+is installed automatically.</p>
+
+<p>If an Enso version is no longer needed, it can be removed with the <code class="language-plaintext highlighter-rouge">uninstall</code>
+command.</p>
+
+<p>Moreover, GraalVM distributions tied to the installed Enso versions are managed
+automatically by the launcher. When a new Enso version is installed, it also
+ensures that the correct GraalVM version is installed and that it is used for
+launching this version of Enso. When a managed GraalVM distribution is no longer
+used by any installed version of Enso, it is automatically removed.</p>
+
+<h3 id="graalvm-override">GraalVM Override</h3>
+
+<p>While the launcher manages its own installation of GraalVM to ensure that the
+right JVM version is used to launch each version of Enso, the user can override
+this mechanism to use the installed system JVM instead. This is an advanced
+feature and should rarely be used.</p>
+
+<h3 id="downloading-enso-releases">Downloading Enso Releases</h3>
+
+<p>The releases are discovered and downloaded using the
+<a href="https://docs.github.com/en/rest/reference/repos#releases">GitHub API</a>. As
+described in the <a href="/docs/developer/enso/distribution/release-policy.html#github-releases">Release Policy</a>, each
+release contains a manifest file that is downloaded first. It specifies if this
+Enso version can be used with the current launcher or an upgrade is needed, as
+described in
+<a href="#minimal-required-launcher-version">Minimal Required Launcher Version</a>. If the
+version is correct, the binary file containing the Enso components distribution
+is downloaded. The manifest also specifies which GraalVM version should be used
+with this version of Enso. If that version of GraalVM is not present on the
+system it is also downloaded and installed.</p>
+
+<p>Releases <a href="/docs/developer/enso/distribution/release-policy.html#marking-a-release-as-broken">marked as broken</a> are
+ignored by the launcher unless it is specified by an exact version match. In
+that case it is downloaded, but a warning is printed.</p>
+
+<h3 id="downloading-graalvm-releases">Downloading GraalVM Releases</h3>
+
+<p>GraalVM is downloaded from its
+<a href="https://github.com/graalvm/graalvm-ce-builds/releases">GitHub releases page</a>
+using GitHub API, similarly as Enso releases.</p>
+
+<h2 id="running-enso-components">Running Enso Components</h2>
+
+<p>The primary purpose of the launcher is running various Enso components, namely
+the REPL, running a project, Enso scripts or the language server.</p>
+
+<p>The launcher automatically infers which Enso version to used, based on the
+parameters and configuration:</p>
+
+<ul>
+  <li>When running a project or the language server, the version specified in
+project configuration is used.</li>
+  <li>When running the REPL, if the current directory is inside a project, the
+project version is used, otherwise the <code class="language-plaintext highlighter-rouge">default</code> version from the global
+configuration is used. The current path is the working directory unless
+overridden with the <code class="language-plaintext highlighter-rouge">--path</code> parameter.</li>
+  <li>When running an Enso script, if that script is located inside a project, the
+project version is used, if it is outside a project, the <code class="language-plaintext highlighter-rouge">default</code> version is
+used.</li>
+</ul>
+
+<p>Additional arguments passed to the launcher are forwarded to the launched
+component. Moreover, options for the JVM that is used to run the components can
+also be provided, as described in <a href="/docs/developer/enso/distribution/launcher-cli.html#jvm-options">JVM Options</a>.</p>
+
+<h3 id="running-plugins">Running Plugins</h3>
+
+<p>If the launcher gets an unknown command <code class="language-plaintext highlighter-rouge">foo</code>, it tries to run <code class="language-plaintext highlighter-rouge">enso-foo</code> and
+pass all the arguments that follow. If <code class="language-plaintext highlighter-rouge">enso-foo</code> is not found, it fails as
+normal. This can be used to implement plugins that are launched through the
+universal launcher. For example, the Enso IDE can provide an <code class="language-plaintext highlighter-rouge">enso-ide</code>
+executable, allowing users to launch the IDE by typing <code class="language-plaintext highlighter-rouge">enso ide</code>.</p>
+
+<p>For a plugin to be recognized by the launcher, it needs to support a
+<code class="language-plaintext highlighter-rouge">--synopsis</code> option - running <code class="language-plaintext highlighter-rouge">enso-foo --synopsis</code> should print a short
+description and return with exit code 0, for the plugin to be considered
+supported. That description will be included in the command listing printed by
+<code class="language-plaintext highlighter-rouge">enso help</code>.</p>
+
+<h4 id="testing-plugins">Testing plugins</h4>
+
+<p>When testing the launcher, we want to test plugin discovery. To do so, we
+override the <code class="language-plaintext highlighter-rouge">PATH</code> of the tested launcher to a directory containing prepared
+plugins. On Windows, the environment variables are usually treated as
+case-insensitive but not all the time. When launching a process with an added
+environment variable called <code class="language-plaintext highlighter-rouge">PATH</code>, that process actually has two variables in
+its environment - the original <code class="language-plaintext highlighter-rouge">Path</code> and the overriden <code class="language-plaintext highlighter-rouge">PATH</code>. This can be seen
+when querying <code class="language-plaintext highlighter-rouge">System.getenv()</code> - the returned map contains both <code class="language-plaintext highlighter-rouge">Path</code> and
+<code class="language-plaintext highlighter-rouge">PATH</code> with their respective values. However, <code class="language-plaintext highlighter-rouge">System.getenv("PATH")</code> uses some
+platform specific logic, and even if both variables are present in the
+environment, it actually returns the value corresponding to <code class="language-plaintext highlighter-rouge">Path</code>. This is
+likely the expected behaviour on Windows. So to successfully override the system
+path on Windows, we need to override <code class="language-plaintext highlighter-rouge">Path</code>, not <code class="language-plaintext highlighter-rouge">PATH</code> like on Unix-based
+systems.</p>
+
+<h2 id="global-user-configuration">Global User Configuration</h2>
+
+<p>The launcher allows to edit global user configuration, saved in the <code class="language-plaintext highlighter-rouge">config</code>
+directory inside the Enso distribution structure.</p>
+
+<p>This configuration specifies the <code class="language-plaintext highlighter-rouge">default</code> Enso version used outside of projects
+and used for creating new projects. It also specifies default project metadata
+used when creating a project with the <code class="language-plaintext highlighter-rouge">new</code> command.</p>
+
+<h2 id="updating-the-launcher">Updating the Launcher</h2>
+
+<p>Besides managing Enso versions, the launcher has the ability to also update
+itself. By default it is updated to the latest version available, but it also
+allows downgrades by specifying a version explicitly.</p>
+
+<h3 id="minimal-required-launcher-version">Minimal Required Launcher Version</h3>
+
+<p>Each version of Enso can specify the minimum version of launcher required to run
+it. This version is specified in a
+<a href="/docs/developer/enso/distribution/release-policy.html#manifest-file">manifest file</a> that should be included as an
+artifact for every Enso release.</p>
+
+<p>Moreover, if a given project uses some new build features, it may require a
+newer version of the launcher. Thus, project configuration can also specify a
+minimal required launcher version.</p>
+
+<p>If the launcher detects that the installed version is older than one of the two
+criteria above, it offers to automatically upgrade to the latest version and
+re-run the current command.</p>
+
+<h3 id="step-by-step-upgrade">Step-by-Step Upgrade</h3>
+
+<p>It is possible that in the future, new launcher versions will require some
+additional logic when upgrading that has not currently been considered. To
+maintain future-compatibility, each launcher version can define in its manifest
+a minimum launcher version that can be used to upgrade to it. Any new upgrade
+logic can then be introduced gradually (by first releasing a new version which
+knows this new logic but does not require it and later releasing another version
+that can require this new logic). In that case, updates are performed
+step-by-step - first this new version that does not require new logic is
+downloaded and it is used to upgrade to the new version which requires the new
+logic. If necessary, such upgrade steps can be chained.</p>
+
+<p>The step-by-step upgrade logic is implemented by checking the
+<code class="language-plaintext highlighter-rouge">minimum-version-for-upgrade</code> property in the new launcher’s manifest. If the
+current version is greater or equal to that version, the upgrade proceeds
+normally. Otherwise, the launcher tries to upgrade to this minimum version (or
+the closest to it newer non-broken version), recursively - i.e. if this upgrade
+also cannot be performed directly, it is also performed step-by-step in the same
+way.</p>
+
+<h4 id="testing-step-by-step-upgrade">Testing Step-by-Step Upgrade</h4>
+
+<p>To test the multi-step upgrade we need multiple launcher executables that report
+different versions. As building the launcher takes a substantial amount of time
+and it reports by default the version from build information, we created a
+simple wrapper in Rust which runs the original launcher executable with
+additional internal options that tell it to override its version. These options
+are only available in a development build. Similarly, internal options are used
+to override the default GitHub repository to a local filesystem based repository
+for launcher releases, as we want to avoid any network connectivity in tests.</p>
+
+<h3 id="downloading-launcher-releases">Downloading Launcher Releases</h3>
+
+<p>The launcher is released alongside Enso, so each new release of Enso also
+contains native artifacts for the launcher for each platform. They are
+downloaded in the same way as Enso distribution. The launcher does not have to
+be updated as often as Enso itself - it only has to be updated when a project or
+a new Enso version requires a more recent launcher or the user explicitly wants
+to.</p>
+
+<h4 id="fallback-method">Fallback Method</h4>
+
+<p>To ensure that the launcher can be safely updated even if the distribution
+scheme changes, there should be support for a fallback upgrade scheme that is
+used if the default upgrade process fails.</p>
+
+<p>This fallback scheme is only intended for situations where the current default
+scheme is broken indefinitely. So for simplicity, it does not allow to choose an
+arbitrary version but only to upgrade to the latest version of the launcher. In
+the very rare case in which the user wants to downgrade after the default
+distribution scheme has changed, they have to first upgrade to the latest
+version of the launcher which will use a new distribution scheme. Then, on that
+latest version, it may be possible to downgrade back to an old version (which is
+distributed on the new distribution scheme).</p>
+
+<p>Thus, when migrating to a new distribution scheme, old versions should also be
+preserved, but the fallback upgrade scheme does not have to keep track of all
+the versions, but only the latest one.</p>
+
+<p>It can be implemented by uploading the most recent artifacts to some fixed
+domain, like <code class="language-plaintext highlighter-rouge">launcherupgrade.release.enso.org</code>.</p>
+
+                        
+                        
+
+                    </section>
+                </div>
+
+                 <!--<div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+var search = instantsearch({
+  appId: '3PBI3MMCBE',
+  apiKey: '55d673c313b717b7386df8c9418588d4',
+  indexName: 'jekyll',
+  searchFunction(helper) {
+    var container = document.querySelector('#search-hits');
+    container.style.display = helper.state.query === '' ? 'none' : '';
+
+    helper.search();
+  }
+});
+
+var hitTemplate = function(hit) {
+  let date = '';
+  if (hit.date) {
+    date = moment.unix(hit.date).format('MMM D, YYYY');
+  }
+
+  let url = `/docs/developer${hit.url}#${hit.anchor}`;
+
+  var title = hit._highlightResult.title.value;
+
+  var content = hit._highlightResult.html.value;
+
+  return `
+    <li class="post-item chapter">
+      <a href="${url}" class="post-link">${title}</a>
+      <div class="post-snippet">${content}</div>
+    </li>
+  `;
+}
+
+
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '#search-searchbar',
+    placeholder: 'Search the docs',
+    poweredBy: true // This is required if you're on the free Community plan
+  })
+);
+
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '#search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+search.start();
+</script>
+
+<style>
+.ais-search-box {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.post-item {
+  margin-bottom: 30px;
+}
+.post-link .ais-Highlight {
+  color: #111;
+  font-style: normal;
+  text-decoration: underline;
+}
+.post-breadcrumbs {
+  color: #424242;
+  display: block;
+}
+.post-breadcrumb {
+  font-size: 18px;
+  color: #424242;
+}
+.post-breadcrumb .ais-Highlight {
+  font-weight: bold;
+  font-style: normal;
+}
+.post-snippet .ais-Highlight {
+  color: #2a7ae2;
+  font-style: normal;
+  font-weight: bold;
+}
+.post-snippet img {
+  display: none;
+}
+
+.post-list {
+    list-style:none;
+    margin:0;
+    padding: 10px 15px;
+    -webkit-transition:top .5s ease;
+    -moz-transition:top .5s ease;
+    -o-transition:top .5s ease;
+    transition:top .5s ease
+}
+
+#search-hits::after {
+    content: '';
+    display: block;
+    height: 1px;
+    margin: 7px 0;
+    overflow: hidden;
+    background: rgba(0,0,0,.07);
+}
+</style>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+                <a href="/docs/developer/enso/distribution/release-policy.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Release Policy">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+
+                
+                    <a href="/docs/developer/enso/distribution/launcher-cli.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Enso Launcher CLI">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},
+            "sharing": {
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper"],
+                "facebook": true,
+                "google": false,
+                "instapaper": false,
+                "twitter": true,
+                "vk": false,
+                "weibo": false
+            },
+            "theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            }
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "Enso Developer Documentation",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "enso/distribution/launcher.md",
+        "mtime": "",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.3",
+        "time": "2021-04-12 08:24:21 +0000"
+    },
+    "basePath": "/docs/developer",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/docs/developer/gitbook/gitbook.js"></script>
+<script src="/docs/developer/gitbook/theme.js"></script>
+
+<script src="/docs/developer/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+
+<!-- <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script> --></body>
+</html>

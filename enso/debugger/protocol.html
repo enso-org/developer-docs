@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>README · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso Debugger Protocol Message Specification · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/docs/developer/gitbook/style.css">
 <link rel="stylesheet" href="/docs/developer/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -30,7 +30,7 @@
         
 
         
-            <link rel="prev" href="/docs/developer/" />
+            <link rel="prev" href="/docs/developer/enso/debugger/" />
         
 
         
@@ -158,7 +158,7 @@ search.start();
     <nav role="navigation">
         <ul class="summary">
             
-            <li class="chapter active" data-level="1.1" data-path="/docs/developer/">
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/">
             
                 <a href="/docs/developer/">
                     Home
@@ -175,6 +175,13 @@ search.start();
             
             
         
+            
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/debugger ">
+                    <a href="/docs/developer/enso/debugger">
+                        Go back
+                    </a>
+                </li>
+                <li class="divider"></li>
             
                 
              
@@ -265,40 +272,98 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
                     
-                    <li class="chapter active" data-level="1.2" data-path="/docs/developer/">
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/debugger/">
                     
-                        <a href="/docs/developer/">
+                        <a href="/docs/developer/enso/debugger/">
                             
-                                README
+                                Debugger
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/developer/enso/debugger/protocol.html">
+                    
+                        <a href="/docs/developer/enso/debugger/protocol.html">
+                            
+                                Enso Debugger Protocol Message Specification
                             
                         </a>
                     </li>
@@ -641,99 +706,7 @@ search.start();
                 
             
             
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
 
-            
-                
-
-                
-                
-                
-                
-                
-                
-                
-                
-                <li class="divider"></li>
-                
-                    
-                        <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/">
-                        
-                            <a href="/docs/developer/enso/">
-                                
-                                    Enso Engine Developer Documentation
-                                
-                            </a>
-                        </li>
-                
-                    
-                        <li class="chapter" data-level="1.1" data-path="/docs/developer/ide/">
-                        
-                            <a href="/docs/developer/ide/">
-                                
-                                    Enso IDE documentation
-                                
-                            </a>
-                        </li>
-                
-                    
-                        <li class="chapter" data-level="1.1" data-path="/docs/developer/rust-lib/">
-                        
-                            <a href="/docs/developer/rust-lib/">
-                                
-                                    Enso Rust Libraries Developer Documentation
-                                
-                            </a>
-                        </li>
-                
-                
             
         
         </ul>
@@ -745,7 +718,7 @@ search.start();
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >README</a>
+                <a href="." >Enso Debugger Protocol Message Specification</a>
             
         </h1>
     </div>
@@ -754,44 +727,201 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <h1 id="enso-documentation">Enso Documentation</h1>
-<p>This site contains the documentation for the two major sub-projects of Enso, the engine, and the IDE.</p>
+                        <h1 id="enso-debugger-protocol-message-specification">Enso Debugger Protocol Message Specification</h1>
+
+<p>Binary Protocol for the Debugger is used in communication between the runtime
+and tools exploiting the REPL/debugger functionalities. It can be used to
+implement a simple REPL or add debugging capabilities to the editor.</p>
+
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
 
 <ul>
-  <li><a href="./enso">Engine</a></li>
-  <li><a href="./ide">IDE</a></li>
-  <li><a href="./rust-lib">Rust-Libs</a></li>
+  <li><a href="#types">Types</a>
+    <ul>
+      <li><a href="#objectrepr"><code class="language-plaintext highlighter-rouge">ObjectRepr</code></a></li>
+      <li><a href="#stacktraceelement"><code class="language-plaintext highlighter-rouge">StackTraceElement</code></a></li>
+      <li><a href="#exception"><code class="language-plaintext highlighter-rouge">Exception</code></a></li>
+      <li><a href="#binding"><code class="language-plaintext highlighter-rouge">Binding</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#messages">Messages</a>
+    <ul>
+      <li><a href="#session-start">Session Start</a></li>
+      <li><a href="#evaluation">Evaluation</a></li>
+      <li><a href="#list-bindings">List Bindings</a></li>
+      <li><a href="#session-exit">Session Exit</a></li>
+    </ul>
+  </li>
 </ul>
 
-<h2 id="contributing-to-the-docs">Contributing to the Docs</h2>
+<!-- /MarkdownTOC -->
 
-<h3 id="installation-and-usage">Installation and Usage</h3>
+<h2 id="types">Types</h2>
 
-<p>The site is built with Jekyll, and hosted on GitHub Pages. The content is mostly hosted in other repositories via Git submodules.</p>
+<p>There are some helper types used within the debugger’s protocol. These are
+specified here.</p>
 
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle install
-git submodule update --init --recursive
-bundle exec jekyll build
+<h3 id="objectrepr"><code class="language-plaintext highlighter-rouge">ObjectRepr</code></h3>
+
+<p>External representation of arbitrary values returned by the REPL (internally
+these are of type <code class="language-plaintext highlighter-rouge">Object</code>).</p>
+
+<p>As these values are only used for presentation, they are represented by String.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ObjectRepr</span> <span class="p">{</span>
+  <span class="nl">representation</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
-<h3 id="adding-new-documentation">Adding New Documentation</h3>
+<h3 id="stacktraceelement"><code class="language-plaintext highlighter-rouge">StackTraceElement</code></h3>
 
-<p>To add new documentation:</p>
+<p>Represents a line of the stack trace. Corresponds to
+<code class="language-plaintext highlighter-rouge">java.lang.StackTraceElement</code>.</p>
 
-<ul>
-  <li>Add a new submodule under <code class="language-plaintext highlighter-rouge">_submodules</code>.</li>
-  <li>Create a symlink to the desired repository at the root.</li>
-  <li>To the target repository, add a <a href="https://github.com/luna/enso/blob/main/.github/workflows/docs.yml">GitHub Action</a> to automatically checkout the submodule when changes are made.</li>
-  <li>If you want fine-grained control over presentation and order of the documents, you can <a href="https://jekyllrb.com/docs/front-matter/">add a yaml frontmatter block</a> to your files. See the <a href="https://github.com/luna/enso/blob/main/docs/enso-philosophy.md">engine docs</a> for an example.</li>
-</ul>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">StackTraceElement</span> <span class="p">{</span>
+  <span class="nl">declaringClass</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">methodName</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">fileName</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">lineNumber</span><span class="p">:</span> <span class="nx">Int</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
-<h3 id="deploying-to-ensoorg">Deploying to enso.org</h3>
+<h3 id="exception"><code class="language-plaintext highlighter-rouge">Exception</code></h3>
 
-<p>The docs are deployed to enso.org via the <code class="language-plaintext highlighter-rouge">docs-publish.yml</code> GitHub Action. They get put in the <code class="language-plaintext highlighter-rouge">docs/developer</code> subfolder of the <code class="language-plaintext highlighter-rouge">gh-pages</code> branch. This gets deployed alongside the other enso docs pages.</p>
+<p>Represents an exception that may have been raised during requested execution.</p>
 
-<h3 id="attribution--license">Attribution &amp; License</h3>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Exception</span> <span class="p">{</span>
+  <span class="nl">message</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">stackTrace</span><span class="p">:</span> <span class="p">[</span><span class="nx">StackTraceElement</span><span class="p">];</span>
+  <span class="nl">cause</span><span class="p">:</span> <span class="nx">Exception</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
-<p>This site uses the <a href="https://github.com/sighingnow/jekyll-gitbook">Gitbook</a> Jekyll theme, by <a href="https://github.com/sighingnow">sighingnow</a>.</p>
+<h3 id="binding"><code class="language-plaintext highlighter-rouge">Binding</code></h3>
+
+<p>Represents a single binding in the current scope.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Binding</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">value</span><span class="p">:</span> <span class="nx">ObjectRepr</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="messages">Messages</h2>
+
+<p>All endpoints accept messages of type <code class="language-plaintext highlighter-rouge">Request</code> and return a <code class="language-plaintext highlighter-rouge">Response</code>. These
+messages contain unions that contain the actual payload specified for each type
+of message.</p>
+
+<pre><code class="language-idl">namespace org.enso.polyglot.debugger.protocol;
+
+union RequestPayload {
+    EVALUATE: EvaluationRequest,
+    LIST_BINDINGS: ListBindingsRequest,
+    SESSION_EXIT: SessionExitRequest
+}
+
+table Request {
+    payload: RequestPayload (required);
+}
+
+union ResponsePayload {
+    EVALUATION_SUCCESS: EvaluationSuccess,
+    EVALUATION_FAILURE: EvaluationFailure,
+    LIST_BINDINGS: ListBindingsResult,
+    SESSION_START: SessionStartNotification
+}
+
+table Response {
+    payload: ResponsePayload (required);
+}
+</code></pre>
+
+<h3 id="session-start">Session Start</h3>
+
+<p>When a breakpoint is reached, the debugger sends a notification to the client
+indicating that a REPL session should be started.</p>
+
+<p>The whole REPL session should live inside the endpoint’s function handling this
+notification. This means that this function should not return before sending the
+session exit request.</p>
+
+<h4 id="notification">Notification</h4>
+
+<pre><code class="language-idl">namespace org.enso.polyglot.protocol.debugger;
+
+table SessionStartNotification {}
+</code></pre>
+
+<h3 id="evaluation">Evaluation</h3>
+
+<p>Evaluates an arbitrary expression in the current execution context.</p>
+
+<p>Responds with either a message with the value of successfully evaluated
+expression or a message with an exception that has been raised during
+evaluation.</p>
+
+<h4 id="request">Request</h4>
+
+<pre><code class="language-idl">namespace org.enso.polyglot.protocol.debugger;
+
+table ReplEvaluationRequest {
+  expression: String (required);
+}
+</code></pre>
+
+<h4 id="response">Response</h4>
+
+<pre><code class="language-idl">namespace org.enso.polyglot.protocol.debugger;
+
+table ReplEvaluationSuccess {
+  result: ObjectRepr (required);
+}
+
+table ReplEvaluationFailure {
+  exception: Exception (required);
+}
+</code></pre>
+
+<h3 id="list-bindings">List Bindings</h3>
+
+<p>Lists all the bindings available in the current execution scope and sends them
+back.</p>
+
+<h4 id="request-1">Request</h4>
+
+<pre><code class="language-idl">namespace org.enso.polyglot.protocol.debugger;
+
+table ReplListBindingsRequest {}
+</code></pre>
+
+<h4 id="response-1">Response</h4>
+
+<pre><code class="language-idl">namespace org.enso.polyglot.protocol.debugger;
+
+table ReplListBindingsResult {
+  bindings: [Binding];
+}
+</code></pre>
+
+<h3 id="session-exit">Session Exit</h3>
+
+<p>Terminates this REPL session (and resumes normal program execution).</p>
+
+<p>The last result of Evaluation will be returned from the instrumented node or if
+no expressions have been evaluated, unit is returned.</p>
+
+<p>This request must always be sent at the end of REPL session, as otherwise the
+program will never resume. It does not return any response. It is important to
+note that a thread calling <code class="language-plaintext highlighter-rouge">sendBinary</code> with this message will never return, as
+control will be passed to the interpreter.</p>
+
+<h4 id="request-2">Request</h4>
+
+<pre><code class="language-idl">namespace org.enso.polyglot.protocol.debugger;
+
+table ReplExitRequest {}
+</code></pre>
 
                         
                         
@@ -926,9 +1056,9 @@ search.start();
     </div>
 </div>
 
-                    <a href="/docs/developer/README.md" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation README.md">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
+                <a href="/docs/developer/enso/debugger/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Debugger">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
 
                 
@@ -1015,7 +1145,7 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "README.md",
+        "path": "enso/debugger/protocol.md",
         "mtime": "",
         "type": "markdown"
     },

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>README · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>RFC Template · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/docs/developer/gitbook/style.css">
 <link rel="stylesheet" href="/docs/developer/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -30,7 +30,7 @@
         
 
         
-            <link rel="prev" href="/docs/developer/" />
+            <link rel="prev" href="/docs/developer/enso/rfcs/" />
         
 
         
@@ -158,7 +158,7 @@ search.start();
     <nav role="navigation">
         <ul class="summary">
             
-            <li class="chapter active" data-level="1.1" data-path="/docs/developer/">
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/">
             
                 <a href="/docs/developer/">
                     Home
@@ -175,6 +175,13 @@ search.start();
             
             
         
+            
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/rfcs ">
+                    <a href="/docs/developer/enso/rfcs">
+                        Go back
+                    </a>
+                </li>
+                <li class="divider"></li>
             
                 
              
@@ -253,52 +260,66 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
                     
-                    <li class="chapter active" data-level="1.2" data-path="/docs/developer/">
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/rfcs/">
                     
-                        <a href="/docs/developer/">
+                        <a href="/docs/developer/enso/rfcs/">
                             
-                                README
+                                Enso RFC Process
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter active" data-level="1.2" data-path="/docs/developer/enso/rfcs/0001-rfc-template.html">
+                    
+                        <a href="/docs/developer/enso/rfcs/0001-rfc-template.html">
+                            
+                                RFC Template
                             
                         </a>
                     </li>
@@ -685,55 +706,7 @@ search.start();
                 
             
             
-            
-                
-            
-            
 
-            
-                
-
-                
-                
-                
-                
-                
-                
-                
-                
-                <li class="divider"></li>
-                
-                    
-                        <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/">
-                        
-                            <a href="/docs/developer/enso/">
-                                
-                                    Enso Engine Developer Documentation
-                                
-                            </a>
-                        </li>
-                
-                    
-                        <li class="chapter" data-level="1.1" data-path="/docs/developer/ide/">
-                        
-                            <a href="/docs/developer/ide/">
-                                
-                                    Enso IDE documentation
-                                
-                            </a>
-                        </li>
-                
-                    
-                        <li class="chapter" data-level="1.1" data-path="/docs/developer/rust-lib/">
-                        
-                            <a href="/docs/developer/rust-lib/">
-                                
-                                    Enso Rust Libraries Developer Documentation
-                                
-                            </a>
-                        </li>
-                
-                
             
         
         </ul>
@@ -745,7 +718,7 @@ search.start();
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >README</a>
+                <a href="." >RFC Template</a>
             
         </h1>
     </div>
@@ -754,44 +727,103 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <h1 id="enso-documentation">Enso Documentation</h1>
-<p>This site contains the documentation for the two major sub-projects of Enso, the engine, and the IDE.</p>
+                        <blockquote>
+  <ul>
+    <li><strong>Feature Name:</strong> A unique name for the feature</li>
+    <li><strong>Start Date:</strong> Today’s date (YYYY-MM-DD)</li>
+    <li><strong>Change Type:</strong> Breaking / Non-Breaking (delete as appropriate)</li>
+    <li><strong>RFC Dependencies:</strong> List any RFCs that this one depends on.</li>
+    <li><strong>RFC PR:</strong> Leave Empty</li>
+    <li><strong>Enso Issue:</strong> Leave Empty</li>
+    <li><strong>Implemented:</strong> Leave blank, this will be filled with the first version of
+the relevant tool where it is implemented.</li>
+  </ul>
+</blockquote>
+
+<h1 id="summary">Summary</h1>
+
+<p>A one-paragraph, high-level summary of the proposal.</p>
+
+<h1 id="motivation">Motivation</h1>
+
+<p>Why should we make this change? What use-cases does it support? What benefits
+does it bring to the ecosystem? Explain why the status quo is insufficient or
+not ideal.</p>
+
+<h1 id="guide-level-explanation">Guide-Level Explanation</h1>
+
+<p>Explain the proposal as if teaching the feature(s) to a newcomer to Enso. This
+should usually include:</p>
 
 <ul>
-  <li><a href="./enso">Engine</a></li>
-  <li><a href="./ide">IDE</a></li>
-  <li><a href="./rust-lib">Rust-Libs</a></li>
+  <li>Introduction of any new named concepts.</li>
+  <li>Explaining the feature using motivating examples.</li>
+  <li>Explaining how Enso programmers should <em>think</em> about the feature, and how it
+should impact the way they use the language. This should aim to make the
+impact of the feature as concrete as possible.</li>
+  <li>If applicable, provide sample error messages, deprecation warnings, migration
+guidance, etc.</li>
+  <li>If applicable, describe the differences in teaching this to new Enso
+programmers and experienced Enso programmers.</li>
 </ul>
 
-<h2 id="contributing-to-the-docs">Contributing to the Docs</h2>
+<p>For implementation-oriented RFCs, this section should focus on how contributors
+to the project should think about the change, and give examples of its concrete
+impact. For policy-level RFCs, this section should provide an example-driven
+introduction to the policy, and explain its impact in concrete terms.</p>
 
-<h3 id="installation-and-usage">Installation and Usage</h3>
+<h1 id="specification-level-explanation">Specification-Level Explanation</h1>
 
-<p>The site is built with Jekyll, and hosted on GitHub Pages. The content is mostly hosted in other repositories via Git submodules.</p>
-
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle install
-git submodule update --init --recursive
-bundle exec jekyll build
-</code></pre></div></div>
-
-<h3 id="adding-new-documentation">Adding New Documentation</h3>
-
-<p>To add new documentation:</p>
+<p>This is the technical portion of the RFC and should be written as a
+specification of the new feature(s). It should provide a syntax-agnostic
+description of the planned feature, and include sufficient detail to address the
+following points:</p>
 
 <ul>
-  <li>Add a new submodule under <code class="language-plaintext highlighter-rouge">_submodules</code>.</li>
-  <li>Create a symlink to the desired repository at the root.</li>
-  <li>To the target repository, add a <a href="https://github.com/luna/enso/blob/main/.github/workflows/docs.yml">GitHub Action</a> to automatically checkout the submodule when changes are made.</li>
-  <li>If you want fine-grained control over presentation and order of the documents, you can <a href="https://jekyllrb.com/docs/front-matter/">add a yaml frontmatter block</a> to your files. See the <a href="https://github.com/luna/enso/blob/main/docs/enso-philosophy.md">engine docs</a> for an example.</li>
+  <li>Impact on existing feature(s) or functions.</li>
+  <li>Interactions with other features.</li>
+  <li>A clear description of how it should be implemented, though this need not
+contain precise references to internals where relevant.</li>
+  <li>An explanation of all corner cases for the feature, with examples.</li>
 </ul>
 
-<h3 id="deploying-to-ensoorg">Deploying to enso.org</h3>
+<p>This section should be written in comprehensive and concise language, and may
+include where relevant:</p>
 
-<p>The docs are deployed to enso.org via the <code class="language-plaintext highlighter-rouge">docs-publish.yml</code> GitHub Action. They get put in the <code class="language-plaintext highlighter-rouge">docs/developer</code> subfolder of the <code class="language-plaintext highlighter-rouge">gh-pages</code> branch. This gets deployed alongside the other enso docs pages.</p>
+<ul>
+  <li>The grammar and semantics of any new constructs.</li>
+  <li>The types and semantics of any new library interfaces.</li>
+</ul>
 
-<h3 id="attribution--license">Attribution &amp; License</h3>
+<h1 id="drawbacks">Drawbacks</h1>
 
-<p>This site uses the <a href="https://github.com/sighingnow/jekyll-gitbook">Gitbook</a> Jekyll theme, by <a href="https://github.com/sighingnow">sighingnow</a>.</p>
+<p>A description of why we <em>should not</em> do this. Write this section as if you are
+picking apart your proposal.</p>
+
+<h1 id="rationale-and-alternatives">Rationale and Alternatives</h1>
+
+<p>A few paragraphs addressing the rationale for why this design is the best
+possible design for this feature in its design space. It should address how the
+proposed design resolves the motivating factors.</p>
+
+<p>A few paragraphs addressing alternative designs for the feature, and the reasons
+for not choosing them.</p>
+
+<p>A paragraph or two addressing the impact of not including this feature.</p>
+
+<h1 id="unresolved-questions">Unresolved Questions</h1>
+
+<p>This section should address any unresolved questions you have with the RFC at
+the current time. Some examples include:</p>
+
+<ul>
+  <li>What parts of the design will require further elaboration before the RFC is
+complete?</li>
+  <li>Which portions of the design will need resolution during the implementation
+process before the feature is made stable.</li>
+  <li>Are there any issues related to this RFC but outside its scope that could be
+addressed in future independently of this RFC? If so, what are they?</li>
+</ul>
 
                         
                         
@@ -926,9 +958,9 @@ search.start();
     </div>
 </div>
 
-                    <a href="/docs/developer/README.md" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation README.md">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
+                <a href="/docs/developer/enso/rfcs/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso RFC Process">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
 
                 
@@ -1015,7 +1047,7 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "README.md",
+        "path": "enso/rfcs/0001-rfc-template.md",
         "mtime": "",
         "type": "markdown"
     },

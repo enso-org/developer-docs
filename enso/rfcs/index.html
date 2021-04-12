@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>README · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Enso RFC Process · Enso Developer Documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="The developer documentation for the Enso compiler, runtime, and IDE..
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Enso.org"><link rel="stylesheet" href="/docs/developer/gitbook/style.css">
 <link rel="stylesheet" href="/docs/developer/gitbook/gitbook-plugin-fontsettings/website.css">
@@ -30,9 +30,11 @@
         
 
         
-            <link rel="prev" href="/docs/developer/" />
+            <link rel="prev" href="/docs/developer/enso" />
         
 
+        
+            <link rel="next" href="/docs/developer/enso/rfcs/0001-rfc-template.html" />
         
     </head>
     <body>
@@ -158,7 +160,7 @@ search.start();
     <nav role="navigation">
         <ul class="summary">
             
-            <li class="chapter active" data-level="1.1" data-path="/docs/developer/">
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/">
             
                 <a href="/docs/developer/">
                     Home
@@ -175,6 +177,13 @@ search.start();
             
             
         
+            
+            <li class="chapter" data-level="1.1" data-path="/docs/developer/enso ">
+                    <a href="/docs/developer/enso">
+                        Go back
+                    </a>
+                </li>
+                <li class="divider"></li>
             
                 
              
@@ -253,52 +262,66 @@ search.start();
             
             
                 
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
-            
-            
-            
-                
                     
-                    <li class="chapter active" data-level="1.2" data-path="/docs/developer/">
+                    <li class="chapter active" data-level="1.2" data-path="/docs/developer/enso/rfcs/">
                     
-                        <a href="/docs/developer/">
+                        <a href="/docs/developer/enso/rfcs/">
                             
-                                README
+                                Enso RFC Process
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+            
+            
+            
+                
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/rfcs/0001-rfc-template.html">
+                    
+                        <a href="/docs/developer/enso/rfcs/0001-rfc-template.html">
+                            
+                                RFC Template
                             
                         </a>
                     </li>
@@ -685,10 +708,6 @@ search.start();
                 
             
             
-            
-                
-            
-            
 
             
                 
@@ -699,39 +718,6 @@ search.start();
                 
                 
                 
-                
-                
-                <li class="divider"></li>
-                
-                    
-                        <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/">
-                        
-                            <a href="/docs/developer/enso/">
-                                
-                                    Enso Engine Developer Documentation
-                                
-                            </a>
-                        </li>
-                
-                    
-                        <li class="chapter" data-level="1.1" data-path="/docs/developer/ide/">
-                        
-                            <a href="/docs/developer/ide/">
-                                
-                                    Enso IDE documentation
-                                
-                            </a>
-                        </li>
-                
-                    
-                        <li class="chapter" data-level="1.1" data-path="/docs/developer/rust-lib/">
-                        
-                            <a href="/docs/developer/rust-lib/">
-                                
-                                    Enso Rust Libraries Developer Documentation
-                                
-                            </a>
-                        </li>
                 
                 
             
@@ -745,7 +731,7 @@ search.start();
         <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i>
             
-                <a href="." >README</a>
+                <a href="." >Enso RFC Process</a>
             
         </h1>
     </div>
@@ -754,44 +740,212 @@ search.start();
             <div id="book-search-results">
                 <div class="search-noresults">
                     <section class="normal markdown-section">
-                        <h1 id="enso-documentation">Enso Documentation</h1>
-<p>This site contains the documentation for the two major sub-projects of Enso, the engine, and the IDE.</p>
+                        <h1 id="the-enso-rfc-process">The Enso RFC Process</h1>
+
+<p>Like any Open Source language, Enso welcomes interaction from the community, as
+we believe that only through the community’s suggestions and feedback can we
+make Enso the best it can be.</p>
+
+<p>To this end, this repository defines a process to be followed for those people
+that want to make ‘substantial’ changes to the Enso language, the Enso compiler
+and runtime, or even this RFC process itself. What we define as a ‘substantial’
+change is in flux based on community norms and in relation to the portion of the
+ecosystem being changed.</p>
+
+<p>Substantial changes may thus include the following:</p>
 
 <ul>
-  <li><a href="./enso">Engine</a></li>
-  <li><a href="./ide">IDE</a></li>
-  <li><a href="./rust-lib">Rust-Libs</a></li>
+  <li>Semantic or syntactic changes to Enso that aren’t related to fixing a
+pre-existing bug.</li>
+  <li>Adding or removing language features.</li>
+  <li>Changes to the interface between the language and its standard library.</li>
+  <li>Additions to and removals from the standard library.</li>
 </ul>
 
-<h2 id="contributing-to-the-docs">Contributing to the Docs</h2>
-
-<h3 id="installation-and-usage">Installation and Usage</h3>
-
-<p>The site is built with Jekyll, and hosted on GitHub Pages. The content is mostly hosted in other repositories via Git submodules.</p>
-
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle install
-git submodule update --init --recursive
-bundle exec jekyll build
-</code></pre></div></div>
-
-<h3 id="adding-new-documentation">Adding New Documentation</h3>
-
-<p>To add new documentation:</p>
+<p>The following are examples of changes that do not need to follow the RFC
+process:</p>
 
 <ul>
-  <li>Add a new submodule under <code class="language-plaintext highlighter-rouge">_submodules</code>.</li>
-  <li>Create a symlink to the desired repository at the root.</li>
-  <li>To the target repository, add a <a href="https://github.com/luna/enso/blob/main/.github/workflows/docs.yml">GitHub Action</a> to automatically checkout the submodule when changes are made.</li>
-  <li>If you want fine-grained control over presentation and order of the documents, you can <a href="https://jekyllrb.com/docs/front-matter/">add a yaml frontmatter block</a> to your files. See the <a href="https://github.com/luna/enso/blob/main/docs/enso-philosophy.md">engine docs</a> for an example.</li>
+  <li>Refactoring of the compiler or libraries that does not change any semantics.</li>
+  <li>Additions or alterations that improve numerical metrics (e.g. performance
+improvements, error detection, ergonomics improvements).</li>
+  <li>Additions invisible to the users of the language (e.g. new APIs internal to
+the compiler that do not fall under the categories for ‘substantial’ changes
+listed above).</li>
 </ul>
 
-<h3 id="deploying-to-ensoorg">Deploying to enso.org</h3>
+<p>Before contributing an RFC, please ensure that you have read and agree with the
+<a href="#../../LICENSE">licensing terms</a> under which this repository operates, and that
+you have signed the <a href="/docs/developer/enso/CONTRIBUTING.html#the-contributor-license-agreement">CLA</a>.</p>
 
-<p>The docs are deployed to enso.org via the <code class="language-plaintext highlighter-rouge">docs-publish.yml</code> GitHub Action. They get put in the <code class="language-plaintext highlighter-rouge">docs/developer</code> subfolder of the <code class="language-plaintext highlighter-rouge">gh-pages</code> branch. This gets deployed alongside the other enso docs pages.</p>
+<!-- MarkdownTOC levels="2,3" autolink="true" -->
 
-<h3 id="attribution--license">Attribution &amp; License</h3>
+<ul>
+  <li><a href="#creating-an-rfc">Creating an RFC</a>
+    <ul>
+      <li><a href="#before-creating-an-rfc">Before Creating an RFC</a></li>
+      <li><a href="#the-rfc-process">The RFC Process</a></li>
+      <li><a href="#reviewing-rfcs">Reviewing RFCs</a></li>
+    </ul>
+  </li>
+  <li><a href="#the-rfc-life-cycle">The RFC Life-Cycle</a>
+    <ul>
+      <li><a href="#active-rfcs">Active RFCs</a></li>
+      <li><a href="#rfc-implementation">RFC Implementation</a></li>
+      <li><a href="#rfc-postponement">RFC Postponement</a></li>
+    </ul>
+  </li>
+  <li><a href="#credits">Credits</a></li>
+</ul>
 
-<p>This site uses the <a href="https://github.com/sighingnow/jekyll-gitbook">Gitbook</a> Jekyll theme, by <a href="https://github.com/sighingnow">sighingnow</a>.</p>
+<!-- /MarkdownTOC -->
+
+<h2 id="creating-an-rfc">Creating an RFC</h2>
+
+<p>While informal, we do aim to provide a basic outline for the process of creating
+an RFC. The intention of this process is that RFCs arrive in a state with enough
+detail to spark discussion, and then evolve through discussion with all
+interested parties.</p>
+
+<h3 id="before-creating-an-rfc">Before Creating an RFC</h3>
+
+<p>Keep in mind that a hastily-created RFC can hurt discussion and its chances of
+being accepted, even if the idea proposed is excellent! A half-baked proposal, a
+previously-rejected idea, or a feature that doesn’t align with our vision for
+Enso could be rejected swiftly, making the unprepared contributor feel
+demotivated. Doing a little bit of preparatory legwork can make the RFC process
+that much more smooth.</p>
+
+<p>While there is no specific process for submitting an RFC, we do recommend that
+you talk to other members of the community to find out whether your proposal
+would have support, and fits with the broader vision for Enso as a whole.</p>
+
+<p>If the idea receives encouraging feedback from the core team, as well as the
+community, it is an indication that the RFC is worth pursuing.</p>
+
+<h3 id="the-rfc-process">The RFC Process</h3>
+
+<p>To summarise the end goal of the RFC process, the aim is to merge the proposal
+(as a markdown file) into the RFC Repository. At this point, the RFC becomes
+‘Active’, and may then be implemented.</p>
+
+<p>If this is your first contribution to the Enso RFC process, please ensure that
+you have signed the Enso Contributor License Agreement.</p>
+
+<p>The process for creating an RFC can be outlined as follows:</p>
+
+<ol>
+  <li>Fork this repository.</li>
+  <li>Copy <a href="/docs/developer/enso/rfcs/0001-rfc-template.html"><code class="language-plaintext highlighter-rouge">0001-rfc-template.md</code></a> to a new file
+<code class="language-plaintext highlighter-rouge">0000-my-proposal.md</code>, where <code class="language-plaintext highlighter-rouge">my-proposal</code> is a short and descriptive name
+for the feature.</li>
+  <li>Fill in the RFC Template for your feature. Take care with the details as RFCs
+that don’t put thought into the design or its impacts, or are disingenuous
+about the drawbacks or alternatives are likely to meet a poor reception. One
+of the key points for considering RFCs is how they fit with the vision for
+Enso as a whole.</li>
+  <li>Submit a <a href="https://github.com/enso-org/enso/pulls">Pull Request</a>. Please give
+the PR a descriptive title (<code class="language-plaintext highlighter-rouge">RFC: My Feature</code>). The Pull Request will be open
+for feedback and discussion from the community and core team, and the author
+should be open to revising it in response to this feedback. The RFC will be
+assigned a shepherd from the core team who will be responsible for managing
+the RFC alongside the author.</li>
+  <li>Evolve the RFC. Build consensus around the feature through your revisions.
+Feel free to reach out to the shepherd assigned to your proposal for
+discussion, as well as help identifying the key stakeholders and obstacles.</li>
+  <li>The core team will participate in the discussion on the PR thread, and will
+summarise any offline discussion in the same thread.</li>
+  <li>Once the RFC has reached a stable point, the shepherd will propose that the
+RFC enters the Final Comment Period (FCP), as well as a disposition for the
+RFC: <em>Accept</em>, <em>Close</em> or <em>Postpone</em>. It should be noted that taking this
+step does not require consensus, and should include a summary of the previous
+discussion and changes.</li>
+  <li>The FCP lasts for 10 calendar days. This gives all stakeholders an ample
+chance to raise any final objections or comments before a decision is made.
+If substantial new arguments emerge during the FCP, the FCP may be cancelled.</li>
+  <li>The RFC has a final decision reached, and is either Accepted (where it is
+merged into the repository after having an RFC number assigned to it),
+Postponed, where the PR is tagged and closed, or Rejected and closed.</li>
+</ol>
+
+<h3 id="reviewing-rfcs">Reviewing RFCs</h3>
+
+<p>While the RFC pull request is under discussion, the shepherd may organise
+meetings with the author and stakeholders to discuss the issue(s) in more
+detail. A summary from this meeting will be compiled by the shepherd and posted
+back to the pull request.</p>
+
+<h2 id="the-rfc-life-cycle">The RFC Life-Cycle</h2>
+
+<p>RFCs proceed through their life-cycle in this repository as follows:</p>
+
+<ol>
+  <li>The Pull Request is submitted. The repository manager assigns appropriate
+labels to the RFC so that the relevant stakeholders can find it. It is also
+assigned a shepherd and tagged for discussion.</li>
+  <li>Once discussion has stabilised, the RFC is proposed for the Final Comment
+Period, and tagged as such.</li>
+  <li>At the end of the FCP, the RFC will be tagged with the decision made.</li>
+  <li>If the RFC is accepted, it is then marked as <a href="#active-rfcs">Active</a> and can
+be merged into this repository.</li>
+  <li>Once merged, implementation can be commenced and pull requested.</li>
+</ol>
+
+<h3 id="active-rfcs">Active RFCs</h3>
+
+<p>An RFC being ‘Active’ should not be viewed as a rubber stamp, and in particular
+it does <em>not</em> mean that the feature will be ultimately merged into Enso. It does
+mean that, in principle, stakeholders are in agreement on the feature and are
+amenable to it being merged.</p>
+
+<p>Being accepted doesn’t mean that there is a priority assigned to its
+implementation, or a developer dedicated to implementing it. While it is <em>not</em>
+necessary (and in some cases not recommended) for the RFC author to write the
+implementation, it is likely to result in the RFC being seen to completion more
+swiftly than it otherwise would be.</p>
+
+<p>Once accepted and active, small modifications to the RFC can be made via
+follow-on pull requests. While we usually intend for RFCs to reflect the final
+design, interim changes may necessitate small alterations to keep the RFC in
+sync with the final implementation.</p>
+
+<p>Please note that the RFC should not be substantially changed at this point. If
+substantial changes are required, they should take place as a new RFC, linked to
+and from the old.</p>
+
+<h3 id="rfc-implementation">RFC Implementation</h3>
+
+<p>Some accepted RFCs are vital features that need to be implemented as soon as
+possible, while others can wait until a so-inclined developer comes along. Every
+accepted RFC is assigned a tracking issue in the
+<a href="https://github.com/enso-org/enso/">Enso</a> repository, and is then assigned a
+priority via the Enso repository triage process.</p>
+
+<p>The author of an RFC is not obligated to implement it. Of course, the RFC author
+(like any other developer) is welcome to post an implementation for review after
+the RFC has been accepted.</p>
+
+<p>If you are interested in working on the implementation for an “active” RFC, but
+cannot determine if someone else is already working on it, feel free to ask
+(e.g. by leaving a comment on the associated issue).</p>
+
+<h3 id="rfc-postponement">RFC Postponement</h3>
+
+<p>Some RFC pull requests are tagged with the ‘Postponed’ label when they are
+closed (as part of the rejection process). This label implies that we neither
+want to think about evaluating the proposal or implementing it until some time
+in the future. These pull requests may be re-opened when the time is right.</p>
+
+<p>RFCs are usually postponed after some evaluation has taken place, and the label
+is usually given because the time is not right to consider or implement such a
+feature for now.</p>
+
+<h2 id="credits">Credits</h2>
+
+<p>This repository and process takes significant inspiration from the
+<a href="https://github.com/rust-lang/rfcs">Rust RFCs</a> process, and the
+<a href="https://github.com/ghc-proposals/ghc-proposals">GHC Proposals</a> process, so
+thank you to both communities for inspiring us!</p>
 
                         
                         
@@ -926,11 +1080,15 @@ search.start();
     </div>
 </div>
 
-                    <a href="/docs/developer/README.md" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation README.md">
+                    <a href="/docs/developer/ensorfcsREADME.md" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Enso Developer Documentation ensorfcsREADME.md">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
+                
+                    <a href="/docs/developer/enso/rfcs/0001-rfc-template.html" class="navigation navigation-next navigation-unique" aria-label="Next page: RFC Template">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 
             
             </div>
@@ -1015,7 +1173,7 @@ search.start();
         "gitbook": "*"
     },
     "file": {
-        "path": "README.md",
+        "path": "enso/rfcs/README.md",
         "mtime": "",
         "type": "markdown"
     },
