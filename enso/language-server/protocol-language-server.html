@@ -899,6 +899,7 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#executioncontextdetachvisualisation"><code class="language-plaintext highlighter-rouge">executionContext/detachVisualisation</code></a></li>
       <li><a href="#executioncontextmodifyvisualisation"><code class="language-plaintext highlighter-rouge">executionContext/modifyVisualisation</code></a></li>
       <li><a href="#executioncontextvisualisationupdate"><code class="language-plaintext highlighter-rouge">executionContext/visualisationUpdate</code></a></li>
+      <li><a href="#executioncontextvisualisationevaluationfailed"><code class="language-plaintext highlighter-rouge">executionContext/visualisationEvaluationFailed</code></a></li>
     </ul>
   </li>
   <li><a href="#search-operations">Search Operations</a>
@@ -940,7 +941,6 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#modulenotfounderror"><code class="language-plaintext highlighter-rouge">ModuleNotFoundError</code></a></li>
       <li><a href="#visualisationnotfounderror"><code class="language-plaintext highlighter-rouge">VisualisationNotFoundError</code></a></li>
       <li><a href="#visualisationexpressionerror"><code class="language-plaintext highlighter-rouge">VisualisationExpressionError</code></a></li>
-      <li><a href="#visualisationevaluationerror"><code class="language-plaintext highlighter-rouge">VisualisationEvaluationError</code></a></li>
       <li><a href="#filenotopenederror"><code class="language-plaintext highlighter-rouge">FileNotOpenedError</code></a></li>
       <li><a href="#texteditvalidationerror"><code class="language-plaintext highlighter-rouge">TextEditValidationError</code></a></li>
       <li><a href="#invalidversionerror"><code class="language-plaintext highlighter-rouge">InvalidVersionError</code></a></li>
@@ -2062,6 +2062,7 @@ destroying the context.</p>
   <li><a href="#executioncontextmodifyvisualisation"><code class="language-plaintext highlighter-rouge">executionContext/modifyVisualisation</code></a></li>
   <li><a href="#executioncontextdetachvisualisation"><code class="language-plaintext highlighter-rouge">executionContext/detachVisualisation</code></a></li>
   <li><a href="#executioncontextvisualisationupdate"><code class="language-plaintext highlighter-rouge">executionContext/visualisationUpdate</code></a></li>
+  <li><a href="#executioncontextvisualisationevaluationfailed"><code class="language-plaintext highlighter-rouge">executionContext/visualisationEvaluationFailed</code></a></li>
 </ul>
 
 <h4 id="disables-2">Disables</h4>
@@ -3741,6 +3742,52 @@ root_type VisualisationUpdate;
 
 <p>N/A</p>
 
+<h3 id="executioncontextvisualisationevaluationfailed"><code class="language-plaintext highlighter-rouge">executionContext/visualisationEvaluationFailed</code></h3>
+
+<p>Signals that an evaluation of a visualisation expression on the computed value
+has failed.</p>
+
+<ul>
+  <li><strong>Type:</strong> Notification</li>
+  <li><strong>Direction:</strong> Server -&gt; Client</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-46">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">VisualisationEvaluationFailed</span> <span class="p">{</span>
+  <span class="cm">/**
+   * An execution context identifier.
+   */</span>
+  <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * A visualisation identifier.
+   */</span>
+  <span class="nl">visualisationId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * An identifier of a visualised expression.
+   */</span>
+  <span class="nl">expressionId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * An error message.
+   */</span>
+  <span class="nl">message</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * Detailed information about the error.
+   */</span>
+  <span class="nl">diagnostic</span><span class="p">?:</span> <span class="nx">Diagnostic</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-47">Errors</h4>
+
+<p>N/A</p>
+
 <h2 id="search-operations">Search Operations</h2>
 
 <p>Search operations allow requesting for the autocomplete suggestions and search
@@ -3878,7 +3925,7 @@ a key-value storage with <a href="#suggestionentry"><code class="language-plaint
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-46">Parameters</h4>
+<h4 id="parameters-47">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -3893,7 +3940,7 @@ a key-value storage with <a href="#suggestionentry"><code class="language-plaint
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-47">Errors</h4>
+<h4 id="errors-48">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -3914,7 +3961,7 @@ version.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-47">Parameters</h4>
+<h4 id="parameters-48">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -3924,7 +3971,7 @@ version.</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-48">Errors</h4>
+<h4 id="errors-49">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -3943,7 +3990,7 @@ database.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-48">Parameters</h4>
+<h4 id="parameters-49">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -3956,7 +4003,7 @@ database.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-49">Errors</h4>
+<h4 id="errors-50">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -3977,7 +4024,7 @@ database.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-49">Parameters</h4>
+<h4 id="parameters-50">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">updates</span><span class="p">:</span> <span class="p">[</span><span class="nx">SuggestionsDatabaseUpdate</span><span class="p">];</span>
@@ -3985,7 +4032,7 @@ database.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-50">Errors</h4>
+<h4 id="errors-51">Errors</h4>
 
 <p>None</p>
 
@@ -4000,7 +4047,7 @@ database.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-50">Parameters</h4>
+<h4 id="parameters-51">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="c1">// The edited file</span>
@@ -4027,7 +4074,7 @@ the type match.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-51">Errors</h4>
+<h4 id="errors-52">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -4050,7 +4097,7 @@ import.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-51">Parameters</h4>
+<h4 id="parameters-52">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="cm">/**
@@ -4081,7 +4128,7 @@ import.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-52">Errors</h4>
+<h4 id="errors-53">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -4110,7 +4157,7 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-52">Parameters</h4>
+<h4 id="parameters-53">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -4120,7 +4167,7 @@ client about new output data by emitting <code class="language-plaintext highlig
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-53">Errors</h4>
+<h4 id="errors-54">Errors</h4>
 
 <p>N/A</p>
 
@@ -4135,7 +4182,7 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-53">Parameters</h4>
+<h4 id="parameters-54">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -4145,7 +4192,7 @@ client about new output data by emitting <code class="language-plaintext highlig
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-54">Errors</h4>
+<h4 id="errors-55">Errors</h4>
 
 <p>N/A</p>
 
@@ -4161,7 +4208,7 @@ for the standard output.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-54">Parameters</h4>
+<h4 id="parameters-55">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">output</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -4181,7 +4228,7 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-55">Parameters</h4>
+<h4 id="parameters-56">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -4191,7 +4238,7 @@ client about new output data by emitting <code class="language-plaintext highlig
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-55">Errors</h4>
+<h4 id="errors-56">Errors</h4>
 
 <p>N/A</p>
 
@@ -4206,7 +4253,7 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-56">Parameters</h4>
+<h4 id="parameters-57">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -4216,7 +4263,7 @@ client about new output data by emitting <code class="language-plaintext highlig
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-56">Errors</h4>
+<h4 id="errors-57">Errors</h4>
 
 <p>N/A</p>
 
@@ -4232,7 +4279,7 @@ for the standard error.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-57">Parameters</h4>
+<h4 id="parameters-58">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">output</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -4250,7 +4297,7 @@ for the standard error.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-58">Parameters</h4>
+<h4 id="parameters-59">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">input</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -4263,7 +4310,7 @@ for the standard error.</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-57">Errors</h4>
+<h4 id="errors-58">Errors</h4>
 
 <p>N/A</p>
 
@@ -4280,15 +4327,18 @@ standard input.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-59">Parameters</h4>
+<h4 id="parameters-60">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h2 id="errors-58">Errors</h2>
+<h2 id="errors-59">Errors</h2>
 
 <p>The language server component also has its own set of errors. This section is
 not a complete specification and will be updated as new errors are added.</p>
+
+<p>Besides the required <code class="language-plaintext highlighter-rouge">code</code> and <code class="language-plaintext highlighter-rouge">message</code> fields, the errors may have a <code class="language-plaintext highlighter-rouge">data</code>
+field which can store additional error-specific payload.</p>
 
 <h3 id="accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></h3>
 
@@ -4424,22 +4474,29 @@ not a complete specification and will be updated as new errors are added.</p>
 <h3 id="visualisationexpressionerror"><code class="language-plaintext highlighter-rouge">VisualisationExpressionError</code></h3>
 
 <p>It signals that the expression specified in the <code class="language-plaintext highlighter-rouge">VisualisationConfiguration</code>
-cannot be evaluated.</p>
+cannot be evaluated. The error contains an optional <code class="language-plaintext highlighter-rouge">data</code> field of type
+<a href="#diagnostic"><code class="language-plaintext highlighter-rouge">Diagnostic</code></a> providing error details.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
   <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">2007</span><span class="p">,</span>
   <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Evaluation of the visualisation expression failed [i is not defined]</span><span class="dl">"</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h3 id="visualisationevaluationerror"><code class="language-plaintext highlighter-rouge">VisualisationEvaluationError</code></h3>
-
-<p>It is a push message. It signals that an evaluation of a code responsible for
-generating visualisation data failed.</p>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
-  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">2008</span><span class="p">,</span>
-  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Evaluation of the visualisation failed [cannot execute foo]</span><span class="dl">"</span>
+  <span class="dl">"</span><span class="s2">data</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">kind</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Error</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">i is not defined</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">path</span><span class="dl">"</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">location</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+      <span class="dl">"</span><span class="s2">start</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">line</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">character</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">8</span>
+      <span class="p">},</span>
+      <span class="dl">"</span><span class="s2">end</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">line</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">character</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">9</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="dl">"</span><span class="s2">expressionId</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">aa1f75c4-8c4d-493d-a6a7-72123a52f084</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">stack</span><span class="dl">"</span> <span class="p">:</span> <span class="p">[]</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -4792,7 +4849,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-04-14 11:25:50 +0000"
+        "time": "2021-04-21 13:33:31 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
