@@ -897,23 +897,61 @@ branch of the repository.</p>
 <ol>
   <li>If no release branch exists for the current major version, one should be
 created.</li>
-  <li>Release notes should be made up to date in <code class="language-plaintext highlighter-rouge">RELEASES.md</code> and committed to
-the release branch.</li>
-  <li>Ensure that the project version is set to the version that you want to
-release.</li>
-  <li>A commit representing the release should be tagged on the release branch,
-and the tag pushed to GitHub. The tag should have a description that
-consists of the release notes for that tag, replacing hashes with <code class="language-plaintext highlighter-rouge">=</code>.</li>
+  <li>Create a branch called <code class="language-plaintext highlighter-rouge">wip/&lt;initials/release-bump</code>. On this branch, ensure
+that the release notes are up to date in <code class="language-plaintext highlighter-rouge">RELEASES.md</code> (follow the existing
+format), and that the new version number has been set in <code class="language-plaintext highlighter-rouge">build.sbt</code>. This
+version should <em>not</em> contain <code class="language-plaintext highlighter-rouge">SNAPSHOT</code>.</li>
+  <li>Open a PR for this branch into <code class="language-plaintext highlighter-rouge">main</code>.</li>
+  <li>Once the changes have been reviewed, merge the PR into main (getting commit
+hash <code class="language-plaintext highlighter-rouge">xxxxxxx</code>). The message should be <code class="language-plaintext highlighter-rouge">Prepare for the $version release</code>.</li>
+  <li>Immediately push a commit to <code class="language-plaintext highlighter-rouge">main</code> that updates the version in <code class="language-plaintext highlighter-rouge">build.sbt</code>
+to the new snapshot version. If unclear, bump the patch version by one and
+append <code class="language-plaintext highlighter-rouge">-SNAPSHOT</code> (e.g. <code class="language-plaintext highlighter-rouge">0.2.10</code> becomes <code class="language-plaintext highlighter-rouge">0.2.11-SNAPSHOT</code>). The message
+should be <code class="language-plaintext highlighter-rouge">Bump the snapshot version</code>.</li>
+  <li>Find the commit hash of the last “Bump the snapshot version” commit. Let’s
+say this is <code class="language-plaintext highlighter-rouge">yyyyyyy</code>.</li>
+  <li>Run a <code class="language-plaintext highlighter-rouge">rebase --onto</code> the release branch from the <code class="language-plaintext highlighter-rouge">yyyyyyy</code> commit to the
+<code class="language-plaintext highlighter-rouge">xxxxxxx</code> commit. For example:</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rebase --onto origin/release/0.x yyyyyyy~1 xxxxxxx
+</code></pre></div></div>
+
+<ol>
+  <li>This will put you into a “detached HEAD” state at commit <code class="language-plaintext highlighter-rouge">zzzzzzz</code>, so you
+need to make a new branch: <code class="language-plaintext highlighter-rouge">git branch release-update zzzzzzz</code></li>
+  <li>This new branch is a fast-forward merge away from the release branch. Check
+out the release branch and then fast-forward merge <code class="language-plaintext highlighter-rouge">release-update</code> into it.
+For example:</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout release/0.x
+git merge --ff-only release-update
+</code></pre></div></div>
+
+<ol>
+  <li>As long as the fast-forward proceeds cleanly, you can push the updated
+release branch to the origin.</li>
+  <li>Create a tag for the commit at the HEAD of the release branch. It should be
+named as above. For example:</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git tag --sign enso-0.2.11
+</code></pre></div></div>
+
+<ol>
+  <li>Push the tag to the remote. This will start the release build.</li>
   <li>CI will create a draft release for this tag, as well as build and upload the
-appropriate artefacts. <strong>Do not</strong> create a release for your tag manually.</li>
-  <li>The release notes for the version being released should be copied into the
-release body on GitHub.</li>
-  <li>The release must be verified by two members of the engine team, and the QA
-team.</li>
-  <li>Once approval has been gained from these members, the release may be made
-official.</li>
-  <li>Push a commit to <code class="language-plaintext highlighter-rouge">main</code> bumping the version number and ensuring that it
-remains a <code class="language-plaintext highlighter-rouge">SNAPSHOT</code> version.</li>
+appropriate artefacts. <strong>Do not</strong> create a release for this tag manually.</li>
+  <li>The release notes for the version being released should be copied from the
+new section in <code class="language-plaintext highlighter-rouge">RELEASES.md</code> into the GitHub release description with the
+line breaks removed.</li>
+  <li>The title of the release should be <code class="language-plaintext highlighter-rouge">Enso Engine &lt;version&gt;</code> (e.g.
+<code class="language-plaintext highlighter-rouge">Enso Engine 0.2.11</code>).</li>
+  <li>The release must be verified by at least one member of the engine team and
+the QA team.</li>
+  <li>Once verification has been performed, the release can be published. It
+should <em>not</em> be a pre-releases as we reserve these for nightly builds.</li>
 </ol>
 
 <h3 id="tag-naming">Tag Naming</h3>
@@ -1418,7 +1456,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-04-26 10:12:30 +0000"
+        "time": "2021-04-28 14:52:25 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
