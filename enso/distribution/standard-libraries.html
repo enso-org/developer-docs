@@ -823,9 +823,17 @@ these libraries, as well as notes on how they should be used.</p>
       <li><a href="#builtins">Builtins</a></li>
     </ul>
   </li>
+  <li><a href="#database">Database</a></li>
+  <li><a href="#geo">Geo</a></li>
+  <li><a href="#image">Image</a></li>
   <li><a href="#table">Table</a></li>
   <li><a href="#test">Test</a></li>
-  <li><a href="#documentation">Documentation</a></li>
+  <li><a href="#visualization">Visualization</a></li>
+  <li><a href="#documentation">Documentation</a>
+    <ul>
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+  </li>
   <li><a href="#general-libraries-notes">General Libraries Notes</a></li>
 </ul>
 
@@ -836,7 +844,7 @@ these libraries, as well as notes on how they should be used.</p>
 <p><code class="language-plaintext highlighter-rouge">Base</code> is the core library of Enso. It contains core types and data structures,
 as well as basic functionality for interacting with the outside world. It can be
 found in
-<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Standard/src"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Standard/src/</code></a>.</p>
+<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Standard/src"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Standard/src/Base.enso</code></a>.</p>
 
 <p><code class="language-plaintext highlighter-rouge">Base</code> is intended to be imported unqualified at the top of the file:
 <code class="language-plaintext highlighter-rouge">from Standard.Base import all</code>. Items not included in this unqualified import
@@ -854,6 +862,9 @@ and are hence built into the interpreter.</p>
 file that provides stub definitions for these builtin functions. It is used for
 documentation purposes, and must be kept up to date as the builtins change.</p>
 
+<p>These methods are re-exported from <code class="language-plaintext highlighter-rouge">Base</code> where appropriate, and should not be
+imported directly.</p>
+
 <blockquote>
   <h4 id="note-shadow-definitions">Note: Shadow Definitions</h4>
 
@@ -862,16 +873,35 @@ builtins. It is only a stop-gap measure to allow documenting this
 functionality at this point in time.</p>
 </blockquote>
 
+<h2 id="database">Database</h2>
+
+<p><code class="language-plaintext highlighter-rouge">Database</code> is a library that provides utilities for accessing data in databases
+and processing that data efficiently. It is part of the Enso standard libraries
+and is located in
+<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Standard/src"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Standard/src/Database.enso</code></a>.</p>
+
+<p>It is designed to be imported <em>qualified</em>.</p>
+
+<h2 id="geo">Geo</h2>
+
+<p><code class="language-plaintext highlighter-rouge">Geo</code> is a library that contains very basic functionality for working with
+geographic data. We hope to expand it greatly in the future. It is located in
+<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Standard/src"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Standard/src/Geo.enso</code></a>.</p>
+
+<h2 id="image">Image</h2>
+
+<p><code class="language-plaintext highlighter-rouge">Image</code> is a library that contains bindings to <a href="https://opencv.org/">OpenCV</a>
+that allows users to work with image data. It is located in
+<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Standard/src"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Standard/src/Image.enso</code></a>.</p>
+
 <h2 id="table">Table</h2>
 
 <p><code class="language-plaintext highlighter-rouge">Table</code> is Enso’s dataframes library, providing functionality for loading and
 analysing tabular data. It is a core data-science toolkit, that integrates
 deeply with Enso and its IDE. It can be found in
-<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Table"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Table</code></a>.</p>
+<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Standard/src"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Standard/src/Table.enso</code></a>.</p>
 
-<p><code class="language-plaintext highlighter-rouge">Table</code> is designed to be imported unqualified: <code class="language-plaintext highlighter-rouge">from Table import all</code>. Items
-not included in this unqualified import are considered to be more specialist or
-internal, and should be intentionally imported by users.</p>
+<p><code class="language-plaintext highlighter-rouge">Table</code> is designed to be imported qualified: <code class="language-plaintext highlighter-rouge">import Table</code>.</p>
 
 <h2 id="test">Test</h2>
 
@@ -879,11 +909,17 @@ internal, and should be intentionally imported by users.</p>
 time it is <em>very</em> rudimentary, and needs significant improvement before we can
 consider it an “official” part of the Enso standard libraries. It can be found
 in
-<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Test"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Test</code></a>.</p>
+<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Standard/src"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Standard/src/Test.enso</code></a>.</p>
 
 <p><code class="language-plaintext highlighter-rouge">Test</code> is intended to be imported qualified: <code class="language-plaintext highlighter-rouge">import Test</code>. This ensures that
 there aren’t spurious name clashes between user-defined functionality and the
 testing library.</p>
+
+<h2 id="visualization">Visualization</h2>
+
+<p><code class="language-plaintext highlighter-rouge">Visualization</code> is a semi-internal library that provides visualization-specific
+utilities for displaying data in the IDE. It is located in
+<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Standard/src"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Standard/src/Visualization.enso</code></a>.</p>
 
 <h2 id="documentation">Documentation</h2>
 
@@ -891,14 +927,14 @@ testing library.</p>
 accompanied by comprehensive documentation comments. These are located <em>above</em>
 each definition, for example:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Sort the Vector.
+<pre><code class="language-enso">## Sort the Vector.
 
    Arguments:
-   - `on`: A projection from the element type to the value of that element
+   - on: A projection from the element type to the value of that element
      being sorted on.
-   - `by`: A function that compares the result of applying `on` to two
+   - by: A function that compares the result of applying `on` to two
      elements, returning an Ordering to compare them.
-   - `order`: The order in which the vector elements are sorted.
+   - order: The order in which the vector elements are sorted.
 
    By default, elements are sorted in ascending order, using the comparator
    `compare_to`. A custom comparator may be passed to the sort function.
@@ -906,11 +942,12 @@ each definition, for example:</p>
    This is a stable sort, meaning that items that compare the same will not
    have their order changed by the sorting process.
 
-   The complexities for this sort are:
-   - *Worst-Case Time:* `O(n * log n)`
-   - *Best-Case Time:* `O(n)`
-   - *Average Time:* `O(n * log n)`
-   - *Worst-Case Space:* `O(n)` additional
+   ! Computational Complexity
+     The complexities for this sort are:
+     - *Worst-Case Time:* `O(n * log n)`
+     - *Best-Case Time:* `O(n)`
+     - *Average Time:* `O(n * log n)`
+     - *Worst-Case Space:* `O(n)` additional
 
    ? Implementation Note
      The sort implementation is based upon an adaptive, iterative mergesort
@@ -924,14 +961,14 @@ each definition, for example:</p>
 
    &gt; Example
      Sorting a vector of numbers.
+
          [5, 2, 3, 45, 15].sort == [2, 3, 5, 15, 45]
 
    &gt; Example
      Sorting a vector of `Pair`s on the first element, descending.
+
          [Pair 1 2, Pair -1 8].sort (_.first) (order = Sort_Order.Descending)
-sort : (Any -&gt; Any) -&gt; (Any -&gt; Any -&gt; Ordering) -&gt; Sort_Order -&gt; Vector
-sort (on = x -&gt; x) (by = (_.compare_to _)) (order = Sort_Order.Ascending) = ...
-</code></pre></div></div>
+</code></pre>
 
 <p>Such documentation blocks describe:</p>
 
@@ -948,13 +985,34 @@ information for more experienced users.</li>
 types of the function arguments. It may also have defaults for its arguments,
 which will be shown in the</p>
 
+<h3 id="examples">Examples</h3>
+
+<p>All documentation blocks in Enso should contain comprehensive examples for how
+to use the associated functionality. These documentation blocks fall into two
+types:</p>
+
+<ol>
+  <li><strong>Stand-Alone:</strong> A stand-alone example is a single Enso expression that can
+be pasted into any method body and will execute.</li>
+  <li><strong>Example Method:</strong> An example method is a method named <code class="language-plaintext highlighter-rouge">example_*</code> that
+provides the example. They are used when specific imports are necessary to
+run the example, or when multiple lines are needed to provide an effective
+example.</li>
+</ol>
+
+<p>All examples assume that the prelude is imported using
+<code class="language-plaintext highlighter-rouge">from Standard.Base import all</code> in the file into which it is being pasted.</p>
+
+<p>The
+<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Standard/src/Examples.enso"><code class="language-plaintext highlighter-rouge">Standard.Examples</code></a>
+file contains example data for use in examples. If an example requires
+non-trivial data on which to operate, it should be placed here.</p>
+
 <h2 id="general-libraries-notes">General Libraries Notes</h2>
 
 <p>Some notes on the general structure of these libraries.</p>
 
 <ul>
-  <li>All of these libraries are considered to be WIP as they are missing many
-pieces of functionality that they should have.</li>
   <li>As the language doesn’t currently have built-in support for access modifiers
 (e.g. <code class="language-plaintext highlighter-rouge">private</code>), so we instead use <code class="language-plaintext highlighter-rouge">PRIVATE</code> annotations at the top of
 documentation blocks. Any functionality annotated in such a form is not for
@@ -1195,7 +1253,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-04-28 14:52:25 +0000"
+        "time": "2021-04-29 10:28:27 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
