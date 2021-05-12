@@ -803,6 +803,8 @@ components.</p>
     <ul>
       <li><a href="#slf4j-interface">SLF4J Interface</a></li>
       <li><a href="#setting-up-logging">Setting Up Logging</a></li>
+      <li><a href="#log-masking">Log Masking</a></li>
+      <li><a href="#logging-in-tests">Logging in Tests</a></li>
     </ul>
   </li>
 </ul>
@@ -1032,6 +1034,36 @@ initialization has happened and send them as soon as the service is initialized.
 shutdown hook is added that will print the pending log messages before exiting.
 Some of the messages may be dropped, however, if more messages are buffered than
 the buffer can hold.</p>
+
+<h3 id="log-masking">Log Masking</h3>
+
+<p>Logs should not contain personally identifiable information (PII). The following
+is considered PII:</p>
+
+<ul>
+  <li>User code</li>
+  <li>Values of executed expressions</li>
+  <li>Values of user environment variables. Although variable names are not
+considered PII and can be logged.</li>
+  <li>File paths inside the user project directory. System and distribution paths
+and a path to the user project can be logged.</li>
+</ul>
+
+<p>Project logging library implements masking of PII. To utilize it</p>
+
+<ol>
+  <li>Logged object should implement an interface that defines custom log-string
+representation of this object</li>
+  <li>The logging should be performed by supplying a template string with <code class="language-plaintext highlighter-rouge">{}</code>
+placeholders, and the arguments
+    <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">log</span><span class="o">.</span><span class="py">debug</span><span class="o">(</span><span class="s">"Created {} at [{}]."</span><span class="o">,</span> <span class="n">obj</span><span class="o">,</span> <span class="n">path</span><span class="o">)</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>String interpolation in log statements <code class="language-plaintext highlighter-rouge">s"Created $obj"</code> should be avoided
+because it uses default <code class="language-plaintext highlighter-rouge">toString</code> implementation and can leak critical
+information even if the object implements custom interface for masked logging.</p>
 
 <h3 id="logging-in-tests">Logging in Tests</h3>
 
@@ -1281,7 +1313,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-05-11 09:42:02 +0000"
+        "time": "2021-05-12 15:33:05 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
