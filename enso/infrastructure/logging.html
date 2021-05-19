@@ -804,6 +804,7 @@ components.</p>
       <li><a href="#slf4j-interface">SLF4J Interface</a></li>
       <li><a href="#setting-up-logging">Setting Up Logging</a></li>
       <li><a href="#log-masking">Log Masking</a></li>
+      <li><a href="#configuration">Configuration</a></li>
       <li><a href="#logging-in-tests">Logging in Tests</a></li>
     </ul>
   </li>
@@ -1065,21 +1066,42 @@ placeholders, and the arguments
 because it uses default <code class="language-plaintext highlighter-rouge">toString</code> implementation and can leak critical
 information even if the object implements custom interface for masked logging.</p>
 
+<h3 id="configuration">Configuration</h3>
+
+<p>The Logging Service settings should be placed under the <code class="language-plaintext highlighter-rouge">logging-service</code> key of
+the <code class="language-plaintext highlighter-rouge">application.conf</code> config.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">logging-service.logger</code> configuration provides an ability to override the
+default application log level for particular loggers. In the <code class="language-plaintext highlighter-rouge">logger</code> subconfig
+the key specifies the logger name (or it’s prefix) and the value specifies the
+log level for that logger.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logging-service.logger {
+  akka.actor = info
+  akka.event = error
+  akka.io = error
+  slick = error
+}
+</code></pre></div></div>
+
+<p>For example, the config above limits all <code class="language-plaintext highlighter-rouge">akka.actor.*</code> loggers to the info
+level logging, and <code class="language-plaintext highlighter-rouge">akka.event.*</code> loggers can emit only the error level
+messages.</p>
+
 <h3 id="logging-in-tests">Logging in Tests</h3>
 
 <p>The Logging Service provides several utilities for managing logs inside of
 tests.</p>
 
 <p>The primary method for setting log-level for all tests in a project is by
-creating a <code class="language-plaintext highlighter-rouge">logging.properties</code> file in <code class="language-plaintext highlighter-rouge">resources</code> of the <code class="language-plaintext highlighter-rouge">test</code> target.
-Currently only one property is supported - <code class="language-plaintext highlighter-rouge">test-log-level</code> which should be set
-to a log level name (possible values are: <code class="language-plaintext highlighter-rouge">off</code>, <code class="language-plaintext highlighter-rouge">error</code>, <code class="language-plaintext highlighter-rouge">warning</code>, <code class="language-plaintext highlighter-rouge">info</code>,
-<code class="language-plaintext highlighter-rouge">debug</code>, <code class="language-plaintext highlighter-rouge">trace</code>). If this property is set to any value, the default logging
-queue is replaced with a special test queue which handles the log messages
-depending on status of the service. If a service has been set up, it just
-forwards them (so tests can easily override the log handling). However if it has
-not been set up, the enabled log messages are printed to STDERR and the rest is
-dropped.</p>
+creating an <code class="language-plaintext highlighter-rouge">application.conf</code> file in <code class="language-plaintext highlighter-rouge">resources</code> of the <code class="language-plaintext highlighter-rouge">test</code> target with the
+configuration key <code class="language-plaintext highlighter-rouge">logging-service.test-log-level</code> which should be set to a log
+level name (possible values are: <code class="language-plaintext highlighter-rouge">off</code>, <code class="language-plaintext highlighter-rouge">error</code>, <code class="language-plaintext highlighter-rouge">warning</code>, <code class="language-plaintext highlighter-rouge">info</code>, <code class="language-plaintext highlighter-rouge">debug</code>,
+<code class="language-plaintext highlighter-rouge">trace</code>). If this key is set to any value, the default logging queue is replaced
+with a special test queue which handles the log messages depending on status of
+the service. If a service has been set up, it just forwards them (so tests can
+easily override the log handling). However if it has not been set up, the
+enabled log messages are printed to STDERR and the rest is dropped.</p>
 
 <p>Another useful tool is <code class="language-plaintext highlighter-rouge">TestLogger.gatherLogs</code> - a function that wraps an action
 and will return a sequence of logs reported when performing that action. It can
@@ -1313,7 +1335,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-05-14 12:09:54 +0000"
+        "time": "2021-05-19 08:03:50 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
