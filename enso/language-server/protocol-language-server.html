@@ -34,6 +34,8 @@
         
 
         
+            <link rel="next" href="/docs/developer/enso/language-server/streaming-file-transfer.html" />
+        
     </head>
     <body>
         
@@ -578,6 +580,20 @@ search.start();
             
             
                 
+                    
+                    <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/language-server/streaming-file-transfer.html">
+                    
+                        <a href="/docs/developer/enso/language-server/streaming-file-transfer.html">
+                            
+                                Streaming File Transfer
+                            
+                        </a>
+                    </li>
+                
+            
+            
+            
+                
             
             
             
@@ -780,9 +796,9 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#contextid"><code class="language-plaintext highlighter-rouge">ContextId</code></a></li>
       <li><a href="#stackitem"><code class="language-plaintext highlighter-rouge">StackItem</code></a></li>
       <li><a href="#methodpointer"><code class="language-plaintext highlighter-rouge">MethodPointer</code></a></li>
+      <li><a href="#profilinginfo"><code class="language-plaintext highlighter-rouge">ProfilingInfo</code></a></li>
       <li><a href="#expressionupdate"><code class="language-plaintext highlighter-rouge">ExpressionUpdate</code></a></li>
       <li><a href="#expressionupdatepayload"><code class="language-plaintext highlighter-rouge">ExpressionUpdatePayload</code></a></li>
-      <li><a href="#profilinginfo"><code class="language-plaintext highlighter-rouge">ProfilingInfo</code></a></li>
       <li><a href="#visualisationconfiguration"><code class="language-plaintext highlighter-rouge">VisualisationConfiguration</code></a></li>
       <li><a href="#suggestionentryargument"><code class="language-plaintext highlighter-rouge">SuggestionEntryArgument</code></a></li>
       <li><a href="#suggestionentry"><code class="language-plaintext highlighter-rouge">SuggestionEntry</code></a></li>
@@ -810,6 +826,8 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#filecontents"><code class="language-plaintext highlighter-rouge">FileContents</code></a></li>
       <li><a href="#filesystemobject"><code class="language-plaintext highlighter-rouge">FileSystemObject</code></a></li>
       <li><a href="#workspaceedit"><code class="language-plaintext highlighter-rouge">WorkspaceEdit</code></a></li>
+      <li><a href="#ensodigest"><code class="language-plaintext highlighter-rouge">EnsoDigest</code></a></li>
+      <li><a href="#filesegment"><code class="language-plaintext highlighter-rouge">FileSegment</code></a></li>
     </ul>
   </li>
   <li><a href="#connection-management">Connection Management</a>
@@ -833,8 +851,6 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#executioncontextcanmodify"><code class="language-plaintext highlighter-rouge">executionContext/canModify</code></a></li>
       <li><a href="#executioncontextreceivesupdates"><code class="language-plaintext highlighter-rouge">executionContext/receivesUpdates</code></a></li>
       <li><a href="#searchreceivessuggestionsdatabaseupdates"><code class="language-plaintext highlighter-rouge">search/receivesSuggestionsDatabaseUpdates</code></a></li>
-      <li><a href="#enables">Enables</a></li>
-      <li><a href="#disables">Disables</a></li>
     </ul>
   </li>
   <li><a href="#file-management-operations">File Management Operations</a>
@@ -843,6 +859,8 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#fileread"><code class="language-plaintext highlighter-rouge">file/read</code></a></li>
       <li><a href="#filewritebinary"><code class="language-plaintext highlighter-rouge">file/writeBinary</code></a></li>
       <li><a href="#filereadbinary"><code class="language-plaintext highlighter-rouge">file/readBinary</code></a></li>
+      <li><a href="#filewritebytes"><code class="language-plaintext highlighter-rouge">file/writeBytes</code></a></li>
+      <li><a href="#filereadbytes"><code class="language-plaintext highlighter-rouge">file/readBytes</code></a></li>
       <li><a href="#filecreate"><code class="language-plaintext highlighter-rouge">file/create</code></a></li>
       <li><a href="#filedelete"><code class="language-plaintext highlighter-rouge">file/delete</code></a></li>
       <li><a href="#filecopy"><code class="language-plaintext highlighter-rouge">file/copy</code></a></li>
@@ -851,6 +869,8 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#filetree"><code class="language-plaintext highlighter-rouge">file/tree</code></a></li>
       <li><a href="#filelist"><code class="language-plaintext highlighter-rouge">file/list</code></a></li>
       <li><a href="#fileinfo"><code class="language-plaintext highlighter-rouge">file/info</code></a></li>
+      <li><a href="#filechecksum"><code class="language-plaintext highlighter-rouge">file/checksum</code></a></li>
+      <li><a href="#filechecksumbytes"><code class="language-plaintext highlighter-rouge">file/checksumBytes</code></a></li>
       <li><a href="#fileevent"><code class="language-plaintext highlighter-rouge">file/event</code></a></li>
       <li><a href="#fileaddroot"><code class="language-plaintext highlighter-rouge">file/addRoot</code></a></li>
       <li><a href="#fileremoveroot"><code class="language-plaintext highlighter-rouge">file/removeRoot</code></a></li>
@@ -932,6 +952,7 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
   </li>
   <li><a href="#errors">Errors</a>
     <ul>
+      <li><a href="#error"><code class="language-plaintext highlighter-rouge">Error</code></a></li>
       <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a></li>
       <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a></li>
       <li><a href="#contentrootnotfounderror"><code class="language-plaintext highlighter-rouge">ContentRootNotFoundError</code></a></li>
@@ -939,6 +960,9 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#fileexists-1"><code class="language-plaintext highlighter-rouge">FileExists</code></a></li>
       <li><a href="#operationtimeouterror"><code class="language-plaintext highlighter-rouge">OperationTimeoutError</code></a></li>
       <li><a href="#notdirectory"><code class="language-plaintext highlighter-rouge">NotDirectory</code></a></li>
+      <li><a href="#notfile"><code class="language-plaintext highlighter-rouge">NotFile</code></a></li>
+      <li><a href="#cannotoverwrite"><code class="language-plaintext highlighter-rouge">CannotOverwrite</code></a></li>
+      <li><a href="#readoutofbounds"><code class="language-plaintext highlighter-rouge">ReadOutOfBounds</code></a></li>
       <li><a href="#stackitemnotfounderror"><code class="language-plaintext highlighter-rouge">StackItemNotFoundError</code></a></li>
       <li><a href="#contextnotfounderror"><code class="language-plaintext highlighter-rouge">ContextNotFoundError</code></a></li>
       <li><a href="#emptystackerror"><code class="language-plaintext highlighter-rouge">EmptyStackError</code></a></li>
@@ -1491,8 +1515,7 @@ may be expanded in future.</p>
  * @param creationTime creation time
  * @param lastAccessTime last access time
  * @param lastModifiedTime last modified time
- * @param kind type of [[FileSystemObject]], can be:
- * `Directory`, `File`, `Other`
+ * @param kind type of [[FileSystemObject]], can be: `Directory`, `File`, `Other`
  * @param byteSize size in bytes
  */</span>
 <span class="kr">interface</span> <span class="nx">FileAttributes</span> <span class="p">{</span>
@@ -1671,7 +1694,8 @@ non-empty location (as the head of the stack will point to the builtin element).
 
 <h3 id="sha3-224"><code class="language-plaintext highlighter-rouge">SHA3-224</code></h3>
 
-<p>The <code class="language-plaintext highlighter-rouge">SHA3-224</code> message digest encoded as a base16 string.</p>
+<p>The <code class="language-plaintext highlighter-rouge">SHA3-224</code> message digest encoded as a base16 string. For the equivalent
+structure on the binary connection please see <a href="#ensodigest"><code class="language-plaintext highlighter-rouge">EnsoDigest</code></a></p>
 
 <h4 id="format-21">Format</h4>
 
@@ -1789,6 +1813,46 @@ undo/redo.</p>
     <li>Specify this message.</li>
   </ul>
 </blockquote>
+
+<h3 id="ensodigest"><code class="language-plaintext highlighter-rouge">EnsoDigest</code></h3>
+
+<p>A counterpart to <a href="#sha3-224">SHA3-224</a> for the binary connection, this is a
+standard message digest encoded using FlatBuffers.</p>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+table EnsoDigest {
+  bytes : [ubyte];
+}
+</code></pre>
+
+<p>Notes:</p>
+
+<ul>
+  <li>It is an error for the length of the vector <code class="language-plaintext highlighter-rouge">bytes</code> to not be equal to 28 (224
+/ 8). This is the length of the chosen digest in bytes.</li>
+</ul>
+
+<h3 id="filesegment"><code class="language-plaintext highlighter-rouge">FileSegment</code></h3>
+
+<p>A representation of a segment of a file for use in the binary protocol.</p>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+table FileSegment {
+  // The file to access.
+  path : Path (required);
+
+  // The byte offset in the file to read from.
+  byteOffset : ulong (required);
+
+  // The number of bytes to read.
+  length : ulong (required);
+}
+</code></pre>
+
+<p>The <code class="language-plaintext highlighter-rouge">byteOffset</code> property is zero-indexed, so the last byte in the file is at
+index <code class="language-plaintext highlighter-rouge">file.length - 1</code>.</p>
 
 <h2 id="connection-management">Connection Management</h2>
 
@@ -2107,13 +2171,13 @@ a given execution context.</p>
   <li><strong>registerOptions:</strong> <code class="language-plaintext highlighter-rouge">{}</code></li>
 </ul>
 
-<h3 id="enables-4">Enables</h3>
+<h4 id="enables-4">Enables</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseupdate"><code class="language-plaintext highlighter-rouge">search/suggestionsDatabaseUpdate</code></a></li>
 </ul>
 
-<h3 id="disables-4">Disables</h3>
+<h4 id="disables-4">Disables</h4>
 
 <p>None</p>
 
@@ -2306,6 +2370,128 @@ access to a resource.</li>
   <li><a href="#filenotfound"><code class="language-plaintext highlighter-rouge">FileNotFound</code></a> informs that file cannot be found.</li>
 </ul>
 
+<h3 id="filewritebytes"><code class="language-plaintext highlighter-rouge">file/writeBytes</code></h3>
+
+<p>This requests that the file manager component writes a set of bytes to the
+specified file at the specified offset.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Binary</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<p>This method will create a file if no file is present at <code class="language-plaintext highlighter-rouge">path</code>.</p>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">overwriteExisting</code> boolean should be set if <code class="language-plaintext highlighter-rouge">byteOffset</code> is less than the
+length of the file.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">byteOffset</code> property is zero-indexed. To append to the file you begin
+writing at index <code class="language-plaintext highlighter-rouge">file.length</code>.</li>
+  <li>If <code class="language-plaintext highlighter-rouge">byteOffset &gt; file.length</code>, the bytes in the range
+<code class="language-plaintext highlighter-rouge">[file.length, byteOffset)</code> will be filled with null bytes.</li>
+</ul>
+
+<h4 id="parameters-10">Parameters</h4>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+table WriteBytesRequest {
+  // The file to write to.
+  path : Path (required);
+
+  // The byte offset in the file to write from.
+  byteOffset : ulong (required);
+
+  // Whether existing content should be overwritten.
+  overwriteExisting : bool (required);
+
+  // The file contents.
+  bytes : [ubyte] (required);
+}
+</code></pre>
+
+<h4 id="result-8">Result</h4>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+table WriteBytesResponse {
+  // The checksum of the written bytes.
+  checksum : EnsoDigest (required);
+}
+</code></pre>
+
+<p>Notes:</p>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">checksum</code> is only of the <code class="language-plaintext highlighter-rouge">bytes</code> in the request as they were written to
+disk. This does <em>not</em> include checksumming the entire file. For that, please
+see <a href="#file-checksumbytes"><code class="language-plaintext highlighter-rouge">file/checksumBytes</code></a>.</li>
+</ul>
+
+<h4 id="errors-11">Errors</h4>
+
+<ul>
+  <li><a href="#cannotoverwrite"><code class="language-plaintext highlighter-rouge">CannotOverwrite</code></a> to signal that an overwrite would be
+necessary to perform the operation but that <code class="language-plaintext highlighter-rouge">overwriteExisting</code> is not set.</li>
+  <li><a href="#notfile"><code class="language-plaintext highlighter-rouge">NotFile</code></a> if the provided <code class="language-plaintext highlighter-rouge">segment.path</code> is not a file.</li>
+</ul>
+
+<h3 id="filereadbytes"><code class="language-plaintext highlighter-rouge">file/readBytes</code></h3>
+
+<p>Asks the language server to read the specified number of bytes at the specified
+offset in the file.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Binary</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<p>It will attempt to read <em>as many as</em> <code class="language-plaintext highlighter-rouge">segment.length</code> bytes, but does not
+guarantee that the response will contain <code class="language-plaintext highlighter-rouge">segment.length</code> bytes (e.g. if
+<code class="language-plaintext highlighter-rouge">segment.length</code> would require reading off the end of the file).</p>
+
+<h4 id="parameters-11">Parameters</h4>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+table ReadBytesRequest {
+  // The segment in a file to read bytes from.
+  segment : FileSegment (required);
+}
+</code></pre>
+
+<h4 id="result-9">Result</h4>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+table ReadBytesResponse {
+  // The checksum of the bytes in this response.
+  checksum : EnsoDigest (required);
+
+  // The requested file contents.
+  bytes : [ubyte] (required);
+}
+</code></pre>
+
+<p>Notes:</p>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">checksum</code> is of the <code class="language-plaintext highlighter-rouge">bytes</code> as they have been read from disk.</li>
+</ul>
+
+<h4 id="errors-12">Errors</h4>
+
+<ul>
+  <li><a href="#filenotfound"><code class="language-plaintext highlighter-rouge">FileNotFound</code></a> if the file at <code class="language-plaintext highlighter-rouge">segment.path</code> does not exist.</li>
+  <li><a href="#readoutofbounds"><code class="language-plaintext highlighter-rouge">ReadOutOfBounds</code></a> if <code class="language-plaintext highlighter-rouge">segment.byteOffset</code> is not present
+in the file at <code class="language-plaintext highlighter-rouge">segment.path</code>.</li>
+  <li><a href="#notfile"><code class="language-plaintext highlighter-rouge">NotFile</code></a> if the provided <code class="language-plaintext highlighter-rouge">segment.path</code> is not a file.</li>
+</ul>
+
 <h3 id="filecreate"><code class="language-plaintext highlighter-rouge">file/create</code></h3>
 
 <p>This request asks the file manager to create the specified file system object.</p>
@@ -2319,7 +2505,7 @@ access to a resource.</li>
 
 <p>This will fail if the specified object already exists.</p>
 
-<h4 id="parameters-10">Parameters</h4>
+<h4 id="parameters-12">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">object</span><span class="p">:</span> <span class="nx">FileSystemObject</span><span class="p">;</span>
@@ -2331,7 +2517,7 @@ access to a resource.</li>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-11">Errors</h4>
+<h4 id="errors-13">Errors</h4>
 
 <ul>
   <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
@@ -2353,19 +2539,19 @@ access to a resource.</li>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-11">Parameters</h4>
+<h4 id="parameters-13">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-8">Result</h4>
+<h4 id="result-10">Result</h4>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>null
 </code></pre></div></div>
 
-<h4 id="errors-12">Errors</h4>
+<h4 id="errors-14">Errors</h4>
 
 <ul>
   <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
@@ -2388,7 +2574,7 @@ another location.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-12">Parameters</h4>
+<h4 id="parameters-14">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">from</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
@@ -2396,12 +2582,12 @@ another location.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-9">Result</h4>
+<h4 id="result-11">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-13">Errors</h4>
+<h4 id="errors-15">Errors</h4>
 
 <ul>
   <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
@@ -2426,7 +2612,7 @@ another location.</p>
 <p>The move should be specified by filesystem events, and such notifications should
 inform the client that the currently edited file has been moved.</p>
 
-<h4 id="parameters-13">Parameters</h4>
+<h4 id="parameters-15">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">from</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
@@ -2434,12 +2620,12 @@ inform the client that the currently edited file has been moved.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-10">Result</h4>
+<h4 id="result-12">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-14">Errors</h4>
+<h4 id="errors-16">Errors</h4>
 
 <ul>
   <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
@@ -2462,21 +2648,21 @@ at the specified path.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-14">Parameters</h4>
+<h4 id="parameters-16">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-11">Result</h4>
+<h4 id="result-13">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">exists</span><span class="p">:</span> <span class="nb">Boolean</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-15">Errors</h4>
+<h4 id="errors-17">Errors</h4>
 
 <ul>
   <li><a href="#contentrootnotfounderror"><code class="language-plaintext highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
@@ -2495,7 +2681,7 @@ directory tree starting at a given path.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-15">Parameters</h4>
+<h4 id="parameters-17">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
@@ -2503,14 +2689,14 @@ directory tree starting at a given path.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-12">Result</h4>
+<h4 id="result-14">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">tree</span><span class="p">:</span> <span class="nx">DirectoryTree</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-16">Errors</h4>
+<h4 id="errors-18">Errors</h4>
 
 <ul>
   <li><a href="#contentrootnotfounderror"><code class="language-plaintext highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
@@ -2534,21 +2720,21 @@ directory.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-16">Parameters</h4>
+<h4 id="parameters-18">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-13">Result</h4>
+<h4 id="result-15">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">paths</span><span class="p">:</span> <span class="p">[</span><span class="nx">FileSystemObject</span><span class="p">];</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-17">Errors</h4>
+<h4 id="errors-19">Errors</h4>
 
 <ul>
   <li><a href="#contentrootnotfounderror"><code class="language-plaintext highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
@@ -2571,26 +2757,105 @@ directory.</li>
 
 <p>This request should work for all kinds of filesystem object.</p>
 
-<h4 id="parameters-17">Parameters</h4>
+<h4 id="parameters-19">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-14">Result</h4>
+<h4 id="result-16">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">attributes</span><span class="p">:</span> <span class="nx">FileAttributes</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-18">Errors</h4>
+<h4 id="errors-20">Errors</h4>
 
 <ul>
   <li><a href="#contentrootnotfounderror"><code class="language-plaintext highlighter-rouge">ContentRootNotFoundError</code></a> to signal that the
 requested content root cannot be found.</li>
   <li><a href="#filenotfound"><code class="language-plaintext highlighter-rouge">FileNotFound</code></a> informs that requested path does not exist.</li>
+</ul>
+
+<h3 id="filechecksum"><code class="language-plaintext highlighter-rouge">file/checksum</code></h3>
+
+<p>Requests that the language server provide the checksum of the provided file.
+Only defined when the provided <code class="language-plaintext highlighter-rouge">path</code> is a file.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<p>It calculates the checksum of the entire file.</p>
+
+<h4 id="parameters-20">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ChecksumRequest</span> <span class="p">{</span>
+  <span class="c1">// The path to the file to get the checksum for.</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-17">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ChecksumResponse</span> <span class="p">{</span>
+  <span class="c1">// The checksum of the file at `path`.</span>
+  <span class="nl">checksum</span> <span class="p">:</span> <span class="nx">SHA3</span><span class="o">-</span><span class="mi">224</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-21">Errors</h4>
+
+<ul>
+  <li><a href="#filenotfound"><code class="language-plaintext highlighter-rouge">FileNotFound</code></a> if the file at <code class="language-plaintext highlighter-rouge">path</code> does not exist.</li>
+  <li><a href="#notfile"><code class="language-plaintext highlighter-rouge">NotFile</code></a> if the provided <code class="language-plaintext highlighter-rouge">path</code> does not point to a file.</li>
+</ul>
+
+<h3 id="filechecksumbytes"><code class="language-plaintext highlighter-rouge">file/checksumBytes</code></h3>
+
+<p>Requests that the language server provides the checksum of the provided byte
+range.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Binary</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-21">Parameters</h4>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+table ChecksumBytesRequest {
+  // The segment in a file to checksum.
+  segment : FileSegment (required);
+}
+</code></pre>
+
+<h4 id="result-18">Result</h4>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+table ChecksumBytesRequest {
+  // The segment in a file to checksum.
+  checksum : EnsoDigest;
+}
+</code></pre>
+
+<h4 id="errors-22">Errors</h4>
+
+<ul>
+  <li><a href="#filenotfound"><code class="language-plaintext highlighter-rouge">FileNotFound</code></a> if the file at <code class="language-plaintext highlighter-rouge">segment.path</code> does not exist.</li>
+  <li><a href="#readoutofbounds"><code class="language-plaintext highlighter-rouge">ReadOutOfBounds</code></a> if <code class="language-plaintext highlighter-rouge">segment.byteOffset</code> is not present
+in the file at <code class="language-plaintext highlighter-rouge">segment.path</code>, or if <code class="language-plaintext highlighter-rouge">segment.length</code> does not fit within the
+file.</li>
+  <li><a href="#notfile"><code class="language-plaintext highlighter-rouge">NotFile</code></a> if the provided <code class="language-plaintext highlighter-rouge">segment.path</code> is not a file.</li>
 </ul>
 
 <h3 id="fileevent"><code class="language-plaintext highlighter-rouge">file/event</code></h3>
@@ -2609,7 +2874,7 @@ stays in synchronisation with reality.</p>
 <p>Events should be sent from server to client for every event observed under one
 of the (possibly multiple) content roots.</p>
 
-<h4 id="parameters-18">Parameters</h4>
+<h4 id="parameters-22">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
@@ -2617,7 +2882,7 @@ of the (possibly multiple) content roots.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-19">Errors</h4>
+<h4 id="errors-23">Errors</h4>
 
 <p>None</p>
 
@@ -2638,7 +2903,7 @@ clients must be notified with a <code class="language-plaintext highlighter-roug
 The IDE is responsible for calling <code class="language-plaintext highlighter-rouge">file/tree</code> on that root to discover its
 structure.</p>
 
-<h4 id="parameters-19">Parameters</h4>
+<h4 id="parameters-23">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">absolutePath</span><span class="p">:</span> <span class="p">[</span><span class="nb">String</span><span class="p">];</span>
@@ -2646,12 +2911,12 @@ structure.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-15">Result</h4>
+<h4 id="result-19">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-20">Errors</h4>
+<h4 id="errors-24">Errors</h4>
 
 <p>TBC</p>
 
@@ -2671,19 +2936,19 @@ than the one that added the root by sending a <code class="language-plaintext hi
 the server must send a <code class="language-plaintext highlighter-rouge">file/event</code> making the root of the new tree visible. The
 IDE is responsible for any additional discovery.</p>
 
-<h4 id="parameters-20">Parameters</h4>
+<h4 id="parameters-24">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span> <span class="c1">// The content root ID</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-16">Result</h4>
+<h4 id="result-20">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-21">Errors</h4>
+<h4 id="errors-25">Errors</h4>
 
 <p>TBC</p>
 
@@ -2699,7 +2964,7 @@ addition of the root in order to inform them of the content root’s ID.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-21">Parameters</h4>
+<h4 id="parameters-25">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span> <span class="c1">// The content root ID</span>
@@ -2707,7 +2972,7 @@ addition of the root in order to inform them of the content root’s ID.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-22">Errors</h4>
+<h4 id="errors-26">Errors</h4>
 
 <p>TBC</p>
 
@@ -2723,14 +2988,14 @@ removal of the content root in order to inform them of the removal of the root.<
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-22">Parameters</h4>
+<h4 id="parameters-26">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span> <span class="c1">// The content root ID</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-23">Errors</h4>
+<h4 id="errors-27">Errors</h4>
 
 <p>TBC</p>
 
@@ -2753,14 +3018,14 @@ stays in sync with the clients.</p>
 <p>If no client has write lock on the opened file, the capability is granted to the
 client that sent the <code class="language-plaintext highlighter-rouge">text/openFile</code> message.</p>
 
-<h4 id="parameters-23">Parameters</h4>
+<h4 id="parameters-27">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-17">Result</h4>
+<h4 id="result-21">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">writeCapability</span><span class="p">?:</span> <span class="nx">CapabilityRegistration</span><span class="p">;</span>
@@ -2769,7 +3034,7 @@ client that sent the <code class="language-plaintext highlighter-rouge">text/ope
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-24">Errors</h4>
+<h4 id="errors-28">Errors</h4>
 
 <ul>
   <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
@@ -2792,19 +3057,19 @@ access to a resource.</li>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-24">Parameters</h4>
+<h4 id="parameters-28">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-18">Result</h4>
+<h4 id="result-22">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-25">Errors</h4>
+<h4 id="errors-29">Errors</h4>
 
 <ul>
   <li><a href="#filenotopenederror"><code class="language-plaintext highlighter-rouge">FileNotOpenedError</code></a> to signal that a file wasn’t
@@ -2825,7 +3090,7 @@ opened.</li>
 <p>The request may fail if the requesting client does not have permission to edit
 that file, or if the client is requesting a save of an outdated version.</p>
 
-<h4 id="parameters-25">Parameters</h4>
+<h4 id="parameters-29">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">path</span><span class="p">:</span> <span class="nx">Path</span><span class="p">;</span>
@@ -2833,12 +3098,12 @@ that file, or if the client is requesting a save of an outdated version.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-19">Result</h4>
+<h4 id="result-23">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-26">Errors</h4>
+<h4 id="errors-30">Errors</h4>
 
 <ul>
   <li><a href="#filenotopenederror"><code class="language-plaintext highlighter-rouge">FileNotOpenedError</code></a> to signal that the file isn’t
@@ -2871,19 +3136,19 @@ edits solely concern text files.</p>
 edit the resources for which edits are sent. This failure <em>may</em> be partial, in
 that some edits are applied and others are not.</p>
 
-<h4 id="parameters-26">Parameters</h4>
+<h4 id="parameters-30">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">edit</span><span class="p">:</span> <span class="nx">FileEdit</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-20">Result</h4>
+<h4 id="result-24">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-27">Errors</h4>
+<h4 id="errors-31">Errors</h4>
 
 <ul>
   <li><a href="#filenotopenederror"><code class="language-plaintext highlighter-rouge">FileNotOpenedError</code></a> to signal that the file isn’t
@@ -2910,14 +3175,14 @@ changes made to files that they have open.</p>
 
 <p>This notification must <em>only</em> be sent for files that the client has open.</p>
 
-<h4 id="parameters-27">Parameters</h4>
+<h4 id="parameters-31">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">edits</span><span class="p">:</span> <span class="p">[</span><span class="nx">FileEdit</span><span class="p">];</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-28">Errors</h4>
+<h4 id="errors-32">Errors</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
@@ -2942,19 +3207,19 @@ be undone.</p>
 <p>The exact behaviour of this message is to be determined, but it must involve the
 server undoing that same action for all clients in the workspace.</p>
 
-<h4 id="parameters-28">Parameters</h4>
+<h4 id="parameters-32">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">requestID</span><span class="p">?:</span> <span class="nx">UUID</span><span class="p">;</span> <span class="c1">// If not specified, it undoes the latest request</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-21">Result</h4>
+<h4 id="result-25">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-29">Errors</h4>
+<h4 id="errors-33">Errors</h4>
 
 <p>TBC</p>
 
@@ -2973,19 +3238,19 @@ be redone.</p>
 <p>The exact behaviour of this message is to be determined, but it must involve the
 server redoing that same action for all clients in the workspace.</p>
 
-<h4 id="parameters-29">Parameters</h4>
+<h4 id="parameters-33">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">requestID</span><span class="p">?:</span> <span class="nx">UUID</span><span class="p">;</span> <span class="c1">// If not specified, it redoes the latest request</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-22">Result</h4>
+<h4 id="result-26">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-30">Errors</h4>
+<h4 id="errors-34">Errors</h4>
 
 <p>TBC</p>
 
@@ -3006,17 +3271,17 @@ health of the Language Server.</p>
   <li><strong>Visibility:</strong> Private</li>
 </ul>
 
-<h4 id="parameters-30">Parameters</h4>
+<h4 id="parameters-34">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="result-23">Result</h4>
+<h4 id="result-27">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-31">Errors</h4>
+<h4 id="errors-35">Errors</h4>
 
 <p>None</p>
 
@@ -3033,17 +3298,17 @@ module has been fully initialized.</p>
   <li><strong>Visibility:</strong> Private</li>
 </ul>
 
-<h4 id="parameters-31">Parameters</h4>
+<h4 id="parameters-35">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="result-24">Result</h4>
+<h4 id="result-28">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-32">Errors</h4>
+<h4 id="errors-36">Errors</h4>
 
 <p>None</p>
 
@@ -3064,7 +3329,7 @@ name in an interpreter runtime.</p>
   <li><strong>Visibility:</strong> Private</li>
 </ul>
 
-<h4 id="parameters-32">Parameters</h4>
+<h4 id="parameters-36">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">oldName</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -3072,12 +3337,12 @@ name in an interpreter runtime.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-25">Result</h4>
+<h4 id="result-29">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-33">Errors</h4>
+<h4 id="errors-37">Errors</h4>
 
 <p>None</p>
 
@@ -3290,12 +3555,12 @@ capabilities <a href="#executioncontextcanmodify"><code class="language-plaintex
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-33">Parameters</h4>
+<h4 id="parameters-37">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="result-26">Result</h4>
+<h4 id="result-30">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
@@ -3304,7 +3569,7 @@ capabilities <a href="#executioncontextcanmodify"><code class="language-plaintex
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-34">Errors</h4>
+<h4 id="errors-38">Errors</h4>
 
 <p>None</p>
 
@@ -3320,19 +3585,19 @@ resources.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-34">Parameters</h4>
+<h4 id="parameters-38">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-27">Result</h4>
+<h4 id="result-31">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-35">Errors</h4>
+<h4 id="errors-39">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3355,14 +3620,14 @@ and <a href="#executioncontextreceivesupdates"><code class="language-plaintext h
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-35">Parameters</h4>
+<h4 id="parameters-39">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-28">Result</h4>
+<h4 id="result-32">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
@@ -3371,7 +3636,7 @@ and <a href="#executioncontextreceivesupdates"><code class="language-plaintext h
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-36">Errors</h4>
+<h4 id="errors-40">Errors</h4>
 
 <p>No known errors.</p>
 
@@ -3389,7 +3654,7 @@ executing. If the function reappears, execution should resume as normal.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-36">Parameters</h4>
+<h4 id="parameters-40">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
@@ -3397,12 +3662,12 @@ executing. If the function reappears, execution should resume as normal.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-29">Result</h4>
+<h4 id="result-33">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-37">Errors</h4>
+<h4 id="errors-41">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3425,19 +3690,19 @@ corresponding to the client clicking out of the current breadcrumb.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-37">Parameters</h4>
+<h4 id="parameters-41">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-30">Result</h4>
+<h4 id="result-34">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-38">Errors</h4>
+<h4 id="errors-42">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3458,7 +3723,7 @@ May include a list of expressions for which caches should be invalidated.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-38">Parameters</h4>
+<h4 id="parameters-42">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
@@ -3466,12 +3731,12 @@ May include a list of expressions for which caches should be invalidated.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-31">Result</h4>
+<h4 id="result-35">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-39">Errors</h4>
+<h4 id="errors-43">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3494,7 +3759,7 @@ in future versions.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-39">Parameters</h4>
+<h4 id="parameters-43">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
@@ -3502,7 +3767,7 @@ in future versions.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-40">Errors</h4>
+<h4 id="errors-44">Errors</h4>
 
 <p>None</p>
 
@@ -3525,7 +3790,7 @@ stack, an error location a method or a module when issuing a
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-40">Parameters</h4>
+<h4 id="parameters-44">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="cm">/**
@@ -3545,7 +3810,7 @@ stack, an error location a method or a module when issuing a
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-41">Errors</h4>
+<h4 id="errors-45">Errors</h4>
 
 <p>None</p>
 
@@ -3560,7 +3825,7 @@ stack, an error location a method or a module when issuing a
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-41">Parameters</h4>
+<h4 id="parameters-45">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="cm">/**
@@ -3575,7 +3840,7 @@ stack, an error location a method or a module when issuing a
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-42">Errors</h4>
+<h4 id="errors-46">Errors</h4>
 
 <p>None</p>
 
@@ -3594,7 +3859,7 @@ executed only once.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-42">Parameters</h4>
+<h4 id="parameters-46">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ExecuteExpressionRequest</span> <span class="p">{</span>
   <span class="nl">visualisationId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
@@ -3603,12 +3868,12 @@ executed only once.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-32">Result</h4>
+<h4 id="result-36">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-43">Errors</h4>
+<h4 id="errors-47">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3634,7 +3899,7 @@ preprocessed by some arbitrary Enso code, to a given node in the program.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-43">Parameters</h4>
+<h4 id="parameters-47">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">AttachVisualisationRequest</span> <span class="p">{</span>
   <span class="nl">visualisationId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
@@ -3643,12 +3908,12 @@ preprocessed by some arbitrary Enso code, to a given node in the program.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-33">Result</h4>
+<h4 id="result-37">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-44">Errors</h4>
+<h4 id="errors-48">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3673,7 +3938,7 @@ evaluated.</li>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-44">Parameters</h4>
+<h4 id="parameters-48">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">DetachVisualisationRequest</span> <span class="p">{</span>
   <span class="nl">executionContextId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
@@ -3682,12 +3947,12 @@ evaluated.</li>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-34">Result</h4>
+<h4 id="result-38">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-45">Errors</h4>
+<h4 id="errors-49">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3710,7 +3975,7 @@ visualisation.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-45">Parameters</h4>
+<h4 id="parameters-49">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ModifyVisualisationRequest</span> <span class="p">{</span>
   <span class="nl">visualisationId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
@@ -3718,12 +3983,12 @@ visualisation.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-35">Result</h4>
+<h4 id="result-39">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-46">Errors</h4>
+<h4 id="errors-50">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3755,7 +4020,7 @@ client.</p>
 pre-serialized before being inserted into this message. As far as this level of
 transport is concerned, it is just a binary blob.</p>
 
-<h4 id="parameters-46">Parameters</h4>
+<h4 id="parameters-50">Parameters</h4>
 
 <pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
 
@@ -3787,7 +4052,7 @@ table VisualisationUpdate {
 root_type VisualisationUpdate;
 </code></pre>
 
-<h4 id="errors-47">Errors</h4>
+<h4 id="errors-51">Errors</h4>
 
 <p>N/A</p>
 
@@ -3803,7 +4068,7 @@ has failed.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-47">Parameters</h4>
+<h4 id="parameters-51">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">VisualisationEvaluationFailed</span> <span class="p">{</span>
   <span class="cm">/**
@@ -3833,7 +4098,7 @@ has failed.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-48">Errors</h4>
+<h4 id="errors-52">Errors</h4>
 
 <p>N/A</p>
 
@@ -3974,12 +4239,12 @@ a key-value storage with <a href="#suggestionentry"><code class="language-plaint
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-48">Parameters</h4>
+<h4 id="parameters-52">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="result-36">Result</h4>
+<h4 id="result-40">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="c1">// The list of suggestions database entries</span>
@@ -3989,7 +4254,7 @@ a key-value storage with <a href="#suggestionentry"><code class="language-plaint
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-49">Errors</h4>
+<h4 id="errors-53">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -4010,17 +4275,17 @@ version.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-49">Parameters</h4>
+<h4 id="parameters-53">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="result-37">Result</h4>
+<h4 id="result-41">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-50">Errors</h4>
+<h4 id="errors-54">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -4039,12 +4304,12 @@ database.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-50">Parameters</h4>
+<h4 id="parameters-54">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="result-38">Result</h4>
+<h4 id="result-42">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="c1">// The version of the suggestions database</span>
@@ -4052,7 +4317,7 @@ database.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-51">Errors</h4>
+<h4 id="errors-55">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -4073,7 +4338,7 @@ database.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-51">Parameters</h4>
+<h4 id="parameters-55">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">updates</span><span class="p">:</span> <span class="p">[</span><span class="nx">SuggestionsDatabaseUpdate</span><span class="p">];</span>
@@ -4081,7 +4346,7 @@ database.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-52">Errors</h4>
+<h4 id="errors-56">Errors</h4>
 
 <p>None</p>
 
@@ -4096,7 +4361,7 @@ database.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-52">Parameters</h4>
+<h4 id="parameters-56">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="c1">// The edited file</span>
@@ -4112,7 +4377,7 @@ database.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-39">Result</h4>
+<h4 id="result-43">Result</h4>
 
 <p>The identifiers in <code class="language-plaintext highlighter-rouge">results</code> are guaranteed to be ordered by the specificity of
 the type match.</p>
@@ -4123,7 +4388,7 @@ the type match.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-53">Errors</h4>
+<h4 id="errors-57">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -4146,7 +4411,7 @@ import.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-53">Parameters</h4>
+<h4 id="parameters-57">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="cm">/**
@@ -4156,7 +4421,7 @@ import.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-40">Result</h4>
+<h4 id="result-44">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="cm">/**
@@ -4177,7 +4442,7 @@ import.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-54">Errors</h4>
+<h4 id="errors-58">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -4206,17 +4471,17 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-54">Parameters</h4>
+<h4 id="parameters-58">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="result-41">Result</h4>
+<h4 id="result-45">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-55">Errors</h4>
+<h4 id="errors-59">Errors</h4>
 
 <p>N/A</p>
 
@@ -4231,17 +4496,17 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-55">Parameters</h4>
+<h4 id="parameters-59">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="result-42">Result</h4>
+<h4 id="result-46">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-56">Errors</h4>
+<h4 id="errors-60">Errors</h4>
 
 <p>N/A</p>
 
@@ -4257,7 +4522,7 @@ for the standard output.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-56">Parameters</h4>
+<h4 id="parameters-60">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">output</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -4277,17 +4542,17 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-57">Parameters</h4>
+<h4 id="parameters-61">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="result-43">Result</h4>
+<h4 id="result-47">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-57">Errors</h4>
+<h4 id="errors-61">Errors</h4>
 
 <p>N/A</p>
 
@@ -4302,17 +4567,17 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-58">Parameters</h4>
+<h4 id="parameters-62">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="result-44">Result</h4>
+<h4 id="result-48">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-58">Errors</h4>
+<h4 id="errors-62">Errors</h4>
 
 <p>N/A</p>
 
@@ -4328,7 +4593,7 @@ for the standard error.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-59">Parameters</h4>
+<h4 id="parameters-63">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">output</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -4346,7 +4611,7 @@ for the standard error.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-60">Parameters</h4>
+<h4 id="parameters-64">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">input</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -4354,12 +4619,12 @@ for the standard error.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-45">Result</h4>
+<h4 id="result-49">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-59">Errors</h4>
+<h4 id="errors-63">Errors</h4>
 
 <p>N/A</p>
 
@@ -4376,18 +4641,52 @@ standard input.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-61">Parameters</h4>
+<h4 id="parameters-65">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h2 id="errors-60">Errors</h2>
+<h2 id="errors-64">Errors</h2>
 
 <p>The language server component also has its own set of errors. This section is
 not a complete specification and will be updated as new errors are added.</p>
 
 <p>Besides the required <code class="language-plaintext highlighter-rouge">code</code> and <code class="language-plaintext highlighter-rouge">message</code> fields, the errors may have a <code class="language-plaintext highlighter-rouge">data</code>
 field which can store additional error-specific payload.</p>
+
+<h3 id="error"><code class="language-plaintext highlighter-rouge">Error</code></h3>
+
+<p>An error container for the binary connection that contains a code, message and
+payload.</p>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+table Error {
+  // A unique error code identifying error type.
+  code: int (required);
+
+  // An error message.
+  message: string (required);
+
+  // Additional payloads for the error.
+  data : ErrorPayload (required);
+}
+
+union ErrorPayload {
+  EMPTY: EmptyPayload,
+  ...
+}
+
+struct EmptyPayload {}
+</code></pre>
+
+<p>Note:</p>
+
+<ul>
+  <li>The union <code class="language-plaintext highlighter-rouge">ErrorPayload</code> will be extended with additional payloads as
+necessary.</li>
+  <li>All textual-protocol errors can be represented using this structure.</li>
+</ul>
 
 <h3 id="accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></h3>
 
@@ -4458,6 +4757,48 @@ field which can store additional error-specific payload.</p>
   <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Path is not a directory</span><span class="dl">"</span>
 <span class="p">}</span>
 </code></pre></div></div>
+
+<h3 id="notfile"><code class="language-plaintext highlighter-rouge">NotFile</code></h3>
+
+<p>It signals that the provided path is not a file.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">1007</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Path is not a file</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="cannotoverwrite"><code class="language-plaintext highlighter-rouge">CannotOverwrite</code></h3>
+
+<p>Signals that a streaming file write cannot overwrite a portion of the requested
+file.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">1008</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Cannot overwrite the file without `overwriteExisting` set</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="readoutofbounds"><code class="language-plaintext highlighter-rouge">ReadOutOfBounds</code></h3>
+
+<p>Signals that the requested file read was out of bounds for the file’s size.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">1009</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Read is out of bounds for the file</span><span class="dl">"</span>
+  <span class="dl">"</span><span class="s2">data</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="nl">fileLength</span> <span class="p">:</span> <span class="mi">0</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
+
+table ReadOutOfBoundsError {
+  // The actual length of the file.
+  fileLength : ulong (required);
+}
+</code></pre>
 
 <h3 id="stackitemnotfounderror"><code class="language-plaintext highlighter-rouge">StackItemNotFoundError</code></h3>
 
@@ -4809,6 +5150,10 @@ search.start();
                 
 
                 
+                    <a href="/docs/developer/enso/language-server/streaming-file-transfer.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Streaming File Transfer">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
             
             </div>
 
@@ -4898,7 +5243,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-05-21 13:20:29 +0000"
+        "time": "2021-05-26 14:09:53 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
