@@ -816,7 +816,7 @@ transport formats, please look <a href="/docs/developer/enso/language-server/pro
       <li><a href="#taskfinished"><code class="language-plaintext highlighter-rouge">task/finished</code></a></li>
     </ul>
   </li>
-  <li><a href="#components-management">Components Management</a>
+  <li><a href="#runtime-version-management">Runtime Version Management</a>
     <ul>
       <li><a href="#enginelist-installed"><code class="language-plaintext highlighter-rouge">engine/list-installed</code></a></li>
       <li><a href="#enginelist-available"><code class="language-plaintext highlighter-rouge">engine/list-available</code></a></li>
@@ -837,7 +837,7 @@ transport formats, please look <a href="/docs/developer/enso/language-server/pro
     </ul>
   </li>
   <li><a href="#language-server-management">Language Server Management</a></li>
-  <li><a href="#errors-15">Errors</a>
+  <li><a href="#errors">Errors</a>
     <ul>
       <li><a href="#missingcomponenterror"><code class="language-plaintext highlighter-rouge">MissingComponentError</code></a></li>
       <li><a href="#brokencomponenterror"><code class="language-plaintext highlighter-rouge">BrokenComponentError</code></a></li>
@@ -970,7 +970,7 @@ the action.</p>
 
 <h4 id="parameters">Parameters</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectOpenRequest</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">projectId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
 
   <span class="cm">/**
@@ -984,7 +984,7 @@ the action.</p>
 
 <h4 id="result">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectOpenResult</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="cm">/**
    * The version of the started language server represented by a semver version
    * string.
@@ -1000,6 +1000,9 @@ the action.</p>
    * The endpoint used for binary protocol.
    */</span>
   <span class="nl">languageServerBinaryAddress</span><span class="p">:</span> <span class="nx">IPWithSocket</span><span class="p">;</span>
+
+  <span class="c1">// The name of the project as it is opened.</span>
+  <span class="nl">projectName</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -2136,7 +2139,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-05-26 14:09:53 +0000"
+        "time": "2021-05-27 15:15:01 +0000"
     },
     "basePath": "/docs/developer",
     "book": {

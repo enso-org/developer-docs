@@ -889,6 +889,7 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
   </li>
   <li><a href="#workspace-operations">Workspace Operations</a>
     <ul>
+      <li><a href="#workspaceprojectinfo"><code class="language-plaintext highlighter-rouge">workspace/projectInfo</code></a></li>
       <li><a href="#workspaceundo"><code class="language-plaintext highlighter-rouge">workspace/undo</code></a></li>
       <li><a href="#workspaceredo"><code class="language-plaintext highlighter-rouge">workspace/redo</code></a></li>
     </ul>
@@ -963,6 +964,7 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#notfile"><code class="language-plaintext highlighter-rouge">NotFile</code></a></li>
       <li><a href="#cannotoverwrite"><code class="language-plaintext highlighter-rouge">CannotOverwrite</code></a></li>
       <li><a href="#readoutofbounds"><code class="language-plaintext highlighter-rouge">ReadOutOfBounds</code></a></li>
+      <li><a href="#cannotdecode"><code class="language-plaintext highlighter-rouge">CannotDecode</code></a></li>
       <li><a href="#stackitemnotfounderror"><code class="language-plaintext highlighter-rouge">StackItemNotFoundError</code></a></li>
       <li><a href="#contextnotfounderror"><code class="language-plaintext highlighter-rouge">ContextNotFoundError</code></a></li>
       <li><a href="#emptystackerror"><code class="language-plaintext highlighter-rouge">EmptyStackError</code></a></li>
@@ -3192,6 +3194,46 @@ changes made to files that they have open.</p>
 <p>The language server also has a set of operations useful for managing the client
 workspace.</p>
 
+<h3 id="workspaceprojectinfo"><code class="language-plaintext highlighter-rouge">workspace/projectInfo</code></h3>
+
+<p>This request allows the IDE to request information about the currently open
+project in situations where it does not have a project manager to connect to.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-32">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-25">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="c1">// The name of the project.</span>
+  <span class="nl">projectName</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="c1">// The engine version on which the project is running.</span>
+  <span class="nl">engineVersion</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="c1">// The version of graal on which the project is running.</span>
+  <span class="nl">graalVersion</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-33">Errors</h4>
+
+<ul>
+  <li><a href="#cannotdecode"><code class="language-plaintext highlighter-rouge">CannotDecode</code></a> if the project configuration cannot be
+decoded.</li>
+  <li><a href="#filenotfound"><code class="language-plaintext highlighter-rouge">FileNotFound</code></a> if the project configuration cannot be found.</li>
+</ul>
+
 <h3 id="workspaceundo"><code class="language-plaintext highlighter-rouge">workspace/undo</code></h3>
 
 <p>This request is sent from the client to the server to request that an operation
@@ -3207,19 +3249,19 @@ be undone.</p>
 <p>The exact behaviour of this message is to be determined, but it must involve the
 server undoing that same action for all clients in the workspace.</p>
 
-<h4 id="parameters-32">Parameters</h4>
+<h4 id="parameters-33">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">requestID</span><span class="p">?:</span> <span class="nx">UUID</span><span class="p">;</span> <span class="c1">// If not specified, it undoes the latest request</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-25">Result</h4>
+<h4 id="result-26">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-33">Errors</h4>
+<h4 id="errors-34">Errors</h4>
 
 <p>TBC</p>
 
@@ -3238,19 +3280,19 @@ be redone.</p>
 <p>The exact behaviour of this message is to be determined, but it must involve the
 server redoing that same action for all clients in the workspace.</p>
 
-<h4 id="parameters-33">Parameters</h4>
+<h4 id="parameters-34">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">requestID</span><span class="p">?:</span> <span class="nx">UUID</span><span class="p">;</span> <span class="c1">// If not specified, it redoes the latest request</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-26">Result</h4>
+<h4 id="result-27">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-34">Errors</h4>
+<h4 id="errors-35">Errors</h4>
 
 <p>TBC</p>
 
@@ -3263,33 +3305,6 @@ server. This API is private and should be used only by the Project Manager.</p>
 
 <p>This request is sent from the supervisor process to the server to check the
 health of the Language Server.</p>
-
-<ul>
-  <li><strong>Type:</strong> Request</li>
-  <li><strong>Direction:</strong> Supervisor -&gt; Server</li>
-  <li><strong>Connection:</strong> Protocol</li>
-  <li><strong>Visibility:</strong> Private</li>
-</ul>
-
-<h4 id="parameters-34">Parameters</h4>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
-</code></pre></div></div>
-
-<h4 id="result-27">Result</h4>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
-</code></pre></div></div>
-
-<h4 id="errors-35">Errors</h4>
-
-<p>None</p>
-
-<h3 id="heartbeatinit"><code class="language-plaintext highlighter-rouge">heartbeat/init</code></h3>
-
-<p>This request is sent from the bootloader to check if the started language server
-instance has finished initialization. A reply should only be sent when the main
-module has been fully initialized.</p>
 
 <ul>
   <li><strong>Type:</strong> Request</li>
@@ -3312,6 +3327,33 @@ module has been fully initialized.</p>
 
 <p>None</p>
 
+<h3 id="heartbeatinit"><code class="language-plaintext highlighter-rouge">heartbeat/init</code></h3>
+
+<p>This request is sent from the bootloader to check if the started language server
+instance has finished initialization. A reply should only be sent when the main
+module has been fully initialized.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Supervisor -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Private</li>
+</ul>
+
+<h4 id="parameters-36">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="result-29">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="errors-37">Errors</h4>
+
+<p>None</p>
+
 <h2 id="refactoring">Refactoring</h2>
 
 <p>The language server also provides refactoring operations to restructure an
@@ -3329,7 +3371,7 @@ name in an interpreter runtime.</p>
   <li><strong>Visibility:</strong> Private</li>
 </ul>
 
-<h4 id="parameters-36">Parameters</h4>
+<h4 id="parameters-37">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">oldName</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -3337,12 +3379,12 @@ name in an interpreter runtime.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-29">Result</h4>
+<h4 id="result-30">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-37">Errors</h4>
+<h4 id="errors-38">Errors</h4>
 
 <p>None</p>
 
@@ -3555,12 +3597,12 @@ capabilities <a href="#executioncontextcanmodify"><code class="language-plaintex
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-37">Parameters</h4>
+<h4 id="parameters-38">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="result-30">Result</h4>
+<h4 id="result-31">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
@@ -3569,7 +3611,7 @@ capabilities <a href="#executioncontextcanmodify"><code class="language-plaintex
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-38">Errors</h4>
+<h4 id="errors-39">Errors</h4>
 
 <p>None</p>
 
@@ -3585,19 +3627,19 @@ resources.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-38">Parameters</h4>
+<h4 id="parameters-39">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-31">Result</h4>
+<h4 id="result-32">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-39">Errors</h4>
+<h4 id="errors-40">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3620,14 +3662,14 @@ and <a href="#executioncontextreceivesupdates"><code class="language-plaintext h
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-39">Parameters</h4>
+<h4 id="parameters-40">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-32">Result</h4>
+<h4 id="result-33">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
@@ -3636,7 +3678,7 @@ and <a href="#executioncontextreceivesupdates"><code class="language-plaintext h
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-40">Errors</h4>
+<h4 id="errors-41">Errors</h4>
 
 <p>No known errors.</p>
 
@@ -3654,7 +3696,7 @@ executing. If the function reappears, execution should resume as normal.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-40">Parameters</h4>
+<h4 id="parameters-41">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
@@ -3662,12 +3704,12 @@ executing. If the function reappears, execution should resume as normal.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-33">Result</h4>
+<h4 id="result-34">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-41">Errors</h4>
+<h4 id="errors-42">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3690,19 +3732,19 @@ corresponding to the client clicking out of the current breadcrumb.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-41">Parameters</h4>
+<h4 id="parameters-42">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-34">Result</h4>
+<h4 id="result-35">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-42">Errors</h4>
+<h4 id="errors-43">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3723,7 +3765,7 @@ May include a list of expressions for which caches should be invalidated.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-42">Parameters</h4>
+<h4 id="parameters-43">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
@@ -3731,12 +3773,12 @@ May include a list of expressions for which caches should be invalidated.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-35">Result</h4>
+<h4 id="result-36">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-43">Errors</h4>
+<h4 id="errors-44">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3759,7 +3801,7 @@ in future versions.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-43">Parameters</h4>
+<h4 id="parameters-44">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">contextId</span><span class="p">:</span> <span class="nx">ContextId</span><span class="p">;</span>
@@ -3767,7 +3809,7 @@ in future versions.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-44">Errors</h4>
+<h4 id="errors-45">Errors</h4>
 
 <p>None</p>
 
@@ -3790,7 +3832,7 @@ stack, an error location a method or a module when issuing a
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-44">Parameters</h4>
+<h4 id="parameters-45">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="cm">/**
@@ -3810,7 +3852,7 @@ stack, an error location a method or a module when issuing a
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-45">Errors</h4>
+<h4 id="errors-46">Errors</h4>
 
 <p>None</p>
 
@@ -3825,7 +3867,7 @@ stack, an error location a method or a module when issuing a
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-45">Parameters</h4>
+<h4 id="parameters-46">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="cm">/**
@@ -3840,7 +3882,7 @@ stack, an error location a method or a module when issuing a
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-46">Errors</h4>
+<h4 id="errors-47">Errors</h4>
 
 <p>None</p>
 
@@ -3859,49 +3901,9 @@ executed only once.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-46">Parameters</h4>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ExecuteExpressionRequest</span> <span class="p">{</span>
-  <span class="nl">visualisationId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
-  <span class="nl">expressionId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
-  <span class="nl">visualisationConfig</span><span class="p">:</span> <span class="nx">VisualisationConfiguration</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h4 id="result-36">Result</h4>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
-</code></pre></div></div>
-
-<h4 id="errors-47">Errors</h4>
-
-<ul>
-  <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
-<code class="language-plaintext highlighter-rouge">executionContext/canModify</code> capability for this context.</li>
-  <li><a href="#contextnotfounderror"><code class="language-plaintext highlighter-rouge">ContextNotFoundError</code></a> when context can not be found
-by provided id.</li>
-  <li><a href="#modulenotfounderror"><code class="language-plaintext highlighter-rouge">ModuleNotFoundError</code></a> to signal that the module with
-the visualisation cannot be found.</li>
-  <li><a href="#visualisationexpressionerror"><code class="language-plaintext highlighter-rouge">VisualisationExpressionError</code></a> to signal that
-the expression specified in the <code class="language-plaintext highlighter-rouge">VisualisationConfiguration</code> cannot be
-evaluated.</li>
-</ul>
-
-<h3 id="executioncontextattachvisualisation"><code class="language-plaintext highlighter-rouge">executionContext/attachVisualisation</code></h3>
-
-<p>This message allows the client to attach a visualisation, potentially
-preprocessed by some arbitrary Enso code, to a given node in the program.</p>
-
-<ul>
-  <li><strong>Type:</strong> Request</li>
-  <li><strong>Direction:</strong> Client -&gt; Server</li>
-  <li><strong>Connection:</strong> Protocol</li>
-  <li><strong>Visibility:</strong> Public</li>
-</ul>
-
 <h4 id="parameters-47">Parameters</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">AttachVisualisationRequest</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ExecuteExpressionRequest</span> <span class="p">{</span>
   <span class="nl">visualisationId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
   <span class="nl">expressionId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
   <span class="nl">visualisationConfig</span><span class="p">:</span> <span class="nx">VisualisationConfiguration</span><span class="p">;</span>
@@ -3927,6 +3929,46 @@ the expression specified in the <code class="language-plaintext highlighter-roug
 evaluated.</li>
 </ul>
 
+<h3 id="executioncontextattachvisualisation"><code class="language-plaintext highlighter-rouge">executionContext/attachVisualisation</code></h3>
+
+<p>This message allows the client to attach a visualisation, potentially
+preprocessed by some arbitrary Enso code, to a given node in the program.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-48">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">AttachVisualisationRequest</span> <span class="p">{</span>
+  <span class="nl">visualisationId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+  <span class="nl">expressionId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+  <span class="nl">visualisationConfig</span><span class="p">:</span> <span class="nx">VisualisationConfiguration</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-38">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="errors-49">Errors</h4>
+
+<ul>
+  <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
+<code class="language-plaintext highlighter-rouge">executionContext/canModify</code> capability for this context.</li>
+  <li><a href="#contextnotfounderror"><code class="language-plaintext highlighter-rouge">ContextNotFoundError</code></a> when context can not be found
+by provided id.</li>
+  <li><a href="#modulenotfounderror"><code class="language-plaintext highlighter-rouge">ModuleNotFoundError</code></a> to signal that the module with
+the visualisation cannot be found.</li>
+  <li><a href="#visualisationexpressionerror"><code class="language-plaintext highlighter-rouge">VisualisationExpressionError</code></a> to signal that
+the expression specified in the <code class="language-plaintext highlighter-rouge">VisualisationConfiguration</code> cannot be
+evaluated.</li>
+</ul>
+
 <h3 id="executioncontextdetachvisualisation"><code class="language-plaintext highlighter-rouge">executionContext/detachVisualisation</code></h3>
 
 <p>This message allows a client to detach a visualisation from the executing code.</p>
@@ -3938,7 +3980,7 @@ evaluated.</li>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-48">Parameters</h4>
+<h4 id="parameters-49">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">DetachVisualisationRequest</span> <span class="p">{</span>
   <span class="nl">executionContextId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
@@ -3947,12 +3989,12 @@ evaluated.</li>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-38">Result</h4>
+<h4 id="result-39">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-49">Errors</h4>
+<h4 id="errors-50">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -3975,7 +4017,7 @@ visualisation.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-49">Parameters</h4>
+<h4 id="parameters-50">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ModifyVisualisationRequest</span> <span class="p">{</span>
   <span class="nl">visualisationId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
@@ -3983,12 +4025,12 @@ visualisation.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-39">Result</h4>
+<h4 id="result-40">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-50">Errors</h4>
+<h4 id="errors-51">Errors</h4>
 
 <ul>
   <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a> when the user does not hold the
@@ -4020,7 +4062,7 @@ client.</p>
 pre-serialized before being inserted into this message. As far as this level of
 transport is concerned, it is just a binary blob.</p>
 
-<h4 id="parameters-50">Parameters</h4>
+<h4 id="parameters-51">Parameters</h4>
 
 <pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
 
@@ -4052,7 +4094,7 @@ table VisualisationUpdate {
 root_type VisualisationUpdate;
 </code></pre>
 
-<h4 id="errors-51">Errors</h4>
+<h4 id="errors-52">Errors</h4>
 
 <p>N/A</p>
 
@@ -4068,7 +4110,7 @@ has failed.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-51">Parameters</h4>
+<h4 id="parameters-52">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">VisualisationEvaluationFailed</span> <span class="p">{</span>
   <span class="cm">/**
@@ -4098,7 +4140,7 @@ has failed.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-52">Errors</h4>
+<h4 id="errors-53">Errors</h4>
 
 <p>N/A</p>
 
@@ -4239,12 +4281,12 @@ a key-value storage with <a href="#suggestionentry"><code class="language-plaint
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-52">Parameters</h4>
+<h4 id="parameters-53">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="result-40">Result</h4>
+<h4 id="result-41">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="c1">// The list of suggestions database entries</span>
@@ -4254,7 +4296,7 @@ a key-value storage with <a href="#suggestionentry"><code class="language-plaint
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-53">Errors</h4>
+<h4 id="errors-54">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -4275,17 +4317,17 @@ version.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-53">Parameters</h4>
+<h4 id="parameters-54">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="result-41">Result</h4>
+<h4 id="result-42">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-54">Errors</h4>
+<h4 id="errors-55">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -4304,12 +4346,12 @@ database.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-54">Parameters</h4>
+<h4 id="parameters-55">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="result-42">Result</h4>
+<h4 id="result-43">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="c1">// The version of the suggestions database</span>
@@ -4317,7 +4359,7 @@ database.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-55">Errors</h4>
+<h4 id="errors-56">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -4338,7 +4380,7 @@ database.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-55">Parameters</h4>
+<h4 id="parameters-56">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">updates</span><span class="p">:</span> <span class="p">[</span><span class="nx">SuggestionsDatabaseUpdate</span><span class="p">];</span>
@@ -4346,7 +4388,7 @@ database.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-56">Errors</h4>
+<h4 id="errors-57">Errors</h4>
 
 <p>None</p>
 
@@ -4361,7 +4403,7 @@ database.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-56">Parameters</h4>
+<h4 id="parameters-57">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="c1">// The edited file</span>
@@ -4377,7 +4419,7 @@ database.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-43">Result</h4>
+<h4 id="result-44">Result</h4>
 
 <p>The identifiers in <code class="language-plaintext highlighter-rouge">results</code> are guaranteed to be ordered by the specificity of
 the type match.</p>
@@ -4388,7 +4430,7 @@ the type match.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-57">Errors</h4>
+<h4 id="errors-58">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -4411,7 +4453,7 @@ import.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-57">Parameters</h4>
+<h4 id="parameters-58">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="cm">/**
@@ -4421,7 +4463,7 @@ import.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-44">Result</h4>
+<h4 id="result-45">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="cm">/**
@@ -4442,7 +4484,7 @@ import.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="errors-58">Errors</h4>
+<h4 id="errors-59">Errors</h4>
 
 <ul>
   <li><a href="#suggestionsdatabaseerror"><code class="language-plaintext highlighter-rouge">SuggestionsDatabaseError</code></a> an error accessing the
@@ -4471,17 +4513,17 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-58">Parameters</h4>
+<h4 id="parameters-59">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="result-45">Result</h4>
+<h4 id="result-46">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-59">Errors</h4>
+<h4 id="errors-60">Errors</h4>
 
 <p>N/A</p>
 
@@ -4496,17 +4538,17 @@ client about new output data by emitting <code class="language-plaintext highlig
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-59">Parameters</h4>
+<h4 id="parameters-60">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="result-46">Result</h4>
+<h4 id="result-47">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-60">Errors</h4>
+<h4 id="errors-61">Errors</h4>
 
 <p>N/A</p>
 
@@ -4522,7 +4564,7 @@ for the standard output.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-60">Parameters</h4>
+<h4 id="parameters-61">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">output</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -4534,31 +4576,6 @@ for the standard output.</p>
 <p>This message allows a client to redirect the standard error of Enso programs.
 Once the standard error is redirected, the Language server will notify the
 client about new output data by emitting <code class="language-plaintext highlighter-rouge">io/standardErrorAppended</code> messages.</p>
-
-<ul>
-  <li><strong>Type:</strong> Request</li>
-  <li><strong>Direction:</strong> Client -&gt; Server</li>
-  <li><strong>Connection:</strong> Protocol</li>
-  <li><strong>Visibility:</strong> Public</li>
-</ul>
-
-<h4 id="parameters-61">Parameters</h4>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
-</code></pre></div></div>
-
-<h4 id="result-47">Result</h4>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
-</code></pre></div></div>
-
-<h4 id="errors-61">Errors</h4>
-
-<p>N/A</p>
-
-<h3 id="iosuppressstandarderror"><code class="language-plaintext highlighter-rouge">io/suppressStandardError</code></h3>
-
-<p>This message allows a client to suppress the redirection of the standard error.</p>
 
 <ul>
   <li><strong>Type:</strong> Request</li>
@@ -4581,6 +4598,31 @@ client about new output data by emitting <code class="language-plaintext highlig
 
 <p>N/A</p>
 
+<h3 id="iosuppressstandarderror"><code class="language-plaintext highlighter-rouge">io/suppressStandardError</code></h3>
+
+<p>This message allows a client to suppress the redirection of the standard error.</p>
+
+<ul>
+  <li><strong>Type:</strong> Request</li>
+  <li><strong>Direction:</strong> Client -&gt; Server</li>
+  <li><strong>Connection:</strong> Protocol</li>
+  <li><strong>Visibility:</strong> Public</li>
+</ul>
+
+<h4 id="parameters-63">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="result-49">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="errors-63">Errors</h4>
+
+<p>N/A</p>
+
 <h3 id="iostandarderrorappended"><code class="language-plaintext highlighter-rouge">io/standardErrorAppended</code></h3>
 
 <p>Sent from the server to the client to inform that new output data are available
@@ -4593,7 +4635,7 @@ for the standard error.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-63">Parameters</h4>
+<h4 id="parameters-64">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">output</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -4611,7 +4653,7 @@ for the standard error.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-64">Parameters</h4>
+<h4 id="parameters-65">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">input</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
@@ -4619,12 +4661,12 @@ for the standard error.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="result-49">Result</h4>
+<h4 id="result-50">Result</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h4 id="errors-63">Errors</h4>
+<h4 id="errors-64">Errors</h4>
 
 <p>N/A</p>
 
@@ -4641,12 +4683,12 @@ standard input.</p>
   <li><strong>Visibility:</strong> Public</li>
 </ul>
 
-<h4 id="parameters-65">Parameters</h4>
+<h4 id="parameters-66">Parameters</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h2 id="errors-64">Errors</h2>
+<h2 id="errors-65">Errors</h2>
 
 <p>The language server component also has its own set of errors. This section is
 not a complete specification and will be updated as new errors are added.</p>
@@ -4789,6 +4831,16 @@ file.</p>
   <span class="dl">"</span><span class="s2">data</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
     <span class="nl">fileLength</span> <span class="p">:</span> <span class="mi">0</span>
   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="cannotdecode"><code class="language-plaintext highlighter-rouge">CannotDecode</code></h3>
+
+<p>Signals that the project configuration cannot be decoded.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">1010</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Cannot decode the project configuration</span><span class="dl">"</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -5243,7 +5295,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-05-26 14:09:53 +0000"
+        "time": "2021-05-27 15:15:01 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
