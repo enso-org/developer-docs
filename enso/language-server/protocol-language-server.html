@@ -1824,7 +1824,7 @@ standard message digest encoded using FlatBuffers.</p>
 <pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
 
 table EnsoDigest {
-  bytes : [ubyte];
+  bytes : [ubyte] (required);
 }
 </code></pre>
 
@@ -1846,10 +1846,10 @@ table FileSegment {
   path : Path (required);
 
   // The byte offset in the file to read from.
-  byteOffset : ulong (required);
+  byteOffset : ulong;
 
   // The number of bytes to read.
-  length : ulong (required);
+  length : ulong;
 }
 </code></pre>
 
@@ -2399,15 +2399,15 @@ writing at index <code class="language-plaintext highlighter-rouge">file.length<
 
 <pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
 
-table WriteBytesRequest {
+table WriteBytesCommand {
   // The file to write to.
   path : Path (required);
 
   // The byte offset in the file to write from.
-  byteOffset : ulong (required);
+  byteOffset : ulong;
 
   // Whether existing content should be overwritten.
-  overwriteExisting : bool (required);
+  overwriteExisting : bool;
 
   // The file contents.
   bytes : [ubyte] (required);
@@ -2418,7 +2418,7 @@ table WriteBytesRequest {
 
 <pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
 
-table WriteBytesResponse {
+table WriteBytesReply {
   // The checksum of the written bytes.
   checksum : EnsoDigest (required);
 }
@@ -2460,7 +2460,7 @@ guarantee that the response will contain <code class="language-plaintext highlig
 
 <pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
 
-table ReadBytesRequest {
+table ReadBytesCommand {
   // The segment in a file to read bytes from.
   segment : FileSegment (required);
 }
@@ -2470,7 +2470,7 @@ table ReadBytesRequest {
 
 <pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
 
-table ReadBytesResponse {
+table ReadBytesReply {
   // The checksum of the bytes in this response.
   checksum : EnsoDigest (required);
 
@@ -2834,7 +2834,7 @@ range.</p>
 
 <pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
 
-table ChecksumBytesRequest {
+table ChecksumBytesCommand {
   // The segment in a file to checksum.
   segment : FileSegment (required);
 }
@@ -2844,7 +2844,7 @@ table ChecksumBytesRequest {
 
 <pre><code class="language-idl">namespace org.enso.languageserver.protocol.binary;
 
-table ChecksumBytesRequest {
+table ChecksumBytesReply {
   // The segment in a file to checksum.
   checksum : EnsoDigest;
 }
@@ -4705,21 +4705,18 @@ payload.</p>
 
 table Error {
   // A unique error code identifying error type.
-  code: int (required);
+  code: int;
 
   // An error message.
   message: string (required);
 
   // Additional payloads for the error.
-  data : ErrorPayload (required);
+  data : ErrorPayload;
 }
 
 union ErrorPayload {
-  EMPTY: EmptyPayload,
   ...
 }
-
-struct EmptyPayload {}
 </code></pre>
 
 <p>Note:</p>
@@ -5295,7 +5292,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-05-27 15:15:01 +0000"
+        "time": "2021-05-28 12:28:40 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
