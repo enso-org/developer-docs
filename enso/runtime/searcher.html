@@ -835,6 +835,7 @@ ordering the results.</p>
     </ul>
   </li>
   <li><a href="#results-ranking">Results Ranking</a></li>
+  <li><a href="#implementation">Implementation</a></li>
 </ul>
 
 <!-- /MarkdownTOC -->
@@ -919,6 +920,11 @@ directory. That way the index can be preserved between the IDE restarts.</p>
       <td><code class="language-plaintext highlighter-rouge">documentation</code></td>
       <td><code class="language-plaintext highlighter-rouge">TEXT</code></td>
       <td>the documentation string</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">documentation_html</code></td>
+      <td><code class="language-plaintext highlighter-rouge">TEXT</code></td>
+      <td>the documentation string rendered as HTML</td>
     </tr>
   </tbody>
 </table>
@@ -1024,6 +1030,62 @@ is updated on every change in the suggestions table.</p>
       <td><code class="language-plaintext highlighter-rouge">digest</code></td>
       <td><code class="language-plaintext highlighter-rouge">BLOB</code></td>
       <td>the SHA hash of the file contents</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="schema-version-table">Schema Version Table</h4>
+
+<p>Schema version table has a single row with the current database schema version.
+It is used during the application startup to check that the database schema is
+up to date with the application version.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Column</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">INTEGER</code></td>
+      <td>unique identifier representing the currend database schema version</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="suggestions-order-table">Suggestions Order Table</h4>
+
+<p>Suggestions order table stores the order of the module-level entries in the
+source file. <code class="language-plaintext highlighter-rouge">suggestion_id</code> column is a foreign key that refers to the <code class="language-plaintext highlighter-rouge">id</code>
+primary key in the Suggestions table.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Column</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">suggestion_id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">INTEGER</code></td>
+      <td>the unique identifier of a suggestion</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">prev_id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">INTEGER</code></td>
+      <td>the suggestion that goes before this one</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">next_id</code></td>
+      <td><code class="language-plaintext highlighter-rouge">INTEGER</code></td>
+      <td>the suggestion that goes after this one</td>
     </tr>
   </tbody>
 </table>
@@ -1425,7 +1487,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-05-28 12:28:40 +0000"
+        "time": "2021-06-01 12:44:30 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
