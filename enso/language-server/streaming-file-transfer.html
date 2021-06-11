@@ -794,7 +794,11 @@ upload and download very large files.</p>
 <!-- MarkdownTOC levels="2,3" autolink="true" indent="    " -->
 
 <ul>
-  <li><a href="#control">Control</a></li>
+  <li><a href="#control">Control</a>
+    <ul>
+      <li><a href="#concurrency">Concurrency</a></li>
+    </ul>
+  </li>
   <li><a href="#ux">UX</a></li>
 </ul>
 
@@ -824,6 +828,19 @@ used.</p>
 
 <p>Resumption of transfers is also handled by the IDE, which may keep track of what
 portions of a file have been written or read.</p>
+
+<h3 id="concurrency">Concurrency</h3>
+
+<p>The language server natively supports running these file operations in parallel
+as it spawns a separate request-handler actor for each operation. It does,
+however, not provide any <em>intrinsic</em> guarantees to its operation. As <em>all</em> file
+operations are evaluated in parallel, coordinating them for consistency is up to
+the IDE.</p>
+
+<p>For example, if you want to write bytes to a file <code class="language-plaintext highlighter-rouge">f1</code> and then checksum the
+resulting file, you need to wait for the <code class="language-plaintext highlighter-rouge">WriteBytesReply</code> to come back before
+sending <code class="language-plaintext highlighter-rouge">file/checksum(f1)</code>. Otherwise, there is no guarantee that the write has
+completed by the time the checksum is calculated.</p>
 
 <h2 id="ux">UX</h2>
 
@@ -1076,7 +1093,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-06-01 12:44:30 +0000"
+        "time": "2021-06-11 13:52:05 +0000"
     },
     "basePath": "/docs/developer",
     "book": {

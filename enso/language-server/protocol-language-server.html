@@ -2460,8 +2460,12 @@ specified file at the specified offset.</p>
 length of the file.</li>
   <li>The <code class="language-plaintext highlighter-rouge">byteOffset</code> property is zero-indexed. To append to the file you begin
 writing at index <code class="language-plaintext highlighter-rouge">file.length</code>.</li>
+  <li>If <code class="language-plaintext highlighter-rouge">byteOffset</code> is less than the length of the file and <code class="language-plaintext highlighter-rouge">overwriteExisting</code> is
+set, it will truncate the file to length <code class="language-plaintext highlighter-rouge">byteOffset + bytes.length</code>.</li>
   <li>If <code class="language-plaintext highlighter-rouge">byteOffset &gt; file.length</code>, the bytes in the range
-<code class="language-plaintext highlighter-rouge">[file.length, byteOffset)</code> will be filled with null bytes.</li>
+<code class="language-plaintext highlighter-rouge">[file.length, byteOffset)</code> will be filled with null bytes. Please note that,
+in this case, the checksum in the response will also be calculated on the null
+bytes.</li>
 </ul>
 
 <h4 id="parameters-10">Parameters</h4>
@@ -4918,7 +4922,7 @@ file.</p>
   <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">1009</span>
   <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Read is out of bounds for the file</span><span class="dl">"</span>
   <span class="dl">"</span><span class="s2">data</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nl">fileLength</span> <span class="p">:</span> <span class="mi">0</span>
+    <span class="dl">"</span><span class="s2">fileLength</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">0</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -5384,7 +5388,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-06-01 12:44:30 +0000"
+        "time": "2021-06-11 13:52:05 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
