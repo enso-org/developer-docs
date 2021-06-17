@@ -1380,41 +1380,108 @@ distribution/bin/enso.bat <span class="nt">--run</span> ~/Hello
 Hello, World!
 </code></pre></div></div>
 
-<h4 id="project-manager">Project Manager</h4>
+<h4 id="running-ide">Running IDE</h4>
 
-<p>Project manager is required to run the
-<a href="https://github.com/enso-org/ide">Enso IDE</a>. It is started with the
-<code class="language-plaintext highlighter-rouge">distribution/bin/project-manager</code> script and requires <code class="language-plaintext highlighter-rouge">runtime.jar</code> and
-<code class="language-plaintext highlighter-rouge">project-manager.jar</code> (see
-<a href="#building-the-project-manager-fat-jar">Building the Project Manager Fat Jar</a>)
-to be built and copied (or linked) to the <code class="language-plaintext highlighter-rouge">distribution/component</code> directory.</p>
+<p>You can start <a href="https://github.com/enso-org/ide">IDE</a> with a development version
+of the language server. IDE executable has <code class="language-plaintext highlighter-rouge">--no-backend</code> flag that switches off
+the bundled backend. That requires you to run the project manager process
+yourself. You can either get a project manager from one of the latest releases
+on <a href="https://github.com/enso-org/enso/releases">GitHub</a>, or build one using SBT
+<code class="language-plaintext highlighter-rouge">buildProjectManagerDistribution</code> command.</p>
 
 <h5 id="bash-2">Bash</h5>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># build project-manager.jar and runtime.jar</span>
-sbt project-manager/assembly
-<span class="c"># link or copy jars to the distribution</span>
-<span class="nb">mkdir</span> <span class="nt">-p</span> distribution/component
-<span class="nb">cd </span>distribution/component
-<span class="nb">ln</span> <span class="nt">-s</span> ../../runtime.jar <span class="nb">.</span>
-<span class="nb">ln</span> <span class="nt">-s</span> ../../project-manager.jar <span class="nb">.</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt buildProjectManagerDistribution
 </code></pre></div></div>
 
 <h5 id="powershell-2">PowerShell</h5>
 
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># build project-manager.jar and runtime.jar</span><span class="w">
-</span><span class="nf">sbt.bat</span><span class="w"> </span><span class="nx">project-manager/assembly</span><span class="w">
-</span><span class="c"># copy jars to the distribution</span><span class="w">
-</span><span class="nf">mkdir</span><span class="w"> </span><span class="nt">-p</span><span class="w"> </span><span class="o">.</span><span class="nx">\distribution\component</span><span class="w">
-</span><span class="nf">cp</span><span class="w"> </span><span class="o">.</span><span class="nx">\runtime.jar</span><span class="w"> </span><span class="o">.</span><span class="nx">\distribution\component\</span><span class="w">
-</span><span class="nf">cp</span><span class="w"> </span><span class="o">.</span><span class="nx">\project-manager.jar</span><span class="w"> </span><span class="o">.</span><span class="nx">\distribution\component\</span><span class="w">
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">sbt.bat</span><span class="w"> </span><span class="nx">buildProjectManagerDistribution</span><span class="w">
 </span></code></pre></div></div>
 
-<p>Detailed information on the flags it supports is shown by the <code class="language-plaintext highlighter-rouge">--help</code> flag. To
-run the Project Manager, execute the following script:</p>
+<p>When the command is completed, a development version of the project manager will
+have appeared in the <code class="language-plaintext highlighter-rouge">built-distribution</code> directory.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>distribution/bin/project-manager
+<p>The IDE will connect to the running project manager to look up the project and
+start the language server. The required version of the language server is
+specified in the <code class="language-plaintext highlighter-rouge">enso-version</code> field of the <code class="language-plaintext highlighter-rouge">project.yaml</code> project description
+(Enso projects are located in the <code class="language-plaintext highlighter-rouge">~/enso</code> directory).</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> ~/enso/projects/Unnamed/package.yaml
 </code></pre></div></div>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">Unnamed</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<span class="na">enso-version</span><span class="pi">:</span> <span class="s">0.0.0-SNAPSHOT</span>
+<span class="na">license</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+<span class="na">authors</span><span class="pi">:</span> <span class="pi">[]</span>
+<span class="na">maintainers</span><span class="pi">:</span> <span class="pi">[]</span>
+</code></pre></div></div>
+
+<p>We need to set <code class="language-plaintext highlighter-rouge">enso-version</code> to a value that will represent the development
+version. It should be different from any Enso versions that have already been
+released. In this case, we chose the <code class="language-plaintext highlighter-rouge">0.0.0-SNAPSHOT</code>. The project manager will
+look for the appropriate subdirectory in the <em>engines</em> directory of the
+distribution folder. Distribution paths are printed when you run project manager
+with <code class="language-plaintext highlighter-rouge">-v</code> verbose logging.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>./built-distribution/enso-project-manager-0.2.12-SNAPSHOT-linux-amd64/enso/bin/project-manager <span class="nt">-v</span>
+<span class="o">[</span>info] <span class="o">[</span>2021-06-16T11:49:33.639Z] <span class="o">[</span>org.enso.projectmanager.boot.ProjectManager<span class="nv">$]</span> Starting Project Manager...
+<span class="o">[</span>debug] <span class="o">[</span>2021-06-16T11:49:33.639Z] <span class="o">[</span>org.enso.runtimeversionmanager.distribution.DistributionManager] Detected paths: DistributionPaths<span class="o">(</span>
+  dataRoot <span class="o">=</span> /home/dbv/.local/share/enso,
+  runtimes <span class="o">=</span> /home/dbv/.local/share/enso/runtime,
+  engines  <span class="o">=</span> /home/dbv/.local/share/enso/dist,
+  bundle   <span class="o">=</span> None,
+  config   <span class="o">=</span> /home/dbv/.config/enso,
+  locks    <span class="o">=</span> /run/user/1000/enso/lock,
+  tmp      <span class="o">=</span> /home/dbv/.local/share/enso/tmp
+<span class="o">)</span>
+</code></pre></div></div>
+
+<p>On Linux it looks for the <code class="language-plaintext highlighter-rouge">~/.local/share/enso/dist/0.0.0-SNAPSHOT/</code> directory.</p>
+
+<p>We can build an engine distribution using the <code class="language-plaintext highlighter-rouge">buildEngineDistribution</code> command
+in SBT.</p>
+
+<h5 id="bash-3">Bash</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sbt buildEngineDistribution
+</code></pre></div></div>
+
+<h5 id="powershell-3">PowerShell</h5>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">sbt.bat</span><span class="w"> </span><span class="nx">buildEngineDistribution</span><span class="w">
+</span></code></pre></div></div>
+
+<p>And copy the result to the <code class="language-plaintext highlighter-rouge">0.0.0-SNAPSHOT</code> engines directory of the
+distribution folder.</p>
+
+<h5 id="bash-4">Bash</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cp</span> <span class="nt">-r</span> built-distribution/enso-engine-0.2.12-SNAPSHOT-linux-amd64/enso-0.2.12-SNAPSHOT ~/.local/share/enso/dist/0.0.0-SNAPSHOT
+</code></pre></div></div>
+
+<h5 id="powershell-4">PowerShell</h5>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">cp</span><span class="w"> </span><span class="nt">-r</span><span class="w"> </span><span class="nx">built-distribution/enso-engine-0.2.12-SNAPSHOT-linux-amd64/enso-0.2.12-SNAPSHOT</span><span class="w"> </span><span class="nx">~/.local/share/enso/dist/0.0.0-SNAPSHOT</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Now, when the project manager is running and the engines directory contains the
+required engine version, you can start IDE with the <code class="language-plaintext highlighter-rouge">--no-backend</code> flag. It will
+pick up the development version of the language server we just prepared.</p>
+
+<p>To summarize, these are the steps required to run IDE with the development
+version of the language server.</p>
+
+<ol>
+  <li>Run the project manager process.</li>
+  <li>Copy or symlink the development version of the engine created with SBT’s
+<code class="language-plaintext highlighter-rouge">buildEnginedistribution</code> command to the engines directory of the Enso
+distribution folder.</li>
+  <li>Set the <code class="language-plaintext highlighter-rouge">enso-version</code> field of the <code class="language-plaintext highlighter-rouge">project.yaml</code> project definition to the
+version that you created in the previous step.</li>
+  <li>Run the IDE with <code class="language-plaintext highlighter-rouge">--no-backend</code> flag.</li>
+</ol>
 
 <h4 id="language-server-mode">Language Server Mode</h4>
 
@@ -1784,7 +1851,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-06-16 10:01:54 +0000"
+        "time": "2021-06-17 10:41:34 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
