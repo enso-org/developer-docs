@@ -332,6 +332,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter" data-level="1.1" data-path="/docs/developer/enso/distribution/distribution.html">
                     
@@ -341,6 +345,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -929,19 +937,20 @@ The following is an example of this manifest file.</p>
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">license</span><span class="pi">:</span> <span class="s">MIT</span>
 <span class="na">name</span><span class="pi">:</span> <span class="s">My_Package</span>
 <span class="na">version</span><span class="pi">:</span> <span class="s">1.0.1</span>
-<span class="na">enso-version</span><span class="pi">:</span> <span class="s">0.2.0</span>
+<span class="na">edition</span><span class="pi">:</span>
+  <span class="na">extends</span><span class="pi">:</span> <span class="m">2021.3</span>
+  <span class="na">enso-version</span><span class="pi">:</span> <span class="s">0.2.12</span>
+  <span class="na">libraries</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Foo.Bar</span>
+      <span class="na">version</span><span class="pi">:</span> <span class="s">1.2.3</span>
+      <span class="na">repository</span><span class="pi">:</span> <span class="s">main</span>
+<span class="na">prefer-local-libraries</span><span class="pi">:</span> <span class="no">false</span>
 <span class="na">authors</span><span class="pi">:</span>
   <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">John Doe</span>
     <span class="na">email</span><span class="pi">:</span> <span class="s">john.doe@example.com</span>
 <span class="na">maintainers</span><span class="pi">:</span>
   <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Jane Doe</span>
     <span class="na">email</span><span class="pi">:</span> <span class="s">jane.doe@example.com</span>
-<span class="na">resolver</span><span class="pi">:</span> <span class="s">lts-1.2.0</span>
-<span class="na">extra-dependencies</span><span class="pi">:</span>
-  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Base</span>
-    <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.2.0"</span>
-  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Http</span>
-    <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">4.5.3"</span>
 </code></pre></div></div>
 
 <p>The following is the specification of the manifest fields. Fields marked as
@@ -956,12 +965,37 @@ fields cannot be published.</p>
 package. Defaults to <code class="language-plaintext highlighter-rouge">None</code>, meaning the package is not safe for use by third
 parties.</p>
 
+<h4 id="edition">edition</h4>
+
+<p><strong>Optional (required for publishing)</strong> <em>Edition</em>: Defines the Edition settings
+of the package that determine the engine version and library resolution
+settings. It is a sub-setting that can consist of multiple fields, see
+<a href="/docs/developer/enso/libraries/editions.html#the-edition-file">the Edition documentation</a> for the
+format description.</p>
+
+<p>The field was added in version 0.2.12 as a replacement for <code class="language-plaintext highlighter-rouge">enso-version</code> as it
+supersedes its functionality.</p>
+
+<p>If the <code class="language-plaintext highlighter-rouge">edition</code> field is not specified, a default edition is used.</p>
+
 <h4 id="enso-version">enso-version</h4>
 
-<p><strong>Optional (required for publishing)</strong> <em>String</em>: Specifies the Enso version that
-should be used for this project. If not set or set to <code class="language-plaintext highlighter-rouge">default</code>, the default
-locally installed Enso version will be used. The version should not be <code class="language-plaintext highlighter-rouge">default</code>
-if the package is to be published.</p>
+<p><strong>Deprecated</strong> <em>String</em>: Specifies the Enso version that should be used for this
+project. If not set or set to <code class="language-plaintext highlighter-rouge">default</code>, the default locally installed Enso
+version will be used.</p>
+
+<p>The field was deprecated in version 0.2.12. Currently it is still supported, but
+the newer tools will migrate it to the <code class="language-plaintext highlighter-rouge">edition</code> format when the config is
+modified.</p>
+
+<p>If old tools see a config file that includes an <code class="language-plaintext highlighter-rouge">edition</code> setting but does not
+include the <code class="language-plaintext highlighter-rouge">engine-version</code> (for example after the migration), they will fall
+back to using the default engine version - that is because old tools were not
+aware of the <code class="language-plaintext highlighter-rouge">edition</code> field, so they will simply ignore it.</p>
+
+<p>If a config defines the <code class="language-plaintext highlighter-rouge">edition</code> field it should not define the
+<code class="language-plaintext highlighter-rouge">engine-version</code> field anymore, as that could lead to inconsistent engine
+version settings.</p>
 
 <h4 id="version">version</h4>
 
@@ -989,39 +1023,18 @@ present.</p>
 <p><strong>Optional</strong> <em>List of contacts</em>: The name(s) and contact info(s) of the current
 maintainer(s) of this library, in the same format as <code class="language-plaintext highlighter-rouge">authors</code> above.</p>
 
-<h4 id="resolver">resolver</h4>
+<h4 id="prefer-local-libraries">prefer-local-libraries</h4>
 
-<p><strong>Note</strong> This field is not currently implemented. <strong>Optional (required for
-publishing)</strong> <em>String</em>: The resolver name, used to choose compiler version and
-basic libraries set. If not set, the system-default resolver will be used.</p>
+<p><strong>Optional</strong> <em>Boolean</em>: A flag that tells the library resolver to prefer local
+library versions over the ones specified by the edition configuration. This is
+useful to make all local libraries easily accessible, but in more sophisticated
+scenarios individual <code class="language-plaintext highlighter-rouge">local</code> repository overrides should be used instead of
+that. See <a href="/docs/developer/enso/libraries/editions.html#library-resolution">Library Resolution</a> for
+more details.</p>
 
-<blockquote>
-  <p>The actionables for this section are:</p>
-
-  <ul>
-    <li>Extend the compiler version to handle version bounds.</li>
-  </ul>
-</blockquote>
-
-<h4 id="extra-dependencies">extra-dependencies</h4>
-
-<p><strong>Note</strong> This field is not currently implemented. <strong>Optional</strong> <em>List of Library
-objects</em>: The list of libraries this package requires to function properly and
-that are not included in the resolver. Defaults to an empty list.</p>
-
-<p>A library object is of the form:</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">&lt;name of the library&gt;</span>
-<span class="na">version</span><span class="pi">:</span> <span class="s">&lt;semver string of the required library version&gt;</span>
-</code></pre></div></div>
-
-<blockquote>
-  <p>The actionables for this section are:</p>
-
-  <ul>
-    <li>Extend the library version field to handle version bounds.</li>
-  </ul>
-</blockquote>
+<p>If the flag is not specified, it defaults to <code class="language-plaintext highlighter-rouge">false</code>, delegating all library
+resolution to the edition configuration. However, newly created projects will
+have it set to <code class="language-plaintext highlighter-rouge">true</code>.</p>
 
 <h3 id="the-visualization-directory">The <code class="language-plaintext highlighter-rouge">visualization</code> Directory</h3>
 
@@ -1284,7 +1297,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-06-17 10:41:34 +0000"
+        "time": "2021-06-18 14:40:57 +0000"
     },
     "basePath": "/docs/developer",
     "book": {

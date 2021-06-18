@@ -332,6 +332,10 @@ search.start();
             
             
                 
+            
+            
+            
+                
                     
                     <li class="chapter active" data-level="1.2" data-path="/docs/developer/enso/distribution/distribution.html">
                     
@@ -341,6 +345,10 @@ search.start();
                             
                         </a>
                     </li>
+                
+            
+            
+            
                 
             
             
@@ -846,9 +854,9 @@ structured and how it should behave.</p>
   <li><a href="#layout-of-an-enso-version-package">Layout of an Enso Version Package</a>
     <ul>
       <li><a href="#standard-library">Standard Library</a></li>
-      <li><a href="#resolvers">Resolvers</a></li>
     </ul>
   </li>
+  <li><a href="#enso-home-layout">Enso Home Layout</a></li>
 </ul>
 
 <!-- /MarkdownTOC -->
@@ -894,19 +902,19 @@ safely removed, and the launcher will re-download them if needed.</p>
 │   └── 1.2.0               # A full distribution of given Enso version, described below.
 │       └── &lt;truncated&gt;
 ├── runtime                 # A directory storing distributions of the JVM used by the Enso distributions.
-│   └── graalvm-ce-27.1.1
-├── lib
-│   └── src                 # Contains sources of downloaded libraries.
-│       └── Dataframe       # Each library may be stored in multiple version.
+│   └── graalvm-ce-java11-27.1.1
+├── lib                     # Contains sources of downloaded libraries.
+│   └── Standard            # Each prefix (usually corresponding to the author) is placed in a separate directory.
+│       └── Dataframe       # Each library may be stored in multiple versions.
 │           └── 1.7.0       # Each version contains a standard Enso package.
 │               ├── package.yaml
 │               └── src
 │                   ├── List.enso
 │                   ├── Number.enso
 │                   └── Text.enso
-├── resolvers               # Contains resolver specifications, described below.
-│   ├── lts-1.56.7.yaml
-│   └── lts-2.0.8.yaml
+├── editions                # Contains Edition specifications.
+│   ├── 2021.4.yaml
+│   └── nightly-2021-06-31.yaml
 ├── README.md               # Information on layout and usage of the Enso distribution.
 ├── .enso.portable          # A file that allows the universal launcher to detect that if it is run from this directory, it should run in portable distribution mode.
 └── THIRD-PARTY             # Contains licences of distributed components, including the NOTICE file.
@@ -923,19 +931,19 @@ safely removed, and the launcher will re-download them if needed.</p>
 │   └── 1.2.0               # A full distribution of given Enso version, described below.
 │       └── &lt;truncated&gt;
 ├── runtime                 # A directory storing (optional) distributions of the JVM used by the Enso distributions.
-│   └── graalvm-ce-27.1.1
-├── lib
-│   └── src                 # Contains sources of downloaded libraries.
-│       └── Dataframe       # Each library may be stored in multiple version.
+│   └── graalvm-ce-java11-27.1.1
+├── lib                     # Contains sources of downloaded libraries.
+│   └── Standard            # Each prefix (usually corresponding to the author) is placed in a separate directory.
+│       └── Dataframe       # Each library may be stored in multiple versions.
 │           └── 1.7.0       # Each version contains a standard Enso package.
 │               ├── package.yaml
 │               └── src
 │                   ├── List.enso
 │                   ├── Number.enso
 │                   └── Text.enso
-└── resolvers               # Contains resolver specifications, described below.
-    ├── lts-1.56.7.yaml
-    └── lts-2.0.8.yaml
+└── editions                # Contains Edition specifications.
+    ├── 2021.4.yaml
+    └── nightly-2021-06-31.yaml
 
 ENSO_CONFIG_DIRECTORY
 └── global-config.yaml      # Global user configuration.
@@ -1069,21 +1077,20 @@ reflective access to Enso objects.</li>
 traces etc.</li>
 </ol>
 
-<h3 id="resolvers">Resolvers</h3>
+<h2 id="enso-home-layout">Enso Home Layout</h2>
 
-<p><strong>Note</strong> This system is not implemented yet.</p>
+<p>The location called in some places <code class="language-plaintext highlighter-rouge">&lt;ENSO_HOME&gt;</code> is the place where user’s
+projects and similar files are stored. Currently it is specified to always be
+<code class="language-plaintext highlighter-rouge">$HOME/enso</code>.</p>
 
-<p>A resolver is a manifest containing library versions that are automatically
-available for import in any project using the resolver.</p>
+<p>It has the following structure:</p>
 
-<p>Example contents of a resolver file are as follows:</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">enso-version</span><span class="pi">:</span> <span class="s">1.0.7</span>
-<span class="na">libraries</span><span class="pi">:</span>
-  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Base</span>
-    <span class="na">version</span><span class="pi">:</span> <span class="s">1.0.0</span>
-  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Http</span>
-    <span class="na">version</span><span class="pi">:</span> <span class="s">5.3.5</span>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;ENSO_HOME&gt;
+├── projects             # Contains all user projects.
+├── libraries            # Contains all local libraries that can be edited by the user.
+│   └── Prefix1          # Contains libraries with the given prefix.
+│       └── Library_Name # Contains a package of a local library.
+└── editions             # Contains custom, user-defined editions that can be used as a base for project configurations.
 </code></pre></div></div>
 
                         
@@ -1318,7 +1325,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-06-17 10:41:34 +0000"
+        "time": "2021-06-18 14:40:57 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
