@@ -866,6 +866,7 @@ pushing the next one after the previous build has finished.</strong></p>
   <li><a href="#release-branches">Release Branches</a></li>
   <li><a href="#release-workflow">Release Workflow</a>
     <ul>
+      <li><a href="#breaking-release-workflow">Breaking Release Workflow</a></li>
       <li><a href="#tag-naming">Tag Naming</a></li>
       <li><a href="#manifest-files">Manifest Files</a></li>
       <li><a href="#breaking-changes-to-launcher-upgrade">Breaking Changes to Launcher Upgrade</a></li>
@@ -983,6 +984,74 @@ the QA team.</li>
   <li>Once verification has been performed, the release can be published. It
 should <em>not</em> be a pre-releases as we reserve these for nightly builds.</li>
 </ol>
+
+<h3 id="breaking-release-workflow">Breaking Release Workflow</h3>
+
+<p>If, however, the engine needs to release but the <code class="language-plaintext highlighter-rouge">HEAD</code> of <code class="language-plaintext highlighter-rouge">main</code> is not in a
+compatible state with the IDE, the process has to differ a little bit. Please
+note that the instructions here are more vague than the above, as exactly what
+is required may vary based on the situation.</p>
+
+<p>Consider a scenario where there are four new commits since the last release:
+<code class="language-plaintext highlighter-rouge">wwwwwww</code>, <code class="language-plaintext highlighter-rouge">xxxxxxx</code>, <code class="language-plaintext highlighter-rouge">yyyyyyy</code>, <code class="language-plaintext highlighter-rouge">zzzzzzz</code>. The commit <code class="language-plaintext highlighter-rouge">yyyyyyy</code> contains
+breaking changes that are <em>not yet integrated with the IDE</em>. Releasing a package
+containing that commit (and those that depend on it) would break the IDE, but we
+nevertheless want to release as much as possible:</p>
+
+<ol>
+  <li>If no release branch exists for the current major version, one should be
+created.</li>
+  <li>Rebase the commits that are wanted onto the release branch:</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rebase --onto origin/release/0.x wwwwwww~1 xxxxxxx
+</code></pre></div></div>
+
+<ol>
+  <li>This will put you into a “detached HEAD” state at commit <code class="language-plaintext highlighter-rouge">aaaaaaa</code>, so you
+need to make a new branch: <code class="language-plaintext highlighter-rouge">git branch release-update aaaaaaa</code>, whose <code class="language-plaintext highlighter-rouge">HEAD</code>
+commit is the same as <code class="language-plaintext highlighter-rouge">xxxxxxx</code>.</li>
+  <li>This new branch is a fast-forward merge away from the release branch. Check
+out the release branch and then fast-forward merge <code class="language-plaintext highlighter-rouge">release-update</code> into it.
+For example:</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout release/0.x
+git merge --ff-only release-update
+</code></pre></div></div>
+
+<ol>
+  <li>On the release branch, ensure that the release notes are up to date in
+<code class="language-plaintext highlighter-rouge">RELEASES.md</code> (follow the existing format), and that the new version number
+has been set in <code class="language-plaintext highlighter-rouge">build.sbt</code>. This version should <em>not</em> contain <code class="language-plaintext highlighter-rouge">SNAPSHOT</code>.</li>
+  <li>Once this is done, create a tag for the commit at the HEAD of the release
+branch. It should be named as above. For example:</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git tag --sign enso-0.2.11
+</code></pre></div></div>
+
+<ol>
+  <li>Push the tag to the remote. This will start the release build.</li>
+  <li>CI will create a draft release for this tag, as well as build and upload the
+appropriate artefacts. <strong>Do not</strong> create a release for this tag manually.</li>
+  <li>The release notes for the version being released should be copied from the
+new section in <code class="language-plaintext highlighter-rouge">RELEASES.md</code> into the GitHub release description with the
+line breaks removed.</li>
+  <li>The title of the release should be <code class="language-plaintext highlighter-rouge">Enso Engine &lt;version&gt;</code> (e.g.
+<code class="language-plaintext highlighter-rouge">Enso Engine 0.2.11</code>).</li>
+  <li>Check out the main branch, and then synchronise the changes to <code class="language-plaintext highlighter-rouge">RELEASES.md</code>
+on the release branch with the changes on <code class="language-plaintext highlighter-rouge">main</code>.</li>
+  <li>In the same commit, Update the build version number in <code class="language-plaintext highlighter-rouge">build.sbt</code> to the
+new snapshot version. If unclear, bump the patch version by one and append
+<code class="language-plaintext highlighter-rouge">-SNAPSHOT</code> (e.g. <code class="language-plaintext highlighter-rouge">0.2.10</code> becomes <code class="language-plaintext highlighter-rouge">0.2.11-SNAPSHOT</code>). The message should be
+<code class="language-plaintext highlighter-rouge">Bump the snapshot version</code>.</li>
+  <li>Push this commit into <code class="language-plaintext highlighter-rouge">origin/main</code>, or merge via PR if unable to directly
+push.</li>
+</ol>
+
+<p>It is recommended that you instigate a freeze on merges to <code class="language-plaintext highlighter-rouge">main</code> whilst
+performing this process.</p>
 
 <h3 id="tag-naming">Tag Naming</h3>
 
@@ -1486,7 +1555,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-06-25 11:10:43 +0000"
+        "time": "2021-06-25 12:00:29 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
