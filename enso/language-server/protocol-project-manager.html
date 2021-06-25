@@ -894,6 +894,11 @@ protocol messages. These are specified here.</p>
   <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
 
   <span class="cm">/**
+   * The namespace of the project.
+   */</span>
+  <span class="nl">namespace</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="cm">/**
    * The project id.
    */</span>
   <span class="nl">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
@@ -1015,6 +1020,9 @@ the action.</p>
 
   <span class="c1">// The name of the project as it is opened.</span>
   <span class="nl">projectName</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="c1">// The namespace of the project.</span>
+  <span class="nl">projectNamespace</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -2151,7 +2159,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-06-24 10:43:29 +0000"
+        "time": "2021-06-25 11:10:43 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
