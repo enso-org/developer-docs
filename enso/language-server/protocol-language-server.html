@@ -842,6 +842,7 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#workspaceedit"><code class="language-plaintext highlighter-rouge">WorkspaceEdit</code></a></li>
       <li><a href="#ensodigest"><code class="language-plaintext highlighter-rouge">EnsoDigest</code></a></li>
       <li><a href="#filesegment"><code class="language-plaintext highlighter-rouge">FileSegment</code></a></li>
+      <li><a href="#contentroot"><code class="language-plaintext highlighter-rouge">ContentRoot</code></a></li>
     </ul>
   </li>
   <li><a href="#connection-management">Connection Management</a>
@@ -1944,35 +1945,59 @@ index <code class="language-plaintext highlighter-rouge">file.length - 1</code>.
 a location on a real file-system that has been virtualised for use in the Enso
 VFS.</p>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ContentRoot</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">ContentRoot</span> <span class="o">=</span> <span class="nx">Project</span> <span class="o">|</span> <span class="nx">FileSystemRoot</span> <span class="o">|</span> <span class="nx">Home</span> <span class="o">|</span> <span class="nx">Library</span> <span class="o">|</span> <span class="nx">Custom</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/** This content root points to the project home. */</span>
+<span class="kr">interface</span> <span class="nx">Project</span> <span class="p">{</span>
   <span class="c1">// A unique identifier for the content root.</span>
   <span class="nl">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
-  <span class="c1">// The type of content root.</span>
-  <span class="nl">type</span><span class="p">:</span> <span class="nx">ContentRootType</span><span class="p">;</span>
+<span class="p">}</span>
 
-  <span class="c1">// The name of the content root.</span>
+<span class="cm">/**
+ * This content root points to the system root (`/`) on unix systems, or to a
+ * drive root on Windows. In Windows' case, there may be multiple `Root` entries
+ * corresponding to the various drives.
+ */</span>
+<span class="kr">interface</span> <span class="nx">FileSystemRoot</span> <span class="p">{</span>
+  <span class="c1">// A unique identifier for the content root.</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+
+  <span class="c1">// The absolute filesystem path of the content root.</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/** The user's home directory. */</span>
+<span class="kr">interface</span> <span class="nx">Home</span> <span class="p">{</span>
+  <span class="c1">// A unique identifier for the content root.</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/** An Enso library location. */</span>
+<span class="kr">interface</span> <span class="nx">Library</span> <span class="p">{</span>
+  <span class="c1">// A unique identifier for the content root.</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+
+  <span class="c1">// The namespace of the library.</span>
+  <span class="nl">namespace</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="c1">// The name of the library.</span>
   <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The version of the library.
+   *
+   * It is either a semver version of the library or the string "local".
+   */</span>
+  <span class="nl">version</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/** A content root that has been added by the IDE (unused for now). */</span>
+<span class="kr">interface</span> <span class="nx">Custom</span> <span class="p">{</span>
+  <span class="c1">// A unique identifier for the content root.</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
-
-<h3 id="contentroottype"><code class="language-plaintext highlighter-rouge">ContentRootType</code></h3>
-
-<p>The type of the annotated content root.</p>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">ContentRootType</span> <span class="o">=</span> <span class="nx">Project</span> <span class="o">|</span> <span class="nx">Root</span> <span class="o">|</span> <span class="nx">Home</span> <span class="o">|</span> <span class="nx">Library</span> <span class="o">|</span> <span class="nx">Custom</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>These represent:</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">Project</code>: This content root points to the project home.</li>
-  <li><code class="language-plaintext highlighter-rouge">Root</code>: This content root points to the system root (<code class="language-plaintext highlighter-rouge">/</code>) on unix systems, or
-to a drive root on Windows. In Windows’ case, there may be multiple <code class="language-plaintext highlighter-rouge">Root</code>
-entries corresponding to the various drives.</li>
-  <li><code class="language-plaintext highlighter-rouge">Home</code>: The user’s home directory.</li>
-  <li><code class="language-plaintext highlighter-rouge">Library</code>: An Enso library location.</li>
-  <li><code class="language-plaintext highlighter-rouge">Custom</code>: A content root that has been added by the IDE (unused for now).</li>
-</ul>
 
 <h2 id="connection-management">Connection Management</h2>
 
@@ -5379,7 +5404,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-06-29 16:53:35 +0000"
+        "time": "2021-07-05 09:24:36 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
