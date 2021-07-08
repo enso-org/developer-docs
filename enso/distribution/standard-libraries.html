@@ -878,7 +878,7 @@ these libraries, as well as notes on how they should be used.</p>
 <p><code class="language-plaintext highlighter-rouge">Base</code> is the core library of Enso. It contains core types and data structures,
 as well as basic functionality for interacting with the outside world. It can be
 found in
-<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Standard/src"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Standard/src/Base.enso</code></a>.</p>
+<a href="https://github.com/enso-org/enso/tree/main/distribution/lib/Standard/Base/0.1.0/src/Main.enso"><code class="language-plaintext highlighter-rouge">distribution/lib/Standard/Base/0.1.0/src/Main.enso</code></a>.</p>
 
 <p><code class="language-plaintext highlighter-rouge">Base</code> is intended to be imported unqualified at the top of the file:
 <code class="language-plaintext highlighter-rouge">from Standard.Base import all</code>. Items not included in this unqualified import
@@ -912,7 +912,7 @@ functionality at this point in time.</p>
 <p><code class="language-plaintext highlighter-rouge">Database</code> is a library that provides utilities for accessing data in databases
 and processing that data efficiently. It is part of the Enso standard libraries
 and is located in
-<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Standard/src"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Standard/src/Database.enso</code></a>.</p>
+<a href="https://github.com/enso-org/enso/tree/main/distribution/lib/Standard/Database/0.1.0/src/Main.enso"><code class="language-plaintext highlighter-rouge">distribution/lib/Standard/Database/0.1.0/src/Main.enso</code></a>.</p>
 
 <p>It is designed to be imported <em>qualified</em>.</p>
 
@@ -920,20 +920,20 @@ and is located in
 
 <p><code class="language-plaintext highlighter-rouge">Geo</code> is a library that contains very basic functionality for working with
 geographic data. We hope to expand it greatly in the future. It is located in
-<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Standard/src"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Standard/src/Geo.enso</code></a>.</p>
+<a href="https://github.com/enso-org/enso/tree/main/distribution/lib/Standard/Geo/0.1.0/src/Main.enso"><code class="language-plaintext highlighter-rouge">distribution/lib/Standard/Geo/0.1.0/src/Main.enso</code></a>.</p>
 
 <h2 id="image">Image</h2>
 
 <p><code class="language-plaintext highlighter-rouge">Image</code> is a library that contains bindings to <a href="https://opencv.org/">OpenCV</a>
 that allows users to work with image data. It is located in
-<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Standard/src"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Standard/src/Image.enso</code></a>.</p>
+<a href="https://github.com/enso-org/enso/tree/main/distribution/lib/Standard/Image/0.1.0/src/Main.enso"><code class="language-plaintext highlighter-rouge">distribution/lib/Standard/Image/0.1.0/src/Main.enso</code></a>.</p>
 
 <h2 id="table">Table</h2>
 
 <p><code class="language-plaintext highlighter-rouge">Table</code> is Enso’s dataframes library, providing functionality for loading and
 analysing tabular data. It is a core data-science toolkit, that integrates
 deeply with Enso and its IDE. It can be found in
-<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Standard/src"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Standard/src/Table.enso</code></a>.</p>
+<a href="https://github.com/enso-org/enso/tree/main/distribution/lib/Standard/Table/0.1.0/src/Main.enso"><code class="language-plaintext highlighter-rouge">distribution/lib/Standard/Table/0.1.0/src/Main.enso</code></a>.</p>
 
 <p><code class="language-plaintext highlighter-rouge">Table</code> is designed to be imported qualified: <code class="language-plaintext highlighter-rouge">import Table</code>.</p>
 
@@ -943,7 +943,7 @@ deeply with Enso and its IDE. It can be found in
 time it is <em>very</em> rudimentary, and needs significant improvement before we can
 consider it an “official” part of the Enso standard libraries. It can be found
 in
-<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Standard/src"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Standard/src/Test.enso</code></a>.</p>
+<a href="https://github.com/enso-org/enso/tree/main/distribution/lib/Standard/Test/0.1.0/src/Main.enso"><code class="language-plaintext highlighter-rouge">distribution/lib/Standard/Test/0.1.0/src/Main.enso</code></a>.</p>
 
 <p><code class="language-plaintext highlighter-rouge">Test</code> is intended to be imported qualified: <code class="language-plaintext highlighter-rouge">import Test</code>. This ensures that
 there aren’t spurious name clashes between user-defined functionality and the
@@ -953,7 +953,7 @@ testing library.</p>
 
 <p><code class="language-plaintext highlighter-rouge">Visualization</code> is a semi-internal library that provides visualization-specific
 utilities for displaying data in the IDE. It is located in
-<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Standard/src"><code class="language-plaintext highlighter-rouge">distribution/std-lib/Standard/src/Visualization.enso</code></a>.</p>
+<a href="https://github.com/enso-org/enso/tree/main/distribution/lib/Standard/Visualization/0.1.0/src/Main.enso"><code class="language-plaintext highlighter-rouge">distribution/lib/Standard/Visualization/0.1.0/src/Main.enso</code></a>.</p>
 
 <h2 id="documentation">Documentation</h2>
 
@@ -1038,7 +1038,7 @@ example.</li>
 <code class="language-plaintext highlighter-rouge">from Standard.Base import all</code> in the file into which it is being pasted.</p>
 
 <p>The
-<a href="https://github.com/enso-org/enso/tree/main/distribution/std-lib/Standard/src/Examples.enso"><code class="language-plaintext highlighter-rouge">Standard.Examples</code></a>
+<a href="https://github.com/enso-org/enso/tree/main/distribution/lib/Standard/Examples/0.1.0/src/Main.enso"><code class="language-plaintext highlighter-rouge">Standard.Examples</code></a>
 file contains example data for use in examples. If an example requires
 non-trivial data on which to operate, it should be placed here.</p>
 
@@ -1287,7 +1287,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-07-05 22:28:15 +0000"
+        "time": "2021-07-08 13:39:29 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
