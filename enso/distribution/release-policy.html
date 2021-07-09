@@ -934,15 +934,19 @@ branch of the repository.</p>
 created.</li>
   <li>Create a branch called <code class="language-plaintext highlighter-rouge">wip/&lt;initials/release-bump</code>. On this branch, ensure
 that the release notes are up to date in <code class="language-plaintext highlighter-rouge">RELEASES.md</code> (follow the existing
-format), and that the new version number has been set in <code class="language-plaintext highlighter-rouge">build.sbt</code>. This
-version should <em>not</em> contain <code class="language-plaintext highlighter-rouge">SNAPSHOT</code>.</li>
+format), and that the new version number and edition name have been set in
+<code class="language-plaintext highlighter-rouge">build.sbt</code>. This version and edition name should <em>not</em> contain <code class="language-plaintext highlighter-rouge">SNAPSHOT</code>.</li>
   <li>Open a PR for this branch into <code class="language-plaintext highlighter-rouge">main</code>.</li>
   <li>Once the changes have been reviewed, merge the PR into main (getting commit
 hash <code class="language-plaintext highlighter-rouge">xxxxxxx</code>). The message should be <code class="language-plaintext highlighter-rouge">Prepare for the $version release</code>.</li>
-  <li>Immediately push a commit to <code class="language-plaintext highlighter-rouge">main</code> that updates the version in <code class="language-plaintext highlighter-rouge">build.sbt</code>
-to the new snapshot version. If unclear, bump the patch version by one and
-append <code class="language-plaintext highlighter-rouge">-SNAPSHOT</code> (e.g. <code class="language-plaintext highlighter-rouge">0.2.10</code> becomes <code class="language-plaintext highlighter-rouge">0.2.11-SNAPSHOT</code>). The message
-should be <code class="language-plaintext highlighter-rouge">Bump the snapshot version</code>.</li>
+  <li>Immediately push a commit to <code class="language-plaintext highlighter-rouge">main</code> that updates the version and edition in
+<code class="language-plaintext highlighter-rouge">build.sbt</code> to the new snapshot version. If unclear, bump the patch version
+by one and append <code class="language-plaintext highlighter-rouge">-SNAPSHOT</code> (e.g. <code class="language-plaintext highlighter-rouge">0.2.10</code> becomes <code class="language-plaintext highlighter-rouge">0.2.11-SNAPSHOT</code>). The
+edition name should have the number after the dot increased and <code class="language-plaintext highlighter-rouge">-SNAPSHOT</code>
+appended, so that <code class="language-plaintext highlighter-rouge">2021.3</code> becomes <code class="language-plaintext highlighter-rouge">2021.4-SNAPSHOT</code>. The only exception is
+when making the first release in a new year, where the first number should
+be bumped to the next year and the second number should be set to 1, for
+example <code class="language-plaintext highlighter-rouge">2022.1</code>. The message should be <code class="language-plaintext highlighter-rouge">Bump the snapshot version</code>.</li>
   <li>Find the commit hash of the last “Bump the snapshot version” commit. Let’s
 say this is <code class="language-plaintext highlighter-rouge">yyyyyyy</code>.</li>
   <li>Run a <code class="language-plaintext highlighter-rouge">rebase --onto</code> the release branch from the <code class="language-plaintext highlighter-rouge">yyyyyyy</code> commit to the
@@ -1027,7 +1031,8 @@ git merge --ff-only release-update
 <ol>
   <li>On the release branch, ensure that the release notes are up to date in
 <code class="language-plaintext highlighter-rouge">RELEASES.md</code> (follow the existing format), and that the new version number
-has been set in <code class="language-plaintext highlighter-rouge">build.sbt</code>. This version should <em>not</em> contain <code class="language-plaintext highlighter-rouge">SNAPSHOT</code>.</li>
+and edition name have been set in <code class="language-plaintext highlighter-rouge">build.sbt</code>. This version and edition name
+should <em>not</em> contain <code class="language-plaintext highlighter-rouge">SNAPSHOT</code>.</li>
   <li>Once this is done, create a tag for the commit at the HEAD of the release
 branch. It should be named as above. For example:</li>
 </ol>
@@ -1048,7 +1053,9 @@ line breaks removed.</li>
 on the release branch with the changes on <code class="language-plaintext highlighter-rouge">main</code>.</li>
   <li>In the same commit, Update the build version number in <code class="language-plaintext highlighter-rouge">build.sbt</code> to the
 new snapshot version. If unclear, bump the patch version by one and append
-<code class="language-plaintext highlighter-rouge">-SNAPSHOT</code> (e.g. <code class="language-plaintext highlighter-rouge">0.2.10</code> becomes <code class="language-plaintext highlighter-rouge">0.2.11-SNAPSHOT</code>). The message should be
+<code class="language-plaintext highlighter-rouge">-SNAPSHOT</code> (e.g. <code class="language-plaintext highlighter-rouge">0.2.10</code> becomes <code class="language-plaintext highlighter-rouge">0.2.11-SNAPSHOT</code>). The edition name
+should have the number after the dot increased and <code class="language-plaintext highlighter-rouge">-SNAPSHOT</code> appended, so
+that <code class="language-plaintext highlighter-rouge">2021.3</code> becomes <code class="language-plaintext highlighter-rouge">2021.4-SNAPSHOT</code>. The message should be
 <code class="language-plaintext highlighter-rouge">Bump the snapshot version</code>.</li>
   <li>Push this commit into <code class="language-plaintext highlighter-rouge">origin/main</code>, or merge via PR if unable to directly
 push.</li>
@@ -1559,7 +1566,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-07-08 13:39:29 +0000"
+        "time": "2021-07-09 23:11:38 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
