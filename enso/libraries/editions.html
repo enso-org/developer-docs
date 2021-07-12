@@ -938,11 +938,18 @@ These editions are resolved using the logic below:</p>
 
 <ol>
   <li>Each <code class="language-plaintext highlighter-rouge">&lt;edition-name&gt;</code> corresponds to a file <code class="language-plaintext highlighter-rouge">&lt;edition-name&gt;.yaml</code>.</li>
-  <li>First, the directory <code class="language-plaintext highlighter-rouge">&lt;ENSO_HOME&gt;/editions</code> is scanned for a matching edition
-file.</li>
-  <li>If none is found above, the directory <code class="language-plaintext highlighter-rouge">$ENSO_DATA_DIRECTORY/editions</code> is
-checked.</li>
+  <li>First, the custom edition search paths are scanned for a matching edition
+file. These paths can be defined by the <code class="language-plaintext highlighter-rouge">ENSO_EDITION_PATH</code> environment
+variable. If it is not defined, it defaults to <code class="language-plaintext highlighter-rouge">&lt;ENSO_HOME&gt;/editions</code>.</li>
+  <li>If none is found above, the cached/bundled edition search paths are checked.
+These consist of the directory <code class="language-plaintext highlighter-rouge">$ENSO_DATA_DIRECTORY/editions</code>, <code class="language-plaintext highlighter-rouge">editions</code>
+directories in installed engines and the <code class="language-plaintext highlighter-rouge">editions</code> directory in the
+currently running engine.</li>
 </ol>
+
+<p>By default, downloaded editions are downloaded to
+<code class="language-plaintext highlighter-rouge">$ENSO_DATA_DIRECTORY/editions</code>, but also editions bundled with any available
+engines can be loaded.</p>
 
 <p>See <a href="/docs/developer/enso/distribution/distribution.html">The Enso Distribution</a> for definitions of
 the directories.</p>
@@ -1235,7 +1242,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-07-09 23:11:38 +0000"
+        "time": "2021-07-12 11:59:30 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
