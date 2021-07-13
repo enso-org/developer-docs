@@ -861,6 +861,8 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#ensodigest"><code class="language-plaintext highlighter-rouge">EnsoDigest</code></a></li>
       <li><a href="#filesegment"><code class="language-plaintext highlighter-rouge">FileSegment</code></a></li>
       <li><a href="#contentroot"><code class="language-plaintext highlighter-rouge">ContentRoot</code></a></li>
+      <li><a href="#libraryentry"><code class="language-plaintext highlighter-rouge">LibraryEntry</code></a></li>
+      <li><a href="#editionreference"><code class="language-plaintext highlighter-rouge">EditionReference</code></a></li>
     </ul>
   </li>
   <li><a href="#connection-management">Connection Management</a>
@@ -905,8 +907,6 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#filechecksum"><code class="language-plaintext highlighter-rouge">file/checksum</code></a></li>
       <li><a href="#filechecksumbytes"><code class="language-plaintext highlighter-rouge">file/checksumBytes</code></a></li>
       <li><a href="#fileevent"><code class="language-plaintext highlighter-rouge">file/event</code></a></li>
-      <li><a href="#fileaddroot"><code class="language-plaintext highlighter-rouge">file/addRoot</code></a></li>
-      <li><a href="#fileremoveroot"><code class="language-plaintext highlighter-rouge">file/removeRoot</code></a></li>
       <li><a href="#filerootadded"><code class="language-plaintext highlighter-rouge">file/rootAdded</code></a></li>
       <li><a href="#filerootremoved"><code class="language-plaintext highlighter-rouge">file/rootRemoved</code></a></li>
     </ul>
@@ -985,14 +985,30 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#iowaitingforstandardinput"><code class="language-plaintext highlighter-rouge">io/waitingForStandardInput</code></a></li>
     </ul>
   </li>
-  <li><a href="#errors">Errors</a>
+  <li><a href="#library-related-operations">Library-Related Operations</a>
+    <ul>
+      <li><a href="#editionslistavailable"><code class="language-plaintext highlighter-rouge">editions/listAvailable</code></a></li>
+      <li><a href="#editionsresolve"><code class="language-plaintext highlighter-rouge">editions/resolve</code></a></li>
+      <li><a href="#editionsgetprojectsettings"><code class="language-plaintext highlighter-rouge">editions/getProjectSettings</code></a></li>
+      <li><a href="#editionssetprojectparentedition"><code class="language-plaintext highlighter-rouge">editions/setProjectParentEdition</code></a></li>
+      <li><a href="#editionssetprojectlocallibrariespreference"><code class="language-plaintext highlighter-rouge">editions/setProjectLocalLibrariesPreference</code></a></li>
+      <li><a href="#editionslistdefinedlibraries"><code class="language-plaintext highlighter-rouge">editions/listDefinedLibraries</code></a></li>
+      <li><a href="#librarylistlocal"><code class="language-plaintext highlighter-rouge">library/listLocal</code></a></li>
+      <li><a href="#librarycreate"><code class="language-plaintext highlighter-rouge">library/create</code></a></li>
+      <li><a href="#librarygetmetadata"><code class="language-plaintext highlighter-rouge">library/getMetadata</code></a></li>
+      <li><a href="#librarysetmetadata"><code class="language-plaintext highlighter-rouge">library/setMetadata</code></a></li>
+      <li><a href="#librarypublish"><code class="language-plaintext highlighter-rouge">library/publish</code></a></li>
+      <li><a href="#librarypreinstall"><code class="language-plaintext highlighter-rouge">library/preinstall</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#errors-74">Errors</a>
     <ul>
       <li><a href="#error"><code class="language-plaintext highlighter-rouge">Error</code></a></li>
       <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a></li>
       <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a></li>
       <li><a href="#contentrootnotfounderror"><code class="language-plaintext highlighter-rouge">ContentRootNotFoundError</code></a></li>
       <li><a href="#filenotfound"><code class="language-plaintext highlighter-rouge">FileNotFound</code></a></li>
-      <li><a href="#fileexists-1"><code class="language-plaintext highlighter-rouge">FileExists</code></a></li>
+      <li><a href="#fileexists"><code class="language-plaintext highlighter-rouge">FileExists</code></a></li>
       <li><a href="#operationtimeouterror"><code class="language-plaintext highlighter-rouge">OperationTimeoutError</code></a></li>
       <li><a href="#notdirectory"><code class="language-plaintext highlighter-rouge">NotDirectory</code></a></li>
       <li><a href="#notfile"><code class="language-plaintext highlighter-rouge">NotFile</code></a></li>
@@ -1018,6 +1034,14 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#projectnotfounderror"><code class="language-plaintext highlighter-rouge">ProjectNotFoundError</code></a></li>
       <li><a href="#modulenamenotresolvederror"><code class="language-plaintext highlighter-rouge">ModuleNameNotResolvedError</code></a></li>
       <li><a href="#suggestionnotfounderror"><code class="language-plaintext highlighter-rouge">SuggestionNotFoundError</code></a></li>
+      <li><a href="#editionnotfounderror"><code class="language-plaintext highlighter-rouge">EditionNotFoundError</code></a></li>
+      <li><a href="#libraryalreadyexists"><code class="language-plaintext highlighter-rouge">LibraryAlreadyExists</code></a></li>
+      <li><a href="#libraryrepositoryauthenticationerror"><code class="language-plaintext highlighter-rouge">LibraryRepositoryAuthenticationError</code></a></li>
+      <li><a href="#librarypublisherror"><code class="language-plaintext highlighter-rouge">LibraryPublishError</code></a></li>
+      <li><a href="#libraryuploaderror"><code class="language-plaintext highlighter-rouge">LibraryUploadError</code></a></li>
+      <li><a href="#librarydownloaderror"><code class="language-plaintext highlighter-rouge">LibraryDownloadError</code></a></li>
+      <li><a href="#locallibrarynotfound"><code class="language-plaintext highlighter-rouge">LocalLibraryNotFound</code></a></li>
+      <li><a href="#librarynotresolved"><code class="language-plaintext highlighter-rouge">LibraryNotResolved</code></a></li>
     </ul>
   </li>
 </ul>
@@ -2014,6 +2038,59 @@ VFS.</p>
 <span class="kr">interface</span> <span class="nx">Custom</span> <span class="p">{</span>
   <span class="c1">// A unique identifier for the content root.</span>
   <span class="nl">id</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="libraryentry"><code class="language-plaintext highlighter-rouge">LibraryEntry</code></h3>
+
+<p>Represents a library available in a resolved edition.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">LibraryEntry</span> <span class="p">{</span>
+  <span class="nl">namespace</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">version</span><span class="p">:</span> <span class="nx">LibraryVersion</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">LibraryVersion</span> <span class="o">=</span> <span class="nx">LocalLibraryVersion</span> <span class="o">|</span> <span class="nx">PublishedLibraryVersion</span><span class="p">;</span>
+
+<span class="cm">/** A library version that references a version of the library published in some
+ * repository.
+ */</span>
+<span class="kr">interface</span> <span class="nx">PublishedLibraryVersion</span> <span class="p">{</span>
+  <span class="c1">// A semver-compliant version of the library.</span>
+  <span class="nl">version</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="c1">// URL to the repository that this library will be downloaded from.</span>
+  <span class="nl">repositoryUrl</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// A library version that references a locally editable version of the library.</span>
+<span class="kr">interface</span> <span class="nx">LocalLibraryVersion</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<p>The local libraries do not have metadata associated with them by default, as for
+the published libraries, the canonical way to access the metadata is to download
+the manifest, as described in the
+<a href="/docs/developer/enso/libraries/repositories.html#libraries-repository">library repository structure</a>.
+So the manifest URL can be found by combining the repository URL and library
+name and version: <code class="language-plaintext highlighter-rouge">&lt;repositoryUrl&gt;/&lt;namespace&gt;/&lt;name&gt;/&lt;version&gt;/manifest.yaml</code>.</p>
+
+<h3 id="editionreference"><code class="language-plaintext highlighter-rouge">EditionReference</code></h3>
+
+<p>A reference to a specific edition.</p>
+
+<p>Currently, it can either reference an edition by its name, or reference the
+edition associated with the currently open project.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">EditionReference</span> <span class="o">=</span> <span class="nx">NamedEdition</span> <span class="o">|</span> <span class="nx">CurrentProjectEdition</span><span class="p">;</span>
+
+<span class="c1">// The edition associated with the current project, with all of its overrides.</span>
+<span class="kr">interface</span> <span class="nx">CurrentProjectEdition</span> <span class="p">{}</span>
+
+<span class="c1">// An edition stored under a given name.</span>
+<span class="kr">interface</span> <span class="nx">NamedEdition</span> <span class="p">{</span>
+  <span class="nl">editionName</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -4818,7 +4895,432 @@ standard input.</p>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h2 id="errors-64">Errors</h2>
+<h2 id="library-related-operations">Library-Related Operations</h2>
+
+<p>The library-related operations provide the Language Server with capabilities to
+check and modify project’s edition settings, list editions published in a given
+edition, create local library projects which can be imported in the currently
+opened project and publish them.</p>
+
+<h3 id="editionslistavailable"><code class="language-plaintext highlighter-rouge">editions/listAvailable</code></h3>
+
+<p>Lists editions available on the system.</p>
+
+<p>Moreover, if <code class="language-plaintext highlighter-rouge">update</code> is set to <code class="language-plaintext highlighter-rouge">true</code>, it will download any new editions from
+the repositories and include them in the result as well.</p>
+
+<blockquote>
+  <p>Currently, if <code class="language-plaintext highlighter-rouge">update</code> was <code class="language-plaintext highlighter-rouge">true</code> but some downloads failed, the endpoint will
+still return a success, just containing the editions that were already
+available. In the future it should emit warnings using proper notification
+channels.</p>
+</blockquote>
+
+<p>The <code class="language-plaintext highlighter-rouge">update</code> field is optional and if it is not provided, it defaults to false.</p>
+
+<h4 id="parameters-66">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">update</span><span class="p">?:</span> <span class="nb">Boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-49">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">editionNames</span><span class="p">:</span> <span class="p">[</span><span class="nb">String</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="editionsresolve"><code class="language-plaintext highlighter-rouge">editions/resolve</code></h3>
+
+<p>Resolves settings implied by the edition.</p>
+
+<blockquote>
+  <p>Currently, it only resolves the engine version, as only it is needed, but
+other settings may be added if necessary.</p>
+</blockquote>
+
+<h4 id="parameters-67">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">edition</span><span class="p">:</span> <span class="nx">EditionReference</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-50">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">engineVersion</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-64">Errors</h4>
+
+<ul>
+  <li><a href="#editionnotfounderror"><code class="language-plaintext highlighter-rouge">EditionNotFoundError</code></a> indicates that the requested
+edition, or some edition referenced in the ancestors of the edition being
+resolved, could not be found.</li>
+  <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+</ul>
+
+<h3 id="editionsgetprojectsettings"><code class="language-plaintext highlighter-rouge">editions/getProjectSettings</code></h3>
+
+<p>Returns the currently set edition-related settings of the project.</p>
+
+<p>Currently, it only returns the parent edition and local library preference. Once
+more advanced edition settings are to be supported in the IDE, this endpoint
+will be extended.</p>
+
+<h4 id="parameters-68">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="result-51">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+    <span class="nl">parentEdition</span><span class="p">?:</span> <span class="nb">String</span><span class="p">;</span>
+    <span class="nl">preferLocalLibraries</span><span class="p">:</span> <span class="nb">Boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">parentEdition</code> may be missing if it is not set. It is possible to manually
+edit the <code class="language-plaintext highlighter-rouge">pacakge.yaml</code> and generate a valid edition config that does not
+specify a parent edition.</p>
+
+<h3 id="editionssetprojectparentedition"><code class="language-plaintext highlighter-rouge">editions/setProjectParentEdition</code></h3>
+
+<p>Sets the parent edition of the project to a specific edition.</p>
+
+<p>This change may even change the version of the engine associated with the
+project, so for the changes to take effect, the language server may need to be
+restarted. The endpoint only modifies the <code class="language-plaintext highlighter-rouge">pacakge.yaml</code> file, which is
+preloaded in the Language Server, so it is IDE’s responsibility to re-open the
+project.</p>
+
+<p>It returns an optional field <code class="language-plaintext highlighter-rouge">needsRestart</code> which specifies whether the Language
+Server needs to be restarted for the change to take effect. If the field is
+missing, it should be treated as set to <code class="language-plaintext highlighter-rouge">false</code>. In the current version it is
+always set to <code class="language-plaintext highlighter-rouge">true</code>.</p>
+
+<h4 id="parameters-69">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">newEditionName</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-52">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+    <span class="nl">needsRestart</span><span class="p">?:</span> <span class="nb">Boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-65">Errors</h4>
+
+<ul>
+  <li><a href="#editionnotfounderror"><code class="language-plaintext highlighter-rouge">EditionNotFoundError</code></a> indicates that the requested
+edition could not be found.</li>
+  <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+</ul>
+
+<h3 id="editionssetprojectlocallibrariespreference"><code class="language-plaintext highlighter-rouge">editions/setProjectLocalLibrariesPreference</code></h3>
+
+<p>Sets the <code class="language-plaintext highlighter-rouge">prefer-local-libraries</code> setting of the project, which specifies if
+libraries from <code class="language-plaintext highlighter-rouge">ENSO_HOME/libraries</code> should take precedence over the ones
+defined in the edition.</p>
+
+<blockquote>
+  <p>This may change which libraries should be loaded in the project. In the future
+it may be possible that this reload could happen dynamically, however
+currently, the language server needs to be restarted (in the same way as for
+<code class="language-plaintext highlighter-rouge">editions/setProjectParentEdition</code>) for the changes to take effect.</p>
+</blockquote>
+
+<p>It returns an optional field <code class="language-plaintext highlighter-rouge">needsRestart</code> which specifies whether the Language
+Server needs to be restarted for the change to take effect. If the field is
+missing, it should be treated as set to <code class="language-plaintext highlighter-rouge">false</code>. In the current version it is
+always set to <code class="language-plaintext highlighter-rouge">true</code>.</p>
+
+<h4 id="parameters-70">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">preferLocalLibraries</span><span class="p">:</span> <span class="nb">Boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-53">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+    <span class="nl">needsRestart</span><span class="p">?:</span> <span class="nb">Boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-66">Errors</h4>
+
+<ul>
+  <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+</ul>
+
+<h3 id="editionslistdefinedlibraries"><code class="language-plaintext highlighter-rouge">editions/listDefinedLibraries</code></h3>
+
+<p>Lists all libraries defined in an edition (or all of its parents).</p>
+
+<p>This can be used to display which libraries can be downloaded / added to the
+project.</p>
+
+<p>This does not include local libraries not defined explicitly in the project’s
+edition, even if they can be resolved as per <code class="language-plaintext highlighter-rouge">prefer-local-libraries</code> setting.
+To get local libraries that are not directly referenced in the edition, use
+<a href="#librarylistlocal"><code class="language-plaintext highlighter-rouge">library/listLocal</code></a> instead.</p>
+
+<h4 id="parameters-71">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">edition</span><span class="p">:</span> <span class="nx">EditionReference</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-54">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">availableLibraries</span><span class="p">:</span> <span class="p">[</span><span class="nx">LibraryEntry</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-67">Errors</h4>
+
+<ul>
+  <li><a href="#editionnotfounderror"><code class="language-plaintext highlighter-rouge">EditionNotFoundError</code></a> indicates that the requested
+edition, or an edition referenced in one of its parents, could not be found.</li>
+  <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+</ul>
+
+<h3 id="librarylistlocal"><code class="language-plaintext highlighter-rouge">library/listLocal</code></h3>
+
+<p>Lists all local libraries available in the system.</p>
+
+<h4 id="parameters-72">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="result-55">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">localLibraries</span><span class="p">:</span> <span class="p">[</span><span class="nx">LibraryEntry</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-68">Errors</h4>
+
+<ul>
+  <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+</ul>
+
+<h3 id="librarycreate"><code class="language-plaintext highlighter-rouge">library/create</code></h3>
+
+<p>Creates a new project package, but placed not in the projects directory, but in
+the local libraries directory, so that other projects (including the current
+one) that can resolve local libraries will be able to import it.</p>
+
+<p>The created library package inherits all edition settings from the current
+project.</p>
+
+<p>The endpoint just returns an empty message at success. Once this operation
+finishes, the IDE can add the import <code class="language-plaintext highlighter-rouge">import &lt;namespace&gt;.&lt;name&gt;</code> to the open
+file which will import the newly created library (the IDE must also ensure that
+<code class="language-plaintext highlighter-rouge">prefer-local-libraries</code> is set to <code class="language-plaintext highlighter-rouge">true</code> or otherwise, it must add a proper
+override to its own edition file to see this local library). Once the import is
+added, the library will be loaded and its content root will be sent in a
+<a href="#filerootadded"><code class="language-plaintext highlighter-rouge">file/rootAdded</code></a> notification.</p>
+
+<h4 id="parameters-73">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">namespace</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">authors</span><span class="p">:</span> <span class="p">[</span><span class="nb">String</span><span class="p">];</span>
+  <span class="nl">maintainers</span><span class="p">:</span> <span class="p">[</span><span class="nb">String</span><span class="p">];</span>
+  <span class="nl">license</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-56">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="errors-69">Errors</h4>
+
+<ul>
+  <li><a href="#libraryalreadyexists"><code class="language-plaintext highlighter-rouge">LibraryAlreadyExists</code></a> to signal that a library with
+the given namespace and name already exists.</li>
+  <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+</ul>
+
+<h3 id="librarygetmetadata"><code class="language-plaintext highlighter-rouge">library/getMetadata</code></h3>
+
+<p>Gets metadata associated with a local library that will be used for publishing.</p>
+
+<p>All returned fields are optional, as they may be missing.</p>
+
+<h4 id="parameters-74">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">namespace</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="results">Results</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">description</span><span class="p">?:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">tagLine</span><span class="p">?:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="errors-70">Errors</h4>
+
+<ul>
+  <li><a href="#locallibrarynotfound"><code class="language-plaintext highlighter-rouge">LocalLibraryNotFound</code></a> to signal that a local library
+with the given name does not exist on the local libraries path.</li>
+  <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+</ul>
+
+<h3 id="librarysetmetadata"><code class="language-plaintext highlighter-rouge">library/setMetadata</code></h3>
+
+<p>Sets metadata associated with a local library that will be used for publishing.</p>
+
+<p>All metadata fields are optional. If a field is not set in the parameters, it
+will be removed from the metadata (if it was present before).</p>
+
+<h4 id="parameters-75">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">namespace</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">description</span><span class="p">?:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">tagLine</span><span class="p">?:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="results-1">Results</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="errors-71">Errors</h4>
+
+<ul>
+  <li><a href="#locallibrarynotfound"><code class="language-plaintext highlighter-rouge">LocalLibraryNotFound</code></a> to signal that a local library
+with the given name does not exist on the local libraries path.</li>
+  <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+</ul>
+
+<h3 id="librarypublish"><code class="language-plaintext highlighter-rouge">library/publish</code></h3>
+
+<p>Publishes a library located in the local libraries directory to the main Enso
+library repository.</p>
+
+<p>If <code class="language-plaintext highlighter-rouge">bumpVersionAfterPublish</code> is set to true, after publishing the library, its
+version is bumped automatically, so that future publications will not clash
+versions. This is a temporary solution and in the longer-term it should be
+replaced with separate settings allowing to arbitrarily modify the library
+version from the IDE.</p>
+
+<p>The metadata for publishing the library can be set with
+<a href="#librarysetmetadata"><code class="language-plaintext highlighter-rouge">library/setMetadata</code></a>. If it was not set, the publish
+operation will still proceed, but that metadata will be missing.</p>
+
+<h4 id="parameters-76">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">namespace</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">authToken</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+
+  <span class="nl">bumpVersionAfterPublish</span><span class="p">?:</span> <span class="nb">Boolean</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-57">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="errors-72">Errors</h4>
+
+<ul>
+  <li><a href="#librarypublisherror"><code class="language-plaintext highlighter-rouge">LibraryPublishError</code></a> to signal that the server did
+not accept to publish the library (for example because a library with the same
+version already exists).</li>
+  <li><a href="#libraryrepositoryauthenticationerror"><code class="language-plaintext highlighter-rouge">LibraryRepositoryAuthenticationError</code></a>
+to signal an authentication failure.</li>
+  <li><a href="#libraryuploaderror"><code class="language-plaintext highlighter-rouge">LibraryUploadError</code></a> to signal that the upload
+operation has failed, for network-related reasons.</li>
+  <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+</ul>
+
+<h3 id="librarypreinstall"><code class="language-plaintext highlighter-rouge">library/preinstall</code></h3>
+
+<p>Ensures that the requested library and all of its (transitive) dependencies, at
+versions as resolved by the current project’s edition, are downloaded.</p>
+
+<p>Once this operation completes, the library import can be added to the project
+and it is guaranteed that (unless there were unexpected changes to the system,
+like files being manually deleted) no further downloads will be needed, so that
+the import should load quickly.</p>
+
+<p>This can be used by the IDE to predownload the library that is about to be added
+to a project, to avoid freezing the compiler for the time the dependencies are
+being downloaded.</p>
+
+<p>While this operation is in progress, multiple series of <code class="language-plaintext highlighter-rouge">task/*</code> notifications
+may be sent, indicating progress of particular components being downloaded and
+installed.</p>
+
+<h4 id="parameters-77">Parameters</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">namespace</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="result-58">Result</h4>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">null</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h4 id="errors-73">Errors</h4>
+
+<ul>
+  <li><a href="#librarynotresolved"><code class="language-plaintext highlighter-rouge">LibraryNotResolved</code></a> to signal that the requested
+library or one of its dependencies could not be resolved.</li>
+  <li><a href="#librarydownloaderror"><code class="language-plaintext highlighter-rouge">LibraryDownloadError</code></a> to signal that the download
+operation has failed, for network-related reasons, or because the library was
+missing in the repository. The error includes the name and version of the
+library that failed to download - as when preinstalling a specific library the
+failure may be tied not to that library itself but also one of its
+dependencies.</li>
+  <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
+file-system error.</li>
+</ul>
+
+<h2 id="errors-74">Errors</h2>
 
 <p>The language server component also has its own set of errors. This section is
 not a complete specification and will be updated as new errors are added.</p>
@@ -5190,6 +5692,105 @@ by the server.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
+<h3 id="editionnotfounderror"><code class="language-plaintext highlighter-rouge">EditionNotFoundError</code></h3>
+
+<p>Signals that an edition could not be found.</p>
+
+<p>Its payload includes the name of the edition that could not be found.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">8001</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Edition [&lt;name&gt;] could not be found.</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">payload</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">editionName</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">&lt;name&gt;</span><span class="dl">"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="libraryalreadyexists"><code class="language-plaintext highlighter-rouge">LibraryAlreadyExists</code></h3>
+
+<p>Signals that a local library with the specified namespace and name combination
+already exists, so it cannot be created again.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">8002</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Library [&lt;namespace&gt;.&lt;name&gt;] already exists.</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="libraryrepositoryauthenticationerror"><code class="language-plaintext highlighter-rouge">LibraryRepositoryAuthenticationError</code></h3>
+
+<p>Signals that authentication to the library repository was declined.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">8003</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Authentication failed: [message]</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="librarypublisherror"><code class="language-plaintext highlighter-rouge">LibraryPublishError</code></h3>
+
+<p>Signals that a request to the library repository failed.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">8004</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Could not publish the library: [message]</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="libraryuploaderror"><code class="language-plaintext highlighter-rouge">LibraryUploadError</code></h3>
+
+<p>Signals that uploading the library failed for network-related reasons.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">8005</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Could not upload the library: [message]</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="librarydownloaderror"><code class="language-plaintext highlighter-rouge">LibraryDownloadError</code></h3>
+
+<p>Signals that downloading the library failed for network-related reasons or that
+it was not available in the repository.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">8006</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Could not download the library: [message]</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">payload</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">namespace</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">&lt;namespace&gt;</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">&lt;name&gt;</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">version</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">&lt;version&gt;</span><span class="dl">"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="locallibrarynotfound"><code class="language-plaintext highlighter-rouge">LocalLibraryNotFound</code></h3>
+
+<p>Signals that a local library with the specified namespace and name combination
+was not found on the local libraries path.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">8007</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Local library [&lt;namespace&gt;.&lt;name&gt;] has not been found.</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="librarynotresolved"><code class="language-plaintext highlighter-rouge">LibraryNotResolved</code></h3>
+
+<p>Signals that a library could not be resolved - it was not defined in the edition
+and the settings did not allow to resolve local libraries or it did not exist
+there either.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">8008</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Could not resolve [&lt;namespace&gt;.&lt;name&gt;].</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">payload</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">namespace</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">&lt;namespace&gt;</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">&lt;name&gt;</span><span class="dl">"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
                         
                         
 
@@ -5422,7 +6023,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-07-12 13:54:54 +0000"
+        "time": "2021-07-13 14:02:03 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
