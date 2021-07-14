@@ -924,8 +924,11 @@ protocol messages. These are specified here.</p>
   <span class="cm">/**
    * Enso Engine version to use for the project, represented by a semver version
    * string.
+   *
+   * If the edition associated with the project could not be resolved, the
+   * engine version may be missing.
    */</span>
-  <span class="nl">engineVersion</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">engineVersion</span><span class="p">?:</span> <span class="nb">String</span><span class="p">;</span>
 
   <span class="cm">/**
    * The last opened datetime.
@@ -2177,7 +2180,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-07-13 14:02:03 +0000"
+        "time": "2021-07-14 09:51:01 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
