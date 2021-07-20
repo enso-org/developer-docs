@@ -1260,6 +1260,8 @@ additional types of information will be added in the future.</p>
 
 <span class="c1">// A type of suggestion entries.</span>
 <span class="nx">type</span> <span class="nx">SuggestionEntry</span> <span class="o">=</span>
+  <span class="c1">// A module</span>
+  <span class="o">|</span> <span class="nx">SuggestionEntryModule</span>
   <span class="c1">// A value constructor</span>
   <span class="o">|</span> <span class="nx">SuggestionEntryAtom</span>
   <span class="c1">// A method defined on a type</span>
@@ -1269,41 +1271,104 @@ additional types of information will be added in the future.</p>
   <span class="c1">// A local value</span>
   <span class="o">|</span> <span class="nx">SuggestionEntryLocal</span><span class="p">;</span>
 
-<span class="kr">interface</span> <span class="nx">SuggestionEntryAtom</span> <span class="p">{</span>
-  <span class="nl">externalId</span><span class="p">?:</span> <span class="nx">UUID</span><span class="p">;</span>
-  <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="kr">interface</span> <span class="nx">SuggestionEntryModule</span> <span class="p">{</span>
+  <span class="cm">/** The fully qualified module name. */</span>
   <span class="nl">module</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nl">arguments</span><span class="p">:</span> <span class="nx">SuggestionEntryArgument</span><span class="p">[];</span>
-  <span class="nl">returnType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The documentation string. */</span>
   <span class="nl">documentation</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The fully qualified module name re-exporting this module. */</span>
+  <span class="nl">reexport</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">interface</span> <span class="nx">SuggestionEntryAtom</span> <span class="p">{</span>
+  <span class="cm">/** The external id. */</span>
+  <span class="nl">externalId</span><span class="p">?:</span> <span class="nx">UUID</span><span class="p">;</span>
+
+  <span class="cm">/** The atom name. */</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The module name where the atom is defined. */</span>
+  <span class="nl">module</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The list of arguments. */</span>
+  <span class="nl">arguments</span><span class="p">:</span> <span class="nx">SuggestionEntryArgument</span><span class="p">[];</span>
+
+  <span class="cm">/** The type of an atom. */</span>
+  <span class="nl">returnType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The documentation string. */</span>
+  <span class="nl">documentation</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The fully qualified module name re-exporting this module. */</span>
+  <span class="nl">reexport</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
+
   <span class="nl">documentationHtml</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kr">interface</span> <span class="nx">SuggestionEntryMethod</span> <span class="p">{</span>
+  <span class="cm">/** The external id. */</span>
   <span class="nl">externalId</span><span class="p">?:</span> <span class="nx">UUID</span><span class="p">;</span>
+
+  <span class="cm">/** The method name. */</span>
   <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The module name where this method is defined. */</span>
   <span class="nl">module</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The list of arguments. */</span>
   <span class="nl">arguments</span><span class="p">:</span> <span class="nx">SuggestionEntryArgument</span><span class="p">[];</span>
+
+  <span class="cm">/** The method self type. */</span>
   <span class="nl">selfType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The return type of this method. */</span>
   <span class="nl">returnType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The documentation string. */</span>
   <span class="nl">documentation</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The fully qualified module name re-exporting this module. */</span>
+  <span class="nl">reexport</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
+
   <span class="nl">documentationHtml</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kr">interface</span> <span class="nx">SuggestionEntryFunction</span> <span class="p">{</span>
+  <span class="cm">/** The external id. */</span>
   <span class="nl">externalId</span><span class="p">?:</span> <span class="nx">UUID</span><span class="p">;</span>
+
+  <span class="cm">/** The function name. */</span>
   <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The module name where this function is defined. */</span>
   <span class="nl">module</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The list of arguments. */</span>
   <span class="nl">arguments</span><span class="p">:</span> <span class="nx">SuggestionEntryArgument</span><span class="p">[];</span>
+
+  <span class="cm">/** The function return type. */</span>
   <span class="nl">returnType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The scope where the function is defined. */</span>
   <span class="nl">scope</span><span class="p">:</span> <span class="nx">SuggestionEntryScope</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kr">interface</span> <span class="nx">SuggestionEntryLocal</span> <span class="p">{</span>
+  <span class="cm">/** The external id. */</span>
   <span class="nl">externalId</span><span class="p">?:</span> <span class="nx">UUID</span><span class="p">;</span>
+
+  <span class="cm">/** The name of a value. */</span>
   <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The module where this value is defined. */</span>
   <span class="nl">module</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The type of a value. */</span>
   <span class="nl">returnType</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The scope where the value is defined. */</span>
   <span class="nl">scope</span><span class="p">:</span> <span class="nx">SuggestionEntryScope</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -1315,7 +1380,7 @@ additional types of information will be added in the future.</p>
 <h4 id="format-2">Format</h4>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// The kind of a suggestion.</span>
-<span class="nx">type</span> <span class="nx">SuggestionEntryType</span> <span class="o">=</span> <span class="nx">Atom</span> <span class="o">|</span> <span class="nx">Method</span> <span class="o">|</span> <span class="nb">Function</span> <span class="o">|</span> <span class="nx">Local</span><span class="p">;</span>
+<span class="nx">type</span> <span class="nx">SuggestionEntryType</span> <span class="o">=</span> <span class="nx">Module</span> <span class="o">|</span> <span class="nx">Atom</span> <span class="o">|</span> <span class="nx">Method</span> <span class="o">|</span> <span class="nb">Function</span> <span class="o">|</span> <span class="nx">Local</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h3 id="suggestionid"><code class="language-plaintext highlighter-rouge">SuggestionId</code></h3>
@@ -1529,6 +1594,11 @@ additional types of information will be added in the future.</p>
    * The scope to update.
    */</span>
   <span class="nl">scope</span><span class="p">?:</span> <span class="nx">FieldUpdate</span><span class="o">&lt;</span><span class="nx">SuggestionEntryScope</span><span class="o">&gt;</span><span class="p">;</span>
+
+  <span class="cm">/**
+   * The reexport field to update.
+   */</span>
+  <span class="nl">reexport</span><span class="p">?:</span> <span class="nx">FieldUpdate</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -6025,7 +6095,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-07-17 14:50:54 +0000"
+        "time": "2021-07-20 16:12:09 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
