@@ -946,7 +946,10 @@ format), and that the new version number and edition name have been set in
 <code class="language-plaintext highlighter-rouge">build.sbt</code>. This version and edition name should <em>not</em> contain <code class="language-plaintext highlighter-rouge">SNAPSHOT</code>.</li>
   <li>Open a PR for this branch into <code class="language-plaintext highlighter-rouge">main</code>.</li>
   <li>Once the changes have been reviewed, merge the PR into main (getting commit
-hash <code class="language-plaintext highlighter-rouge">xxxxxxx</code>). The message should be <code class="language-plaintext highlighter-rouge">Prepare for the $version release</code>.</li>
+hash <code class="language-plaintext highlighter-rouge">xxxxxxx</code>). The message should be <code class="language-plaintext highlighter-rouge">Prepare for the $version release</code>.
+Just before merging, remember to notify the team on Discord to suppress any
+other merges to the <code class="language-plaintext highlighter-rouge">main</code> branch until the next step (bumping versions) is
+completed.</li>
   <li>Immediately push a commit to <code class="language-plaintext highlighter-rouge">main</code> that updates the version and edition in
 <code class="language-plaintext highlighter-rouge">build.sbt</code> to the new snapshot version. If unclear, bump the patch version
 by one and append <code class="language-plaintext highlighter-rouge">-SNAPSHOT</code> (e.g. <code class="language-plaintext highlighter-rouge">0.2.10</code> becomes <code class="language-plaintext highlighter-rouge">0.2.11-SNAPSHOT</code>). The
@@ -980,7 +983,8 @@ git merge --ff-only release-update
   <li>As long as the fast-forward proceeds cleanly, you can push the updated
 release branch to the origin.</li>
   <li>Create a tag for the commit at the HEAD of the release branch. It should be
-named as above. For example:</li>
+named as above. As the tag is signed, it must contain a message. The message
+should be <code class="language-plaintext highlighter-rouge">Enso &lt;version&gt;</code>. For example:</li>
 </ol>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git tag --sign enso-0.2.11
@@ -1042,7 +1046,8 @@ git merge --ff-only release-update
 and edition name have been set in <code class="language-plaintext highlighter-rouge">build.sbt</code>. This version and edition name
 should <em>not</em> contain <code class="language-plaintext highlighter-rouge">SNAPSHOT</code>.</li>
   <li>Once this is done, create a tag for the commit at the HEAD of the release
-branch. It should be named as above. For example:</li>
+branch. It should be named as above. The tag message should be
+<code class="language-plaintext highlighter-rouge">Enso &lt;version&gt;</code>. For example:</li>
 </ol>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git tag --sign enso-0.2.11
@@ -1574,7 +1579,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-07-20 16:12:09 +0000"
+        "time": "2021-07-22 09:08:26 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
