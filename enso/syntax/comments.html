@@ -988,11 +988,14 @@ mistakes will be highlighted to the user.</p>
 <h3 id="tags">Tags</h3>
 
 <p>Tags allow users to annotate their construct with information about its usage
-state. The documentation syntax supports the following tags:</p>
+state. Tags may only appear <em>once</em> in a documentation block unless otherwise
+noted. The documentation syntax supports the following tags:</p>
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">ADDED</code>: Used to describe when a given construct was added to the library.</li>
   <li><code class="language-plaintext highlighter-rouge">ADVANCED</code>: Items that are <em>not</em> private, but are for power users.</li>
+  <li><code class="language-plaintext highlighter-rouge">ALIAS</code>: A name under which the documented entity will display in the
+searcher. This tag may occur <em>multiple times</em> to provide multiple aliases.</li>
   <li><code class="language-plaintext highlighter-rouge">DEPRECATED</code>: Used for constructs that should no longer be used and that may
 be removed in the future.</li>
   <li><code class="language-plaintext highlighter-rouge">MODIFIED</code>: Used for constructs that have had their behaviour change after a
@@ -1340,7 +1343,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-07-22 09:08:26 +0000"
+        "time": "2021-07-22 14:49:56 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
