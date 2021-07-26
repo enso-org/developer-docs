@@ -1024,31 +1024,6 @@ them), it will result in the following merged directory structure:</p>
 └── LICENSE.md
 </code></pre></div></div>
 
-<h3 id="publishing">Publishing</h3>
-
-<p>To be able to publish libraries to a repository, the repository must provide an
-upload endpoint which satisfies the following requirements.</p>
-
-<p>The endpoint should get the library name and version from the query parameters:
-<code class="language-plaintext highlighter-rouge">namespace</code>, <code class="language-plaintext highlighter-rouge">name</code> and <code class="language-plaintext highlighter-rouge">version</code>.</p>
-
-<p>It should check any authentication data attached to the query and verify that
-the user has sufficient privileges to upload the library for that <code class="language-plaintext highlighter-rouge">namespace</code>.</p>
-
-<p>Currently, we use a static check which checks an <code class="language-plaintext highlighter-rouge">Auth-Token</code> header for a
-pre-determined secret key, but any other authentication schemes can be used, as
-long as they are supported by the GUI or CLI.</p>
-
-<p>Then, the server must check if a library with the given name and version
-combination already exists. If the library already exists, the request should be
-rejected with <code class="language-plaintext highlighter-rouge">409 Conflict</code> status code indicating that a conflicting library
-is already in the repository.</p>
-
-<p>If the request goes through, the server should create a directory for the
-library and put any files attached to the request there. Each request should
-always contain <code class="language-plaintext highlighter-rouge">package.yaml</code> and <code class="language-plaintext highlighter-rouge">manifest.yaml</code> files attached and at least
-one sub-archive, usually called <code class="language-plaintext highlighter-rouge">main.tgz</code>.</p>
-
 <h2 id="editions-repository">Editions Repository</h2>
 
 <p>The Editions repository has a very simple structure.</p>
@@ -1349,7 +1324,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-07-23 16:17:33 +0000"
+        "time": "2021-07-26 09:34:03 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
