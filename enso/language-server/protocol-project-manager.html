@@ -1194,8 +1194,9 @@ operation are missing will be installed or a failure will be reported.</p>
 
 <h4 id="result-3">Result</h4>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectOpenResponse</span> <span class="p">{</span>
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">ProjectCreateResponse</span> <span class="p">{</span>
   <span class="nl">projectId</span><span class="p">:</span> <span class="nx">UUID</span><span class="p">;</span>
+  <span class="nl">projectName</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -2187,7 +2188,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-07-27 16:14:29 +0000"
+        "time": "2021-07-29 08:03:58 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
