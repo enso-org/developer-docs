@@ -1280,6 +1280,10 @@ additional types of information will be added in the future.</p>
 
   <span class="cm">/** The fully qualified module name re-exporting this module. */</span>
   <span class="nl">reexport</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The rendered HTMl of the documentation string. */</span>
+
+  <span class="nl">documentationHtml</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kr">interface</span> <span class="nx">SuggestionEntryAtom</span> <span class="p">{</span>
@@ -1303,6 +1307,8 @@ additional types of information will be added in the future.</p>
 
   <span class="cm">/** The fully qualified module name re-exporting this module. */</span>
   <span class="nl">reexport</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="cm">/** The rendered HTMl of the documentation string. */</span>
 
   <span class="nl">documentationHtml</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1332,6 +1338,8 @@ additional types of information will be added in the future.</p>
   <span class="cm">/** The fully qualified module name re-exporting this module. */</span>
   <span class="nl">reexport</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
 
+  <span class="cm">/** The rendered HTMl of the documentation string. */</span>
+
   <span class="nl">documentationHtml</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
 <span class="p">}</span>
 
@@ -1353,6 +1361,10 @@ additional types of information will be added in the future.</p>
 
   <span class="cm">/** The scope where the function is defined. */</span>
   <span class="nl">scope</span><span class="p">:</span> <span class="nx">SuggestionEntryScope</span><span class="p">;</span>
+
+  <span class="cm">/** The rendered HTMl of the documentation string. */</span>
+
+  <span class="nl">documentationHtml</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kr">interface</span> <span class="nx">SuggestionEntryLocal</span> <span class="p">{</span>
@@ -1370,6 +1382,10 @@ additional types of information will be added in the future.</p>
 
   <span class="cm">/** The scope where the value is defined. */</span>
   <span class="nl">scope</span><span class="p">:</span> <span class="nx">SuggestionEntryScope</span><span class="p">;</span>
+
+  <span class="cm">/** The rendered HTMl of the documentation string. */</span>
+
+  <span class="nl">documentationHtml</span><span class="p">?:</span> <span class="nx">string</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -6095,7 +6111,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-07-29 08:03:58 +0000"
+        "time": "2021-08-03 12:20:24 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
