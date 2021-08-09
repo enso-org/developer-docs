@@ -1046,6 +1046,7 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#librarydownloaderror"><code class="language-plaintext highlighter-rouge">LibraryDownloadError</code></a></li>
       <li><a href="#locallibrarynotfound"><code class="language-plaintext highlighter-rouge">LocalLibraryNotFound</code></a></li>
       <li><a href="#librarynotresolved"><code class="language-plaintext highlighter-rouge">LibraryNotResolved</code></a></li>
+      <li><a href="#invalidlibraryname"><code class="language-plaintext highlighter-rouge">InvalidLibraryName</code></a></li>
     </ul>
   </li>
 </ul>
@@ -5249,6 +5250,8 @@ added, the library will be loaded and its content root will be sent in a
 <h4 id="errors-69">Errors</h4>
 
 <ul>
+  <li><a href="#invalidlibraryname"><code class="language-plaintext highlighter-rouge">InvalidLibraryName</code></a> to signal that the selected
+library name is not valid.</li>
   <li><a href="#libraryalreadyexists"><code class="language-plaintext highlighter-rouge">LibraryAlreadyExists</code></a> to signal that a library with
 the given namespace and name already exists.</li>
   <li><a href="#filesystemerror"><code class="language-plaintext highlighter-rouge">FileSystemError</code></a> to signal a generic, unrecoverable
@@ -5328,6 +5331,9 @@ versions. This is a temporary solution and in the longer-term it should be
 replaced with separate settings allowing to arbitrarily modify the library
 version from the IDE.</p>
 
+<p>The <code class="language-plaintext highlighter-rouge">uploadUrl</code> is the URL of the library repository that accepts library
+uploads.</p>
+
 <p>The metadata for publishing the library can be set with
 <a href="#librarysetmetadata"><code class="language-plaintext highlighter-rouge">library/setMetadata</code></a>. If it was not set, the publish
 operation will still proceed, but that metadata will be missing.</p>
@@ -5338,6 +5344,7 @@ operation will still proceed, but that metadata will be missing.</p>
   <span class="nl">namespace</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
   <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
   <span class="nl">authToken</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">uploadUrl</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
 
   <span class="nl">bumpVersionAfterPublish</span><span class="p">?:</span> <span class="nb">Boolean</span><span class="p">;</span>
 <span class="p">}</span>
@@ -5351,6 +5358,8 @@ operation will still proceed, but that metadata will be missing.</p>
 <h4 id="errors-72">Errors</h4>
 
 <ul>
+  <li><a href="#locallibrarynotfound"><code class="language-plaintext highlighter-rouge">LocalLibraryNotFound</code></a> to signal that a local library
+with the given name does not exist on the local libraries path.</li>
   <li><a href="#librarypublisherror"><code class="language-plaintext highlighter-rouge">LibraryPublishError</code></a> to signal that the server did
 not accept to publish the library (for example because a library with the same
 version already exists).</li>
@@ -5879,6 +5888,23 @@ there either.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
+<h3 id="invalidlibraryname"><code class="language-plaintext highlighter-rouge">InvalidLibraryName</code></h3>
+
+<p>Signals that the chosen library name is invalid.</p>
+
+<p>It contains a suggestion of a similar name that is valid.</p>
+
+<p>For example for <code class="language-plaintext highlighter-rouge">FooBar</code> it will suggest <code class="language-plaintext highlighter-rouge">Foo_Bar</code>.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+  <span class="dl">"</span><span class="s2">code</span><span class="dl">"</span> <span class="p">:</span> <span class="mi">8009</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">message</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">[&lt;name&gt;] is not a valid name: &lt;reason&gt;.</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">payload</span><span class="dl">"</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">suggestedName</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">&lt;fixed-name&gt;</span><span class="dl">"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
                         
                         
 
@@ -6111,7 +6137,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-08-03 12:20:24 +0000"
+        "time": "2021-08-09 14:01:17 +0000"
     },
     "basePath": "/docs/developer",
     "book": {

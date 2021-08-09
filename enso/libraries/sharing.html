@@ -837,10 +837,19 @@ shown below:</p>
 
 <h2 id="publishing">Publishing</h2>
 
-<blockquote>
-  <p>Soon it will be possible to share the libraries through the Marketplace, but
-it is still a work in progress.</p>
-</blockquote>
+<p>To publish a library, first you must obtain the upload URL of the repository, if
+you are hosting the repository locally it will be <code class="language-plaintext highlighter-rouge">http://localhost:8080/upload</code>
+(or possibly with a different port if that was overridden).</p>
+
+<p>If the repository requires authentication, it is best to set it up by setting
+the <code class="language-plaintext highlighter-rouge">ENSO_AUTH_TOKEN</code> environment variable to the value of your secret token.</p>
+
+<p>Then you can use the Enso CLI to upload the project:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>enso publish-library <span class="nt">--upload-url</span> &lt;URL&gt; &lt;path to project root&gt;
+</code></pre></div></div>
+
+<p>See <code class="language-plaintext highlighter-rouge">enso publish-library --help</code> for more information.</p>
 
                         
                         
@@ -1070,7 +1079,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-08-03 12:20:24 +0000"
+        "time": "2021-08-09 14:01:17 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
