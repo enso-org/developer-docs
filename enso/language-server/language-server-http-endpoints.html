@@ -817,10 +817,11 @@ JSONRPC protocol.</p>
 <!-- MarkdownTOC levels="2" autolink="true" indent="    " -->
 
 <ul>
-  <li><a href="#---health-"><code class="language-plaintext highlighter-rouge">/_health</code></a></li>
-  <li><a href="#---health-readiness-"><code class="language-plaintext highlighter-rouge">/_health/readiness</code></a></li>
-  <li><a href="#---health-liveness-"><code class="language-plaintext highlighter-rouge">/_health/liveness</code></a></li>
-  <li><a href="#---idle-"><code class="language-plaintext highlighter-rouge">/_idle</code></a></li>
+  <li><a href="#_health"><code class="language-plaintext highlighter-rouge">/_health</code></a></li>
+  <li><a href="#_healthreadiness"><code class="language-plaintext highlighter-rouge">/_health/readiness</code></a></li>
+  <li><a href="#_healthliveness"><code class="language-plaintext highlighter-rouge">/_health/liveness</code></a></li>
+  <li><a href="#_idle"><code class="language-plaintext highlighter-rouge">/_idle</code></a></li>
+  <li><a href="#_idlereset"><code class="language-plaintext highlighter-rouge">/_idle/reset</code></a></li>
 </ul>
 
 <!-- /MarkdownTOC -->
@@ -934,6 +935,33 @@ OK
 &lt; Content-Length: 21
 &lt;
 {"idle_time_sec":58}
+</code></pre></div></div>
+
+<h2 id="_idlereset"><code class="language-plaintext highlighter-rouge">/_idle/reset</code></h2>
+
+<p>The reset request of the server idleness probe.</p>
+
+<h3 id="post"><code class="language-plaintext highlighter-rouge">POST</code></h3>
+
+<p>Reset the idle time of the language server.</p>
+
+<h4 id="request-4">Request</h4>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; POST /_idle/reset HTTP/1.1
+&gt; Host: localhost:64996
+&gt; User-Agent: curl/7.77.0
+&gt; Accept: */*
+</code></pre></div></div>
+
+<h4 id="response-4">Response</h4>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt; HTTP/1.1 200 OK
+&lt; Server: akka-http/10.2.0-RC1
+&lt; Date: Mon, 09 Aug 2021 15:37:27 GMT
+&lt; Content-Type: text/plain; charset=UTF-8
+&lt; Content-Length: 2
+&lt;
+OK
 </code></pre></div></div>
 
                         
@@ -1164,7 +1192,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-08-09 14:01:17 +0000"
+        "time": "2021-08-11 13:40:41 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
