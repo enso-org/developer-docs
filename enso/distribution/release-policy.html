@@ -944,6 +944,8 @@ created.</li>
 that the release notes are up to date in <code class="language-plaintext highlighter-rouge">RELEASES.md</code> (follow the existing
 format), and that the new version number and edition name have been set in
 <code class="language-plaintext highlighter-rouge">build.sbt</code>. This version and edition name should <em>not</em> contain <code class="language-plaintext highlighter-rouge">SNAPSHOT</code>.</li>
+  <li>Run <code class="language-plaintext highlighter-rouge">sbt "stdlib-version-updater/run update"</code> to update the standard library
+versions.</li>
   <li>Open a PR for this branch into <code class="language-plaintext highlighter-rouge">main</code>.</li>
   <li>Once the changes have been reviewed, merge the PR into main (getting commit
 hash <code class="language-plaintext highlighter-rouge">xxxxxxx</code>). The message should be <code class="language-plaintext highlighter-rouge">Prepare for the $version release</code>.
@@ -957,7 +959,10 @@ edition name should have the number after the dot increased and <code class="lan
 appended, so that <code class="language-plaintext highlighter-rouge">2021.3</code> becomes <code class="language-plaintext highlighter-rouge">2021.4-SNAPSHOT</code>. The only exception is
 when making the first release in a new year, where the first number should
 be bumped to the next year and the second number should be set to 1, for
-example <code class="language-plaintext highlighter-rouge">2022.1</code>. The message should be <code class="language-plaintext highlighter-rouge">Bump the snapshot version</code>.</li>
+example <code class="language-plaintext highlighter-rouge">2022.1</code>. The message should be <code class="language-plaintext highlighter-rouge">Bump the snapshot version</code>. After
+changing the version in <code class="language-plaintext highlighter-rouge">build.sbt</code>, remember to run
+<code class="language-plaintext highlighter-rouge">sbt "stdlib-version-updater/run update"</code> to update the library versions
+again.</li>
   <li>Find the commit hash of the last “Bump the snapshot version” commit. Let’s
 say this is <code class="language-plaintext highlighter-rouge">yyyyyyy</code>.</li>
   <li>Run a <code class="language-plaintext highlighter-rouge">rebase --onto</code> the release branch from the <code class="language-plaintext highlighter-rouge">yyyyyyy</code> commit to the
@@ -1045,6 +1050,8 @@ git merge --ff-only release-update
 <code class="language-plaintext highlighter-rouge">RELEASES.md</code> (follow the existing format), and that the new version number
 and edition name have been set in <code class="language-plaintext highlighter-rouge">build.sbt</code>. This version and edition name
 should <em>not</em> contain <code class="language-plaintext highlighter-rouge">SNAPSHOT</code>.</li>
+  <li>Run <code class="language-plaintext highlighter-rouge">sbt "stdlib-version-updater/run update"</code> to update the standard library
+versions.</li>
   <li>Once this is done, create a tag for the commit at the HEAD of the release
 branch. It should be named as above. The tag message should be
 <code class="language-plaintext highlighter-rouge">Enso &lt;version&gt;</code>. For example:</li>
@@ -1069,7 +1076,9 @@ new snapshot version. If unclear, bump the patch version by one and append
 <code class="language-plaintext highlighter-rouge">-SNAPSHOT</code> (e.g. <code class="language-plaintext highlighter-rouge">0.2.10</code> becomes <code class="language-plaintext highlighter-rouge">0.2.11-SNAPSHOT</code>). The edition name
 should have the number after the dot increased and <code class="language-plaintext highlighter-rouge">-SNAPSHOT</code> appended, so
 that <code class="language-plaintext highlighter-rouge">2021.3</code> becomes <code class="language-plaintext highlighter-rouge">2021.4-SNAPSHOT</code>. The message should be
-<code class="language-plaintext highlighter-rouge">Bump the snapshot version</code>.</li>
+<code class="language-plaintext highlighter-rouge">Bump the snapshot version</code>. After changing the version in <code class="language-plaintext highlighter-rouge">build.sbt</code>,
+remember to run <code class="language-plaintext highlighter-rouge">sbt "stdlib-version-updater/run update"</code> to update the
+library versions again.</li>
   <li>Push this commit into <code class="language-plaintext highlighter-rouge">origin/main</code>, or merge via PR if unable to directly
 push.</li>
 </ol>
@@ -1579,7 +1588,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-08-12 16:27:51 +0000"
+        "time": "2021-08-13 16:15:21 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
