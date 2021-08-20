@@ -866,6 +866,8 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#filesegment"><code class="language-plaintext highlighter-rouge">FileSegment</code></a></li>
       <li><a href="#contentroot"><code class="language-plaintext highlighter-rouge">ContentRoot</code></a></li>
       <li><a href="#libraryentry"><code class="language-plaintext highlighter-rouge">LibraryEntry</code></a></li>
+      <li><a href="#libraryversion"><code class="language-plaintext highlighter-rouge">LibraryVersion</code></a></li>
+      <li><a href="#contact"><code class="language-plaintext highlighter-rouge">Contact</code></a></li>
       <li><a href="#editionreference"><code class="language-plaintext highlighter-rouge">EditionReference</code></a></li>
     </ul>
   </li>
@@ -1006,7 +1008,7 @@ transport formats, please look <a href="./protocol-architecture">here</a>.</p>
       <li><a href="#librarypreinstall"><code class="language-plaintext highlighter-rouge">library/preinstall</code></a></li>
     </ul>
   </li>
-  <li><a href="#errors-74">Errors</a>
+  <li><a href="#errors-75">Errors</a>
     <ul>
       <li><a href="#error"><code class="language-plaintext highlighter-rouge">Error</code></a></li>
       <li><a href="#accessdeniederror"><code class="language-plaintext highlighter-rouge">AccessDeniedError</code></a></li>
@@ -2145,6 +2147,10 @@ VFS.</p>
 <span class="p">}</span>
 </code></pre></div></div>
 
+<h3 id="libraryversion"><code class="language-plaintext highlighter-rouge">LibraryVersion</code></h3>
+
+<p>Represents a library version, as returned in <code class="language-plaintext highlighter-rouge">LibraryEntry</code>.</p>
+
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">type</span> <span class="nx">LibraryVersion</span> <span class="o">=</span> <span class="nx">LocalLibraryVersion</span> <span class="o">|</span> <span class="nx">PublishedLibraryVersion</span><span class="p">;</span>
 
 <span class="cm">/** A library version that references a version of the library published in some
@@ -2162,12 +2168,18 @@ VFS.</p>
 <span class="kr">interface</span> <span class="nx">LocalLibraryVersion</span> <span class="p">{}</span>
 </code></pre></div></div>
 
-<p>The local libraries do not have metadata associated with them by default, as for
-the published libraries, the canonical way to access the metadata is to download
-the manifest, as described in the
-<a href="/docs/developer/enso/libraries/repositories.html#libraries-repository">library repository structure</a>.
-So the manifest URL can be found by combining the repository URL and library
-name and version: <code class="language-plaintext highlighter-rouge">&lt;repositoryUrl&gt;/&lt;namespace&gt;/&lt;name&gt;/&lt;version&gt;/manifest.yaml</code>.</p>
+<h3 id="contact"><code class="language-plaintext highlighter-rouge">Contact</code></h3>
+
+<p>Represents contact information of authors or maintainers.</p>
+
+<p>Both fields are optional, but for the contact to be valid, at least one of them
+must be defined.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">Contact</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">?:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">email</span><span class="p">?:</span> <span class="nb">String</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <h3 id="editionreference"><code class="language-plaintext highlighter-rouge">EditionReference</code></h3>
 
@@ -5262,8 +5274,8 @@ added, the library will be loaded and its content root will be sent in a
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">namespace</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
   <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
-  <span class="nl">authors</span><span class="p">:</span> <span class="p">[</span><span class="nb">String</span><span class="p">];</span>
-  <span class="nl">maintainers</span><span class="p">:</span> <span class="p">[</span><span class="nb">String</span><span class="p">];</span>
+  <span class="nl">authors</span><span class="p">:</span> <span class="p">[</span><span class="nx">Contact</span><span class="p">];</span>
+  <span class="nl">maintainers</span><span class="p">:</span> <span class="p">[</span><span class="nx">Contact</span><span class="p">];</span>
   <span class="nl">license</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -5286,7 +5298,13 @@ file-system error.</li>
 
 <h3 id="librarygetmetadata"><code class="language-plaintext highlighter-rouge">library/getMetadata</code></h3>
 
-<p>Gets metadata associated with a local library that will be used for publishing.</p>
+<p>Gets metadata associated with a specific library version.</p>
+
+<p>If the version is <code class="language-plaintext highlighter-rouge">LocalLibraryVersion</code>, it will try to read the manifest file
+of the local library and return an empty result if the manifest does not exist.</p>
+
+<p>If the version is <code class="language-plaintext highlighter-rouge">PublishedLibraryVersion</code>, it will fetch the manifest from the
+library repository. A cached manifest may also be used, if it is available.</p>
 
 <p>All returned fields are optional, as they may be missing.</p>
 
@@ -5295,6 +5313,7 @@ file-system error.</li>
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
   <span class="nl">namespace</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
   <span class="nl">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">;</span>
+  <span class="nl">version</span><span class="p">:</span> <span class="nx">LibraryVersion</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
@@ -6163,7 +6182,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-08-19 15:22:43 +0000"
+        "time": "2021-08-20 08:24:26 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
