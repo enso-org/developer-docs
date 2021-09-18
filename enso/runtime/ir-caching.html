@@ -884,6 +884,7 @@ startup performance.</p>
     </ul>
   </li>
   <li><a href="#testing-the-serialisation">Testing the Serialisation</a></li>
+  <li><a href="#future-directions">Future Directions</a></li>
 </ul>
 
 <!-- /MarkdownTOC -->
@@ -1082,6 +1083,22 @@ temporary directory and then directly interact with the filesystem. Caching
 should be disabled for existing tests. This will require adding additional
 runtime options for debugging, but also constructing the <code class="language-plaintext highlighter-rouge">DistributionManager</code>
 on context creation (removing <code class="language-plaintext highlighter-rouge">RuntimeDistributionManager</code>).</li>
+</ul>
+
+<h2 id="future-directions">Future Directions</h2>
+
+<p>Due to the less than ideal platform situation we’re in, we’re limited to using
+Java’s <code class="language-plaintext highlighter-rouge">Serializable</code>. It is not as performant as other options.</p>
+
+<ul>
+  <li><a href="https://github.com/RuedigerMoeller/fast-serialization">FST</a> is around 10x
+faster than the JVM’s serialization, and is a drop-in replacement.</li>
+  <li>However, the version that supports Java 11 utilises reflection that trips
+warnings that will be disallowed with Java 17 (the next LTS version for
+GraalVM).</li>
+  <li>The version that fixes this relies on the foreign memory API which is
+available in Java 17. I recommend that once we’re on Java 17 builds the
+serialization is updated to work using FST.</li>
 </ul>
 
                         
@@ -1312,7 +1329,7 @@ search.start();
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2021-08-20 11:54:55 +0000"
+        "time": "2021-09-18 12:51:45 +0000"
     },
     "basePath": "/docs/developer",
     "book": {
